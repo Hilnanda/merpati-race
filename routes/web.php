@@ -21,4 +21,5 @@ Route::prefix('admin')
     // ->middleware(['auth','admin'])
     ->group(function(){
         Route::get('/index', 'DashboardController@index')->name('admin-dashboard');
+        Route::get('/list-club', 'ClubController@index')->name('list-club');
     });
