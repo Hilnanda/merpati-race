@@ -13,13 +13,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/','HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 
 Route::prefix('admin')
     ->namespace('Admin')
     // ->middleware(['auth','admin'])
-    ->group(function(){
+    ->group(function () {
         Route::get('/index', 'DashboardController@index')->name('admin-dashboard');
         Route::get('/list-club', 'ClubController@index')->name('list-club');
+        Route::get('/cms-header', 'CmsHomeController@index')->name('cms-header-dashboard');
+
+        // kelompok untuk cms
+        // http admin/cms/...
+        Route::prefix('cms')
+            ->group(function () {
+                Route::get('/cms-header', 'CmsHomeController@header')->name('cms-header-dashboard');
+                Route::get('/cms-content', 'CmsHomeController@content')->name('cms-content-dashboard');
+                Route::get('/cms-footer', 'CmsHomeController@footer')->name('cms-footer-dashboard');
+            });
     });

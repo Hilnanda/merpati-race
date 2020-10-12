@@ -10,20 +10,20 @@
         <!-- Single Hero Slide -->
         <div class="single-hero-slide d-flex align-items-center justify-content-center">
             <!-- Slide Img -->
-            <div class="slide-img bg-img" style="background-image: url(img/bg-img/bg-1.jpg);"></div>
+            <div class="slide-img bg-img" style="background-image: url(image/burung1.jpg);"></div>
             <!-- Slide Content -->
             <div class="hero-slides-content text-center">
-                <h2 data-animation="fadeInUp" data-delay="100ms">Musica <span>Musica</span></h2>
+                <h2 data-animation="fadeInUp" data-delay="100ms">Lomba Merpati <span>Lomba Merpati</span></h2>
                 <p data-animation="fadeInUp" data-delay="300ms">Music Theme</p>
             </div>
             <!-- Big Text -->
-            <h2 class="big-text">Musica</h2>
+            <h2 class="big-text">Lomba Merpati</h2>
         </div>
 
         <!-- Single Hero Slide -->
         <div class="single-hero-slide d-flex align-items-center justify-content-center">
             <!-- Slide Img -->
-            <div class="slide-img bg-img" style="background-image: url(img/bg-img/bg-2.jpg);"></div>
+            <div class="slide-img bg-img" style="background-image: url(image/burung2.jpg);"></div>
             <!-- Slide Content -->
             <div class="hero-slides-content text-center">
                 <h2 data-animation="fadeInUp" data-delay="100ms">Colorlib <span>Colorlib</span></h2>
@@ -36,11 +36,11 @@
         <!-- Single Hero Slide -->
         <div class="single-hero-slide d-flex align-items-center justify-content-center">
             <!-- Slide Img -->
-            <div class="slide-img bg-img" style="background-image: url(img/bg-img/bg-3.jpg);"></div>
+            <div class="slide-img bg-img" style="background-image: url(image/burung3.jpg);"></div>
             <!-- Slide Content -->
             <div class="hero-slides-content text-center">
                 <h2 data-animation="fadeInUp" data-delay="100ms">Festival <span>Festival</span></h2>
-                <p data-animation="fadeInUp" data-delay="300ms">Free Themes</p>
+                <p data-animation="fadeInUp" data-delay="300ms">Festival Merpati</p>
             </div>
             <!-- Big Text -->
             <h2 class="big-text">Festival</h2>
@@ -59,7 +59,7 @@
 <!-- ##### Hero Area End ##### -->
 
 <!-- ##### About Us Area Start ##### -->
-<div class="about-us-area section-padding-100-0 bg-img bg-overlay" style="background-image: url(img/bg-img/bg-4.jpg);" id="about">
+<div class="about-us-area section-padding-100-0 bg-img bg-overlay" style="background-image: url();" id="about">
     <div class="container">
         <div class="row">
             <div class="col-12">

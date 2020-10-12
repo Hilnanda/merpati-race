@@ -8,6 +8,8 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
+    <link rel="icon" href="{{ asset('image/favicon.ico') }}">
+
     @stack('admin-top-style')
     @include('admin.includes-admin.style')
     @stack('admin-top-style')
@@ -116,11 +118,40 @@
             <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
           </ul> -->
                     </li>
-                    <li>
-                        <a href="pages/widgets.html">
-                            <i class="fa fa-th"></i> <span>Widgets</span>
-                            
+                    <li class="treeview {{ (request()->is('admin/cms/*')) ? 'active menu-open' : '' }}">
+                        <a href="#">
+                            <i class="fa fa-cubes"></i>
+                            <span>CMS Home</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
                         </a>
+                        <ul class="treeview-menu">
+                            <li class="{{ (request()->is('admin/cms/cms-header*')) ? 'active' : '' }}"><a href="{{ route('cms-header-dashboard') }}"><i class="fa fa-circle-o"></i> Module Header</a></li>
+                            <li class="{{ (request()->is('admin/cms/cms-content*')) ? 'active' : '' }}"><a href="{{ route('cms-content-dashboard') }}"><i class="fa fa-circle-o"></i> Module Content</a></li>
+                            <li class="{{ (request()->is('admin/cms/cms-footer*')) ? 'active' : '' }}"><a href="{{ route('cms-footer-dashboard') }}"><i class="fa fa-circle-o"></i> Module Footer</a></li>
+                        </ul>
+                    </li>
+                    <li class="">
+                        <a href="{{ route('list-club') }}">
+                            <i class="fa fa-star"></i> <span>CMS Product & Service</span>
+                           
+                        </a>
+                        
+                    </li>
+                    <li class="">
+                        <a href="{{ route('list-club') }}">
+                            <i class="fa fa-star"></i> <span>CMS Contact</span>
+                           
+                        </a>
+                        
+                    </li>
+                    <li class="">
+                        <a href="{{ route('list-club') }}">
+                            <i class="fa fa-star"></i> <span>CMS News</span>
+                           
+                        </a>
+                        
                     </li>
                     <li class="treeview">
                         <a href="#">

@@ -12,7 +12,8 @@
     <title>@yield('title')</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="img/core-img/favicon.ico">
+    <link rel="icon" href="{{ asset('image/favicon.ico') }}">
+
 
     @stack('top-style')
     @include('includes.style')
@@ -25,7 +26,7 @@
     <!-- ##### Preloader ##### -->
     <div class="preloader d-flex align-items-center justify-content-center">
         <div class="circle-preloader">
-            <img src="img/core-img/compact-disc.png" alt="">
+            <img src="image/loading.png" alt="">
         </div>
     </div>
 
