@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Clubs;
+use App\User;
 use Illuminate\Http\Request;
 
 class ClubController extends Controller
@@ -14,7 +16,9 @@ class ClubController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.list-club');
+        $club = Clubs::all();
+        $user = User::all();
+        return view('admin.pages.list-club', ['clubs' => $club, 'users' => $user]);
     }
 
     /**
@@ -22,9 +26,11 @@ class ClubController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        Clubs::create($request->all());
+
+        return back()->with('Sukses','Berhasil menambahkan data!');
     }
 
     /**
@@ -55,9 +61,12 @@ class ClubController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $club = Clubs::find($request->id);
+        $club->update($request->all());
+
+        return back()->with('Sukses','Berhasil mengubah data!');
     }
 
     /**
@@ -80,6 +89,8 @@ class ClubController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Clubs::find($id)->delete();
+
+        return back()->with('Sukses','Berhasil menghapus data!');
     }
 }

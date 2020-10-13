@@ -20,7 +20,7 @@ class Events extends Model
         'expired_time_event'];
     public function clubs()
     {
-        return $this->belongsTo('App\Clubs', 'id','id_club');
+        return $this->belongsTo('App\Clubs', 'id_club','id');
     }
     public function events_participants()
     {

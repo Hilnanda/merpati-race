@@ -15,7 +15,7 @@ class EventsResults extends Model
         'id_event_participant'];
     public function events_participants()
     {
-        return $this->belongsTo('App\EventsParticipants', 'id','id_event_participant');
+        return $this->belongsTo('App\EventsParticipants', 'id_event_participant','id');
     }
     
 }

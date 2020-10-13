@@ -22,6 +22,6 @@ class Clubs extends Model
     }
     public function user()
     {
-        return $this->belongsTo('App\User', 'id', 'id_user');
+        return $this->belongsTo('App\User', 'id_user', 'id');
     }
 }

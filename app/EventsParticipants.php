@@ -16,12 +16,12 @@ class EventsParticipants extends Model
         ];
     public function pigeons()
     {
-        return $this->belongsTo('App\Pigeons', 'id','id_pigeon');
+        return $this->belongsTo('App\Pigeons', 'id_pigeon','id');
     }
 
     public function events()
     {
-        return $this->belongsTo('App\Events', 'id','id_event');
+        return $this->belongsTo('App\Events', 'id_event','id');
     }
 
     public function events_results()

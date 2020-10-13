@@ -13,6 +13,8 @@
     @stack('admin-top-style')
     @include('admin.includes-admin.style')
     @stack('admin-top-style')
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css') }}">
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -319,6 +321,32 @@
     @stack('admin-top-script')
     @include('admin.includes-admin.script')
     @stack('admin-bottom-script')
+
+    <script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js') }}"></script>
+    <script>
+        @if(session('Sukses'))
+            swal("Sukses!", "{{ session('Sukses') }}", "success");
+        @endif
+        @if(session('Gagal'))
+            swal("Gagal!", "{{ session('Gagal') }}", "error");
+        @endif
+
+        $('.delete-club').on('click', function (event) {
+            event.preventDefault();
+            const url = $(this).attr('href');
+            swal({
+                title: 'Apakah yakin ingin menghapus data?',
+                text: 'Data akan terhapus secara permanen',
+                icon: 'warning',
+                buttons: ["Tidak", "Ya!"],
+            }).then(function (value) {
+                if (value) {
+                    window.location.href = url;
+                }
+            });
+        });
+    </script>
+    
 </body>
 
 </html>

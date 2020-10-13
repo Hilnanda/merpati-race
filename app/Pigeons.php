@@ -18,7 +18,7 @@ class Pigeons extends Model
         'color_pigeon'];
     public function clubs()
     {
-        return $this->belongsTo('App\Clubs', 'id','id_club');
+        return $this->belongsTo('App\Clubs', 'id_club','id');
     }
     public function events_participants()
     {

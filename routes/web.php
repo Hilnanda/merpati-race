@@ -22,6 +22,9 @@ Route::prefix('admin')
     ->group(function () {
         Route::get('/index', 'DashboardController@index')->name('admin-dashboard');
         Route::get('/list-club', 'ClubController@index')->name('list-club');
+        Route::post('/club/create', 'ClubController@create');
+        Route::post('/club/edit', 'ClubController@edit');
+        Route::get('/club/delete/{id}', 'ClubController@destroy');
         Route::get('/cms-header', 'CmsHomeController@index')->name('cms-header-dashboard');
 
         // kelompok untuk cms
