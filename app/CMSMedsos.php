@@ -13,6 +13,7 @@ class CMSMedsos extends Model
     protected $fillable = [
         'name_medsos',
         'url_medsos',
-        'username_medsos'
+        'username_medsos',
+        'icon_medsos'
         ];
 }

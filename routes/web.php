@@ -31,8 +31,12 @@ Route::prefix('admin')
         // http admin/cms/...
         Route::prefix('cms')
             ->group(function () {
+                // show page
                 Route::get('/cms-header', 'CmsHomeController@header')->name('cms-header-dashboard');
                 Route::get('/cms-content', 'CmsHomeController@content')->name('cms-content-dashboard');
                 Route::get('/cms-footer', 'CmsHomeController@footer')->name('cms-footer-dashboard');
+
+                // create data
+                Route::post('/medsos-create','CmsHomeController@medsos_create')->name('cms-medsos-create');
             });
     });
