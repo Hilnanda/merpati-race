@@ -1,56 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use App\CMSMedsos;
 
-class CmsHomeController extends Controller
+class CmsApiController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function get_api_medsos()
     {
-        // return view('admin.pages.cms-home');
-    }
-    public function header()
-    {
-        $data_medsos = CMSMedsos::all();
-        return view('admin.pages.cms.cms-header',['data_medsos'=>$data_medsos]);
-    }
-    public function content()
-    {
-        return view('admin.pages.cms.cms-content');
-    }
-    public function footer()
-    {
-        return view('admin.pages.cms.cms-footer');
+        return response()->json(CMSMedsos::all(),200);
     }
 
-    public function medsos_create(Request $request)
-    {
-       $medsos = new CMSMedsos;
-       $medsos->name_medsos = $request->name_medsos;
-       $medsos->url_medsos = $request->url_medsos;
-       $medsos->username_medsos = $request->username_medsos;
-       $medsos->icon_medsos = $request->icon_medsos;
-       
-       try {
-        $medsos->save();
-    } catch(\Illuminate\Database\QueryException $e){
-        $errorCode = $e->errorInfo[1];
-        if($errorCode == '1062'){
-            return back()->with('Gagal','Terdapat Data Ganda');
-        }
-    }
-
-       return back()->with('Sukses','Data Berhasil diinputkan');
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -70,12 +37,6 @@ class CmsHomeController extends Controller
     public function store(Request $request)
     {
         //
-    }
-    
-
-    public function get_medsos()
-    {
-       
     }
 
     /**
