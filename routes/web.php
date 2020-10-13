@@ -19,8 +19,9 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::prefix('admin')
     ->namespace('Admin')
     // ->middleware(['auth','admin'])
-    ->group(function () {
+    ->middleware('is_admin')->group(function () {
         Route::get('/index', 'DashboardController@index')->name('admin-dashboard');
+        // Route::get('/index', 'DashboardController@index')->name('admin-dashboard');
         Route::get('/list-club', 'ClubController@index')->name('list-club');
         Route::post('/club/create', 'ClubController@create');
         Route::post('/club/edit', 'ClubController@edit');
@@ -40,3 +41,8 @@ Route::prefix('admin')
                 Route::post('/medsos-create','CmsHomeController@medsos_create')->name('cms-medsos-create');
             });
     });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+

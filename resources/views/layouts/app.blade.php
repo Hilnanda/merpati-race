@@ -108,6 +108,22 @@
                                     </li>
                                     <li><a href="concert-tours.html">Gallery</a></li>
                                     <li><a href="contact.html">Contact</a></li>
+                                    @guest
+                                        <li>
+                                            <a href="{{ route('login') }}">{{ __('Login') }}</a>
+                                        </li>
+                                    @else
+                                        <li>
+                                            <a href="{{ route('logout') }}"
+                                               onclick="event.preventDefault();
+                                                             document.getElementById('logout-form').submit();">
+                                                {{ __('Logout') }}
+                                            </a>
+                                        </li>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    @endguest
                                 </ul>
 
                                 <!-- Social Button -->
