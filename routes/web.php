@@ -19,7 +19,6 @@ Route::get('/contact', 'HomeController@contact')->name('contact');
 Route::get('/product-service', 'HomeController@product_service')->name('product-service');
 Route::get('/news', 'HomeController@news')->name('home-news');
 Route::get('/news/desc', 'HomeController@news_desc');
-// Route::post('/news/desc/{id}', 'HomeController@news_desc');
 
 
 Route::prefix('admin')

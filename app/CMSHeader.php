@@ -13,6 +13,7 @@ class CMSHeader extends Model
     protected $fillable = [
         'name_website',
         'name_corousel',
-        'image_corousel'
+        'image_corousel',
+        'desc_title'
         ];
 }
