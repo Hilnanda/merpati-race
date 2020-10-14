@@ -78,7 +78,7 @@
                 
               </div>
 
-              <a id="modal-123" href="#modal-container-123" role="button" class="btn btn-success" data-toggle="modal">Icon Social Media</a>
+              <a id="modal-123" href="#modal-container-123" role="button" class="btn btn-primary" data-toggle="modal">Icon Social Media</a>
 			
               <div class="modal fade" id="modal-container-123" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -273,48 +273,82 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <form action="">
                 <div class="row">
+                  @foreach ($data_medsos as $item)
                   <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="form-group">
-                      <label for="name" class="control-label">Instagram</label>
                       <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-6">
-                          <input type="text" name="instagram" class="form-control"  value="https://www.instagram.com/" disabled>
+                          <label for="name" class="control-label">{{ $item->name_medsos }}</label> <i class="fa {{ $item->icon_medsos }}"></i>
+                          
+                          <input type="text" name="instagram" class="form-control"  value="{{ $item->url_medsos }}" disabled>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
-                          <input type="text" name="username_medsos" class="form-control" placeholder="Masukkan Username IG">
+                          <label for="name" class="control-label">Username</label> 
+                          <a style="margin-left: 5px;color: blue" id="medsos{{$item->id}}" href="#medsos-container{{$item->id}}" role="button" data-toggle="modal"><i class="fa fa-pencil"></i> Edit</a> |
+                          <a style=";color: red" class="delete-club" href="medsos-delete/{{$item->id}}"><i class="fa fa-trash"></i> Delete</a>
+                          <input type="text" name="username_medsos" class="form-control" value="{{ $item->username_medsos }}" disabled>
                         </div>
                       </div>
                     </div>
-                    <div class="form-group">
-                      <label for="name" class="control-label">Twitter</label>
-                      <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-6">
-                          <input type="text" name="twitter" class="form-control"  value="https://twitter.com/" disabled>
+                    <div class="modal fade" id="medsos-container{{$item->id}}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel">
+                              Edit Social Media
+                            </h5> 
+                            <button type="button" class="close" data-dismiss="modal">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                          </div>
+                          <form action="{{ route('medsos-edit') }}" method="POST">
+                            {{csrf_field()}}
+                          <div class="modal-body">
+                              <div class="form-group">
+                                
+                                <div class="row">
+                                  <div class="col-xs-12 col-sm-6 col-md-6">
+                                    <label for="name" class="control-label">Name Social Media</label>
+                                    <input type="hidden" name="id" value="{{ $item->id }}">
+                                    <input type="text" name="name_medsos" class="form-control" value="{{ $item->name_medsos }}"><br>
+                                  </div>
+                                  <div class="col-xs-12 col-sm-6 col-md-6">
+                                    <label for="name" class="control-label">Url Social Media</label>
+                                    <input type="text" name="url_medsos" class="form-control"  value="{{ $item->url_medsos }}"><br>
+                                  </div>
+                                  <div class="col-xs-12 col-sm-6 col-md-6">
+                                    <label for="name" class="control-label">Username Social Media</label>
+                                    <input type="text" name="username_medsos" class="form-control" value="{{ $item->username_medsos }}"><br>
+                                  </div>
+                                  <div class="col-xs-12 col-sm-6 col-md-6">
+                                    <label for="name" class="control-label">Icon Social Media</label>
+                                    <input type="text" name="icon_medsos" class="form-control" value="{{ $item->icon_medsos }}"><br>
+                                  </div>
+                                </div>
+                              </div>
+                            
+                          </div>
+                          <div class="modal-footer">
+                             <input type="submit" class="btn btn-primary" value="Simpan">
+                            
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                              Close
+                            </button>
+                          </div>
+                        </form>
                         </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6">
-                          <input type="text" name="username_medsos" class="form-control" placeholder="Masukkan Username Twitter">
-                        </div>
+                        
                       </div>
+                      
                     </div>
                   </div>
-                  <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                      <label for="name" class="control-label">Facebook</label>
-                      <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-6">
-                          <input type="text" name="instagram" class="form-control"  value="https://www.instagram.com/" disabled>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6">
-                          <input type="text" name="username_medsos" class="form-control" placeholder="Masukkan Username IG">
-                        </div>
-                      </div>
-                    </div>
-                    
-                  </div>
+                  
+                  @endforeach
+
+                  
                 </div>
-              </form>
+              
               
               
             </div>

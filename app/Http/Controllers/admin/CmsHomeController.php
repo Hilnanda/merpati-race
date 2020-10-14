@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\CMSMedsos;
+use App\CMSFooter;
 
 class CmsHomeController extends Controller
 {
@@ -25,11 +26,13 @@ class CmsHomeController extends Controller
     }
     public function content()
     {
+        
         return view('admin.pages.cms.cms-content');
     }
     public function footer()
     {
-        return view('admin.pages.cms.cms-footer');
+        $data_footer = CMSFooter::all();
+        return view('admin.pages.cms.cms-footer',['data_footer'=>$data_footer]);
     }
 
     public function medsos_create(Request $request)
@@ -50,6 +53,64 @@ class CmsHomeController extends Controller
     }
 
        return back()->with('Sukses','Data Berhasil diinputkan');
+    }
+
+    public function footer_create(Request $request)
+    {
+       try {
+        CMSFooter::create($request->all());
+    } catch(\Illuminate\Database\QueryException $e){
+        $errorCode = $e->errorInfo[1];
+        if($errorCode == '1062'){
+            return back()->with('Gagal','Terdapat Data Ganda');
+        }
+    }
+
+       return back()->with('Sukses','Data Berhasil diinputkan');
+    }
+
+    public function medsos_update(Request $request){
+        $medsos = CMSMedsos::find($request->id);
+        
+        try {
+            $medsos->update($request->all());
+        } catch(\Illuminate\Database\QueryException $e){
+            $errorCode = $e->errorInfo[1];
+            if($errorCode == '1062'){
+                return back()->with('Gagal','Terdapat Data Ganda');
+            }
+        }
+
+        return back()->with('Sukses','Berhasil mengubah data!');
+    }
+
+    public function medsos_destroy($id)
+    {
+        CMSMedsos::find($id)->delete();
+
+        return back()->with('Sukses','Berhasil menghapus data!');
+    }
+
+    public function footer_update(Request $request){
+        $footer = CMSFooter::find($request->id);
+        
+        try {
+            $footer->update($request->all());
+        } catch(\Illuminate\Database\QueryException $e){
+            $errorCode = $e->errorInfo[1];
+            if($errorCode == '1062'){
+                return back()->with('Gagal','Terdapat Data Ganda');
+            }
+        }
+
+        return back()->with('Sukses','Berhasil mengubah data!');
+    }
+
+    public function footer_destroy($id)
+    {
+        CMSFooter::find($id)->delete();
+
+        return back()->with('Sukses','Berhasil menghapus data!');
     }
     /**
      * Show the form for creating a new resource.
@@ -118,8 +179,5 @@ class CmsHomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+    
 }
