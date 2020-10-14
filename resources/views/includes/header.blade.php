@@ -80,7 +80,7 @@
                                         </ul>
                                     </div>
                                 </li> --}}
-                                <li><a href="concert-tours.html">Gallery</a></li>
+                                <li><a href="{{ route('home-news') }}">News</a></li>
                                 <li><a href="{{ route('contact') }}">Contact</a></li>
                                 @guest
                                     <li>
