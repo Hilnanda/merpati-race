@@ -128,13 +128,13 @@
 
                                 <!-- Social Button -->
                                 <div class="top-social-info">
-                                    <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                                    @foreach ($data_medsos as $item)
+                                    <a href="{{ $item->url_medsos }}{{ $item->username_medsos }}"><i class="fa {{ $item->icon_medsos }}" aria-hidden="true"></i></a>
+
+                                    @endforeach
+                                    
                                 </div>
+
 
                             </div>
                             <!-- Nav End -->
@@ -159,13 +159,9 @@
                         <a href="#"><img src="img/core-img/logo2.png" alt=""></a>
                         <p class="copywrite-text"><a href="#">
                                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                Copyright &copy;<script>
-                                    document.write(new Date().getFullYear());
+                                                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                                                {{ $data_footer[0]->name_copyright }}
 
-                                </script> All rights reserved | This template is made with <i class="fa fa-heart-o"
-                                    aria-hidden="true"></i> by <a href="https://colorlib.com"
-                                    target="_blank">Colorlib</a>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         </p>
                     </div>
                 </div>
@@ -212,11 +208,13 @@
                         </div>
                         <nav>
                             <ul class="footer-nav">
-                                <li><a href="#">Facebook</a></li>
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="#">Snapchat</a></li>
-                                <li><a href="#">Instagram</a></li>
+                                @foreach ($data_medsos as $item)
+                                <li><a href="{{ $item->url_medsos }}{{ $item->username_medsos }}">{{ $item->name_medsos }}</a></li>
+                                @endforeach
+                                
+                                
                             </ul>
+
                         </nav>
                     </div>
                 </div>
