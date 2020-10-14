@@ -25,6 +25,14 @@
 <body>
     <!-- ##### Preloader ##### -->
     @include('includes.header')
+
+    <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url(img/bg-img/breadcumb4.jpg);">
+        <div class="bradcumbContent">
+            <h2>@yield('subtitle')</h2>
+        </div>
+    </div>
+    <div class="bg-gradients"></div>
+
     <!-- ##### Header Area End ##### -->
 
     @yield('content')

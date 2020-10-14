@@ -13,7 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//compro
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/contact', 'HomeController@contact')->name('contact');
+Route::get('/product-service', 'HomeController@product_service')->name('product-service');
+Route::get('/news', 'HomeController@news')->name('home-news');
 
 
 Route::prefix('admin')
