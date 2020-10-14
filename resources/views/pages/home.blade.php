@@ -67,7 +67,7 @@
     <!-- ##### About Us Area End ##### -->
 
     <!-- ##### Upcoming Shows Area Start ##### -->
-    <div class="upcoming-shows-area section-padding-100">
+    <div class="upcoming-shows-area section-padding-100" id="about">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -609,7 +609,7 @@
                         <div class="card-body">
                         <h4 class="card-title">John Doe</h4>
                         <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                        <a href="#" class="btn musica-btn">Read More</a>
+                        <a href="/news/desc" class="btn musica-btn">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -620,7 +620,7 @@
                         <div class="card-body">
                         <h4 class="card-title">John Doe</h4>
                         <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                        <a href="#" class="btn musica-btn">Read More</a>
+                        <a href="/news/desc" class="btn musica-btn">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -631,7 +631,7 @@
                         <div class="card-body">
                         <h4 class="card-title">John Doe</h4>
                         <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                        <a href="#" class="btn musica-btn">Read More</a>
+                        <a href="/news/desc" class="btn musica-btn">Read More</a>
                         </div>
                     </div>
                 </div>

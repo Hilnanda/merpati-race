@@ -76,5 +76,20 @@ class HomeController extends Controller
             ]);
 
     }
+    public function news_desc()
+    {
+        
+        $data_medsos = CMSMedsos::all();
+        $data_footer = CMSFooter::all();
+        $club = Clubs::all();
+        $user = User::all();
+        return view('pages.news-read',[
+            'data_medsos'=>$data_medsos,
+            'data_footer'=>$data_footer,
+            'clubs' => $club, 
+            'users' => $user
+            ]);
+
+    }
     
 }

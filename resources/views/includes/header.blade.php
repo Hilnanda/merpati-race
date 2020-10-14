@@ -33,7 +33,7 @@
                         <div class="classynav">
                             <ul>
                                 <li><a href="/">Home</a></li>
-                                <li><a href="about-us.html">About us</a></li>
+                                <li><a href="about-us.html">Product & Service</a></li>
                                 {{-- <li><a href="#">Pages</a>
                                     <ul class="dropdown">
                                         <li><a href="index.html">Home</a></li>

@@ -19,7 +19,7 @@
                                 <img src="img/blog-img/1.jpg" alt="">
                             </div>
                             <!-- Post Title -->
-                            <a href="#" class="post-title">10 Best Festival that you should’t miss this summer</a>
+                            <a href="/news/desc" class="post-title">10 Best Festival that you should’t miss this summer</a>
                             <!-- Post Meta -->
                             <div class="post-meta d-flex justify-content-between">
                                 <div class="post-date">
@@ -38,7 +38,7 @@
                                 dapibus varius massa vel auctor. Nulla massa dui, posuere non erat in, eleifend mattis dui.
                                 Vivamus luctus luctus rhoncus. Donec sagittis nulla id finibus iaculis.</p>
                             <!-- Read More -->
-                            <a href="#" class="read-more-btn">Read more</a>
+                            <a href="/news/desc" class="read-more-btn">Read more</a>
                         </div>
 
                         <!-- Single Post Start -->
@@ -48,7 +48,7 @@
                                 <img src="img/blog-img/2.jpg" alt="">
                             </div>
                             <!-- Post Title -->
-                            <a href="#" class="post-title">10 Best Festival that you should’t miss this summer</a>
+                            <a href="/news/desc" class="post-title">10 Best Festival that you should’t miss this summer</a>
                             <!-- Post Meta -->
                             <div class="post-meta d-flex justify-content-between">
                                 <div class="post-date">
@@ -67,7 +67,7 @@
                                 dapibus varius massa vel auctor. Nulla massa dui, posuere non erat in, eleifend mattis dui.
                                 Vivamus luctus luctus rhoncus. Donec sagittis nulla id finibus iaculis.</p>
                             <!-- Read More -->
-                            <a href="#" class="read-more-btn">Read more</a>
+                            <a href="/news/desc" class="read-more-btn">Read more</a>
                         </div>
 
                         <!-- Single Post Start -->
@@ -77,7 +77,7 @@
                                 <img src="img/blog-img/3.jpg" alt="">
                             </div>
                             <!-- Post Title -->
-                            <a href="#" class="post-title">10 Best Festival that you should’t miss this summer</a>
+                            <a href="/news/desc" class="post-title">10 Best Festival that you should’t miss this summer</a>
                             <!-- Post Meta -->
                             <div class="post-meta d-flex justify-content-between">
                                 <div class="post-date">
@@ -96,7 +96,7 @@
                                 dapibus varius massa vel auctor. Nulla massa dui, posuere non erat in, eleifend mattis dui.
                                 Vivamus luctus luctus rhoncus. Donec sagittis nulla id finibus iaculis.</p>
                             <!-- Read More -->
-                            <a href="#" class="read-more-btn">Read more</a>
+                            <a href="/news/desc" class="read-more-btn">Read more</a>
                         </div>
 
                         <!-- Pagination -->
