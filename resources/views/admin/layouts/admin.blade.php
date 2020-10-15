@@ -158,8 +158,8 @@
                         
                     </li>
                     <li class="">
-                        <a href="{{ route('list-club') }}">
-                            <i class="fa fa-star"></i> <span>CMS News</span>
+                        <a href="{{ route('news-admin') }}">
+                            <i class="fa fa-newspaper-o"></i> <span>CMS News</span>
                            
                         </a>
                         

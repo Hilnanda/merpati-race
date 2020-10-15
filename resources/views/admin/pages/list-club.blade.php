@@ -121,19 +121,19 @@
                                                 <div class="form-group">
                                                     <label for="">Nama Club</label>
                                                     <input type="hidden" name="id" value="{{$club->id}}">
-                                                    <input type="text" name="name_club" class="form-control" placeholder="Isi nama club" required value="{{$club->name_club}}">
+                                                    <input type="text" name="name_club" class="form-control" placeholder="Isi Nama club" required value="{{$club->name_club}}">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="">Lat Club</label>
-                                                    <input type="number" name="lat_club" class="form-control" placeholder="Isi nama club" required step=0.01 value="{{$club->lat_club}}">
+                                                    <input type="number" name="lat_club" class="form-control" placeholder="Isi Latitude club" required step=0.01 value="{{$club->lat_club}}">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="">Long Club</label>
-                                                    <input type="number" name="lng_club" class="form-control" placeholder="Isi nama club" required step=0.01 value="{{$club->lng_club}}">
+                                                    <input type="number" name="lng_club" class="form-control" placeholder="Isi Longtitude club" required step=0.01 value="{{$club->lng_club}}">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="">Alamat Club</label>
-                                                    <textarea name="address_club" class="form-control" required="" placeholder="Isi nama alamat">{{$club->address_club}}</textarea>
+                                                    <textarea name="address_club" class="form-control" required="" placeholder="Isi Nama Alamat">{{$club->address_club}}</textarea>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="">User</label>

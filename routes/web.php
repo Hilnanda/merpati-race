@@ -31,7 +31,15 @@ Route::prefix('admin')
         Route::post('/club/create', 'ClubController@create');
         Route::post('/club/edit', 'ClubController@edit');
         Route::get('/club/delete/{id}', 'ClubController@destroy');
+
+        //content route admin
         Route::get('/cms-header', 'CmsHomeController@index')->name('cms-header-dashboard');
+
+        //news route admin
+        Route::get('/news', 'NewsController@index')->name('news-admin');
+        Route::post('/news/create', 'NewsController@create');
+        Route::post('/news/edit', 'NewsController@edit');
+        Route::get('/news/delete/{id}', 'NewsController@destroy');
 
         // kelompok untuk cms
         // http admin/cms/...

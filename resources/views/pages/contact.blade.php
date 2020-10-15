@@ -14,7 +14,11 @@
                 <div class="col-12 col-lg-6">
                     <div class="contact-content mb-100">
                         <a href="/"><h3 >Lomba</h3></a>
-                        <p class="copywrite-text">{{ $data_footer[0]->name_copyright }}
+                        <p class="copywrite-text">
+                            @if (isset($data_footer[0]->name_copyright ))
+                            {{ $data_footer[0]->name_copyright or '' }}
+                            @endif
+                            
                         </p>
 
                         <!-- Contact Social Info -->

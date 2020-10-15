@@ -19,7 +19,7 @@ class CreateCmsNewsTables extends Migration
             $table->string('image_news');
             $table->string('desc_news');
             $table->dateTimeTz('date_news', 0);
-            $table->timestamps();
+            $table->timestampsTz();
         });
     }
 
