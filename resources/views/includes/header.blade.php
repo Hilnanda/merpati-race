@@ -81,6 +81,7 @@
                                     </div>
                                 </li> --}}
                                 <li><a href="{{ route('home-news') }}">News</a></li>
+                                <li><a href="{{ route('about-us') }}">About Us</a></li>
                                 <li><a href="{{ route('contact') }}">Contact</a></li>
                                 @guest
                                     <li>

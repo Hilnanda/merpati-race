@@ -54,6 +54,23 @@ class HomeController extends Controller
             ]);
 
     }
+    public function about_us()
+    {
+        
+        $data_medsos = CMSMedsos::all();
+        $data_footer = CMSFooter::all();
+        $club = Clubs::all();
+        $user = User::all();
+        $contact = CMSContact::limit(1)->get();
+        return view('pages.about-us',[
+            'data_medsos'=>$data_medsos,
+            'data_footer'=>$data_footer,
+            'clubs' => $club, 
+            'users' => $user,
+            'contact' => $contact
+            ]);
+
+    }
     public function product_service()
     {
         
