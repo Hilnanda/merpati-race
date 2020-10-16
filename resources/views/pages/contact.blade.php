@@ -15,9 +15,9 @@
                     <div class="contact-content mb-100">
                         <a href="/"><h3 >Lomba</h3></a>
                         <p class="copywrite-text">
-                            @if (isset($data_footer[0]->name_copyright ))
-                            {{ $data_footer[0]->name_copyright or '' }}
-                            @endif
+                            @foreach ($data_footer as $item)
+                            {{ $item->name_copyright  }}
+                        @endforeach
                             
                         </p>
 

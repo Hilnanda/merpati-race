@@ -13,17 +13,20 @@
                     <div class="fitness-blog-posts">
 
                         <!-- Single Post Start -->
+                        @foreach ($news as $item)
+                            
+                        
                         <div class="single-blog-post mb-100 wow fadeInUp" data-wow-delay="100ms">
                             <!-- Post Thumb -->
                             <div class="blog-post-thumb mb-30">
-                                <img src="img/blog-img/1.jpg" alt="">
+                                <img src="{{ asset('image/'.$item->image_news.'') }}" alt="">
                             </div>
                             <!-- Post Title -->
-                            <a href="/news/desc" class="post-title">10 Best Festival that you should’t miss this summer</a>
+                            <a href="/news/desc/{{ $item->id }}" class="post-title">{{ $item->title_news }}</a>
                             <!-- Post Meta -->
                             <div class="post-meta d-flex justify-content-between">
                                 <div class="post-date">
-                                    <p>May 22, 2018</p>
+                                    <p>{{date('d F Y  H:i:s', strtotime($item->created_at))}}</p>
                                 </div>
                                 <!-- Comments -->
                                 
@@ -31,73 +34,15 @@
                             <!-- bg gradients -->
                             <div class="bg-gradients mb-30 w-25"></div>
                             <!-- Post Excerpt -->
-                            <p>Sed dapibus varius massa vel auctor. Nulla massa dui, posuere non erat in, eleifend mattis
-                                dui. Vivamus luctus luctus rhoncus. Donec sagittis nulla id finibus iaculis. Mauris odio
-                                tortor, suscipit non elit ut, imperdiet ornare erat. Vestibulum vel lorem eget risus
-                                pulvinar sollicitudin in a erat. Quisque mattis ultricies arcu, ac venenatis nisl. Sed
-                                dapibus varius massa vel auctor. Nulla massa dui, posuere non erat in, eleifend mattis dui.
-                                Vivamus luctus luctus rhoncus. Donec sagittis nulla id finibus iaculis.</p>
-                            <!-- Read More -->
-                            <a href="/news/desc" class="read-more-btn">Read more</a>
+                            @if (strlen($item->desc_news)<500)
+                        {!! $item->desc_news !!}
+                        @else
+                        {!! substr($item->desc_news,0,500).'.....' !!}</td>
+                    @endif
+                            <a href="/news/desc/{{ $item->id }}" class="read-more-btn">Read more</a>
                         </div>
-
-                        <!-- Single Post Start -->
-                        <div class="single-blog-post mb-100 wow fadeInUp" data-wow-delay="300ms">
-                            <!-- Post Thumb -->
-                            <div class="blog-post-thumb mb-30">
-                                <img src="img/blog-img/2.jpg" alt="">
-                            </div>
-                            <!-- Post Title -->
-                            <a href="/news/desc" class="post-title">10 Best Festival that you should’t miss this summer</a>
-                            <!-- Post Meta -->
-                            <div class="post-meta d-flex justify-content-between">
-                                <div class="post-date">
-                                    <p>May 22, 2018</p>
-                                </div>
-                                <!-- Comments -->
-                                
-                            </div>
-                            <!-- bg gradients -->
-                            <div class="bg-gradients mb-30 w-25"></div>
-                            <!-- Post Excerpt -->
-                            <p>Sed dapibus varius massa vel auctor. Nulla massa dui, posuere non erat in, eleifend mattis
-                                dui. Vivamus luctus luctus rhoncus. Donec sagittis nulla id finibus iaculis. Mauris odio
-                                tortor, suscipit non elit ut, imperdiet ornare erat. Vestibulum vel lorem eget risus
-                                pulvinar sollicitudin in a erat. Quisque mattis ultricies arcu, ac venenatis nisl. Sed
-                                dapibus varius massa vel auctor. Nulla massa dui, posuere non erat in, eleifend mattis dui.
-                                Vivamus luctus luctus rhoncus. Donec sagittis nulla id finibus iaculis.</p>
-                            <!-- Read More -->
-                            <a href="/news/desc" class="read-more-btn">Read more</a>
-                        </div>
-
-                        <!-- Single Post Start -->
-                        <div class="single-blog-post mb-100 wow fadeInUp" data-wow-delay="500ms">
-                            <!-- Post Thumb -->
-                            <div class="blog-post-thumb mb-30">
-                                <img src="img/blog-img/3.jpg" alt="">
-                            </div>
-                            <!-- Post Title -->
-                            <a href="/news/desc" class="post-title">10 Best Festival that you should’t miss this summer</a>
-                            <!-- Post Meta -->
-                            <div class="post-meta d-flex justify-content-between">
-                                <div class="post-date">
-                                    <p>May 22, 2018</p>
-                                </div>
-                                <!-- Comments -->
-                                
-                            </div>
-                            <!-- bg gradients -->
-                            <div class="bg-gradients mb-30 w-25"></div>
-                            <!-- Post Excerpt -->
-                            <p>Sed dapibus varius massa vel auctor. Nulla massa dui, posuere non erat in, eleifend mattis
-                                dui. Vivamus luctus luctus rhoncus. Donec sagittis nulla id finibus iaculis. Mauris odio
-                                tortor, suscipit non elit ut, imperdiet ornare erat. Vestibulum vel lorem eget risus
-                                pulvinar sollicitudin in a erat. Quisque mattis ultricies arcu, ac venenatis nisl. Sed
-                                dapibus varius massa vel auctor. Nulla massa dui, posuere non erat in, eleifend mattis dui.
-                                Vivamus luctus luctus rhoncus. Donec sagittis nulla id finibus iaculis.</p>
-                            <!-- Read More -->
-                            <a href="/news/desc" class="read-more-btn">Read more</a>
-                        </div>
+                        @endforeach
+                       
 
                         <!-- Pagination -->
                         {{-- <div class="musica-pagination-area wow fadeInUp" data-wow-delay="700ms">

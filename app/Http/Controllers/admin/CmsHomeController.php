@@ -32,6 +32,7 @@ class CmsHomeController extends Controller
     public function footer()
     {
         $data_footer = CMSFooter::all();
+        // dd($data_footer);
         return view('admin.pages.cms.cms-footer',['data_footer'=>$data_footer]);
     }
 

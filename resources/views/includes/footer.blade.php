@@ -2,23 +2,7 @@
     <div class="container-fluid">
         <div class="row">
 
-            <!-- Footer Widget Area -->
-            <div class="col-12 col-md-6 col-xl-3">
-                <div class="footer-widget-area mb-100">
-                    <a href="/"><h3 >Lomba</h3></a>
-                    <p class="copywrite-text"><a href="#">
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        @if (isset($data_footer[0]->name_copyright))
-                        {{ $data_footer[0]->name_copyright or '' }}
-                        @endif
-                                                            
-
-                    </p>
-                </div>
-            </div>
-
-            <!-- Footer Widget Area -->
+            
             
 
             <!-- Footer Widget Area -->
@@ -58,18 +42,28 @@
             </div>
 
             <!-- Footer Widget Area -->
-            <div class="col-12 col-md-6 col-xl-3">
-                {{-- <div class="footer-widget-area mb-100">
-                    <div class="widget-title">
-                        <h4>Subscribe</h4>
-                    </div>
-                    <form action="#" method="post" class="subscribe-form">
-                        <input type="email" name="subscribe-email" id="subscribeemail">
-                        <button type="submit">subscribe</button>
-                    </form>
-                </div> --}}
+            
+
+        </div>
+        <div class="row">
+            <!-- Footer Widget Area -->
+            <div class="col-12 col-md-12 col-xl-3">
+                <div class="footer-widget-area mb-100">
+                    <a href="/"><h3 >Lomba</h3></a>
+                    <p class="copywrite-text"><a href="#">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        
+                        @foreach ($data_footer as $item)
+                            {{ $item->name_copyright }}
+                        @endforeach
+                                                            
+
+                    </p>
+                </div>
             </div>
 
+            <!-- Footer Widget Area -->
         </div>
     </div>
 </footer>

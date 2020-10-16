@@ -18,7 +18,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/contact', 'HomeController@contact')->name('contact');
 Route::get('/product-service', 'HomeController@product_service')->name('product-service');
 Route::get('/news', 'HomeController@news')->name('home-news');
-Route::get('/news/desc', 'HomeController@news_desc');
+Route::get('/news/desc/{id}', 'HomeController@news_desc');
 
 
 Route::prefix('admin')
@@ -27,6 +27,7 @@ Route::prefix('admin')
     ->middleware('is_admin')->group(function () {
         Route::get('/index', 'DashboardController@index')->name('admin-dashboard');
         // Route::get('/index', 'DashboardController@index')->name('admin-dashboard');
+        //club
         Route::get('/list-club', 'ClubController@index')->name('list-club');
         Route::post('/club/create', 'ClubController@create');
         Route::post('/club/edit', 'ClubController@edit');
@@ -37,6 +38,7 @@ Route::prefix('admin')
 
         //news route admin
         Route::get('/news', 'NewsController@index')->name('news-admin');
+        Route::get('/news/{id}', 'NewsController@news_edit');
         Route::post('/news/create', 'NewsController@create');
         Route::post('/news/edit', 'NewsController@edit');
         Route::get('/news/delete/{id}', 'NewsController@destroy');

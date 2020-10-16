@@ -20,6 +20,15 @@ class NewsController extends Controller
             'news' => $news, 
             ]);
     }
+    public function news_edit($id)
+    {
+        $news = CMSNews::find($id);
+        // dd($news);
+        return view('admin.pages.cms.cms-news-edit', [
+            'news' => $news, 
+            ]);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -113,7 +122,7 @@ class NewsController extends Controller
             
         // }
         
-        return back()->with('Sukses','Berhasil mengubah data!');
+        return redirect('admin/news')->with('Sukses','Berhasil mengubah data!');
     }
 
     /**

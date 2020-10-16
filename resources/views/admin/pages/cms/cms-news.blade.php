@@ -91,60 +91,17 @@
                     <td>{{$loop->index+1}}</td>
                     <td>{{$item->title_news}}</td>
                     <td><a href="{{ asset('image/'.$item->image_news.'') }}"><img style="max-width: 250px" src="{{ asset('image/'.$item->image_news.'') }}"></a></td>
-                    <td>{!! $item->desc_news !!}</td>
+                    <td>@if (strlen($item->desc_news)<100)
+                        {!! $item->desc_news !!}
+                        @else
+                        {!! substr($item->desc_news,0,100).'.....' !!}</td>
+                    @endif
                     <td>{{date('d F Y  H:i:s', strtotime($item->created_at))}}</td>
-                    <td><a href="#editModal{{$item->id}}" class="btn btn-warning btn-sm" data-toggle="modal"
-                            data-target="#editModal{{$item->id}}"><span class="font-weight-bold ml-1">Edit</span></a> 
+                    <td><a href="/admin/news/{{$item->id}}" class="btn btn-warning btn-sm"><span class="font-weight-bold ml-1">Edit</span></a> 
                         <a href="/admin/news/delete/{{$item->id}}" class="btn btn-danger btn-sm delete-club"><span
                                         class="font-weight-bold ml-1">Hapus</span></a></td>
 
-                    <div class="modal fade" id="editModal{{$item->id}}" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Edit Data Club</h5>
-                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="/admin/news/edit" method="POST" enctype="multipart/form-data">
-                                                {{ csrf_field() }}
-                                            <div class="modal-body">
-                                               
-                                                    <div class="form-group">
-                                                        <label for="">Judul Berita</label>
-                                                        <input type="hidden" name="id" value="{{ $item->id }}" class="form-control">
-                                                        <input type="text" name="title_news" class="form-control" value="{{ $item->title_news }}" placeholder="Isi nama club" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="">Gambar Berita</label>
-                                                        <input type="file" name="image_news" class="form-control" value="{{ $item->desc_news }}">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="">Isi Berita</label>
-                                                        <input type="text" name="desc_news" class="form-control" value="{{ $item->desc_news }}" placeholder="Isi nama club" required>
-                                                    </div>
-                                                    {{-- <div class="form-group">
-                                                        <label for="">Tanggal</label>
-                                                        <input type="datetime" name="date_news" class="form-control" value="{{ $item->date_news }}" placeholder="Isi nama club" required>
-                                                    </div> --}}
-                                                    
-                                                    
-                                                
-                                            </div>
-                                            <div class="modal-footer">
-                                                    <input type="submit" value="Simpan" class="btn btn-primary">
-                                                <button class="btn btn-secondary" type="button"
-                                                    data-dismiss="modal">Cancel</button>
-                                            </div>
-                                        </form>
-                                        </div>
-                                       
-                                    </div>
-                                </div>
-                            </div>
+                    
                   </tr>
                 @endforeach
                 </tbody>
@@ -183,6 +140,7 @@
       $('.textarea').wysihtml5()
     })
   </script>
+
 <script>
     $(function () {
       $('#example1').DataTable()

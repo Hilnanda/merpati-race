@@ -7,6 +7,7 @@ use App\CMSFooter;
 use App\CMSMedsos;
 use App\Clubs;
 use App\User;
+use App\CMSNews;
 
 
 class HomeController extends Controller
@@ -68,26 +69,30 @@ class HomeController extends Controller
         $data_footer = CMSFooter::all();
         $club = Clubs::all();
         $user = User::all();
+        $news = CMSNews::all();
         return view('pages.news',[
             'data_medsos'=>$data_medsos,
             'data_footer'=>$data_footer,
             'clubs' => $club, 
-            'users' => $user
+            'users' => $user,
+            'news' => $news
             ]);
 
     }
-    public function news_desc()
+    public function news_desc($id)
     {
         
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
         $club = Clubs::all();
         $user = User::all();
+        $news = CMSNews::find($id);
         return view('pages.news-read',[
             'data_medsos'=>$data_medsos,
             'data_footer'=>$data_footer,
             'clubs' => $club, 
-            'users' => $user
+            'users' => $user,
+            'news' => $news
             ]);
 
     }
