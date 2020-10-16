@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\CMSMedsos;
 use App\CMSFooter;
+use App\CMSHeader;
 
 class CmsHomeController extends Controller
 {
@@ -22,6 +23,7 @@ class CmsHomeController extends Controller
     public function header()
     {
         $data_medsos = CMSMedsos::all();
+        $data_medsos = CMSHeader::all();
         return view('admin.pages.cms.cms-header',['data_medsos'=>$data_medsos]);
     }
     public function content()

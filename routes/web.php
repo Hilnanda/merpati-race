@@ -33,6 +33,15 @@ Route::prefix('admin')
         Route::post('/club/edit', 'ClubController@edit');
         Route::get('/club/delete/{id}', 'ClubController@destroy');
 
+        // contact
+        Route::get('/list-contact', 'ContactController@index')->name('list-contact');
+        Route::post('/contact/create', 'ContactController@create');
+        Route::post('/contact/edit', 'ContactController@edit')->name('contact-edit');
+        Route::get('/contact/delete/{id}', 'ContactController@destroy');
+
+        // product service
+        Route::get('/list-product-service', 'ProductController@index')->name('list-ps');
+
         //content route admin
         Route::get('/cms-header', 'CmsHomeController@index')->name('cms-header-dashboard');
 

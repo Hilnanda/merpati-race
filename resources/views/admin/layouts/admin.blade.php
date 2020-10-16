@@ -144,20 +144,20 @@
                         </ul>
                     </li>
                     <li class="">
-                        <a href="{{ route('list-club') }}">
-                            <i class="fa fa-star"></i> <span>CMS Product & Service</span>
+                        <a href="{{ route('list-ps') }}">
+                            <i class="fa fa-product-hunt"></i> <span>CMS Product & Service</span>
                            
                         </a>
                         
                     </li>
-                    <li class="">
-                        <a href="{{ route('list-club') }}">
-                            <i class="fa fa-star"></i> <span>CMS Contact</span>
+                    <li class="{{ (request()->is('admin/list-contact*')) ? 'active' : '' }}">
+                        <a href="{{ route('list-contact') }}">
+                            <i class="fa fa-address-card-o"></i> <span>CMS Contact</span>
                            
                         </a>
                         
                     </li>
-                    <li class="">
+                    <li class="{{ (request()->is('admin/news*')) ? 'active' : '' }}">
                         <a href="{{ route('news-admin') }}">
                             <i class="fa fa-newspaper-o"></i> <span>CMS News</span>
                            

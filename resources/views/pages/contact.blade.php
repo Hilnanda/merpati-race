@@ -34,22 +34,17 @@
                         
 
                         <!-- Single Contact Info -->
+                        <h4>Customer Support</h4>
                         <div class="single-contact-info d-flex align-items-center">
+                            @foreach ($contact as $item)
                             
-                            <h6>1481 Creekside Lane Avila Beach, CA 931</h6>
+                            <h6>{!! $item->customer_contact !!}</h6>
+                            @endforeach
+                            
                         </div>
 
                         <!-- Single Contact Info -->
-                        <div class="single-contact-info d-flex align-items-center">
-                            
-                            <h6>+53 345 7953 32453</h6>
-                        </div>
-
-                        <!-- Single Contact Info -->
-                        <div class="single-contact-info d-flex align-items-center">
-                            
-                            <h6>yourmail@gmail.com</h6>
-                        </div>
+                        
                     </div>
                 </div>
 
@@ -58,7 +53,9 @@
                         <h5>Alamat</h5>
                         <!-- Contact Form Area -->
                         <div class="contact-form-area">
-                            <p>Kalpataru Malang</p>
+                            @foreach ($contact as $item)
+                            {!! $item->address_contact !!}
+                            @endforeach
                         </div>
                     </div>
                 </div>

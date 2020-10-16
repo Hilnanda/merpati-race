@@ -8,6 +8,7 @@ use App\CMSMedsos;
 use App\Clubs;
 use App\User;
 use App\CMSNews;
+use App\CMSContact;
 
 
 class HomeController extends Controller
@@ -24,11 +25,15 @@ class HomeController extends Controller
         $data_footer = CMSFooter::all();
         $club = Clubs::all();
         $user = User::all();
+        $news = CMSNews::limit(3)
+        ->get();
+        // dd($news);
         return view('pages.home',[
             'data_medsos'=>$data_medsos,
             'data_footer'=>$data_footer,
             'clubs' => $club, 
-            'users' => $user
+            'users' => $user,
+            'news' => $news,
             ]);
 
     }
@@ -39,11 +44,13 @@ class HomeController extends Controller
         $data_footer = CMSFooter::all();
         $club = Clubs::all();
         $user = User::all();
+        $contact = CMSContact::limit(1)->get();
         return view('pages.contact',[
             'data_medsos'=>$data_medsos,
             'data_footer'=>$data_footer,
             'clubs' => $club, 
-            'users' => $user
+            'users' => $user,
+            'contact' => $contact
             ]);
 
     }

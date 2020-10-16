@@ -71,32 +71,73 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="section-heading">
-                        <h2>Artist Bio</h2>
-                        <h6>Sed porta cursus enim, vitae maximus felis luctus iaculis.</h6>
+                    <div class="section-heading dark" >
+                        <h2 style="color: white">Perlombaan merpati</h2>
+                        <h5 style="color: white">Website Untuk Perlombaan Burung Merpati.</h5>
                     </div>
                 </div>
             </div>
 
             <div class="row">
-                <!-- About Thumbnail -->
-                <div class="col-12 col-lg-6">
-                    <div class="about-thumbnail mb-100">
-                        <img src="img/bg-img/bg-5.jpg" alt="">
-                    </div>
-                </div>
-                <!-- About Content -->
-                <div class="col-12 col-lg-6">
-                    <div class="about-content mb-100">
-                        <h4>Hello, It’s Michael Smithson</h4>
-                        <p>Nulla pretium tincidunt felis, nec sollicitudin mauris lobortis in. Aliquam eu feugiat ligula,
-                            laoreet efficitur nulla. Morbi nec neque porta, elementum massa at, vehicula nunc. Nulla
-                            facilisi. Donec id purus eu lectus imperdiet varius. Curabitur consectetur nunc sem, vitae
-                            cursus enim tempor eget. Praesent pellentesque nisi urna, sit amet suscipit ligula posuere id.
-                            Aenean id tortor vel quam ornare gravida. Phasellus luctus feugiat nunc, quis vulputate ipsum
-                            convallis quis. Integer vel nulla erat. Donec erat metus, luctus quis maximus quis, volutpat eu
-                            tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
-                        <img src="img/core-img/signature.png" alt="">
+                <div class="col-12">
+                    <div class="featured-shows-slides owl-carousel">
+
+                        <!-- Single Featured Shows -->
+                        <div class="single-featured-shows">
+                            <img src="image-logo/burung.jpg" alt="">
+                            <!-- Content -->
+                            <div class="featured-shows-content">
+                                <div class="shows-text">
+                                    <a href="#" class="buy-tickets-btn"><h4>Pigeon</h4>
+                                    {{-- <p>January 23</p> --}}
+                                    </a>
+                                </div>
+                                <div class="bg-gradients"></div>
+                            </div>
+                        </div>
+
+                        <!-- Single Featured Shows -->
+                        <div class="single-featured-shows">
+                            <img src="image-logo/pigeon-racing.jpg" alt="">
+                            <!-- Content -->
+                            <div class="featured-shows-content">
+                                <div class="shows-text">
+                                    <a href="#" class="buy-tickets-btn"><h4>Event</h4>
+                                        {{-- <p>January 23</p> --}}
+                                        </a>
+                                </div>
+                                <div class="bg-gradients"></div>
+                            </div>
+                        </div>
+
+                        <!-- Single Featured Shows -->
+                        <div class="single-featured-shows">
+                            <img src="image-logo/list.jpg" alt="">
+                            <!-- Content -->
+                            <div class="featured-shows-content">
+                                <div class="shows-text">
+                                    <a href="#" class="buy-tickets-btn"><h4>Result</h4>
+                                        {{-- <p>January 23</p> --}}
+                                        </a>
+                                </div>
+                                <div class="bg-gradients"></div>
+                            </div>
+                        </div>
+
+                        <!-- Single Featured Shows -->
+                        <div class="single-featured-shows">
+                            <img src="image-logo/club.jpg" alt="">
+                            <!-- Content -->
+                            <div class="featured-shows-content">
+                                <div class="shows-text">
+                                    <a href="#" class="buy-tickets-btn"><h4>Club</h4>
+                                        <p></p>
+                                        </a>
+                                </div>
+                                <div class="bg-gradients"></div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -602,39 +643,34 @@
     <div class="featured-album-area section-padding-100 clearfix">
         <div class="container-fluid">
             <div class="row">
+                <div class="col-12">
+                    <div class="section-heading dark">
+                        <h2 style="color: white">Berita Terkini</h2>
+                        {{-- <h6>Sed porta cursus enim, vitae maximus felis luctus iaculis.</h6> --}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach ($news as $item)
                 <div class="col-4">
                     
                     <div class="card" >
-                        <img class="card-img-top" src="img/bg-img/bg-5.jpg" alt="Card image" style="width:100%">
+                        <img class="card-img-top" src="{{ asset('image/'.$item->image_news.'') }}" alt="Card image" style="width:100%;height: 250px;">
                         <div class="card-body">
-                        <h4 class="card-title">John Doe</h4>
-                        <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                        <a href="/news/desc" class="btn musica-btn">Read More</a>
+                        <h4 class="card-title">{{ $item->title_news }}</h4>
+                        <p class="card-text">
+                            @if (strlen($item->desc_news)<100)
+                            {!! $item->desc_news !!}
+                            @else
+                            {!! substr($item->desc_news,0,100).'.....' !!}
+                        @endif</p>
+                        <a href="/news/desc/{{ $item->id }}" class="btn musica-btn">Read More</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
-                    
-                    <div class="card" >
-                        <img class="card-img-top" src="img/bg-img/bg-5.jpg" alt="Card image" style="width:100%">
-                        <div class="card-body">
-                        <h4 class="card-title">John Doe</h4>
-                        <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                        <a href="/news/desc" class="btn musica-btn">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    
-                    <div class="card" >
-                        <img class="card-img-top" src="img/bg-img/bg-5.jpg" alt="Card image" style="width:100%">
-                        <div class="card-body">
-                        <h4 class="card-title">John Doe</h4>
-                        <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                        <a href="/news/desc" class="btn musica-btn">Read More</a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+                
+                
             </div>
         </div>
     </div>
