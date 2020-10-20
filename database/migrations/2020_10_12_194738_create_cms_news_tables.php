@@ -17,8 +17,8 @@ class CreateCmsNewsTables extends Migration
             $table->id();
             $table->string('title_news');
             $table->string('image_news');
-            $table->string('desc_news');
-            $table->dateTimeTz('date_news', 0);
+            $table->longText('desc_news');
+            $table->string('date_news',0)->nullable();
             $table->timestampsTz();
         });
     }

@@ -16,6 +16,7 @@ class CreatePigeonsTables extends Migration
         Schema::create('pigeons', function (Blueprint $table) {
             $table->id();
             $table->string('uid_pigeon')->unique();
+            $table->decimal('ring_size_pigeon');
             $table->index('id_club');
             $table->foreignId('id_club')->references('id')->on('clubs')->onDelete('cascade')->onUpdate('cascade');
             $table->string('name_pigeon')->nullable();

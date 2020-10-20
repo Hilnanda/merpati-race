@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCmsContactTables extends Migration
+class CreateTeamTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateCmsContactTables extends Migration
      */
     public function up()
     {
-        Schema::create('cms_contact', function (Blueprint $table) {
+        Schema::create('teams', function (Blueprint $table) {
             $table->id();
-            $table->longText('customer_contact');
-            $table->longText('address_contact');
+            $table->index('id_user');
+            $table->foreignId('id_user')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('name_team');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateCmsContactTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cms_contact');
+        Schema::dropIfExists('teams');
     }
 }

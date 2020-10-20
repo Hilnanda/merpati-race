@@ -18,6 +18,7 @@ class CreateCmsMedsosTables extends Migration
             $table->string('name_medsos')->unique();
             $table->string('url_medsos')->unique();
             $table->string('username_medsos')->nullable();
+            $table->string('icon_medsos');
             $table->timestamps();
         });
     }

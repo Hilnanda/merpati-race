@@ -18,6 +18,7 @@ class CreateCmsHeaderTables extends Migration
             $table->string('name_website');
             $table->string('name_corousel');
             $table->string('image_corousel');
+            $table->string('desc_title');
             $table->timestamps();
         });
     }

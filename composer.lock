@@ -217,20 +217,6 @@
                 "redis",
                 "xcache"
             ],
-            "funding": [
-                {
-                    "url": "https://www.doctrine-project.org/sponsorship.html",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://www.patreon.com/phpdoctrine",
-                    "type": "patreon"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Fcache",
-                    "type": "tidelift"
-                }
-            ],
             "time": "2020-07-07T18:54:01+00:00"
         },
         {
@@ -325,20 +311,6 @@
                 "sqlserver",
                 "sqlsrv"
             ],
-            "funding": [
-                {
-                    "url": "https://www.doctrine-project.org/sponsorship.html",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://www.patreon.com/phpdoctrine",
-                    "type": "patreon"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Fdbal",
-                    "type": "tidelift"
-                }
-            ],
             "time": "2020-09-27T04:09:41+00:00"
         },
         {
@@ -414,20 +386,6 @@
                 "event manager",
                 "event system",
                 "events"
-            ],
-            "funding": [
-                {
-                    "url": "https://www.doctrine-project.org/sponsorship.html",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://www.patreon.com/phpdoctrine",
-                    "type": "patreon"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Fevent-manager",
-                    "type": "tidelift"
-                }
             ],
             "time": "2020-05-29T18:28:51+00:00"
         },
@@ -621,12 +579,6 @@
             "keywords": [
                 "cron",
                 "schedule"
-            ],
-            "funding": [
-                {
-                    "url": "https://github.com/dragonmantank",
-                    "type": "github"
-                }
             ],
             "time": "2020-10-13T00:52:37+00:00"
         },
@@ -1627,16 +1579,6 @@
                 "date",
                 "datetime",
                 "time"
-            ],
-            "funding": [
-                {
-                    "url": "https://opencollective.com/Carbon",
-                    "type": "open_collective"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/nesbot/carbon",
-                    "type": "tidelift"
-                }
             ],
             "time": "2020-10-12T20:36:09+00:00"
         },
@@ -6465,6 +6407,5 @@
     "platform": {
         "php": "^7.2.5"
     },
-    "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "platform-dev": []
 }
