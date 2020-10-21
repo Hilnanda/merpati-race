@@ -138,6 +138,20 @@
                             </div>
                         </div>
 
+                        <!-- Single Featured Shows -->
+                        <div class="single-featured-shows">
+                            <img src="image-logo/team.jpg" alt="">
+                            <!-- Content -->
+                            <div class="featured-shows-content">
+                                <div class="shows-text">
+                                    <a href="#" class="buy-tickets-btn"><h4>Team</h4>
+                                        <p></p>
+                                        </a>
+                                </div>
+                                <div class="bg-gradients"></div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
