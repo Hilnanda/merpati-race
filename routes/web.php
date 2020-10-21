@@ -81,3 +81,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+//user club
+Route::get('/club','ClubController@page_awal');
