@@ -7,7 +7,7 @@
                 <nav class="classy-navbar justify-content-between" id="musicaNav">
 
                     <!-- Nav brand -->
-                    <a href="index.html" class="nav-brand"><img src="img/core-img/logo.png" alt=""></a>
+                    <a href="/" class="nav-brand"><img src="image/favicon.ico" alt=""></a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
