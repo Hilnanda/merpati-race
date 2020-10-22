@@ -83,6 +83,8 @@ Route::prefix('admin')
             });
     });
 
+Route::get('/events', 'EventController@index')->name('events');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
