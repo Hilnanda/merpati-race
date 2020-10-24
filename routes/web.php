@@ -22,7 +22,7 @@ Route::get('/news', 'HomeController@news')->name('home-news');
 Route::get('/news/desc/{id}', 'HomeController@news_desc');
 Route::get('/club', 'HomeController@club')->name('club');
 Route::get('/club/add_training', 'HomeController@add_training')->name('add_training');
-Route::post('/club/add_training/post', 'HomeController@add_training_post')->name('add_training_post');
+Route::post('/club/add_training/post', 'HomeController@add_training_post')->name('add_training_pos');
 
 
 Route::prefix('admin')
