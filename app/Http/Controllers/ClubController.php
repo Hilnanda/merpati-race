@@ -10,15 +10,13 @@ use App\User;
 use App\CMSNews;
 use App\CMSContact;
 
-
-class HomeController extends Controller
+class ClubController extends Controller
 {
+    //
+    public function page_awal(){
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+        return view('club.page_awal');
+    }
     public function index()
     {
         $data_medsos = CMSMedsos::all();
@@ -120,37 +118,4 @@ class HomeController extends Controller
             ]);
 
     }
-   public function club()
-   {
-    $data_medsos = CMSMedsos::all();
-        $data_footer = CMSFooter::all();
-        $club = Clubs::all();
-        $user = User::all();
-        $news = CMSNews::all();
-        return view('club.page_awal',[
-            'data_medsos'=>$data_medsos,
-            'data_footer'=>$data_footer,
-            'clubs' => $club, 
-            'users' => $user,
-            'news' => $news
-            ]);
-   }
-   public function add_training(){
-    $data_medsos = CMSMedsos::all();
-    $data_footer = CMSFooter::all();
-    $club = Clubs::all();
-    $user = User::all();
-    $news = CMSNews::all();
-    return view('club.add_training',[
-        'data_medsos'=>$data_medsos,
-        'data_footer'=>$data_footer,
-        'clubs' => $club, 
-        'users' => $user,
-        'news' => $news
-        ]);
-   }
-   public function add_training_post(Request $request){
-        $training = $request->all();
-        return redirect('/club');
-   }
 }
