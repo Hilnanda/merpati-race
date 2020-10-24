@@ -37,6 +37,12 @@ Route::prefix('admin')
         Route::post('/club/edit', 'ClubController@edit');
         Route::get('/club/delete/{id}', 'ClubController@destroy');
 
+        // Event
+        Route::get('/list-event', 'EventController@index')->name('list-event');
+        Route::post('/event/create', 'EventController@store');
+        Route::post('/event/update/{id}', 'EventController@update');
+        Route::get('/event/delete/{id}', 'EventController@destroy');
+
         // contact
         Route::get('/list-contact', 'ContactController@index')->name('list-contact');
         Route::post('/contact/create', 'ContactController@create');
@@ -79,6 +85,8 @@ Route::prefix('admin')
 
             });
     });
+
+Route::get('/events', 'EventController@index')->name('events');
 
 Auth::routes();
 
