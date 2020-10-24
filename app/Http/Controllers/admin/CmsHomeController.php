@@ -23,7 +23,7 @@ class CmsHomeController extends Controller
     public function header()
     {
         $data_medsos = CMSMedsos::all();
-        $data_medsos = CMSHeader::all();
+        // $data_medsos = CMSHeader::all();
         return view('admin.pages.cms.cms-header',['data_medsos'=>$data_medsos]);
     }
     public function content()

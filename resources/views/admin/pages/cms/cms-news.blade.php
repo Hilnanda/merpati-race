@@ -91,12 +91,13 @@
                     <td>{{$loop->index+1}}</td>
                     <td>{{$item->title_news}}</td>
                     <td><a href="{{ asset('image/'.$item->image_news.'') }}"><img style="max-width: 250px" src="{{ asset('image/'.$item->image_news.'') }}"></a></td>
-                    <td>@if (strlen($item->desc_news)<100)
-                        {!! $item->desc_news !!}
+                    @if (strlen($item->desc_news)<100)
+                        <td>{!! $item->desc_news !!}</td>
                         @else
-                        {!! substr($item->desc_news,0,100).'.....' !!}</td>
+                        <td>{!! substr($item->desc_news,0,100).'.....' !!}</td>
                     @endif
-                    <td>{{date('d F Y  H:i:s', strtotime($item->created_at))}}</td>
+                    
+                    <td>{{ date('d F Y  H:i:s', strtotime($item->created_at)) }}</td>
                     <td><a href="/admin/news/{{$item->id}}" class="btn btn-warning btn-sm"><span class="font-weight-bold ml-1">Edit</span></a> 
                         <a href="/admin/news/delete/{{$item->id}}" class="btn btn-danger btn-sm delete-club"><span
                                         class="font-weight-bold ml-1">Hapus</span></a></td>
