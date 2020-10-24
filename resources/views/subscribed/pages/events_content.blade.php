@@ -13,7 +13,7 @@
         <!-- /.box-header -->
         <h4>Lomba Sedang Berlangsung</h4>
         <div class="box-body">
-            <table id="example1" class="table table-bordered table-striped">
+            <table id="events_on_going" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
                     <th>Nama</th>
@@ -57,7 +57,7 @@
         <!-- /.box-header -->
         <h4>Lomba Belum Berlangsung</h4>
         <div class="box-body">
-            <table id="example2" class="table table-bordered table-striped">
+            <table id="events_soon" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
                     <th>Nama</th>
