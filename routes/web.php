@@ -62,6 +62,10 @@ Route::prefix('admin')
         Route::post('/news/edit', 'NewsController@edit');
         Route::get('/news/delete/{id}', 'NewsController@destroy');
 
+        //user 
+        Route::get('/user', 'ListUserController@index')->name('list-user');
+
+
         // kelompok untuk cms
         // http admin/cms/...
         Route::prefix('cms')
