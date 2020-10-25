@@ -35,6 +35,10 @@ Route::prefix('admin')
         Route::post('/club/edit', 'ClubController@edit');
         Route::get('/club/delete/{id}', 'ClubController@destroy');
 
+        //team
+        Route::get('/list-team', 'ListTeamController@index')->name('list-team');
+
+
         // Event
         Route::get('/list-event', 'EventController@index')->name('list-event');
         Route::post('/event/create', 'EventController@store');

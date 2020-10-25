@@ -38,7 +38,7 @@ class EventController extends Controller
             }
         }
 
-        return view('subscribed.layout.events_layout', [
+        return view('subscribed.pages.events_content', [
             'data_medsos'=>$data_medsos,
             'data_footer'=>$data_footer,
             'events_on_going' => $events_on_going,

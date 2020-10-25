@@ -143,6 +143,11 @@
                             <i class="fa fa-user"></i> <span>User</span>
                         </a>
                     </li>
+                    <li class="{{ (request()->is('admin/list-team*')) ? 'active' : '' }}">
+                        <a href="{{ route('list-team') }}">
+                            <i class="fa fa-users"></i> <span>Team</span>
+                        </a>
+                    </li>
                     <li class="header">COMPANY PROFILE</li>
                     <li class="treeview {{ (request()->is('admin/cms/*')) ? 'active menu-open' : '' }}">
                         <a href="#">

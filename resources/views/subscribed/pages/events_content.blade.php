@@ -1,4 +1,9 @@
-<!-- ##### Breadcumb Area Start ##### -->
+@extends('subscribed.layout.subscribed')
+@section('title')
+    Lomba
+@endsection
+@section('content')
+    <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url(image/breadcumb-1.jpg);">
     <div class="bradcumbContent">
         <h2>Lomba</h2>
@@ -95,3 +100,4 @@
         <!-- /.box-body -->
     </div>
 </div>
+@endsection
