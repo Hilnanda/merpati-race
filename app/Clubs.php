@@ -15,10 +15,16 @@ class Clubs extends Model
         'name_club',
         'lat_club',
         'lng_club',
-        'address_club'];
+        'address_club',
+        'manager_club'
+    ];
     public function pigeons()
     {
         return $this->hasMany('App\Pigeons', 'id');
+    }
+    public function manager()
+    {
+        return $this->belongsTo('App\User', 'manager_club', 'id');
     }
     public function user()
     {
