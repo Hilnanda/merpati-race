@@ -118,7 +118,7 @@ Dashboard Panitia
                 <td>{{ $event->lat_event_end ? '(' . $event->lat_event_end . '), (' . $event->lng_event_end . ')' : '-' }}</td>
                 <td>{{ $event->address_event }}</td>
                 <td>{{ $event->release_time_event }}</td>
-                <td>{{ $event->expired_time_event }}</td>
+                <td>{{ $event->expired_time_event ? $event->expired_time_event : '-' }}</td>
                 <td>Rp {{ number_format($event->price_event, 2) }}</td>
                 <td><a href="#" class="btn btn-warning btn-sm" data-toggle="modal"
                   data-target="#editModal{{$event->id}}"><span class="font-weight-bold ml-1">Edit</span></a> 

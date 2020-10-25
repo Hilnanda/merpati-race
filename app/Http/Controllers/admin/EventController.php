@@ -22,7 +22,9 @@ class EventController extends Controller
 
         foreach ($events as $event) {
             $event->release_time_event = $this->formatDateLocal($event->release_time_event);
-            $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
+            if (!is_null($event->expired_time_event)) {
+                $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
+            }
         }
 
         return view('admin.pages.list-event', ['events' => $events, 'users' => $users]);
@@ -39,7 +41,10 @@ class EventController extends Controller
         $data = $request->all();
 
         $data['release_time_event'] = str_replace("T", " ", $request->release_time_event);
-        $data['expired_time_event'] = str_replace("T", " ", $request->expired_time_event);
+
+        if (isset($data['expired_time_event'])) {
+            $data['expired_time_event'] = str_replace("T", " ", $request->expired_time_event);
+        }
 
         Events::create($data);
 
@@ -70,7 +75,10 @@ class EventController extends Controller
         $data = $request->all();
 
         $data['release_time_event'] = str_replace("T", " ", $request->release_time_event);
-        $data['expired_time_event'] = str_replace("T", " ", $request->expired_time_event);
+        
+        if (isset($data['expired_time_event'])) {
+            $data['expired_time_event'] = str_replace("T", " ", $request->expired_time_event);
+        }
 
         $event->update($data);
 
