@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\CMSFooter;
+use App\CMSMedsos;
 use App\User;
 use App\Events;
 use Carbon\Carbon;
@@ -18,6 +20,8 @@ class EventController extends Controller
     {
         $events = Events::all();
         $users = User::all();
+        $data_medsos = CMSMedsos::all();
+        $data_footer = CMSFooter::all();
 
         $current_datetime = Carbon::now();
 
@@ -34,7 +38,13 @@ class EventController extends Controller
             }
         }
 
-        return view('subscribed.layout.events_layout', ['events_on_going' => $events_on_going, 'events_soon' => $events_soon, 'users' => $users, 'current_datetime' => $current_datetime]);
+        return view('subscribed.layout.events_layout', [
+            'data_medsos'=>$data_medsos,
+            'data_footer'=>$data_footer,
+            'events_on_going' => $events_on_going,
+            'events_soon' => $events_soon,
+            'users' => $users,
+            'current_datetime' => $current_datetime]);
     }
 
     /**

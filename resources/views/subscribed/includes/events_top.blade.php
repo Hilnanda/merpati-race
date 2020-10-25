@@ -15,7 +15,7 @@
     <link rel="icon" href="image/favicon.ico">
 
     <!-- Core Stylesheet -->
-    <link rel="stylesheet" href="{{ url('style.css') }}">
+    @include('includes.style')
 
 </head>
 
