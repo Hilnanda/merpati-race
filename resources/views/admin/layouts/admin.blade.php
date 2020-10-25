@@ -133,6 +133,16 @@
                             <i class="fa fa-superpowers"></i> <span>Lomba</span>
                         </a>
                     </li>
+                    <li class="{{ (request()->is('admin/list-event*')) ? 'active' : '' }}">
+                        <a href="{{ route('list-event') }}">
+                            <i class="fa fa-twitter"></i> <span>Pigeon</span>
+                        </a>
+                    </li>
+                    <li class="{{ (request()->is('admin/list-user*')) ? 'active' : '' }}">
+                        <a href="{{ route('list-user') }}">
+                            <i class="fa fa-user"></i> <span>User</span>
+                        </a>
+                    </li>
                     <li class="header">COMPANY PROFILE</li>
                     <li class="treeview {{ (request()->is('admin/cms/*')) ? 'active menu-open' : '' }}">
                         <a href="#">
