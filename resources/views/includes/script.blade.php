@@ -9,3 +9,28 @@
     <script src="{{ url('js/plugins/plugins.js') }}"></script>
     <!-- Active js -->
     <script src="{{ url('js/active.js') }}"></script>
+
+    <script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js') }}"></script>
+    <script>
+        @if(session('Sukses'))
+            swal("Sukses!", "{{ session('Sukses') }}", "success");
+        @endif
+        @if(session('Gagal'))
+            swal("Gagal!", "{{ session('Gagal') }}", "error");
+        @endif
+
+        $('.delete-club').on('click', function (event) {
+            event.preventDefault();
+            const url = $(this).attr('href');
+            swal({
+                title: 'Apakah yakin ingin menghapus data?',
+                text: 'Data akan terhapus secara permanen',
+                icon: 'warning',
+                buttons: ["Tidak", "Ya!"],
+            }).then(function (value) {
+                if (value) {
+                    window.location.href = url;
+                }
+            });
+        });
+    </script>

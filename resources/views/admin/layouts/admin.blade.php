@@ -13,8 +13,7 @@
     @stack('admin-top-style')
     @include('admin.includes-admin.style')
     @stack('admin-top-style')
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css') }}">
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
