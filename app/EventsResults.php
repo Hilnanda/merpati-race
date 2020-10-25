@@ -12,7 +12,9 @@ class EventsResults extends Model
     //deklarasi field yang bisa diisi pada table
     protected $fillable = [
         'speed_event_result',
-        'id_event_participant'];
+        'id_event_participant'
+    ];
+
     public function events_participants()
     {
         return $this->belongsTo('App\EventsParticipants', 'id_event_participant','id');
