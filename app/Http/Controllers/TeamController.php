@@ -60,6 +60,13 @@ class TeamController extends Controller
         return back()->with('Sukses','Berhasil menambahkan data!');
     }
 
+    public function join_team(Request $request)
+    {
+        TeamMembers::create($request->all());
+
+        return back()->with('Sukses','Berhasil menambahkan data!');
+    }
+
     public function details_ikut($id)
     {
         $team = Team::all();

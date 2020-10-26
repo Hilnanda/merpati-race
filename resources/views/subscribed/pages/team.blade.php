@@ -189,17 +189,16 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="/team/create" method="POST">
+                                                    <form action="/team/join-team" method="POST">
                                                         {{ csrf_field() }}
                                                         <div class="form-group">
                                                             <label for="">Nama Club</label>
                                                             <input type="hidden" name="id_team" value="{{ $item->id }}">
-                                                            <select name="id_user" class="form-control" required>
+                                                            <select name="id_club" class="form-control" required>
                                                                 <option value="">-- Pilih Club --</option>
                                                                 @foreach($club as $clubs)
                                                                 @if ($item->id!=$clubs->id_team)
                                                                 <option value="{{$clubs->id}}">{{$clubs->name_club}}</option>
-                                                                    
                                                                 @endif
                                                                 @endforeach
                                                               </select>
