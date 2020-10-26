@@ -15,11 +15,12 @@ class TeamController extends Controller
 {
     public function index()
     {
-        $team = Team::where('teams.id_user','!=',auth()->user()->id)
-        ->where('teams.is_active', 1)
+        $team = Team::all();
+        $club = DB::table('team_members')
+        ->rightJoin('clubs', 'team_members.id_club', '=', 'clubs.id')
+        ->where('clubs.id_user','=',auth()->user()->id)
         ->get();
-        $club = Clubs::where('id_user','=',auth()->user()->id)
-        ->get();
+        // dd($club);
         $user = User::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
@@ -28,6 +29,7 @@ class TeamController extends Controller
         $teamku = Team::where('id_user', auth()->user()->id)
             ->where('teams.is_active', 1)
             ->get();
+
         $team_ikut = DB::table('team_members')
             ->join('teams', 'team_members.id_team', '=', 'teams.id')
             ->join('clubs', 'team_members.id_club', '=', 'clubs.id')

@@ -195,9 +195,12 @@
                                                             <label for="">Nama Club</label>
                                                             <input type="hidden" name="id_team" value="{{ $item->id }}">
                                                             <select name="id_user" class="form-control" required>
-                                                                <option value="">-- Pilih User --</option>
+                                                                <option value="">-- Pilih Club --</option>
                                                                 @foreach($club as $clubs)
-                                                                  <option value="{{$clubs->id}}">{{$clubs->name_club}}</option>
+                                                                @if ($item->id!=$clubs->id_team)
+                                                                <option value="{{$clubs->id}}">{{$clubs->name_club}}</option>
+                                                                    
+                                                                @endif
                                                                 @endforeach
                                                               </select>
                                                         </div>

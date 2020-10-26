@@ -21,4 +21,8 @@ class TeamMembers extends Model
     {
         return $this->belongsTo('App\Team', 'id_team','id');
     }
+    public function club()
+    {
+        return $this->belongsTo('App\Clubs', 'id_club','id');
+    }
 }
