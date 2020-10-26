@@ -108,6 +108,8 @@ Route::middleware('is_subscribed')->group(function () {
 
     //team
     Route::get('/team', 'TeamController@index')->name('teams');
+    Route::get('/team/details/{id}','TeamController@details_ikut');
+
     });
 
 Auth::routes();
