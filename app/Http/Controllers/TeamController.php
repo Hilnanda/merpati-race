@@ -16,10 +16,12 @@ class TeamController extends Controller
     public function index()
     {
         $team = Team::where('teams.id_user','!=',auth()->user()->id)
+        ->where('teams.is_active', 1)
         ->get();
         $user = User::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
+        $auth_session = auth()->user()->id;
 
         $teamku = Team::where('id_user', auth()->user()->id)
             ->where('teams.is_active', 1)
@@ -42,7 +44,15 @@ class TeamController extends Controller
             'data_footer' => $data_footer,
             'teamku' => $teamku,
             'team_ikut' => $team_ikut,
+            'auth' => $auth_session,
         ]);
+    }
+
+    public function team_create(Request $request)
+    {
+        Team::create($request->all());
+
+        return back()->with('Sukses','Berhasil menambahkan data!');
     }
 
     public function details_ikut($id)
