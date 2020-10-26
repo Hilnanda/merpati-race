@@ -39,6 +39,7 @@ Route::prefix('admin')
         Route::post('/team/create', 'ListTeamController@create');
         Route::get('/team/delete/{id}', 'ListTeamController@destroy');
         Route::post('/team/edit', 'ListTeamController@edit');
+        Route::get('/team/verifikasi/{id}', 'ListTeamController@verifikasi');
 
 
 
@@ -107,7 +108,9 @@ Route::middleware('is_subscribed')->group(function () {
 
     //team
     Route::get('/team', 'TeamController@index')->name('teams');
+    Route::post('/team/create', 'TeamController@team_create');
     Route::get('/team/details/{id}','TeamController@details_ikut');
+    Route::get('/team/details-teamku/{id}','TeamController@details_saya');
 
     });
 

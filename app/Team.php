@@ -13,7 +13,8 @@ class Team extends Model
     protected $fillable = [
         'id_user',
         'name_team',
-        'desc_team'
+        'desc_team',
+        'is_active'
     ];
     // public function clubs()
     // {

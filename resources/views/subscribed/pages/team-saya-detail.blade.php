@@ -12,7 +12,15 @@
 <!-- bg gradients -->
 <div class="bg-gradients"></div>
 <!-- ##### Breadcumb Area End ##### -->
-
+<div class="row mt-5 px-5">
+    <div class="col-12">
+        @foreach ($team as $item)
+            <h4>Team Details</h4>
+            <h5>Nama Team : <b style="color: red">{{ $item->name_team }}</b></h5>
+            <h5>Deskripsi Team : <b style="color: red">{{ $item->desc_team }}</b></h5>
+        @endforeach
+    </div>
+</div>
 <div class="row mt-5 px-5">
     <div class="col-lg-12">
         <!-- /.box-header -->
