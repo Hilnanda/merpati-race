@@ -6,7 +6,7 @@
     <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url(image/breadcumb-1.jpg);">
     <div class="bradcumbContent">
-        <h2>Team</h2>
+        <h2>Team Details</h2>
     </div>
 </div>
 <!-- bg gradients -->
@@ -38,7 +38,7 @@
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
                         <td>{{ $item->name_team }}</td>
-                        <td>{{ $item->user->username }}</td>
+                        <td>{{ $item->username }}</td>
                         <td>{{ date('d F Y  H:i:s', strtotime($item->created_at)) }}</td>
                         <td class="action-link">
                             

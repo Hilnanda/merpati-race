@@ -57,7 +57,7 @@
         <!-- /.box-header -->
         <h4>List Team yang Diikuti</h4>
         <div class="box-body">
-            <table id="table_one" class="table table-bordered table-striped">
+            <table id="table_two" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
                     <th>Nama Team</th>
@@ -83,7 +83,7 @@
                         <td>{{ date('d F Y  H:i:s', strtotime($item->created_at)) }}</td>
                         <td class="action-link">
                             
-                            <a href="/team/details/{{ $item->id }}" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
+                            <a href="/team/details/{{ $item->id_team }}" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
                         </td>
                     </tr>
                     @endforeach
@@ -98,7 +98,7 @@
         <!-- /.box-header -->
         <h4>List Team yang Terdaftar</h4>
         <div class="box-body">
-            <table id="table_two" class="table table-bordered table-striped">
+            <table id="table_three" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
                     <th>Nama Team</th>

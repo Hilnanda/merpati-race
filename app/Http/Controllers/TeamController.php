@@ -54,7 +54,7 @@ class TeamController extends Controller
             ->join('users', 'users.id', '=', 'clubs.id_user')
             ->where('team_members.id_team', $id)
             ->get();
-
+        // dd($team_ikut)
         return view('subscribed.pages.team-ikut-detail', [
             'team' => $team,
             'users' => $user,

@@ -17,6 +17,7 @@
   $(function () {
     $('#table_one').DataTable()
     $('#table_two').DataTable()
+    $('#table_three').DataTable()
 })
 </script>
 
