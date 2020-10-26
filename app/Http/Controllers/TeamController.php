@@ -62,6 +62,7 @@ class TeamController extends Controller
 
     public function join_team(Request $request)
     {
+        // dd($request->all());
         TeamMembers::create($request->all());
 
         return back()->with('Sukses','Berhasil menambahkan data!');
@@ -69,7 +70,9 @@ class TeamController extends Controller
 
     public function details_ikut($id)
     {
-        $team = Team::all();
+        $team = Team::where('id','=',$id)
+        ->where('is_active', 1)
+        ->get();
         $user = User::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
