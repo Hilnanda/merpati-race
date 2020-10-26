@@ -99,8 +99,7 @@ Route::prefix('admin')
 Route::middleware('is_subscribed')->group(function () {
     // Clubs
     Route::get('/club', 'HomeController@club')->name('club');
-    Route::get('/club/add_training', 'HomeController@add_training')->name('add_training');
-    Route::post('/club/add_training/post', 'HomeController@add_training_post')->name('add_training_pos');
+    
 
     // Events
     Route::get('/events', 'EventController@index')->name('events');
