@@ -46,4 +46,8 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Team','id');
     }
+    public function pigeons()
+    {
+        return $this->hasMany('App\Pigeons','id');
+    }
 }

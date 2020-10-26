@@ -114,6 +114,12 @@ Route::middleware('is_subscribed')->group(function () {
     Route::get('/team/details/{id}','TeamController@details_ikut');
     Route::get('/team/details-teamku/{id}','TeamController@details_saya');
 
+    //pigeons
+    Route::get('/pigeons','PigeonsController@index');
+    Route::get('/pigeons/burungku','PigeonsController@burungku');
+    Route::get('/pigeons/topburung','PigeonsController@topburung');
+    Route::post('/pigeons/create','PigeonsController@store');
+
     });
 
 Auth::routes();

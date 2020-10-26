@@ -12,16 +12,15 @@ class Pigeons extends Model
     //deklarasi field yang bisa diisi pada table
     protected $fillable = [
         'uid_pigeon',
-        'id_club',
+        'ring_size_pigeon',
+        'id_user',
         'name_pigeon',
         'sex_pigeon',
-        'color_pigeon'];
-    public function clubs()
+        'color_pigeon',
+        'is_active'];
+    public function user()
     {
-        return $this->belongsTo('App\Clubs', 'id_club','id');
+        return $this->belongsTo('App\User', 'id_user','id');
     }
-    public function events_participants()
-    {
-        return $this->hasMany('App\EventsParticipants','id');
-    }
+    
 }
