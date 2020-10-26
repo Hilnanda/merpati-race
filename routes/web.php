@@ -99,7 +99,7 @@ Route::prefix('admin')
 // User Subscribed Menu
 Route::middleware('is_subscribed')->group(function () {
     // Clubs
-    Route::get('/club', 'HomeController@club')->name('club');
+    Route::get('/club', 'ClubController@index')->name('club');
     
 
     // Events
@@ -110,7 +110,9 @@ Route::middleware('is_subscribed')->group(function () {
     //team
     Route::get('/team', 'TeamController@index')->name('teams');
     Route::post('/team/create', 'TeamController@team_create');
+    Route::post('/team/join-team', 'TeamController@join_team');
     Route::get('/team/details/{id}','TeamController@details_ikut');
+    Route::get('/team/details-teamku/{id}','TeamController@details_saya');
 
     });
 

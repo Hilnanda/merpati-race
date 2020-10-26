@@ -8,7 +8,7 @@
     <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url(image/breadcumb-1.jpg);">
     <div class="bradcumbContent">
-        <h2>Lomba</h2>
+        <h2>List Club</h2>
     </div>
 </div>
 <!-- bg gradients -->
@@ -23,36 +23,27 @@
             <table id="table_one" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
-                    <th>Nama</th>
-                    <th>Jenis Lomba</th>
-                    <th>Info</th>
+                    <th>Nama Club</th>
                     <th>Lokasi Mulai</th>
-                    <th>Lokasi Selesai</th>
-                    <th>Mulai</th>
+                    <th>Alamat</th>
+                    <th>Nama Burung</th>                   
                     <th>Aksi</th>
                 </thead>
-                <tbody>
-                    {{-- @if(count($events_on_going) == 0)
-                    <tr class="text-center">
-                        <td colspan="8">-- Tidak ada lomba yang sedang berlangsung --</td>
-                    </tr>
-                    @endif
-                    @foreach($events_on_going as $event)
+                <tbody>                   
+                    
+                    @foreach($club_ikut as $item)
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
-                        <td>{{ $event->name_event }}</td>
-                        <td>{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</td>
-                        <td>{{ $event->info_event }}</td>
-                        <td>({{ $event->lat_event }}), ({{ $event->lng_event }})</td>
-                        <td>{{ $event->lat_event_end ? '(' . $event->lat_event_end . '), (' . $event->lng_event_end . ')' : '-' }}</td>
-                        <td>{{ str_replace('T', ' ', $event->release_time_event) . ':00 (GMT +7:00)' }}</td>
+                        <td>{{ $item->name_club }}</td>
+                        <td>({{ $item->lat_club }}), ({{ $item->lng_club }})</td>
+                        <td>{{ $item->address_club }}</td>
+                        <td>{{ $item->name_pigeon }}</td>
                         <td class="action-link">
-                            <a href="/events/{{ $event->id }}/basket" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                             <a href="#" title="Live Results" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
                             <a href="#" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
                         </td>
                     </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -67,12 +58,10 @@
             <table id="table_two" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
-                    <th>Nama</th>
-                    <th>Jenis Lomba</th>
-                    <th>Info</th>
+                    <th>Nama Club</th>
                     <th>Lokasi Mulai</th>
-                    <th>Lokasi Selesai</th>
-                    <th>Mulai</th>
+                    <th>Alamat</th>
+                    <th>Nama Burung</th>                   
                     <th>Aksi</th>
                 </thead>
                 <tbody>
