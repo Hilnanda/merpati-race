@@ -18,6 +18,8 @@ class TeamController extends Controller
         $team = Team::where('teams.id_user','!=',auth()->user()->id)
         ->where('teams.is_active', 1)
         ->get();
+        $club = Clubs::where('id_user','=',auth()->user()->id)
+        ->get();
         $user = User::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
@@ -45,6 +47,7 @@ class TeamController extends Controller
             'teamku' => $teamku,
             'team_ikut' => $team_ikut,
             'auth' => $auth_session,
+            'club'=>$club
         ]);
     }
 
@@ -71,6 +74,34 @@ class TeamController extends Controller
             ->get();
         // dd($team_ikut);
         return view('subscribed.pages.team-ikut-detail', [
+            'team' => $team,
+            'users' => $user,
+            'data_medsos' => $data_medsos,
+            'data_footer' => $data_footer,
+            'team_ikut' => $team_ikut,
+        ]);
+    }
+
+    public function details_saya($id)
+    {
+        // dd($id);
+        $team = Team::where('id','=',$id)
+        ->where('is_active', 1)
+        ->get();
+        
+        $user = User::all();
+        $data_medsos = CMSMedsos::all();
+        $data_footer = CMSFooter::all();
+
+        $team_ikut = DB::table('team_members')
+            ->join('teams', 'team_members.id_team', '=', 'teams.id')
+            ->join('clubs', 'team_members.id_club', '=', 'clubs.id')
+            ->join('users', 'users.id', '=', 'clubs.id_user')
+            ->select('team_members.*','teams.*','clubs.*','users.*','teams.is_active as is_active_teams')
+            ->where('team_members.id_team', $id)
+            ->get();
+        // dd($team_ikut);
+        return view('subscribed.pages.team-saya-detail', [
             'team' => $team,
             'users' => $user,
             'data_medsos' => $data_medsos,

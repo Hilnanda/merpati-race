@@ -110,6 +110,7 @@ Route::middleware('is_subscribed')->group(function () {
     Route::get('/team', 'TeamController@index')->name('teams');
     Route::post('/team/create', 'TeamController@team_create');
     Route::get('/team/details/{id}','TeamController@details_ikut');
+    Route::get('/team/details-teamku/{id}','TeamController@details_saya');
 
     });
 
