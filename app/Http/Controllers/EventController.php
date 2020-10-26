@@ -48,6 +48,42 @@ class EventController extends Controller
     }
 
     /**
+     * Show the basketed list of the registered pigeons.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showBasketedList()
+    {
+        $events = Events::all();
+        $users = User::all();
+        $data_medsos = CMSMedsos::all();
+        $data_footer = CMSFooter::all();
+
+        $current_datetime = Carbon::now();
+
+        $events_on_going = array();
+        $events_soon = array();
+
+        foreach ($events as $event) {
+            $event->release_time_event = $this->formatDateLocal($event->release_time_event);
+            $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
+            if ($event->release_time_event <= $current_datetime) {
+                array_push($events_on_going, $event);
+            } else {
+                array_push($events_soon, $event);
+            }
+        }
+
+        return view('subscribed.pages.events_basketed_list', [
+            'data_medsos'=>$data_medsos,
+            'data_footer'=>$data_footer,
+            'events_on_going' => $events_on_going,
+            'events_soon' => $events_soon,
+            'users' => $users,
+            'current_datetime' => $current_datetime]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

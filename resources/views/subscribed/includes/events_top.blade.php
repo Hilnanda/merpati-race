@@ -12,7 +12,7 @@
     <title>Lomba</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="image/favicon.ico">
+    <link rel="icon" href="{{ asset('image/favicon.ico') }}">
 
     <!-- Core Stylesheet -->
     @include('includes.style')

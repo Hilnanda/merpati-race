@@ -7,7 +7,7 @@
                 <nav class="classy-navbar justify-content-between" id="musicaNav">
 
                     <!-- Nav brand -->
-                    <a href="/" class="nav-brand"><img src="image/favicon.ico" alt=""></a>
+                    <a href="/" class="nav-brand"><img src="{{ asset('image/favicon.ico') }}" alt=""></a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">

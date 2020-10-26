@@ -15,8 +15,8 @@
 <script src="{{ url('admin/bower_components/datatables.net-bs/js/dataTables.bootstrap4.min.js') }}"></script>
 <script>
   $(function () {
-    $('#events_on_going').DataTable()
-    $('#events_soon').DataTable()
+    $('#table_one').DataTable()
+    $('#table_two').DataTable()
 })
 </script>
 

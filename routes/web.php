@@ -21,8 +21,7 @@ Route::get('/product-service', 'HomeController@product_service')->name('product-
 Route::get('/news', 'HomeController@news')->name('home-news');
 Route::get('/news/desc/{id}', 'HomeController@news_desc');
 
-
-
+// Admin Menu
 Route::prefix('admin')
     ->namespace('Admin')
     // ->middleware(['auth','admin'])
@@ -92,6 +91,7 @@ Route::prefix('admin')
             });
     });
 
+// User Subscribed Menu
 Route::middleware('is_subscribed')->group(function () {
     // Clubs
     Route::get('/club', 'HomeController@club')->name('club');
@@ -100,6 +100,7 @@ Route::middleware('is_subscribed')->group(function () {
 
     // Events
     Route::get('/events', 'EventController@index')->name('events');
+    Route::get('/events/{id}/basket', 'EventController@showBasketedList')->name('events_basketed');
     });
 
 Auth::routes();
