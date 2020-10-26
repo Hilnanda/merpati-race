@@ -143,7 +143,7 @@
                             <!-- Content -->
                             <div class="featured-shows-content">
                                 <div class="shows-text">
-                                    <a href="#" class="buy-tickets-btn"><h4>Team</h4>
+                                    <a href="/team" class="buy-tickets-btn"><h4>Team</h4>
                                         <p></p>
                                         </a>
                                 </div>

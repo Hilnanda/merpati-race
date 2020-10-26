@@ -16,7 +16,7 @@ class IsAdmin
     public function handle($request, Closure $next)
     {
         if (!isset(auth()->user()->type_user)) {
-            return route('login')->with('Gagal',"Sesi berakhir, harap login kembali.");
+            return redirect('login')->with('Gagal',"Sesi berakhir, harap login kembali.");
         }
         
         if(auth()->user()->type_user == 1){

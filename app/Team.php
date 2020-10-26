@@ -11,6 +11,7 @@ class Team extends Model
     protected $table = 'teams';
     //deklarasi field yang bisa diisi pada table
     protected $fillable = [
+        'id_user',
         'name_team',
         'desc_team'
     ];
@@ -21,5 +22,9 @@ class Team extends Model
     public function user()
     {
         return $this->belongsTo('App\User', 'id_user','id');
+    }
+    public function team_member()
+    {
+        return $this->hasMany('App\TeamMembers','id');
     }
 }

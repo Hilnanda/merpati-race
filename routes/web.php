@@ -36,6 +36,10 @@ Route::prefix('admin')
 
         //team
         Route::get('/list-team', 'ListTeamController@index')->name('list-team');
+        Route::post('/team/create', 'ListTeamController@create');
+        Route::get('/team/delete/{id}', 'ListTeamController@destroy');
+        Route::post('/team/edit', 'ListTeamController@edit');
+
 
 
         // Event
@@ -101,6 +105,9 @@ Route::middleware('is_subscribed')->group(function () {
     // Events
     Route::get('/events', 'EventController@index')->name('events');
     Route::get('/events/{id}/basket', 'EventController@showBasketedList')->name('events_basketed');
+
+    //team
+    Route::get('/team', 'TeamController@index')->name('teams');
     });
 
 Auth::routes();

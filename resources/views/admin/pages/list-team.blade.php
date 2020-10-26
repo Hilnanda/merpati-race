@@ -41,27 +41,18 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="/admin/club/create" method="POST">
+                                            <form action="/admin/team/create" method="POST">
                                                 {{ csrf_field() }}
                                                 <div class="form-group">
-                                                    <label for="">Nama Club</label>
-                                                    <input type="text" name="name_club" class="form-control"
-                                                        placeholder="Isi nama club" required>
+                                                    <label for="">Nama Team</label>
+                                                    <input type="text" name="name_team" class="form-control"
+                                                        placeholder="Isi nama team" required>
                                                 </div>
+                                                
                                                 <div class="form-group">
-                                                    <label for="">Lat Club</label>
-                                                    <input type="number" name="lat_club" class="form-control"
-                                                        placeholder="Isi nama club" required step=0.01>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="">Long Club</label>
-                                                    <input type="number" name="lng_club" class="form-control"
-                                                        placeholder="Isi nama club" required step=0.01>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="">Alamat Club</label>
-                                                    <textarea name="address_club" class="form-control" required=""
-                                                        placeholder="Isi nama alamat"></textarea>
+                                                    <label for="">Deskripsi Team</label>
+                                                    <textarea name="desc_team" class="form-control" required=""
+                                                        placeholder="Isi nama team"></textarea>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="">User</label>
@@ -90,36 +81,34 @@
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <th>No.</th>
-                                    <th>Nama Club</th>
-                                    <th>Lat Club</th>
-                                    <th>Long Club</th>
-                                    <th>Alamat Club</th>
+                                    <th>Nama Team</th>
+                                    <th>Deskripsi Team</th>
+                                    
                                     <th>User</th>
                                     <th>Aksi</th>
                                 </thead>
                                 <tbody>
-                                    @foreach ($clubs as $club)
+                                    @foreach ($team as $value)
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
-                                            <td>{{ $club->name_club }}</td>
-                                            <td>{{ $club->lat_club }}</td>
-                                            <td>{{ $club->lng_club }}</td>
-                                            <td>{{ $club->address_club }}</td>
-                                            <td>{{ $club->user->username }}</td>
-                                            <td><a href="#editModal{{ $club->id }}" class="btn btn-warning btn-sm"
-                                                    data-toggle="modal" data-target="#editModal{{ $club->id }}"><span
+                                            <td>{{ $value->name_team }}</td>
+                                            
+                                            <td>{{ $value->desc_team }}</td>
+                                            <td>{{ $value->user->username }}</td>
+                                            <td><a href="#editModal{{ $value->id }}" class="btn btn-warning btn-sm"
+                                                    data-toggle="modal" data-target="#editModal{{ $value->id }}"><span
                                                         class="font-weight-bold ml-1">Edit</span></a>
-                                                <a href="/admin/club/delete/{{ $club->id }}"
+                                                <a href="/admin/team/delete/{{ $value->id }}"
                                                     class="btn btn-danger btn-sm delete-club"><span
                                                         class="font-weight-bold ml-1">Hapus</span></a>
                                             </td>
 
-                                            <div class="modal fade" id="editModal{{ $club->id }}" tabindex="-1"
+                                            <div class="modal fade" id="editModal{{ $value->id }}" tabindex="-1"
                                                 role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Edit Data Club
+                                                            <h5 class="modal-title" id="exampleModalLabel">Edit Data Team
                                                             </h5>
                                                             <button class="close" type="button" data-dismiss="modal"
                                                                 aria-label="Close">
@@ -127,68 +116,55 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form action="/admin/club/edit" method="POST">
+                                                            <form action="/admin/team/edit" method="POST">
                                                                 {{ csrf_field() }}
                                                                 <div class="form-group">
-                                                                    <label for="">Nama Club</label>
-                                                                    <input type="hidden" name="id" value="{{ $club->id }}">
-                                                                    <input type="text" name="name_club" class="form-control"
-                                                                        placeholder="Isi Nama club" required
-                                                                        value="{{ $club->name_club }}">
+                                                                    <label for="">Nama Team</label>
+                                                                    <input type="hidden" name="id" value="{{ $value->id }}">
+                                                                    <input type="text" name="name_team" class="form-control"
+                                                                        placeholder="Isi Nama Team" required
+                                                                        value="{{ $value->name_team }}">
                                                                 </div>
+                                                                
                                                                 <div class="form-group">
-                                                                    <label for="">Lat Club</label>
-                                                                    <input type="number" name="lat_club"
-                                                                        class="form-control" placeholder="Isi Latitude club"
-                                                                        required step=0.01 value="{{ $club->lat_club }}">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="">Long Club</label>
-                                                                    <input type="number" name="lng_club"
-                                                                        class="form-control"
-                                                                        placeholder="Isi Longtitude club" required step=0.01
-                                                                        value="{{ $club->lng_club }}">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="">Alamat Club</label>
-                                                                    <textarea name="address_club" class="form-control"
+                                                                    <label for="">Deskripsi Team</label>
+                                                                    <textarea name="desc_team" class="form-control"
                                                                         required=""
-                                                                        placeholder="Isi Nama Alamat">{{ $club->address_club }}</textarea>
+                                                                        placeholder="Isi Deskripsi Team">{{ $value->desc_team }}</textarea>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="">User</label>
-                                                                    <select name="id" class="form-control" required>
+                                                                    <select name="id_user" class="form-control" required>
                                                                         <option value="">-- Pilih User --</option>
                                                                         @foreach ($users as $user)
-                                                                            <option value="{{ $user->id }}" @if ($club->id_user == $user->id)
+                                                                            <option value="{{ $user->id }}" @if ($value->id_user == $user->id)
                                                                                 selected
                                                                         @endif>{{ $user->username }}
                                                                         </option>
-                                    @endforeach
-                                    </select>
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" value="Simpan" class="btn btn-primary">
-                        </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    </div>
-                </div>
-            </div>
-    </div>
+                                                                            @endforeach
+                                                                            </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input type="submit" value="Simpan" class="btn btn-primary">
+                                                                </div>
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            </div>
     </tr>
     @endforeach
     </tbody>
     <tfoot>
         <th>No.</th>
-        <th>Nama Club</th>
-        <th>Lat Club</th>
-        <th>Long Club</th>
-        <th>Alamat Club</th>
-        <th>User</th>
-        <th>Aksi</th>
+                                    <th>Nama Team</th>
+                                    <th>Deskripsi Team</th>
+                                    
+                                    <th>User</th>
+                                    <th>Aksi</th>
     </tfoot>
     </table>
     </div>
