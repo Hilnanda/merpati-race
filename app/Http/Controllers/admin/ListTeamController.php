@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Team;
 use App\User;
+use Illuminate\Support\Facades\DB;
 
 class ListTeamController extends Controller
 {
@@ -33,6 +34,16 @@ class ListTeamController extends Controller
         $team = Team::find($request->id);
         $team->update($request->all());
 
+        return back()->with('Sukses','Berhasil mengubah data!');
+    }
+    public function verifikasi($id)
+    {
+        // dd($request->all());
+
+        $team = DB::table('teams')->where('id',$id)->update([
+            'is_active' => 1
+        ]);
+        
         return back()->with('Sukses','Berhasil mengubah data!');
     }
 

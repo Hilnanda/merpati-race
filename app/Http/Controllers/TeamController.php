@@ -15,17 +15,21 @@ class TeamController extends Controller
 {
     public function index()
     {
-        $team = Team::all();
+        $team = Team::where('teams.id_user','!=',auth()->user()->id)
+        ->get();
         $user = User::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
 
-        $teamku = Team::where('id_user', auth()->user()->id)->get();
+        $teamku = Team::where('id_user', auth()->user()->id)
+            ->where('teams.is_active', 1)
+            ->get();
         $team_ikut = DB::table('team_members')
             ->join('teams', 'team_members.id_team', '=', 'teams.id')
             ->join('clubs', 'team_members.id_club', '=', 'clubs.id')
             ->join('users', 'users.id', '=', 'clubs.id_user')
             ->where('clubs.id_user', auth()->user()->id)
+            ->where('teams.is_active', 1)
             ->get();
         // dd($team_ikut);
 
@@ -52,9 +56,10 @@ class TeamController extends Controller
             ->join('teams', 'team_members.id_team', '=', 'teams.id')
             ->join('clubs', 'team_members.id_club', '=', 'clubs.id')
             ->join('users', 'users.id', '=', 'clubs.id_user')
+            ->select('team_members.*','teams.*','clubs.*','users.*','teams.is_active as is_active_teams')
             ->where('team_members.id_team', $id)
             ->get();
-        // dd($team_ikut)
+        // dd($team_ikut);
         return view('subscribed.pages.team-ikut-detail', [
             'team' => $team,
             'users' => $user,

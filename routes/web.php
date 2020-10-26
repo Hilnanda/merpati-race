@@ -39,6 +39,7 @@ Route::prefix('admin')
         Route::post('/team/create', 'ListTeamController@create');
         Route::get('/team/delete/{id}', 'ListTeamController@destroy');
         Route::post('/team/edit', 'ListTeamController@edit');
+        Route::get('/team/verifikasi/{id}', 'ListTeamController@verifikasi');
 
 
 

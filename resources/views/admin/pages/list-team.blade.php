@@ -95,12 +95,19 @@
                                             
                                             <td>{{ $value->desc_team }}</td>
                                             <td>{{ $value->user->username }}</td>
-                                            <td><a href="#editModal{{ $value->id }}" class="btn btn-warning btn-sm"
+                                            <td>
+                                                @if ($value->is_active != 0)
+                                                <a href="#editModal{{ $value->id }}" class="btn btn-warning btn-sm"
                                                     data-toggle="modal" data-target="#editModal{{ $value->id }}"><span
                                                         class="font-weight-bold ml-1">Edit</span></a>
                                                 <a href="/admin/team/delete/{{ $value->id }}"
                                                     class="btn btn-danger btn-sm delete-club"><span
                                                         class="font-weight-bold ml-1">Hapus</span></a>
+                                                @else
+                                                <a href="/admin/team/verifikasi/{{ $value->id }}" class="btn btn-success btn-sm"
+                                                    data-toggle="modal" data-target=""><span
+                                                        class="font-weight-bold ml-1">Verifikasi</span></a>
+                                                @endif
                                             </td>
 
                                             <div class="modal fade" id="editModal{{ $value->id }}" tabindex="-1"
