@@ -57,6 +57,16 @@ class ClubController extends Controller
 
         return view('subscribed.pages.club_detail_ikut',compact('club','data_medsos','data_footer','users','clubs'));
     }
+    public function detail_saya($id)
+    {
+        $club = Clubs::find($id);
+        $users = User::all();
+        $clubs= Clubs::where('id_user', auth()->user()->id)->get();
+        $data_medsos = CMSMedsos::all();
+        $data_footer = CMSFooter::all();
+
+        return view('subscribed.pages.club_saya_detail',compact('club','data_medsos','data_footer','users','clubs'));
+    }
     public function detail_belum_ikut($id)
     {
         $club = Clubs::find($id);
