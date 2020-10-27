@@ -17,8 +17,10 @@ class Pigeons extends Model
         'name_pigeon',
         'sex_pigeon',
         'color_pigeon',
-        'is_active'];
-    public function user()
+        'is_active'
+    ];
+
+    public function users()
     {
         return $this->belongsTo('App\User', 'id_user','id');
     }

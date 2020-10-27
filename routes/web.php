@@ -108,6 +108,7 @@ Route::middleware('is_subscribed')->group(function () {
     Route::get('/events', 'EventController@index')->name('events');
     Route::get('/events/{id}/details', 'EventController@showDetails')->name('events_details');
     Route::get('/events/{id}/basket', 'EventController@showBasketedList')->name('events_basketed');
+    Route::post('/events/{id}/join_event', 'EventController@joinEvent')->name('join_event');
 
     //team
     Route::get('/team', 'TeamController@index')->name('teams');

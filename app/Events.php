@@ -26,8 +26,8 @@ class Events extends Model
     // {
     //     return $this->belongsTo('App\Clubs', 'id_club','id');
     // }
-    public function events_participants()
+    public function event_participants()
     {
-        return $this->hasMany('App\EventsParticipants','id');
+        return $this->hasMany('App\EventParticipants','id');
     }
 }

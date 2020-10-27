@@ -15,7 +15,6 @@ class AddIsActiveToTeamsTable extends Migration
     {
         Schema::table('teams', function (Blueprint $table) {
             $table->boolean('is_active');
-            
         });
     }
 
@@ -28,7 +27,6 @@ class AddIsActiveToTeamsTable extends Migration
     {
         Schema::table('teams', function (Blueprint $table) {
             $table->dropColumn('is_active');
-            
         });
     }
 }
