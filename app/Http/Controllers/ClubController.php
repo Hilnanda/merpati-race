@@ -30,6 +30,7 @@ class ClubController extends Controller
         $auth_session = auth()->user()->id;
 
         $clubku = Clubs::where('id_user', auth()->user()->id)
+        ->orwhere('manager_club',auth()->user()->id)
         ->get();
 
         $club_id = Clubs::where('id_user', auth()->user()->id)->get();
@@ -63,11 +64,26 @@ class ClubController extends Controller
     }
     public function detail_saya($id)
     {
+        // dd($id);
+        
         $club = Clubs::find($id);
         $users = User::all();
-        $clubs= Clubs::where('id_user', auth()->user()->id)
+        $clubs= Clubs::where('id',$id)
+        ->first();
+        
+        // dd($clubs->manager_club);
+        // dd($clubs);
+        if($clubs->manager_club==auth()->user()->id){
+            
+            $clubs= Clubs::where('manager_club', auth()->user()->id)
         ->where('id',$id)
         ->first();
+        } else {
+            $clubs= Clubs::where('id_user', auth()->user()->id)
+        ->where('id',$id)
+        ->first();
+        }
+        
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
 
