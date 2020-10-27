@@ -30,7 +30,11 @@
                     <th>Aksi</th>
                 </thead>
                 <tbody>                   
-                    
+                    @if(count($club_ikut) == 0)
+                    <tr class="text-center">
+                        <td colspan="8">-- Tidak ada Club yang belum Diikuti --</td>
+                    </tr>
+                    @endif
                     @foreach($club_ikut as $item)
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
@@ -40,7 +44,7 @@
                         <td>{{ $item->name_pigeon }}</td>
                         <td class="action-link">
                             <a href="#" title="Live Results" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
-                            <a href="#" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
+                            <a href="club/{{$item->id}}/detail_ikut" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
                         </td>
                     </tr>
                     @endforeach
@@ -59,32 +63,29 @@
                 <thead>
                     <th>No.</th>
                     <th>Nama Club</th>
-                    <th>Lokasi Mulai</th>
-                    <th>Alamat</th>
-                    <th>Nama Burung</th>                   
+                    <th>Tanggal Club</th>
+                    
+                                      
                     <th>Aksi</th>
                 </thead>
                 <tbody>
-                    {{-- @if(count($events_soon) == 0)
+                    @if(count($club_belum_ikut) == 0)
                     <tr class="text-center">
-                        <td colspan="8">-- Tidak ada lomba yang belum berlangsung --</td>
+                        <td colspan="8">-- Tidak ada Club yang belum Diikuti --</td>
                     </tr>
                     @endif
-                    @foreach($events_soon as $event)
                     <tr>
+                        @foreach($club_belum_ikut as $items)
+
                         <td>{{ $loop->index+1 }}</td>
-                        <td>{{ $event->name_event }}</td>
-                        <td>{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</td>
-                        <td>{{ $event->info_event }}</td>
-                        <td>({{ $event->lat_event }}), ({{ $event->lng_event }})</td>
-                        <td>{{ $event->lat_event_end ? '(' . $event->lat_event_end . '), (' . $event->lng_event_end . ')' : '-' }}</td>
-                        <td>{{ str_replace('T', ' ', $event->release_time_event) . ':00 (GMT +7:00)' }}</td>
+                        <td>{{ $items->name_club }}</td>
+                        <td>{{ date('d F Y  H:i:s', strtotime($items->created_at)) }}</td>
                         <td class="action-link">
-                            <a href="#" title="Basketed List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="#" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
+                            <a href="#" title="Live Results" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+                        <a href="club/{{$items->id}}/detail_belum_ikut" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
                         </td>
                     </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>

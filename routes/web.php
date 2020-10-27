@@ -99,8 +99,9 @@ Route::prefix('admin')
 // User Subscribed Menu
 Route::middleware('is_subscribed')->group(function () {
     // Clubs
-    Route::get('/club', 'ClubController@index')->name('club');
-    
+    Route::get('/club', 'ClubController@index')->name('club');    
+    Route::get('/club/{id}/detail_belum_ikut','ClubController@detail_belum_ikut')->name('club_detail_belum_detail');
+    Route::get('/club/{id}/detail_ikut','ClubController@detail_ikut')->name('club_detail_ikut');
 
     // Events
     Route::get('/events', 'EventController@index')->name('events');
