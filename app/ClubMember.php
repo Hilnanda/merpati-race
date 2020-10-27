@@ -16,5 +16,12 @@ class ClubMember extends Model
         'id_pigeons',
         'is_active'
     ];
-
+    public function club()
+    {
+        return $this->belongsTo('App\Clubs', 'id_club', 'id');
+    }
+    public function pigeon()
+    {
+        return $this->belongsTo('App\Pigeons', 'id_pigeon', 'id');
+    }
 }

@@ -34,4 +34,8 @@ class Clubs extends Model
     {
         return $this->hasMany('App\TeamMembers','id','id_club');
     }
+    public function club_member()
+    {
+        return $this->hasMany('App\ClubMember','id');
+    }
 }
