@@ -29,6 +29,9 @@ class ClubController extends Controller
         $data_footer = CMSFooter::all();
         $auth_session = auth()->user()->id;
 
+        $clubku = Clubs::where('id_user', auth()->user()->id)
+        ->get();
+
         $club_id = Clubs::where('id_user', auth()->user()->id)->get();
         $club_ikut = DB::table('club_members')
         ->join('clubs','club_members.id_club','=','clubs.id')
@@ -40,7 +43,7 @@ class ClubController extends Controller
        // dd($club_ikut);
        $club_belum_ikut = Clubs::all();
         return view('subscribed.pages.club',
-        compact('users','club','data_medsos','data_footer','club_id','club_ikut','club_belum_ikut')
+        compact('users','club','data_medsos','data_footer','club_id','club_ikut','club_belum_ikut','clubku')
         );
     }
 

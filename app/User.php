@@ -42,6 +42,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Clubs','id');
     }
+    public function manager_club()
+    {
+        return $this->hasMany('App\Clubs','id');
+    }
     public function team()
     {
         return $this->hasMany('App\Team','id');
