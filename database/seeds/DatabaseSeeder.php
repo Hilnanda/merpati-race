@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             EventsTableSeeder::class,
             TeamsTableSeeder::class,
             FootersTableSeeder::class,
+            PigeonTableSeeder::class,
         ]);
         
     }
