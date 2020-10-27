@@ -119,6 +119,8 @@ Route::middleware('is_subscribed')->group(function () {
     Route::get('/pigeons/burungku','PigeonsController@burungku');
     Route::get('/pigeons/topburung','PigeonsController@topburung');
     Route::post('/pigeons/create','PigeonsController@store');
+    Route::post('/pigeons/edit','PigeonsController@update');
+    Route::get('/pigeons/delete/{id}','PigeonsController@destroy');
 
     });
 

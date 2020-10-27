@@ -84,9 +84,11 @@ class PigeonsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        Pigeons::find($request->id)->update($request->all());
+
+        return back()->with('Sukses','Berhasil mengubah data!');
     }
 
     /**
@@ -97,6 +99,8 @@ class PigeonsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Pigeons::find($id)->delete();
+
+        return back()->with('Sukses','Berhasil menghapus data!');
     }
 }

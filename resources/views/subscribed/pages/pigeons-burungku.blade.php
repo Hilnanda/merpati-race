@@ -108,7 +108,62 @@
                         <td>{{$bird->sex_pigeon}}</td>
                         <td>{{$bird->color_pigeon}}</td>
                         <td>@if($bird->is_active==0) Belum Aktif @else Aktif @endif</td>
-                        <td>Detail</td>
+                        <td><a href="#editBurungModal{{$bird->id}}" class="btn btn-warning btn-sm" data-toggle="modal"
+                            data-target="#editBurungModal{{$bird->id}}"><i class="fa fa-pen" aria-hidden="true">
+                            </i> <span class="font-weight-bold ml-1">Edit</span></a> 
+                            <a href="/pigeons/delete/{{$bird->id}}"
+                            class="btn btn-danger btn-sm delete-club">
+                            <i class="fa fa-trash" aria-hidden="true"></i><span
+                                class="font-weight-bold ml-1">Hapus</span></a></td>
+                                <div class="modal fade" id="editBurungModal{{$bird->id}}" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Edit Data Burung</h5>
+                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="/pigeons/edit" method="POST">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="id" value="{{ $bird->id }}">
+                                                    <div class="form-group">
+                                                        <label for="">UID Burung</label>
+                                                        <input type="text" name="uid_pigeon" class="form-control" placeholder="Isi uid burung" required value="{{ $bird->uid_pigeon }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Ukuran Cincin</label>
+                                                        <input type="number" name="ring_size_pigeon" class="form-control" placeholder="Isi ukuran cincin" required step=0.01 value="{{ $bird->ring_size_pigeon }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Nama Burung</label>
+                                                        <input type="text" name="name_pigeon" class="form-control" placeholder="Isi nama burung" required value="{{ $bird->name_pigeon }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Jenis Kelamin</label>
+                                                        <select name="sex_pigeon" class="form-control">
+                                                            <option value="Jantan" @if($bird->sex_pigeon=="Jantan") selected @endif>Jantan</option>
+                                                            <option value="Betina" @if($bird->sex_pigeon=="Betina") selected @endif>Betina</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Warna</label>
+                                                        <input type="text" name="color_pigeon" class="form-control" placeholder="Isi warna burung" required value="{{ $bird->color_pigeon }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="submit" value="Edit data" class="btn btn-info">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" type="button"
+                                                    data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                     </tr>
                     @endforeach
                 </tbody>
