@@ -65,7 +65,9 @@ class ClubController extends Controller
     {
         $club = Clubs::find($id);
         $users = User::all();
-        $clubs= Clubs::where('id_user', auth()->user()->id)->get();
+        $clubs= Clubs::where('id_user', auth()->user()->id)
+        ->where('id',$id)
+        ->first();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
 
