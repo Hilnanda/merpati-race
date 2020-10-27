@@ -157,7 +157,7 @@ class EventController extends Controller
 
         $data['id_event'] = $id;
         $data['current_id_club'] = $pigeon->club_members->id_club;
-        $data['current_id_team'] = $pigeon->team_members->id_team;
+        $data['current_id_team'] = $pigeon->club_members->clubs->team_members->id_team;
 
         EventParticipants::create($data);
 

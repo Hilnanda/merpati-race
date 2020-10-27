@@ -13,7 +13,6 @@ class TeamMembers extends Model
     protected $fillable = [
         'id_team',
         'id_club',
-       
     ];
 
     public function team()
