@@ -44,5 +44,21 @@ class UsersTableSeeder extends Seeder
         'type_user' => 2,
         'is_active' => 1
         ]);
+        \App\User::create([
+        'username'  => 'dion',
+        'name'  => 'Dion',
+        'email' => 'dion@gmail.com',
+        'password'  => bcrypt('dion'),
+        'type_user' => 2,
+        'is_active' => 1
+        ]);
+        \App\User::create([
+        'username'  => 'ardi',
+        'name'  => 'Hilnanda Ardiansyah',
+        'email' => 'ardi@gmail.com',
+        'password'  => bcrypt('ardi'),
+        'type_user' => 2,
+        'is_active' => 1
+        ]);
     }
 }
