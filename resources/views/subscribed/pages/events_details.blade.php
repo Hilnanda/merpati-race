@@ -22,12 +22,16 @@ Detail Lomba
                 <a href="#" class="btn musica-btn" data-toggle="modal" data-target="#joinLomba">Join Lomba</a>
             </div>
         </div>
-        <div class="row">
-            <div class="col-4">
-                Logo
+        <div class="row my-2">
+            <div class="col-2">
+                <img src="{{ asset('image/favicon.ico') }}" style="width:220px;height:200px" class="rounded float-left" alt="...">
             </div>
-            <div class="col-8">
-                Keterangan
+            <div class="col-10">
+                <p>Nama lomba : <b style="color: red">{{ $event->name_event }}</b></p>
+                <p>Alamat lomba : <b style="color: red">{{ $event->info_event }}</b></p>
+                <p>Posisi lomba : <b style="color: red">{{ $event->lat_event }} , {{ $event->lng_event }}</b></p>
+                <p>Alamat lomba : <b style="color: red">{{ $event->address_event }}</b></p>
+                <p>Jadwal mulai : <b style="color: red">{{ \Carbon\Carbon::parse($event->release_time_event)->format('j F Y') }}</b></p>
             </div>
         </div>
         <div class="box-body">
@@ -55,8 +59,9 @@ Detail Lomba
                         <td>{{ $result->teams ? $result->teams.name : '-' }}</td>
                         <td>{{ $result->clubs ? $result->clubs.name : '-' }}</td>
                         <td>{{ $result->pigeons->name ? $result->pigeons->name : '-' }}</td>
-                        <td>{{ $result->event_results ? $result->event_results->created_at : '-' }}</td>
-                        <td>{{ $result->event_results ? $result->event_results->speed_event_result : '-' }}</td>
+                        <td>{{ $result->event_results ? $result->event_results.created_at : '-' }}</td>
+                        <td>{{ $result->event_results ? $result->event_results.speed_event_result : '-' }}</td>
+                        <td>{{ $result->pigeons ? $result->pigeons->name_pigeon : '-' }}</td>
                     </tr>
                     @endforeach
                 </tbody>

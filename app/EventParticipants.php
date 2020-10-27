@@ -19,6 +19,7 @@ class EventParticipants extends Model
         'current_id_team',
         'active_at'
     ];
+    
     public function pigeons()
     {
         return $this->belongsTo('App\Pigeons', 'id_pigeon','id');
@@ -29,8 +30,8 @@ class EventParticipants extends Model
         return $this->belongsTo('App\Events', 'id_event','id');
     }
 
-    public function event_results()
-    {
-        return $this->hasMany('App\EventResults','id');
-    }
+    // public function event_results()
+    // {
+    //     return $this->hasMany('App\EventResults','id');
+    // }
 }
