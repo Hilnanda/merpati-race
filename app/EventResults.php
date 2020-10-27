@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EventsResults extends Model
+class EventResults extends Model
 {
     protected $primaryKey = 'id';
     //deklarasikan nama tabel di db
-    protected $table = 'events_results';
+    protected $table = 'event_results';
     //deklarasi field yang bisa diisi pada table
     protected $fillable = [
         'speed_event_result',

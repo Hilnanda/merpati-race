@@ -51,12 +51,12 @@ Detail Lomba
                     @foreach($results as $result)
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
-                        <td>{{ $result->pigeons->user->name ? $result->pigeons->user->name : '-' }}</td>
-                        <td>{{ $result->current_team.name ? $result->current_team.name : '-' }}</td>
-                        <td>{{ $result->clubs.name ? $result->clubs.name : '-' }}</td>
-                        <td>{{ $result->pigeons.name ? $result->pigeons.name : '-' }}</td>
-                        <td>{{ $result->event_results.created_at ? $result->event_results.created_at : '-' }}</td>
-                        <td>{{ $result->event_results.speed_event_result ? $result->event_results.speed_event_result : '-' }}</td>
+                        <td>{{ $result->pigeons->users->name ? $result->pigeons->users->name : '-' }}</td>
+                        <td>{{ $result->teams ? $result->teams.name : '-' }}</td>
+                        <td>{{ $result->clubs ? $result->clubs.name : '-' }}</td>
+                        <td>{{ $result->pigeons->name ? $result->pigeons->name : '-' }}</td>
+                        <td>{{ $result->event_results ? $result->event_results->created_at : '-' }}</td>
+                        <td>{{ $result->event_results ? $result->event_results->speed_event_result : '-' }}</td>
                     </tr>
                     @endforeach
                 </tbody>

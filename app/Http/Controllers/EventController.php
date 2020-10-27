@@ -97,25 +97,24 @@ class EventController extends Controller
         $event->release_time_event = $this->formatDateLocal($event->release_time_event);
         $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
 
-        $results = DB::table('event_participants')
-            ->leftJoin('event_results', 'event_participants.id', '=', 'event_results.id_event_participant')
-            ->join('pigeons', 'event_participants.id_pigeon', '=', 'pigeons.id')
-            ->join('users', 'pigeons.id_user', '=', 'users.id')
-            ->leftJoin('club_members', 'pigeons.id', '=', 'club_members.id_pigeon')
-            ->join('clubs', 'club_members.id_club', '=', 'clubs.id')
-            ->leftJoin('team_members', 'clubs.id', '=', 'team_members.id_club')
-            ->join('teams', 'team_members.id_team', '=', 'teams.id')
-            ->get();
-        // $results = EventParticipants::
-        //     ->leftJoin('clubs', 'event_participants.current_id_club', '=', 'clubs.id')
-        //     ->leftJoin('teams', 'event_participants.current_id_team', '=', 'teams.id')
+        // $results = DB::table('event_participants')
+        //     ->leftJoin('event_results', 'event_participants.id', '=', 'event_results.id_event_participant')
+        //     ->join('pigeons', 'event_participants.id_pigeon', '=', 'pigeons.id')
+        //     ->join('users', 'pigeons.id_user', '=', 'users.id')
+        //     ->leftJoin('club_members', 'pigeons.id', '=', 'club_members.id_pigeon')
+        //     ->join('clubs', 'club_members.id_club', '=', 'clubs.id')
+        //     ->leftJoin('team_members', 'clubs.id', '=', 'team_members.id_club')
+        //     ->join('teams', 'team_members.id_team', '=', 'teams.id')
         //     ->get();
+        $results = EventParticipants::leftJoin('clubs', 'event_participants.current_id_club', '=', 'clubs.id')
+            ->leftJoin('teams', 'event_participants.current_id_team', '=', 'teams.id')
+            ->get();
 
-        foreach ($results as $result) {
-            if ($result->event_results) {
-                $result->event_results->created_at = $this->formatDateLocal($result->event_results->created_at);
-            }
-        }
+        // foreach ($results as $result) {
+        //     if ($result->event_results->created_at) {
+        //         $result->event_results->created_at = $this->formatDateLocal($result->event_results->created_at);
+        //     }
+        // }
 
         return view('subscribed.pages.events_details',
             compact('data_medsos','data_footer','users','event','results','pigeons')
@@ -151,13 +150,13 @@ class EventController extends Controller
      */
     public function joinEvent($id, Request $request)
     {
-        $data = $request->all()
+        $data = $request->all();
 
         $pigeon = Pigeons::find($data['id_pigeon']);
 
         $data['id_event'] = $id;
-        $data['current_id_club'] = $pigeon->club_members->id_club;
-        $data['current_id_team'] = $pigeon->club_members->clubs->team_members->id_team;
+        $data['current_id_club'] = $pigeon->club_member->id_club;
+        $data['current_id_team'] = $pigeon->club_member->club->team_member->id_team;
 
         EventParticipants::create($data);
 
