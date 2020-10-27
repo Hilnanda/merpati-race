@@ -15,7 +15,8 @@ class TeamController extends Controller
 {
     public function index()
     {
-        $team = Team::all();
+        $team = Team::where('teams.is_active', 1)
+        ->get();
         $club = DB::table('team_members')
         ->rightJoin('clubs', 'team_members.id_club', '=', 'clubs.id')
         ->where('clubs.id_user','=',auth()->user()->id)

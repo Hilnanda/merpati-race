@@ -29,6 +29,10 @@ class ClubController extends Controller
         $data_footer = CMSFooter::all();
         $auth_session = auth()->user()->id;
 
+        $clubku = Clubs::where('id_user', auth()->user()->id)
+        ->orwhere('manager_club',auth()->user()->id)
+        ->get();
+
         $club_id = Clubs::where('id_user', auth()->user()->id)->get();
         $club_ikut = DB::table('club_members')
         ->join('clubs','club_members.id_club','=','clubs.id')
@@ -40,7 +44,7 @@ class ClubController extends Controller
        // dd($club_ikut);
        $club_belum_ikut = Clubs::all();
         return view('subscribed.pages.club',
-        compact('users','club','data_medsos','data_footer','club_id','club_ikut','club_belum_ikut')
+        compact('users','club','data_medsos','data_footer','club_id','club_ikut','club_belum_ikut','clubku')
         );
     }
 
@@ -51,8 +55,39 @@ class ClubController extends Controller
         $clubs= Clubs::where('id_user', auth()->user()->id)->get();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
+        $list_pigeons = DB::table('club_members')
+        ->join('clubs','club_members.id_club','=','clubs.id')
+        ->join('pigeons','club_members.id_pigeon','=','pigeons.id')
+        ->join('users','users.id','pigeons.id_user')
+        ->where('pigeons.id_user', auth()->user()->id)->get();
+        return view('subscribed.pages.club_detail_ikut',compact('club','data_medsos','data_footer','users','clubs','list_pigeons'));
+    }
+    public function detail_saya($id)
+    {
+        // dd($id);
+        
+        $club = Clubs::find($id);
+        $users = User::all();
+        $clubs= Clubs::where('id',$id)
+        ->first();
+        
+        // dd($clubs->manager_club);
+        // dd($clubs);
+        if($clubs->manager_club==auth()->user()->id){
+            
+            $clubs= Clubs::where('manager_club', auth()->user()->id)
+        ->where('id',$id)
+        ->first();
+        } else {
+            $clubs= Clubs::where('id_user', auth()->user()->id)
+        ->where('id',$id)
+        ->first();
+        }
+        
+        $data_medsos = CMSMedsos::all();
+        $data_footer = CMSFooter::all();
 
-        return view('subscribed.pages.club_detail_ikut',compact('club','data_medsos','data_footer','users','clubs'));
+        return view('subscribed.pages.club_saya_detail',compact('club','data_medsos','data_footer','users','clubs'));
     }
     public function detail_belum_ikut($id)
     {

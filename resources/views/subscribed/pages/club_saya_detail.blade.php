@@ -21,21 +21,27 @@
             <div class="box-body">
                 <div class="row" style="margin-bottom: 20px">
                     <div class="col-12">
-                        <a href="#"><button type="button" class="btn btn-success">Buat Training</button></a>
+                        @if (Auth::user()->id==$clubs->manager_club)
+                            <a href="#"><button type="button" class="btn btn-success">Buat Training</button></a>
+                            <a href="#"><button type="button" class="btn btn-primary">Permintaan Gabung</button></a>
+                        @endif
                     </div>
                 </div>
                 <div class="row" style="margin-bottom: 20px">
                     <div class="col-12">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-3">
                                 <img src="{{ asset('image/favicon.ico') }}" style="width:220px;height:200px"
                                     class="rounded float-left" alt="...">
                                 {{-- bagian keterangan --}}
-                                @foreach ($clubs as $item)
+                                
+                            </div>
+                            <div class="col-6">
                                     <h4>Club Details</h4>
-                                    <h5>Nama club : <b style="color: red">{{ $item->name_club }}</b></h5>
-                                    <h5>Alamat club: <b style="color: red">{{ $item->address_club }}</b></h5>
-                                @endforeach
+                                    <h5>Nama club : <b style="color: red">{{ $clubs->name_club }}</b></h5>
+                                    <h5>Alamat club: <b style="color: red">{{ $clubs->address_club }}</b></h5>
+                                    <h5>Posisi club: <b style="color: red">{{ $clubs->lat_club }} , {{ $clubs->lng_club }}</b></h5>
+                                    <h5>Manager club: <b style="color: red">{{ $clubs->manager->username }}</b></h5>
                             </div>
 
                         </div>
@@ -95,29 +101,33 @@
                             <table id="table_two" class="table table-bordered table-striped">
                                 <thead>
                                     <th>No.</th>
+                                    <th>Nama Club</th>
+                                    <th>Lokasi Mulai</th>
+                                    <th>Alamat</th>
                                     <th>Nama Pigeon</th>
-                                    <th>Nama Pemilik</th>                                   
                                     <th>Aksi</th>
                                 </thead>
                                 <tbody>
-                                    @if (count($list_pigeons) == 0)
+                                    {{-- @if (count($club_ikut) == 0)
                                         <tr class="text-center">
                                             <td colspan="8">-- Tidak ada Club yang belum Diikuti --</td>
                                         </tr>
                                     @endif
-                                    @foreach ($list_pigeons as $item)
+                                    @foreach ($club_ikut as $item)
                                         <tr>
-                                            <td>{{ $loop->index + 1 }}</td>                                                                                   
+                                            <td>{{ $loop->index + 1 }}</td>
+                                            <td>{{ $item->name_club }}</td>
+                                            <td>({{ $item->lat_club }}), ({{ $item->lng_club }})</td>
+                                            <td>{{ $item->address_club }}</td>
                                             <td>{{ $item->name_pigeon }}</td>
-                                            <td>{{ $item->name }}</td>
                                             <td class="action-link">
                                                 <a href="#" title="Live Results" class="mx-1"><i class="fa fa-list-ol"
                                                         aria-hidden="true"></i></a>
-                                                <a href="#" title="Details" class="mx-1"><i
+                                                <a href="club/{{ $item->id }}/detail_ikut" title="Details" class="mx-1"><i
                                                         class="fa fa-list-alt" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @endforeach --}}
                                 </tbody>
                             </table>
                         </div>
