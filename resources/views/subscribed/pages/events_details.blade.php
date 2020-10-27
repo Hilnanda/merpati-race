@@ -37,7 +37,7 @@ Detail Lomba
                     <th>Pemilik</th>
                     <th>Team</th>
                     <th>Club</th>
-                    <th>Burung</th>
+                    <th>Pigeon</th>
                     <th>Kedatangan</th>
                     <th>Kecepatan</th>
                     <th>Nama Burung</th>
@@ -51,8 +51,8 @@ Detail Lomba
                     @foreach($results as $result)
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
-                        <td>{{ $result->users.name ? $result->users.name : '-' }}</td>
-                        <td>{{ $result->teams.name ? $result->teams.name : '-' }}</td>
+                        <td>{{ $result->pigeons->user->name ? $result->pigeons->user->name : '-' }}</td>
+                        <td>{{ $result->current_team.name ? $result->current_team.name : '-' }}</td>
                         <td>{{ $result->clubs.name ? $result->clubs.name : '-' }}</td>
                         <td>{{ $result->pigeons.name ? $result->pigeons.name : '-' }}</td>
                         <td>{{ $result->event_results.created_at ? $result->event_results.created_at : '-' }}</td>
@@ -72,21 +72,33 @@ Detail Lomba
             <div class="modal-header">
               <h4 class="modal-title" id="exampleModalLabel">Join Lomba {{ $event->name_event }}</h4>
           </div>
-          <form action="/admin/event/create" method="POST">
+          <form action="/events/{{ $event->id }}/join_event" method="POST">
               <div class="modal-body">
                 {{ csrf_field() }}
                 <div class="form-group">
-                  <label for="">Nama Lomba</label>
-                  <input type="text" name="name_event" class="form-control" placeholder="Isi nama event" required>
-              </div>
-              <h5>Harga untuk mendaftar lomba sebesar Rp {{ number_format($event->price_event, 2) }}</h5>
+                    <label for="id_pigeon">Pigeon yang ingin join</label>
+                    <select class="form-control" name="id_pigeon">
+                        <option value="" selected disabled>-- Pilih Pigeon --</option>
+                        @foreach($pigeons as $pigeon)
+                        <option value="{{ $pigeon->id }}">({{ $pigeon->uid_pigeon }}) {{ $pigeon->name_pigeon }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="is_core">Peran sebagai</label>
+                    <select class="form-control" name="is_core">
+                        <option value="" disabled selected>-- Pilih peran --</option>
+                        <option value="1">Inti</option>
+                        <option value="0">Cadangan</option>
+                    </select>
+                </div>
+              <h5>Harga untuk mendaftar lomba sebesar Rp.{{ number_format($event->price_event, 2) }}</h5>
           </div>
           <div class="modal-footer">
             <div class="form-group d-flex justify-content-end">
                 <button class="btn musica-btn btn-2" type="button"
                 data-dismiss="modal">Cancel</button>
                 <input type="submit" value="Lanjut Pembayaran" class="btn musica-btn">
-                
             </div>
         </div>
     </form>

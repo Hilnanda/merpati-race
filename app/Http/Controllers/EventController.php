@@ -7,7 +7,9 @@ use App\CMSFooter;
 use App\CMSMedsos;
 use App\User;
 use App\Events;
+use App\Pigeons;
 use App\EventResults;
+use App\EventParticipants;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -87,6 +89,10 @@ class EventController extends Controller
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
         $auth_session = auth()->user()->id;
+        $pigeons = Pigeons::where('pigeons.is_active', 1)
+            ->where('pigeons.id_user', $auth_session)
+            ->whereRaw('pigeons.id NOT IN (SELECT id_pigeon FROM event_participants)')
+            ->get();
 
         $event->release_time_event = $this->formatDateLocal($event->release_time_event);
         $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
@@ -100,20 +106,20 @@ class EventController extends Controller
             ->leftJoin('team_members', 'clubs.id', '=', 'team_members.id_club')
             ->join('teams', 'team_members.id_team', '=', 'teams.id')
             ->get();
+        // $results = EventParticipants::
+        //     ->leftJoin('clubs', 'event_participants.current_id_club', '=', 'clubs.id')
+        //     ->leftJoin('teams', 'event_participants.current_id_team', '=', 'teams.id')
+        //     ->get();
 
         foreach ($results as $result) {
-            if ($result->event_results->created_at) {
+            if ($result->event_results) {
                 $result->event_results->created_at = $this->formatDateLocal($result->event_results->created_at);
             }
         }
 
-        return view('subscribed.pages.events_details', [
-            'data_medsos'=>$data_medsos,
-            'data_footer'=>$data_footer,
-            'users' => $users,
-            'event' => $event,
-            'results' => $results
-        ]);
+        return view('subscribed.pages.events_details',
+            compact('data_medsos','data_footer','users','event','results','pigeons')
+        );
     }
 
     /**
@@ -135,6 +141,27 @@ class EventController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    /**
+     * Store a newly created joined pigeon.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function joinEvent($id, Request $request)
+    {
+        $data = $request->all()
+
+        $pigeon = Pigeons::find($data['id_pigeon']);
+
+        $data['id_event'] = $id;
+        $data['current_id_club'] = $pigeon->club_members->id_club;
+        $data['current_id_team'] = $pigeon->team_members->id_team;
+
+        EventParticipants::create($data);
+
+        return back()->with('Sukses','Berhasil join, mohon tunggu konfirmasi Manajer!');
     }
 
     /**
