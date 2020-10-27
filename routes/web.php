@@ -99,8 +99,9 @@ Route::prefix('admin')
 // User Subscribed Menu
 Route::middleware('is_subscribed')->group(function () {
     // Clubs
-    Route::get('/club', 'ClubController@index')->name('club');
-    
+    Route::get('/club', 'ClubController@index')->name('club');    
+    Route::get('/club/{id}/detail_belum_ikut','ClubController@detail_belum_ikut')->name('club_detail_belum_detail');
+    Route::get('/club/{id}/detail_ikut','ClubController@detail_ikut')->name('club_detail_ikut');
 
     // Events
     Route::get('/events', 'EventController@index')->name('events');
@@ -113,6 +114,14 @@ Route::middleware('is_subscribed')->group(function () {
     Route::post('/team/join-team', 'TeamController@join_team');
     Route::get('/team/details/{id}','TeamController@details_ikut');
     Route::get('/team/details-teamku/{id}','TeamController@details_saya');
+
+    //pigeons
+    Route::get('/pigeons','PigeonsController@index');
+    Route::get('/pigeons/burungku','PigeonsController@burungku');
+    Route::get('/pigeons/topburung','PigeonsController@topburung');
+    Route::post('/pigeons/create','PigeonsController@store');
+    Route::post('/pigeons/edit','PigeonsController@update');
+    Route::get('/pigeons/delete/{id}','PigeonsController@destroy');
 
     });
 

@@ -87,7 +87,7 @@
                             <!-- Content -->
                             <div class="featured-shows-content">
                                 <div class="shows-text">
-                                    <a href="#" class="buy-tickets-btn"><h4>Pigeon</h4>
+                                    <a href="/pigeons" class="buy-tickets-btn"><h4>Pigeon</h4>
                                     {{-- <p>January 23</p> --}}
                                     </a>
                                 </div>
