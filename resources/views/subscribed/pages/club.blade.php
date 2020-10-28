@@ -29,7 +29,7 @@
                     <th>Alamat</th>
                     <th>Aksi</th>
                 </thead>
-                <tbody>                   
+                <tbody>
                     @if(count($clubku) == 0)
                     <tr class="text-center">
                         <td colspan="8">-- Tidak ada Club yang belum Diikuti --</td>
