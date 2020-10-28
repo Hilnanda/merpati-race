@@ -58,7 +58,7 @@ Detail Lomba
                         <td>{{ $result->pigeons->users->name ? $result->pigeons->users->name : '-' }}</td>
                         <td>{{ $result->teams ? $result->teams.name : '-' }}</td>
                         <td>{{ $result->clubs ? $result->clubs.name : '-' }}</td>
-                        <td>{{ $result->pigeons->name ? $result->pigeons->name : '-' }}</td>
+                        <td>{{ $result->pigeons ? $result->pigeons->uid_pigeon : '-' }}</td>
                         <td>{{ $result->event_results ? $result->event_results.created_at : '-' }}</td>
                         <td>{{ $result->event_results ? $result->event_results.speed_event_result : '-' }}</td>
                         <td>{{ $result->pigeons ? $result->pigeons->name_pigeon : '-' }}</td>
