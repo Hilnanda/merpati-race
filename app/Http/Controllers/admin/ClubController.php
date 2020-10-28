@@ -28,7 +28,17 @@ class ClubController extends Controller
      */
     public function create(Request $request)
     {
-        Clubs::create($request->all());
+        // Clubs::create($request->all());
+        $Clubs = new Clubs;
+
+        $Clubs->id_user = $request->id_user;
+        $Clubs->name_club = $request->name_club;
+        $Clubs->lat_club = $request->lat_club;
+        $Clubs->lng_club = $request->lng_club;
+        $Clubs->address_club = $request->address_club;
+        $Clubs->manager_club = $request->id_user;
+
+        $Clubs->save();
 
         return back()->with('Sukses','Berhasil menambahkan data!');
     }
