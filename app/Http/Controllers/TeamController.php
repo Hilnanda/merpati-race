@@ -91,9 +91,10 @@ class TeamController extends Controller
 
         $team_ikut = DB::table('team_members')
             ->join('teams', 'team_members.id_team', '=', 'teams.id')
-            ->join('clubs', 'team_members.id_club', '=', 'clubs.id')
-            ->join('users', 'users.id', '=', 'clubs.id_user')
-            
+            ->join('pigeons', 'team_members.id_pigeon', '=', 'pigeons.id')
+            ->join('users', 'users.id', '=', 'pigeons.id_user')
+            ->join('club_members', 'club_members.id_pigeon', '=', 'pigeons.id')
+            ->join('clubs', 'club_members.id_club', '=', 'clubs.id')
             ->select('team_members.*','teams.*','clubs.*','users.*','teams.is_active as is_active_teams')
             ->where('team_members.id_team', $id)
             ->get();
