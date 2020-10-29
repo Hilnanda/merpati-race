@@ -50,7 +50,7 @@ Dashboard Panitia
                       <label for="category_event">Kategori Lomba</label>
                       <select class="form-control" name="category_event">
                         <option value="" disabled selected>-- Pilih kategori --</option>
-                        <option value="Umum">Lomba Individu</option>
+                        <option value="Individu">Lomba Individu</option>
                         <option value="Team">Lomba Team</option>
                       </select>
                     </div>

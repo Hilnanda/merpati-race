@@ -11,15 +11,8 @@ class EventsTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Events::create([
-        'name_event' => 'Race Grobokan',
-        'category_event' => 'Umum',
-        'info_event' => 'Balapan burung sendiri',
-        'lat_event' => 3.2421321,
-        'lng_event' => -7.214213,
-        'address_event' => 'Lamongan',
-        'release_time_event' => now(),
-        'price_event' => 200000
-		]);
+        $sql = file_get_contents(database_path() . '/seeds/events.sql');
+    
+         DB::statement($sql);
     }
 }
