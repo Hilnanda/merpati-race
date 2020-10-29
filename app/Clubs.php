@@ -30,10 +30,6 @@ class Clubs extends Model
     {
         return $this->belongsTo('App\User', 'id_user', 'id');
     }
-    public function team_member()
-    {
-        return $this->hasMany('App\TeamMembers','id','id_club');
-    }
     public function club_member()
     {
         return $this->hasMany('App\ClubMember','id');

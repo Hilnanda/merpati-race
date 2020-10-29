@@ -12,15 +12,15 @@ class TeamMembers extends Model
     //deklarasi field yang bisa diisi pada table
     protected $fillable = [
         'id_team',
-        'id_club',
+        'id_pigeon',
     ];
 
     public function team()
     {
         return $this->belongsTo('App\Team', 'id_team','id');
     }
-    public function club()
+    public function pigeon()
     {
-        return $this->belongsTo('App\Clubs', 'id_club','id');
+        return $this->belongsTo('App\Pigeons', 'id_pigeon','id');
     }
 }

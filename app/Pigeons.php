@@ -28,4 +28,8 @@ class Pigeons extends Model
     {
         return $this->hasMany('App\ClubMember','id');
     }
+    public function team_member()
+    {
+        return $this->hasMany('App\TeamMembers','id');
+    }
 }

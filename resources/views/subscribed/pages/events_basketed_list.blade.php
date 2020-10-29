@@ -41,7 +41,7 @@
                         <td>{{ $loop->index+1 }}</td>
                         <td>{{ $participant->pigeons->users->name }}</td>
                         @if($event->category_event == 'Team')
-                        <td>{{ $participant->pigeons->club_member-> ? $result->teams.name : '-' }}</td>
+                        <td>{{ $participant->pigeons ? $result->teams.name : '-' }}</td>
                         @endif
                         <td class="action-link">
                             <a href="#" title="Basketed List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
