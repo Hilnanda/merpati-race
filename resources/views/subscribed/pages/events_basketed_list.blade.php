@@ -22,33 +22,34 @@
                 <thead>
                     <th>No.</th>
                     <th>Pemilik</th>
+                    @if($event->category_event == 'Team')
                     <th>Team</th>
+                    @endif
                     <th>Club</th>
-                    <th>Burung</th>
-                    <th>Nama Burung</th>
+                    <th>Pigeon</th>
+                    <th>Nama Pigeon</th>
                     <th>Waktu Basket</th>
                 </thead>
                 <tbody>
-                    <!-- @if(count($events_on_going) == 0) -->
+                    @if(count($participants) == 0)
                     <tr class="text-center">
-                        <td colspan="8">-- Tidak ada lomba yang sedang berlangsung --</td>
+                        <td colspan="8">-- Belum ada pigeon yang tiba --</td>
                     </tr>
-                    <!-- @endif -->
-                    <!-- @foreach($events_on_going as $event) -->
+                    @endif
+                    @foreach($participants as $participant)
                     <tr>
-                        <!-- <td>{{ $loop->index+1 }}</td>
-                        <td>{{ $event->name_event }}</td>
-                        <td>{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</td>
-                        <td>{{ $event->info_event }}</td>
-                        <td>({{ $event->lat_event }}), ({{ $event->lng_event }})</td>
-                        <td>{{ $event->lat_event_end ? '(' . $event->lat_event_end . '), (' . $event->lng_event_end . ')' : '-' }}</td> -->
+                        <td>{{ $loop->index+1 }}</td>
+                        <td>{{ $participant->pigeons->users->name }}</td>
+                        @if($event->category_event == 'Team')
+                        <td>{{ $participant->pigeons->club_member-> ? $result->teams.name : '-' }}</td>
+                        @endif
                         <td class="action-link">
                             <a href="#" title="Basketed List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                             <a href="#" title="Live Results" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
                             <a href="#" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
                         </td>
                     </tr>
-                    <!-- @endforeach -->
+                    @endforeach
                 </tbody>
             </table>
         </div>

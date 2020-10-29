@@ -87,6 +87,9 @@ class EventController extends Controller
         $users = User::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
+        $participants = EventParticipants::where('event_participants.id_event', $event->id)
+        ->orderBy('event_participants.basketed_at', 'asc')
+        ->get();
 
         $current_datetime = Carbon::now();
 
@@ -94,7 +97,7 @@ class EventController extends Controller
         $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
 
         return view('subscribed.pages.events_basketed_list',
-            compact('data_medsos', 'data_footer', 'users', 'current_datetime', 'event')
+            compact('data_medsos','data_footer','users','current_datetime','event','participants')
         );
     }
 
