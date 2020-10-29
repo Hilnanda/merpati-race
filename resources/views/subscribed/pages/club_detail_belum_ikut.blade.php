@@ -21,8 +21,13 @@
         <div class="box-body">
             <div class="row" style="margin-bottom: 20px">
                 <div class="col-12">
-                    <a href="#"><button type="button" class="btn btn-primary">Gabung</button></a>
-                    <a href="#"><button type="button" class="btn btn-success">Permintaan Gabung</button></a>
+                    @foreach ($collection as $item)
+                        
+                    @endforeach
+                <form action="/club/join/" method="post"> 
+                        @csrf
+                        
+                    </form>
                 </div>
             </div>
             <div class="row" style="margin-bottom: 20px">

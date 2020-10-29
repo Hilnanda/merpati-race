@@ -18,6 +18,7 @@ class EventsTableSeeder extends Seeder
         'lng_event' => -7.214213,
         'address_event' => 'Lamongan',
         'release_time_event' => now(),
+        'category_event' => 'Individu',
         'price_event' => 200000
 		]);
     }

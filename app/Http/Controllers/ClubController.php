@@ -91,13 +91,21 @@ class ClubController extends Controller
     }
     public function detail_belum_ikut($id)
     {
-        $club = Clubs::find($id);
+        $club = Clubs::where('id','=',$id)
+        ->where('is_active', 1)
+        ->get();
         $users = User::all();
-        $clubs= Clubs::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
-
-        return view('subscribed.pages.club_detail_belum_ikut',compact('club','data_medsos','data_footer','users','clubs'));
+        
+        $club_ikut = DB::table('club_members')
+        ->join('clubs','club_members.id_club','=','clubs.id')
+        ->join('pigeons','club_members.id_pigeon','=','pigeons.id')
+        ->join('users', 'users.id', '=', 'clubs.id_user')
+        ->select('club_members.*','clubs.*','pigeons.*','users.*','clubs.is_active as is_active_club')
+        ->where('club_members.id_clubs',$id)
+        ->get();
+        return view('subscribed.pages.club_detail_belum_ikut',compact('club','data_medsos','data_footer','users','club_join'));
     }
 
     /**
@@ -105,9 +113,12 @@ class ClubController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function join_club($id,Request $request)
     {
-        //
+        
+      
+        return back()->compact('list_club','club','club_member','clubs')->with('Sukses','Berhasil Join Club!');
+        
     }
 
     /**
