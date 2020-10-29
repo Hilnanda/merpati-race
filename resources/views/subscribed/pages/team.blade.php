@@ -89,7 +89,7 @@
                                 <td>{{ date('d F Y  H:i:s', strtotime($item->created_at)) }}</td>
                                 <td class="action-link">
 
-                                    <a href="/team/details-teamku/{{ $item->id }}" title="Details" class="mx-1"><i
+                                    <a href="/team/details-teamku/{{ $item->teams_id }}" title="Details" class="mx-1"><i
                                             class="fa fa-list-alt" aria-hidden="true"></i></a>
                                 </td>
                             </tr>
