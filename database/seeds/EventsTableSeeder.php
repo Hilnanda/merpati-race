@@ -13,6 +13,7 @@ class EventsTableSeeder extends Seeder
     {
         \App\Events::create([
         'name_event' => 'Race Grobokan',
+        'category_event' => 'Umum',
         'info_event' => 'Balapan burung sendiri',
         'lat_event' => 3.2421321,
         'lng_event' => -7.214213,

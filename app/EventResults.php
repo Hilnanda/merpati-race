@@ -17,8 +17,8 @@ class EventResults extends Model
         'current_id_team'
     ];
 
-    // public function event_participants()
-    // {
-    //     return $this->belongsTo('App\EventParticipants', 'id_event_participant','id');
-    // }
+    public function event_participants()
+    {
+        return $this->belongsTo('App\EventParticipants', 'id_event_participant','id');
+    }
 }

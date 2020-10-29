@@ -65,12 +65,12 @@ Detail Lomba
                         <td>{{ $loop->index+1 }}</td>
                         <td>{{ $result->pigeons->users->name ? $result->pigeons->users->name : '-' }}</td>
                         @if($event->category_event == 'Team')
-                        <td>{{ $result->teams ? $result->teams.name : '-' }}</td>
+                        <td>{{ $result->teams_name_team ? $result->teams_name_team : '-' }}</td>
                         @endif
-                        <td>{{ $result->clubs ? $result->clubs.name : '-' }}</td>
+                        <td>{{ $result->clubs_name_club ? $result->clubs_name_club : '-' }}</td>
                         <td>{{ $result->pigeons ? $result->pigeons->uid_pigeon : '-' }}</td>
-                        <td>{{ $result->event_results ? $result->event_results.created_at : '-' }}</td>
-                        <td>{{ $result->event_results ? $result->event_results.speed_event_result : '-' }}</td>
+                        <td>{{ $result->event_results ? $result->event_results_created_at : '-' }}</td>
+                        <td>{{ $result->event_results_speed_event_result ? $result->event_results_speed_event_result : '-' }}</td>
                         <td>{{ $result->pigeons ? $result->pigeons->name_pigeon : '-' }}</td>
                     </tr>
                     @endforeach

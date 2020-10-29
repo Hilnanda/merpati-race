@@ -25,10 +25,7 @@ class Events extends Model
         'expired_time_event',
         'price_event'
     ];
-    // public function clubs()
-    // {
-    //     return $this->belongsTo('App\Clubs', 'id_club','id');
-    // }
+    
     public function event_participants()
     {
         return $this->hasMany('App\EventParticipants','id');

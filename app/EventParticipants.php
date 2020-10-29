@@ -30,8 +30,8 @@ class EventParticipants extends Model
         return $this->belongsTo('App\Events', 'id_event','id');
     }
 
-    // public function event_results()
-    // {
-    //     return $this->hasMany('App\EventResults','id');
-    // }
+    public function event_results()
+    {
+        return $this->hasMany('App\EventResults','id');
+    }
 }
