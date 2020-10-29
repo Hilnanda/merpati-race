@@ -41,8 +41,6 @@ Route::prefix('admin')
         Route::post('/team/edit', 'ListTeamController@edit');
         Route::get('/team/verifikasi/{id}', 'ListTeamController@verifikasi');
 
-
-
         // Event
         Route::get('/list-event', 'EventController@index')->name('list-event');
         Route::post('/event/create', 'EventController@store');
@@ -70,7 +68,6 @@ Route::prefix('admin')
 
         //user 
         Route::get('/user', 'ListUserController@index')->name('list-user');
-
 
         // kelompok untuk cms
         // http admin/cms/...
@@ -109,6 +106,7 @@ Route::middleware('is_subscribed')->group(function () {
     Route::get('/events', 'EventController@index')->name('events');
     Route::get('/events/{id}/details', 'EventController@showDetails')->name('events_details');
     Route::get('/events/{id}/basket', 'EventController@showBasketedList')->name('events_basketed');
+    Route::get('/events/{id}/live-result', 'EventController@showLiveResults')->name('events_live_result');
     Route::post('/events/{id}/join_event', 'EventController@joinEvent')->name('join_event');
 
     // Events Club
