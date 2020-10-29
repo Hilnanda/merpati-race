@@ -24,33 +24,56 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Events::all();
+        $events = Events::orderBy('events.id', 'desc')->get();
         $users = User::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
 
         $current_datetime = Carbon::now();
 
-        $events_on_going = array();
-        $events_soon = array();
-
         foreach ($events as $event) {
+
             $event->release_time_event = $this->formatDateLocal($event->release_time_event);
             $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
+            $event->due_join_date_event = $this->formatDateLocal($event->due_join_date_event);
             if ($event->release_time_event <= $current_datetime) {
-                array_push($events_on_going, $event);
+                $event->status = 'Terbang';
+                $event->color = '#32CD32';
             } else {
-                array_push($events_soon, $event);
+                if ($event->due_join_date_event < $current_datetime) {
+                    $event->status = 'Pendaftaran ditutup';
+                    $event->color = '#EB0000';
+                } else {
+                    $event->status = 'Belum dimulai';
+                    $event->color = '#000000';
+                    // $date = strtotime($event->release_time_event);
+                    // $event->status = $date - time();
+                }
+            }
+            if ($event->lat_event_end != null) {
+                $event->distance = $this->distance($event->lat_event, $event->lng_event, $event->lat_event_end, $event->lng_event_end, "K");
             }
         }
 
-        return view('subscribed.pages.events_content', [
-            'data_medsos'=>$data_medsos,
-            'data_footer'=>$data_footer,
-            'events_on_going' => $events_on_going,
-            'events_soon' => $events_soon,
-            'users' => $users,
-            'current_datetime' => $current_datetime]);
+        return view('subscribed.pages.events_content', 
+            compact('data_medsos','data_footer','users','events','current_datetime')
+        );
+    }
+
+    /**
+     * Display a Menu page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function menuPage()
+    {
+        $users = User::all();
+        $data_medsos = CMSMedsos::all();
+        $data_footer = CMSFooter::all();
+
+        return view('subscribed.pages.events_menu',
+            compact('data_medsos','data_footer','users')
+        );
     }
 
     /**
@@ -70,13 +93,9 @@ class EventController extends Controller
         $event->release_time_event = $this->formatDateLocal($event->release_time_event);
         $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
 
-        return view('subscribed.pages.events_basketed_list', [
-            'data_medsos'=>$data_medsos,
-            'data_footer'=>$data_footer,
-            'users' => $users,
-            'current_datetime' => $current_datetime,
-            'event' => $event
-        ]);
+        return view('subscribed.pages.events_basketed_list',
+            compact('data_medsos', 'data_footer', 'users', 'current_datetime', 'event')
+        );
     }
 
     /**
@@ -92,19 +111,22 @@ class EventController extends Controller
         $data_footer = CMSFooter::all();
         $auth_session = auth()->user()->id;
         $pigeons = Pigeons::where('pigeons.is_active', 1)
-            ->where('pigeons.id_user', $auth_session)
-            ->whereRaw('pigeons.id NOT IN (SELECT id_pigeon FROM event_participants)')
-            ->get();
+        ->where('pigeons.id_user', $auth_session)
+        ->whereRaw('pigeons.id NOT IN (SELECT id_pigeon FROM event_participants)')
+        ->get();
+
+        $current_datetime = Carbon::now();
 
         $event->release_time_event = $this->formatDateLocal($event->release_time_event);
         $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
+        $event->due_join_date_event = $this->formatDateLocal($event->due_join_date_event);
 
         $results = EventParticipants::leftJoin('clubs', 'event_participants.current_id_club', '=', 'clubs.id')
-            ->leftJoin('teams', 'event_participants.current_id_team', '=', 'teams.id')
-            ->leftJoin('event_results', 'event_participants.id', '=', 'event_results.id_event_participant')
-            ->where('event_participants.active_at', '!=', 'null')
-            ->where('event_participants.id_event', '=', $event->id)
-            ->get();
+        ->leftJoin('teams', 'event_participants.current_id_team', '=', 'teams.id')
+        ->leftJoin('event_results', 'event_participants.id', '=', 'event_results.id_event_participant')
+        ->where('event_participants.active_at', '!=', 'null')
+        ->where('event_participants.id_event', '=', $event->id)
+        ->get();
 
         foreach ($results as $result) {
             if ($result->event_results) {
@@ -113,7 +135,7 @@ class EventController extends Controller
         }
 
         return view('subscribed.pages.events_details',
-            compact('data_medsos','data_footer','users','event','results','pigeons')
+            compact('data_medsos','data_footer','users','event','results','pigeons','current_datetime')
         );
     }
 
@@ -209,4 +231,26 @@ class EventController extends Controller
     {
         return Carbon::parse($value)->format('Y-m-d\TH:i');
     }
+
+    public function distance($lat1, $lon1, $lat2, $lon2, $unit) {
+      if (($lat1 == $lat2) && ($lon1 == $lon2)) {
+        return 0;
+    }
+    else {
+        $theta = $lon1 - $lon2;
+        $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+        $dist = acos($dist);
+        $dist = rad2deg($dist);
+        $miles = $dist * 60 * 1.1515;
+        $unit = strtoupper($unit);
+
+        if ($unit == "K") {
+          return ($miles * 1.609344);
+      } else if ($unit == "N") {
+          return ($miles * 0.8684);
+      } else {
+          return $miles;
+      }
+  }
+}
 }

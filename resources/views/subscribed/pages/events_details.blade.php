@@ -19,12 +19,16 @@ Detail Lomba
         <div class="row">
             <div class="col d-flex justify-content-between">
                 <h4>Detail Lomba "{{ $event->name_event }}"</h4>
+                @if($event->due_join_date_event >= $current_datetime && $event->release_time_event > $current_datetime)
                 <a href="#" class="btn musica-btn" data-toggle="modal" data-target="#joinLomba">Join Lomba</a>
+                @elseif($event->due_join_date_event < $current_datetime && $event->release_time_event > $current_datetime)
+                <h5 style="color: #EB0000;">Pendaftaran ditutup</h5>
+                @endif
             </div>
         </div>
         <div class="row my-2">
             <div class="col-2">
-                <img src="{{ asset('image/favicon.ico') }}" style="width:220px;height:200px" class="rounded float-left" alt="...">
+                <img src="{{ asset('image/favicon.ico') }}" style="width:220px;" class="rounded float-left" alt="...">
             </div>
             <div class="col-10">
                 <p>Nama lomba : <b style="color: red">{{ $event->name_event }}</b></p>
