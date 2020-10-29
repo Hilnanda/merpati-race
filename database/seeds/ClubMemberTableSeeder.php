@@ -14,21 +14,16 @@ class ClubMemberTableSeeder extends Seeder
         //
         \App\ClubMember::create([
             'id_club' => 4,
-            'id_pigeon' => 4,
+            'id_pigeon' => 1,
             'is_active' => 1
             ]);
         \App\ClubMember::create([
             'id_club' => 5,
-            'id_pigeon' => 4,
+            'id_pigeon' => 2,
             'is_active' => 1
             ]);
         \App\ClubMember::create([
             'id_club' => 6,
-            'id_pigeon' => 1,
-            'is_active' => 0
-             ]);
-        \App\ClubMember::create([
-            'id_club' => 3,
             'id_pigeon' => 3,
             'is_active' => 1
              ]);
@@ -38,9 +33,14 @@ class ClubMemberTableSeeder extends Seeder
             'is_active' => 1
              ]);
         \App\ClubMember::create([
+            'id_club' => 3,
+            'id_pigeon' => 5,
+            'is_active' => 1
+             ]);
+        \App\ClubMember::create([
             'id_club' => 4,
             'id_pigeon' => 6,
-            'is_active' => 0
+            'is_active' => 1
              ]);
     }
 }
