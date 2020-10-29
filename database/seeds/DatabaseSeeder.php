@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             TeamsTableSeeder::class,
             FootersTableSeeder::class,
             PigeonTableSeeder::class,
+            ClubMemberTableSeeder::class,
         ]);
         
     }

@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
 @endpush
 @section('content')
+    @if(!Auth::user())
     <section class="hero-area">
         <div class="hero-slides owl-carousel">
-
             <!-- Single Hero Slide -->
             <div class="single-hero-slide d-flex align-items-center justify-content-center">
                 <!-- Slide Img -->
-                <div class="slide-img bg-img" style="background-image: url(image/burung1.jpg);"></div>
+                <div class="slide-img bg-img" style="background-image: url({{ url('image/burung1.jpg') }});"></div>
                 <!-- Slide Content -->
                 <div class="hero-slides-content text-center">
                     <h2 data-animation="fadeInUp" data-delay="100ms">Lomba Merpati <span>Lomba Merpati</span></h2>
@@ -26,7 +26,7 @@
             <!-- Single Hero Slide -->
             <div class="single-hero-slide d-flex align-items-center justify-content-center">
                 <!-- Slide Img -->
-                <div class="slide-img bg-img" style="background-image: url(image/burung2.jpg);"></div>
+                <div class="slide-img bg-img" style="background-image: url({{ url('image/burung2.jpg') }});"></div>
                 <!-- Slide Content -->
                 <div class="hero-slides-content text-center">
                     <h2 data-animation="fadeInUp" data-delay="100ms">Colorlib <span>Colorlib</span></h2>
@@ -39,7 +39,7 @@
             <!-- Single Hero Slide -->
             <div class="single-hero-slide d-flex align-items-center justify-content-center">
                 <!-- Slide Img -->
-                <div class="slide-img bg-img" style="background-image: url(image/burung3.jpg);"></div>
+                <div class="slide-img bg-img" style="background-image: url({{ url('image/burung3.jpg') }});"></div>
                 <!-- Slide Content -->
                 <div class="hero-slides-content text-center">
                     <h2 data-animation="fadeInUp" data-delay="100ms">Festival <span>Festival</span></h2>
@@ -59,6 +59,7 @@
             <div class="line"></div>
         </div>
     </section>
+    @endif
     <!-- ##### Hero Area End ##### -->
 
     <!-- ##### About Us Area Start ##### -->
@@ -70,7 +71,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="section-heading dark" >
+                    <div class="section-heading dark">
                         <h2 style="color: white">Perlombaan merpati</h2>
                         <h5 style="color: white">Website Untuk Perlombaan Burung Merpati.</h5>
                     </div>
@@ -101,7 +102,7 @@
                             <!-- Content -->
                             <div class="featured-shows-content">
                                 <div class="shows-text">
-                                    <a href="/events" class="buy-tickets-btn"><h4>Lomba</h4>
+                                    <a href="/events/index" class="buy-tickets-btn"><h4>Lomba</h4>
                                         {{-- <p>January 23</p> --}}
                                         </a>
                                 </div>

@@ -19,16 +19,22 @@ Detail Lomba
         <div class="row">
             <div class="col d-flex justify-content-between">
                 <h4>Detail Lomba "{{ $event->name_event }}"</h4>
+                @if($event->due_join_date_event >= $current_datetime && $event->release_time_event > $current_datetime)
                 <a href="#" class="btn musica-btn" data-toggle="modal" data-target="#joinLomba">Join Lomba</a>
+                @elseif($event->due_join_date_event < $current_datetime && $event->release_time_event > $current_datetime)
+                <h5 style="color: #EB0000;">Pendaftaran ditutup</h5>
+                @endif
             </div>
         </div>
         <div class="row my-2">
             <div class="col-2">
-                <img src="{{ asset('image/favicon.ico') }}" style="width:220px;height:200px" class="rounded float-left" alt="...">
+                <img src="{{ asset('image/favicon.ico') }}" style="width:220px;" alt="...">
             </div>
             <div class="col-10">
                 <p>Nama lomba : <b style="color: red">{{ $event->name_event }}</b></p>
-                <p>Alamat lomba : <b style="color: red">{{ $event->info_event }}</b></p>
+                <p>Jenis lomba : <b style="color: red">{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</b></p>
+                <p>Kategori lomba : <b style="color: red">Lomba {{ $event->category_event }}</b></p>
+                <p>Info lomba : <b style="color: red">{{ $event->info_event }}</b></p>
                 <p>Posisi lomba : <b style="color: red">{{ $event->lat_event }} , {{ $event->lng_event }}</b></p>
                 <p>Alamat lomba : <b style="color: red">{{ $event->address_event }}</b></p>
                 <p>Jadwal mulai : <b style="color: red">{{ \Carbon\Carbon::parse($event->release_time_event)->format('j F Y') }}</b></p>
@@ -39,12 +45,14 @@ Detail Lomba
                 <thead>
                     <th>Peringkat</th>
                     <th>Pemilik</th>
+                    @if($event->category_event == 'Team')
                     <th>Team</th>
+                    @endif
                     <th>Club</th>
                     <th>Pigeon</th>
                     <th>Kedatangan</th>
                     <th>Kecepatan</th>
-                    <th>Nama Burung</th>
+                    <th>Nama Pigeon</th>
                 </thead>
                 <tbody>
                     @if(count($results) == 0)
@@ -56,7 +64,9 @@ Detail Lomba
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
                         <td>{{ $result->pigeons->users->name ? $result->pigeons->users->name : '-' }}</td>
+                        @if($event->category_event == 'Team')
                         <td>{{ $result->teams ? $result->teams.name : '-' }}</td>
+                        @endif
                         <td>{{ $result->clubs ? $result->clubs.name : '-' }}</td>
                         <td>{{ $result->pigeons ? $result->pigeons->uid_pigeon : '-' }}</td>
                         <td>{{ $result->event_results ? $result->event_results.created_at : '-' }}</td>

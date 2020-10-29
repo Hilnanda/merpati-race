@@ -7,6 +7,7 @@ use App\Events;
 use App\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
@@ -17,10 +18,11 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Events::all();
+        $events = Events::orderBy('events.id', 'desc')->get();
         $users = User::all();
 
         foreach ($events as $event) {
+            $event->due_join_date_event = $this->formatDateLocal($event->due_join_date_event);
             $event->release_time_event = $this->formatDateLocal($event->release_time_event);
             if (!is_null($event->expired_time_event)) {
                 $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
@@ -40,11 +42,19 @@ class EventController extends Controller
     {
         $data = $request->all();
 
-        $data['release_time_event'] = str_replace("T", " ", $request->release_time_event);
-
         if (isset($data['expired_time_event'])) {
             $data['expired_time_event'] = str_replace("T", " ", $request->expired_time_event);
         }
+
+        $data['due_join_date_event'] = str_replace("T", " ", $request->due_join_date_event);
+        $data['release_time_event'] = str_replace("T", " ", $request->release_time_event);
+
+        $extension = $request->file('logo_event')->extension();
+        $img_name = 'logo-' . $data['name_event'] . '-' . date('dmyHis') . '.' . $extension;
+        $this->validate($request, ['logo_event' => 'required|file|max:5000']);
+        $path = Storage::putFileAs('public/image-logo', $request->file('logo_event'), $img_name);
+
+        $data['logo_event'] = $img_name;
 
         Events::create($data);
 
@@ -74,10 +84,22 @@ class EventController extends Controller
         $event = Events::find($id);
         $data = $request->all();
 
-        $data['release_time_event'] = str_replace("T", " ", $request->release_time_event);
-        
         if (isset($data['expired_time_event'])) {
             $data['expired_time_event'] = str_replace("T", " ", $request->expired_time_event);
+        }
+
+        $data['due_join_date_event'] = str_replace("T", " ", $request->due_join_date_event);
+        $data['release_time_event'] = str_replace("T", " ", $request->release_time_event);
+
+        if ($request->logo_event == null) {
+            $data['logo_event'] = $event->logo_event;
+        } else {
+            $extension = $request->file('logo_event')->extension();
+            $img_name = 'logo-' . $data['name_event'] . '-' . date('dmyHis') . '.' . $extension;
+            $this->validate($request, ['logo_event' => 'required|file|max:5000']);
+            $path = Storage::putFileAs('public/image-logo', $request->file('logo_event'), $img_name);
+
+            $data['logo_event'] = $img_name;
         }
 
         $event->update($data);

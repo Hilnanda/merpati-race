@@ -18,7 +18,7 @@ class PigeonTableSeeder extends Seeder
             'id_user' => 4,
             'name_pigeon' => 'Cucak Rowo',
             'sex_pigeon' => 'Jantan',
-            'color_pigeon' => 'Abu-Abu',
+            'color_pigeon' => 'ANM34',
             'is_active' => 0
             ]);
         \App\Pigeons::create([
@@ -27,7 +27,7 @@ class PigeonTableSeeder extends Seeder
             'id_user' => 3,
             'name_pigeon' => 'Kacer',
             'sex_pigeon' => 'betina',
-            'color_pigeon' => 'Hitam-Putih',
+            'color_pigeon' => 'BNM12',
             'is_active' => 0
             ]);
         \App\Pigeons::create([
@@ -36,7 +36,7 @@ class PigeonTableSeeder extends Seeder
             'id_user' => 3,
             'name_pigeon' => 'Jalak Kebo',
             'sex_pigeon' => 'Jantan',
-            'color_pigeon' => 'Hitam',
+            'color_pigeon' => 'GHI89',
             'is_active' => 1
             ]);
         \App\Pigeons::create([
@@ -45,7 +45,7 @@ class PigeonTableSeeder extends Seeder
             'id_user' => 2,
             'name_pigeon' => 'Lovebird',
             'sex_pigeon' => 'Betina',
-            'color_pigeon' => 'Hijau-Kuning',
+            'color_pigeon' => 'ASD12',
             'is_active' => 1
             ]);
         \App\Pigeons::create([
@@ -54,7 +54,7 @@ class PigeonTableSeeder extends Seeder
             'id_user' => 2,
             'name_pigeon' => 'Kolibri',
             'sex_pigeon' => 'Jantan',
-            'color_pigeon' => 'Hitam-Biru',
+            'color_pigeon' => 'MKL90',
             'is_active' => 1
             ]);
         \App\Pigeons::create([
@@ -63,7 +63,7 @@ class PigeonTableSeeder extends Seeder
             'id_user' => 4,
             'name_pigeon' => 'Kenari',
             'sex_pigeon' => 'Jantan',
-            'color_pigeon' => 'Kuning',
+            'color_pigeon' => 'XDF23',
             'is_active' => 1
             ]);
     }
