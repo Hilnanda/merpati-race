@@ -76,11 +76,11 @@
                         <th>Aksi</th>
                     </thead>
                     <tbody>
-                        @if (count($teamku) == 0)
+                        {{-- @if (count($teamku) == 0)
                             <tr class="text-center">
                                 <td colspan="8">-- Tidak ada Team yang Diikuti --</td>
                             </tr>
-                        @endif
+                        @endif --}}
                         @foreach ($teamku as $item)
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
@@ -118,11 +118,11 @@
                         <th>Aksi</th>
                     </thead>
                     <tbody>
-                        @if (count($team_ikut) == 0)
+                        {{-- @if (count($team_ikut) == 0)
                             <tr class="text-center">
                                 <td colspan="8">-- Tidak ada Team yang Diikuti --</td>
                             </tr>
-                        @endif
+                        @endif --}}
                         @foreach ($team_ikut as $item)
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
@@ -161,11 +161,11 @@
                         <th>Aksi</th>
                     </thead>
                     <tbody>
-                        @if (count($team) == 0)
+                        {{-- @if (count($team) == 0)
                             <tr class="text-center">
                                 <td colspan="8">-- Tidak ada Team yang Terdaftar --</td>
                             </tr>
-                        @endif
+                        @endif --}}
                         @foreach ($team as $item)
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
