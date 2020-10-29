@@ -17,10 +17,11 @@
     <div class="row mt-5 px-5">
         <div class="col-lg-12">
             <!-- /.box-header -->
-            <h4>Detail Club Di ikuti</h4>
+            <h4>Detail Club Saya</h4>
             <div class="box-body">
                 <div class="row" style="margin-bottom: 20px">
                     <div class="col-12">
+                        <a href="#"><button type="button" class="btn btn-danger"><i class="fa fa-twitter"></i> Join Pigeon</button></a>
                         @if (Auth::user()->id==$clubs->manager_club)
                             <a href="#"><button type="button" class="btn btn-success">Buat Training</button></a>
                             <a href="#"><button type="button" class="btn btn-primary">Permintaan Gabung</button></a>

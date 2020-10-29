@@ -138,7 +138,7 @@
                             <i class="fa fa-twitter"></i> <span>Pigeon</span>
                         </a>
                     </li>
-                    <li class="{{ (request()->is('admin/list-user*')) ? 'active' : '' }}">
+                    <li class="{{ (request()->is('admin/user*')) ? 'active' : '' }}">
                         <a href="{{ route('list-user') }}">
                             <i class="fa fa-user"></i> <span>User</span>
                         </a>
