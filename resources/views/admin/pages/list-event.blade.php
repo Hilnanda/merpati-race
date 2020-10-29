@@ -50,7 +50,7 @@ Dashboard Panitia
                       <label for="category_event">Kategori Lomba</label>
                       <select class="form-control" name="category_event">
                         <option value="" disabled selected>-- Pilih kategori --</option>
-                        <option value="Umum">Lomba Umum</option>
+                        <option value="Individu">Lomba Individu</option>
                         <option value="Team">Lomba Team</option>
                       </select>
                     </div>
@@ -173,7 +173,7 @@ Dashboard Panitia
                               <select class="form-control" name="category_event">
                                 <option value="" disabled selected>-- Pilih kategori --</option>
                                 @php
-                                  $categories = array('Umum', 'Team');
+                                  $categories = array('Individu', 'Team');
                                 @endphp
                                 @foreach($categories as $category)
                                 @if($category == $event->category_event)

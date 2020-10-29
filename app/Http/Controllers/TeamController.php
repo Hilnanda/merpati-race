@@ -9,6 +9,7 @@ use App\CMSMedsos;
 use App\CMSFooter;
 use App\TeamMembers;
 use App\Clubs;
+use App\Pigeons;
 use DB;
 
 class TeamController extends Controller
@@ -17,25 +18,35 @@ class TeamController extends Controller
     {
         $team = Team::where('teams.is_active', 1)
         ->get();
-        $club = DB::table('team_members')
-        ->rightJoin('clubs', 'team_members.id_club', '=', 'clubs.id')
-        ->where('clubs.id_user','=',auth()->user()->id)
+        $pigeon = Pigeons::where('pigeons.is_active', 1)
+        ->where('pigeons.id_user', auth()->user()->id)
+        ->whereRaw('pigeons.id NOT IN (SELECT id_pigeon FROM team_members)')
         ->get();
+        // $pigeon = DB::table('team_members')
+        // ->rightJoin('pigeons', 'team_members.id_pigeon', '=', 'pigeons.id')
+        // ->where('pigeons.id_user','=',auth()->user()->id)
+        // ->get();
         // dd($club);
         $user = User::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
         $auth_session = auth()->user()->id;
 
-        $teamku = Team::where('id_user', auth()->user()->id)
+        $teamku = DB::table('teams')
+            ->join('users', 'users.id', '=', 'teams.id_user')
+            ->select('teams.*','users.*','teams.id as teams_id')
+            ->where('teams.id_user', auth()->user()->id)
             ->where('teams.is_active', 1)
             ->get();
-
+        
         $team_ikut = DB::table('team_members')
             ->join('teams', 'team_members.id_team', '=', 'teams.id')
-            ->join('clubs', 'team_members.id_club', '=', 'clubs.id')
-            ->join('users', 'users.id', '=', 'clubs.id_user')
-            ->where('clubs.id_user', auth()->user()->id)
+            ->join('pigeons', 'team_members.id_pigeon', '=', 'pigeons.id')
+            ->join('users', 'users.id', '=', 'pigeons.id_user')
+            ->join('club_members', 'club_members.id_pigeon', '=', 'pigeons.id')
+            ->join('clubs', 'club_members.id_club', '=', 'clubs.id')
+            // ->select('team_members.*','teams.*','clubs.*','users.*','teams.is_active as is_active_teams')
+            ->where('pigeons.id_user', auth()->user()->id)
             ->where('teams.is_active', 1)
             ->get();
         // dd($team_ikut);
@@ -50,7 +61,7 @@ class TeamController extends Controller
             'teamku' => $teamku,
             'team_ikut' => $team_ikut,
             'auth' => $auth_session,
-            'club'=>$club
+            'pigeon'=>$pigeon
         ]);
     }
 
@@ -80,8 +91,10 @@ class TeamController extends Controller
 
         $team_ikut = DB::table('team_members')
             ->join('teams', 'team_members.id_team', '=', 'teams.id')
-            ->join('clubs', 'team_members.id_club', '=', 'clubs.id')
-            ->join('users', 'users.id', '=', 'clubs.id_user')
+            ->join('pigeons', 'team_members.id_pigeon', '=', 'pigeons.id')
+            ->join('users', 'users.id', '=', 'pigeons.id_user')
+            ->join('club_members', 'club_members.id_pigeon', '=', 'pigeons.id')
+            ->join('clubs', 'club_members.id_club', '=', 'clubs.id')
             ->select('team_members.*','teams.*','clubs.*','users.*','teams.is_active as is_active_teams')
             ->where('team_members.id_team', $id)
             ->get();
@@ -108,9 +121,11 @@ class TeamController extends Controller
 
         $team_ikut = DB::table('team_members')
             ->join('teams', 'team_members.id_team', '=', 'teams.id')
-            ->join('clubs', 'team_members.id_club', '=', 'clubs.id')
-            ->join('users', 'users.id', '=', 'clubs.id_user')
-            ->select('team_members.*','teams.*','clubs.*','users.*','teams.is_active as is_active_teams')
+            ->join('pigeons', 'team_members.id_pigeon', '=', 'pigeons.id')
+            ->join('users', 'users.id', '=', 'pigeons.id_user')
+            ->join('club_members', 'club_members.id_pigeon', '=', 'pigeons.id')
+            ->join('clubs', 'club_members.id_club', '=', 'clubs.id')
+            ->select('team_members.*','teams.*','pigeons.*','clubs.*','users.*','teams.is_active as is_active_teams')
             ->where('team_members.id_team', $id)
             ->get();
         // dd($team_ikut);

@@ -18,6 +18,7 @@
             <h4>Team Details</h4>
             <h5>Nama Team : <b style="color: red">{{ $item->name_team }}</b></h5>
             <h5>Deskripsi Team : <b style="color: red">{{ $item->desc_team }}</b></h5>
+            <h5>Pemilik Team : <b style="color: red">{{ $item->user->username }}</b></h5>
         @endforeach
     </div>
 </div>
@@ -31,6 +32,8 @@
                     <th>No.</th>
                     <th>Nama Team</th>
                     <th>Nama Club </th>
+                    <th>ID </th>
+                    <th>Pigeon </th>
                     <th>User</th>
                     <th>Tanggal Team</th>
                     
@@ -38,16 +41,18 @@
                     <th>Aksi</th>
                 </thead>
                 <tbody>
-                    @if(count($team_ikut) == 0)
+                    {{-- @if(count($team_ikut) == 0)
                     <tr class="text-center">
                         <td colspan="8">-- Tidak ada Team yang Diikuti --</td>
                     </tr>
-                    @endif
+                    @endif --}}
                     @foreach($team_ikut as $item)
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
                         <td>{{ $item->name_team }}</td>
                         <td>{{ $item->name_club }}</td>
+                        <td>{{ $item->uid_pigeon }}</td>
+                        <td>{{ $item->name_pigeon }}</td>
                         <td>{{ $item->username }}</td>
                         <td>{{ date('d F Y  H:i:s', strtotime($item->created_at)) }}</td>
                         <td class="action-link">

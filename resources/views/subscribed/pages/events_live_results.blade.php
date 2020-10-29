@@ -1,12 +1,12 @@
 @extends('subscribed.layout.subscribed')
 @section('title')
-Detail Lomba
+Hasil Lomba
 @endsection
 @section('content')
 <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ url('image/breadcumb-1.jpg') }});">
     <div class="bradcumbContent">
-        <h2>Detail Lomba</h2>
+        <h2>Hasil Lomba</h2>
     </div>
 </div>
 <!-- bg gradients -->
@@ -18,12 +18,7 @@ Detail Lomba
         <!-- /.box-header -->
         <div class="row">
             <div class="col d-flex justify-content-between">
-                <h4>Detail Lomba "{{ $event->name_event }}"</h4>
-                @if($event->due_join_date_event >= $current_datetime && $event->release_time_event > $current_datetime)
-                <a href="#" class="btn musica-btn" data-toggle="modal" data-target="#joinLomba">Join Lomba</a>
-                @elseif($event->due_join_date_event < $current_datetime && $event->release_time_event > $current_datetime)
-                <h5 style="color: #EB0000;">Pendaftaran ditutup</h5>
-                @endif
+                <h4>Hasil Lomba "{{ $event->name_event }}"</h4>
             </div>
         </div>
         <div class="row my-2">
@@ -32,13 +27,14 @@ Detail Lomba
                 <img src="{{ url($path) }}" style="width:220px;" alt="...">
             </div>
             <div class="col-10">
-                <p>Nama lomba : <b style="color: red">{{ $event->name_event }}</b></p>
                 <p>Jenis lomba : <b style="color: red">{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</b></p>
                 <p>Kategori lomba : <b style="color: red">Lomba {{ $event->category_event }}</b></p>
                 <p>Info lomba : <b style="color: red">{{ $event->info_event }}</b></p>
                 <p>Posisi lomba : <b style="color: red">{{ $event->lat_event }} , {{ $event->lng_event }}</b></p>
-                <p>Alamat lomba : <b style="color: red">{{ $event->address_event }}</b></p>
                 <p>Jadwal mulai : <b style="color: red">{{ \Carbon\Carbon::parse($event->release_time_event)->format('j F Y') }}</b></p>
+                <p>Pigeon di basket : <b style="color: red">{{ count($basketed_pigeons) }}</b></p>
+                <p>Pigeon sudah datang : <b style="color: red">{{ count($arrived_pigeons) }}</b></p>
+                <p>Pigeon belum datang : <b style="color: red">{{ count($basketed_pigeons) - count($arrived_pigeons) }}</b></p>
             </div>
         </div>
         <div class="box-body">
@@ -52,7 +48,7 @@ Detail Lomba
                     <th>Club</th>
                     <th>Pigeon</th>
                     <th>Kedatangan</th>
-                    <th>Kecepatan</th>
+                    <th>Kecepatan [m/mnt]</th>
                     <th>Nama Pigeon</th>
                 </thead>
                 <tbody>

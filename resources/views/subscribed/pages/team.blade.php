@@ -76,20 +76,20 @@
                         <th>Aksi</th>
                     </thead>
                     <tbody>
-                        @if (count($teamku) == 0)
+                        {{-- @if (count($teamku) == 0)
                             <tr class="text-center">
                                 <td colspan="8">-- Tidak ada Team yang Diikuti --</td>
                             </tr>
-                        @endif
+                        @endif --}}
                         @foreach ($teamku as $item)
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $item->name_team }}</td>
-                                <td>{{ $item->user->username }}</td>
+                                <td>{{ $item->username }}</td>
                                 <td>{{ date('d F Y  H:i:s', strtotime($item->created_at)) }}</td>
                                 <td class="action-link">
 
-                                    <a href="/team/details-teamku/{{ $item->id }}" title="Details" class="mx-1"><i
+                                    <a href="/team/details-teamku/{{ $item->teams_id }}" title="Details" class="mx-1"><i
                                             class="fa fa-list-alt" aria-hidden="true"></i></a>
                                 </td>
                             </tr>
@@ -110,23 +110,26 @@
                         <th>No.</th>
                         <th>Nama Team</th>
                         <th>Nama Club</th>
-                        {{-- <th>User</th> --}}
+                        <th>ID</th>
+                        <th>Pigeon</th>
                         <th>Tanggal Team</th>
 
                         {{-- <th>Mulai</th> --}}
                         <th>Aksi</th>
                     </thead>
                     <tbody>
-                        @if (count($team_ikut) == 0)
+                        {{-- @if (count($team_ikut) == 0)
                             <tr class="text-center">
                                 <td colspan="8">-- Tidak ada Team yang Diikuti --</td>
                             </tr>
-                        @endif
+                        @endif --}}
                         @foreach ($team_ikut as $item)
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $item->name_team }}</td>
                                 <td>{{ $item->name_club }}</td>
+                                <td>{{ $item->uid_pigeon }}</td>
+                                <td>{{ $item->name_pigeon }}</td>
                                 {{-- <td>{{ $item->username }}</td>
                                 --}}
                                 <td>{{ date('d F Y  H:i:s', strtotime($item->created_at)) }}</td>
@@ -158,11 +161,11 @@
                         <th>Aksi</th>
                     </thead>
                     <tbody>
-                        @if (count($team) == 0)
+                        {{-- @if (count($team) == 0)
                             <tr class="text-center">
                                 <td colspan="8">-- Tidak ada Team yang Terdaftar --</td>
                             </tr>
-                        @endif
+                        @endif --}}
                         @foreach ($team as $item)
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
@@ -192,13 +195,13 @@
                                                     <form action="/team/join-team" method="POST">
                                                         {{ csrf_field() }}
                                                         <div class="form-group">
-                                                            <label for="">Nama Club</label>
+                                                            <label for="">Pigeon</label>
                                                             <input type="hidden" name="id_team" value="{{ $item->id }}">
-                                                            <select name="id_club" class="form-control" required>
-                                                                <option value="">-- Pilih Club --</option>
-                                                                @foreach($club as $clubs)
-                                                                @if ($item->id!=$clubs->id_team)
-                                                                <option value="{{$clubs->id}}">{{$clubs->name_club}}</option>
+                                                            <select name="id_pigeon" class="form-control" required>
+                                                                <option value="">-- Pilih Pigeon --</option>
+                                                                @foreach($pigeon as $pigeons)
+                                                                @if ($item->id!=$pigeons->id_team)
+                                                                <option value="{{$pigeons->id}}">{{$pigeons->uid_pigeon}} - {{$pigeons->name_pigeon}}</option>
                                                                 @endif
                                                                 @endforeach
                                                               </select>

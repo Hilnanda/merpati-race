@@ -87,7 +87,11 @@ class EventController extends Controller
         $users = User::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
-        $participants = EventParticipants::where('event_participants.id_event', $event->id)
+        $participants = EventParticipants::selectRaw('*, clubs.id as clubs_id, clubs.name_club as clubs_name_club, teams.id as teams_id, teams.name_team as teams_name_team')
+        ->leftJoin('clubs', 'event_participants.current_id_club', '=', 'clubs.id')
+        ->leftJoin('teams', 'event_participants.current_id_team', '=', 'teams.id')
+        ->where('event_participants.active_at', '!=', 'null')
+        ->where('event_participants.id_event', '=', $event->id)
         ->orderBy('event_participants.basketed_at', 'asc')
         ->get();
 
@@ -95,6 +99,11 @@ class EventController extends Controller
 
         $event->release_time_event = $this->formatDateLocal($event->release_time_event);
         $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
+        foreach ($participants as $participant) {
+            if ($participant->basketed_at) {
+                $participant->basketed_at = $this->formatDateLocal($participant->basketed_at);
+            }
+        }
 
         return view('subscribed.pages.events_basketed_list',
             compact('data_medsos','data_footer','users','current_datetime','event','participants')
@@ -115,7 +124,11 @@ class EventController extends Controller
         $auth_session = auth()->user()->id;
         $pigeons = Pigeons::where('pigeons.is_active', 1)
         ->where('pigeons.id_user', $auth_session)
-        ->whereRaw('pigeons.id NOT IN (SELECT id_pigeon FROM event_participants)')
+        ->whereRaw('pigeons.id NOT IN (
+            SELECT id_pigeon FROM event_participants
+            INNER JOIN event_results
+            ON event_participants.id = event_results.id_event_participant
+        )')
         ->get();
 
         $current_datetime = Carbon::now();
@@ -124,7 +137,8 @@ class EventController extends Controller
         $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
         $event->due_join_date_event = $this->formatDateLocal($event->due_join_date_event);
 
-        $results = EventParticipants::leftJoin('clubs', 'event_participants.current_id_club', '=', 'clubs.id')
+        $results = EventParticipants::selectRaw('*, event_results.created_at as event_results_created_at, event_results.speed_event_result as event_results_speed_event_result, clubs.id as clubs_id, clubs.name_club as clubs_name_club, teams.id as teams_id, teams.name_team as teams_name_team')
+        ->leftJoin('clubs', 'event_participants.current_id_club', '=', 'clubs.id')
         ->leftJoin('teams', 'event_participants.current_id_team', '=', 'teams.id')
         ->leftJoin('event_results', 'event_participants.id', '=', 'event_results.id_event_participant')
         ->where('event_participants.active_at', '!=', 'null')
@@ -133,12 +147,68 @@ class EventController extends Controller
 
         foreach ($results as $result) {
             if ($result->event_results) {
-                $result->event_results['created_at'] = $this->formatDateLocal($result->event_results['created_at']);
+                $result->event_results_created_at = $this->formatDateLocal($result->event_results_created_at);
             }
         }
 
         return view('subscribed.pages.events_details',
             compact('data_medsos','data_footer','users','event','results','pigeons','current_datetime')
+        );
+    }
+
+    /**
+     * Show the detail of the events.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLiveResults($id)
+    {
+        $event = Events::find($id);
+        $users = User::all();
+        $data_medsos = CMSMedsos::all();
+        $data_footer = CMSFooter::all();
+        $auth_session = auth()->user()->id;
+        $pigeons = Pigeons::where('pigeons.is_active', 1)
+        ->where('pigeons.id_user', $auth_session)
+        ->whereRaw('pigeons.id NOT IN (
+            SELECT id_pigeon FROM event_participants
+            INNER JOIN event_results
+            ON event_participants.id = event_results.id_event_participant
+        )')
+        ->get();
+
+        $basketed_pigeons = EventParticipants::where('id_event', $event->id)
+        ->whereNotNull('event_participants.basketed_at')
+        ->get();
+
+        $arrived_pigeons = EventParticipants::where('id_event', $event->id)
+        ->whereRaw('event_participants.id IN (
+            SELECT id_event_participant FROM event_results
+        )')
+        ->get();
+
+        $current_datetime = Carbon::now();
+
+        $event->release_time_event = $this->formatDateLocal($event->release_time_event);
+        $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
+        $event->due_join_date_event = $this->formatDateLocal($event->due_join_date_event);
+
+        $results = EventParticipants::selectRaw('*, event_results.created_at as event_results_created_at, event_results.speed_event_result as event_results_speed_event_result, clubs.id as clubs_id, clubs.name_club as clubs_name_club, teams.id as teams_id, teams.name_team as teams_name_team')
+        ->leftJoin('clubs', 'event_participants.current_id_club', '=', 'clubs.id')
+        ->leftJoin('teams', 'event_participants.current_id_team', '=', 'teams.id')
+        ->leftJoin('event_results', 'event_participants.id', '=', 'event_results.id_event_participant')
+        ->where('event_participants.active_at', '!=', 'null')
+        ->where('event_participants.id_event', '=', $event->id)
+        ->get();
+
+        foreach ($results as $result) {
+            if ($result->event_results) {
+                $result->event_results_created_at = $this->formatDateLocal($result->event_results_created_at);
+            }
+        }
+
+        return view('subscribed.pages.events_live_results',
+            compact('data_medsos','data_footer','users','event','results','pigeons','current_datetime','basketed_pigeons','arrived_pigeons')
         );
     }
 

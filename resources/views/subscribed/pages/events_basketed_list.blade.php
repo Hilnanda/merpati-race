@@ -22,9 +22,10 @@
                 <thead>
                     <th>No.</th>
                     <th>Pemilik</th>
-                    @if($event->category_event == 'Team')
                     <th>Team</th>
-                    @endif
+                    <!-- @if($event->category_event == 'Team') -->
+                    
+                    <!-- @endif -->
                     <th>Club</th>
                     <th>Pigeon</th>
                     <th>Nama Pigeon</th>
@@ -40,14 +41,14 @@
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
                         <td>{{ $participant->pigeons->users->name }}</td>
-                        @if($event->category_event == 'Team')
-                        <td>{{ $participant->pigeons ? $result->teams.name : '-' }}</td>
-                        @endif
-                        <td class="action-link">
-                            <a href="#" title="Basketed List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="#" title="Live Results" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
-                            <a href="#" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
-                        </td>
+                        <td>{{ $participant->teams_name_team }}</td>
+                        <td>{{ $participant->clubs_name_club }}</td>
+                        <td>{{ $participant->pigeons ? $participant->pigeons->uid_pigeon : '-' }}</td>
+                        <td>{{ $participant->pigeons ? $participant->pigeons->name_pigeon : '-' }}</td>
+                        <td>{{ $participant->basketed_at ? str_replace('T', ' ', $participant->basketed_at) . ':00 (GMT +7:00)' : '-' }}</td>
+                        <!-- @if($event->category_event == 'Team') -->
+                        
+                        <!-- @endif -->
                     </tr>
                     @endforeach
                 </tbody>

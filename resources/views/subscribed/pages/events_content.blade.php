@@ -51,9 +51,9 @@
                         <td class="action-link">
                             <a href="/events/{{ $event->id }}/basket" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                             @if($event->status == 'Terbang')
-                            <a href="#" title="Live Results" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+                            <a href="/events/{{ $event->id }}/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
                             @endif
-                            <a href="/events/{{ $event->id }}/details" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
+                            <a href="/events/{{ $event->id }}/details" title="Detail Lomba" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
                         </td>
                     </tr>
                     @endforeach

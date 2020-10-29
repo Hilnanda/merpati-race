@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EventParticipants extends Model
+class EventClubParticipant extends Model
 {
     protected $primaryKey = 'id';
     //deklarasikan nama tabel di db
-    protected $table = 'event_participants';
+    protected $table = 'event_club_participants';
     //deklarasi field yang bisa diisi pada table
     protected $fillable = [
         'id_pigeon',
@@ -25,13 +25,13 @@ class EventParticipants extends Model
         return $this->belongsTo('App\Pigeons', 'id_pigeon','id');
     }
 
-    public function events()
+    public function event_club()
     {
-        return $this->belongsTo('App\Events', 'id_event','id');
+        return $this->belongsTo('App\EventClub', 'id_event_club','id');
     }
 
-    public function event_results()
+    public function event_club_result()
     {
-        return $this->hasMany('App\EventResults','id');
+        return $this->hasMany('App\EventClubResult','id');
     }
 }
