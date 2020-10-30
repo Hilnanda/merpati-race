@@ -7,7 +7,9 @@ use App\Clubs;
 use App\User;
 use App\CMSNews;
 use App\CMSContact;
+use App\ClubMember;
 use DB;
+use App\Pigeons;
 use Illuminate\Http\Request;
 
 class ClubController extends Controller
@@ -25,26 +27,32 @@ class ClubController extends Controller
         ->rightjoin('clubs','club_members.id_club','=','clubs.id')
         ->where('clubs.id_user','=',auth()->user()->id)
         ->get();
+        
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
         $auth_session = auth()->user()->id;
-
+        $pigeon = Pigeons::where('pigeons.is_active', 1)
+        ->where('pigeons.id_user', auth()->user()->id)
+        ->whereRaw('pigeons.id NOT IN (SELECT id_pigeon FROM club_members)')
+        ->get();
         $clubku = Clubs::where('id_user', auth()->user()->id)
         ->orwhere('manager_club',auth()->user()->id)
         ->get();
 
-        $club_id = Clubs::where('id_user', auth()->user()->id)->get();
-        $club_ikut = DB::table('club_members')
-        ->join('clubs','club_members.id_club','=','clubs.id')
+        $club_id = DB::select('select * from clubs order by name_club');
+        
+        
+        $club_ikut = DB::table('clubs')
+        ->join('club_members','club_members.id_club','=','clubs.id')
         ->join('pigeons','club_members.id_pigeon','=','pigeons.id')
-        ->join('users','users.id','pigeons.id_user')
+        ->join('users', 'users.id', '=', 'pigeons.id_user')
         ->where('pigeons.id_user', auth()->user()->id)
-        ->where('pigeons.is_active', 1)
+        ->where('club_members.is_active', 1)
         ->get();
        // dd($club_ikut);
-       $club_belum_ikut = Clubs::all();
+       $club_belum_ikut = Clubs::select('clubs.*');
         return view('subscribed.pages.club',
-        compact('users','club','data_medsos','data_footer','club_id','club_ikut','club_belum_ikut','clubku')
+        compact('users','club','data_medsos','data_footer','club_id','club_ikut','club_belum_ikut','clubku','pigeon')
         );
     }
 
@@ -91,21 +99,21 @@ class ClubController extends Controller
     }
     public function detail_belum_ikut($id)
     {
-        $club = Clubs::where('id','=',$id)
-        ->where('is_active', 1)
+        $club = Clubs::where('id','=',$id)        
         ->get();
         $users = User::all();
         $data_medsos = CMSMedsos::all();
-        $data_footer = CMSFooter::all();
-        
-        $club_ikut = DB::table('club_members')
-        ->join('clubs','club_members.id_club','=','clubs.id')
+        $data_footer = CMSFooter::all(); 
+        $pigeon = DB::select('select * from pigeons where is_active = 1');
+        // dd($pigeon);
+        $club_ikut = DB::table('clubs')
+        ->join('club_members','club_members.id_club','=','clubs.id')
         ->join('pigeons','club_members.id_pigeon','=','pigeons.id')
-        ->join('users', 'users.id', '=', 'clubs.id_user')
-        ->select('club_members.*','clubs.*','pigeons.*','users.*','clubs.is_active as is_active_club')
-        ->where('club_members.id_clubs',$id)
+        ->join('users', 'users.id', '=', 'pigeons.id_user')
+        ->where('pigeons.id_user', auth()->user()->id)
         ->get();
-        return view('subscribed.pages.club_detail_belum_ikut',compact('club','data_medsos','data_footer','users','club_join'));
+        // dd($club_ikut);
+        return view('subscribed.pages.club_detail_belum_ikut',compact('club','data_medsos','data_footer','users','club_ikut','pigeon'));
     }
 
     /**
@@ -113,11 +121,16 @@ class ClubController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function join_club($id,Request $request)
+    public function join_club(Request $request)
     {
-        
-      
-        return back()->compact('list_club','club','club_member','clubs')->with('Sukses','Berhasil Join Club!');
+         $data = $request->all();
+
+        $data['is_active'] = 0;
+
+        ClubMember::create($data);
+    //    $data =  ClubMember::create($request->all());
+       
+        return back()->with('Sukses','Berhasil menambahkan data!');
         
     }
 

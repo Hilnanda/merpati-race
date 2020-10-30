@@ -169,7 +169,7 @@
                         @foreach ($team as $item)
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
-                                <td>{{ $item->name_team }}</td>
+                                <td>{{ $item->name_team }}</td> 
                                 <td>{{ $item->user->username }}</td>
                                 <td>{{ date('d F Y  H:i:s', strtotime($item->created_at)) }}</td>
                                 <td class="action-link">

@@ -13,7 +13,7 @@ class ClubMember extends Model
     //deklarasi field yang bisa diisi pada table
     protected $fillable = [
         'id_club',
-        'id_pigeons',
+        'id_pigeon',
         'is_active'
     ];
     public function club()

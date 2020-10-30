@@ -21,13 +21,48 @@
         <div class="box-body">
             <div class="row" style="margin-bottom: 20px">
                 <div class="col-12">
-                    @foreach ($collection as $item)
-                        
+                    <a href="#tambah_jenisstandar"  data-toggle="modal"
+                    data-target="#tambah_jenisstandar"><button type="button" class="btn btn-primary">Join club</button></a>
+                    @foreach ($club_ikut as $item)                        
+                    <div class="modal fade" id="tambah_jenisstandar" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Join club</h5>
+                                <button class="close" type="button" data-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>                        </div>
+                                <div class="modal-body">
+                                    <form action="/club/join" method="POST">
+                                        {{ csrf_field() }}
+                                        <div class="form-group">
+                                            <label for="">Pigeon</label>
+                                            <input type="hidden" name="id_club" value="{{ $item->id_user }}">
+                                            <select name="id_pigeon" class="form-control" required>
+                                                <option value="">-- Pilih Pigeon --</option>
+                                                @foreach($pigeon as $pigeons)
+                                                {{-- @if ($item->id!=$pigeons->id_club) --}}
+                                                <option value="{{$pigeons->id}}">{{$pigeons->uid_pigeon}} - {{$pigeons->name_pigeon}}</option>
+                                                {{-- @endif --}}
+                                                @endforeach
+                                              </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="submit" value="Simpan" class="btn btn-primary">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" type="button"
+                                        data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     @endforeach
-                <form action="/club/join/" method="post"> 
-                        @csrf
-                        
-                    </form>
                 </div>
             </div>
             <div class="row" style="margin-bottom: 20px">
