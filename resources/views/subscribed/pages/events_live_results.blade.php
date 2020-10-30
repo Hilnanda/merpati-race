@@ -66,7 +66,7 @@ Hasil Lomba
                         @endif
                         <td>{{ $result->clubs_name_club ? $result->clubs_name_club : '-' }}</td>
                         <td>{{ $result->pigeons ? $result->pigeons->uid_pigeon : '-' }}</td>
-                        <td>{{ $result->event_results ? $result->event_results_created_at : '-' }}</td>
+                        <td>{{ $result->event_results_created_at ? $result->event_results_created_at : '-' }}</td>
                         <td>{{ $result->event_results_speed_event_result ? $result->event_results_speed_event_result : '-' }}</td>
                         <td>{{ $result->pigeons ? $result->pigeons->name_pigeon : '-' }}</td>
                     </tr>

@@ -122,7 +122,9 @@ class EventController extends Controller
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
         $auth_session = auth()->user()->id;
-        $pigeons = Pigeons::where('pigeons.is_active', 1)
+        $pigeons = Pigeons::leftJoin('team_members', 'team_members.id_pigeon', 'pigeons.id')
+        ->leftJoin('teams', 'teams.id', 'team_members.id_team')
+        ->where('pigeons.is_active', 1)
         ->where('pigeons.id_user', $auth_session)
         ->whereRaw('pigeons.id NOT IN (
             SELECT id_pigeon FROM event_participants
@@ -146,7 +148,7 @@ class EventController extends Controller
         ->get();
 
         foreach ($results as $result) {
-            if ($result->event_results) {
+            if ($result->event_results_created_at) {
                 $result->event_results_created_at = $this->formatDateLocal($result->event_results_created_at);
             }
         }
@@ -202,7 +204,7 @@ class EventController extends Controller
         ->get();
 
         foreach ($results as $result) {
-            if ($result->event_results) {
+            if ($result->event_results_created_at) {
                 $result->event_results_created_at = $this->formatDateLocal($result->event_results_created_at);
             }
         }
