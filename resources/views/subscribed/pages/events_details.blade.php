@@ -50,10 +50,10 @@ Detail Lomba
                     <th>Team</th>
                     @endif
                     <th>Club</th>
-                    <th>Pigeon</th>
+                    <th>UID Pigeon</th>
+                    <th>Nama Pigeon</th>
                     <th>Kedatangan</th>
                     <th>Kecepatan</th>
-                    <th>Nama Pigeon</th>
                 </thead>
                 <tbody>
                     @if(count($results) == 0)
@@ -70,9 +70,9 @@ Detail Lomba
                         @endif
                         <td>{{ $result->clubs_name_club ? $result->clubs_name_club : '-' }}</td>
                         <td>{{ $result->pigeons ? $result->pigeons->uid_pigeon : '-' }}</td>
+                        <td>{{ $result->pigeons ? $result->pigeons->name_pigeon : '-' }}</td>
                         <td>{{ $result->event_results_created_at ? $result->event_results_created_at : '-' }}</td>
                         <td>{{ $result->event_results_speed_event_result ? $result->event_results_speed_event_result : '-' }}</td>
-                        <td>{{ $result->pigeons ? $result->pigeons->name_pigeon : '-' }}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -106,6 +106,7 @@ Detail Lomba
                         @endforeach
                     </select>
                 </div>
+                @if($event->category_event == 'Team')
                 <div class="form-group">
                     <label for="is_core">Peran sebagai</label>
                     <select class="form-control" name="is_core">
@@ -114,6 +115,9 @@ Detail Lomba
                         <option value="0">Cadangan</option>
                     </select>
                 </div>
+                @else
+                <input type="hidden" name="is_core" value="1">
+                @endif
               <h5>Harga untuk mendaftar lomba sebesar Rp.{{ number_format($event->price_event, 2) }}</h5>
           </div>
           <div class="modal-footer">

@@ -77,6 +77,49 @@ class EventController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function eventClub()
+    {
+        $events = Events::orderBy('events.id', 'desc')->get();
+        $users = User::all();
+        $data_medsos = CMSMedsos::all();
+        $data_footer = CMSFooter::all();
+
+        $current_datetime = Carbon::now();
+
+        foreach ($events as $event) {
+
+            $event->release_time_event = $this->formatDateLocal($event->release_time_event);
+            $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
+            $event->due_join_date_event = $this->formatDateLocal($event->due_join_date_event);
+            if ($event->release_time_event <= $current_datetime) {
+                $event->status = 'Terbang';
+                $event->color = '#32CD32';
+            } else {
+                if ($event->due_join_date_event < $current_datetime) {
+                    $event->status = 'Pendaftaran ditutup';
+                    $event->color = '#EB0000';
+                } else {
+                    $event->status = 'Belum dimulai';
+                    $event->color = '#000000';
+                    // $date = strtotime($event->release_time_event);
+                    // $event->status = $date - time();
+                }
+            }
+            if ($event->lat_event_end != null) {
+                $event->distance = $this->distance($event->lat_event, $event->lng_event, $event->lat_event_end, $event->lng_event_end, "K");
+            }
+        }
+
+        return view('subscribed.pages.events_content', 
+            compact('data_medsos','data_footer','users','events','current_datetime')
+        );
+    }
+
+    /**
      * Show the basketed list of the registered pigeons.
      *
      * @return \Illuminate\Http\Response
