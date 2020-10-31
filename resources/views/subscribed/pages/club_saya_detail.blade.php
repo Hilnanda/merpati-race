@@ -24,7 +24,7 @@
                         <a href="#"><button type="button" class="btn btn-danger"><i class="fa fa-twitter"></i> Join Pigeon</button></a>
                         @if (Auth::user()->id==$clubs->manager_club)
                             <a href="#"><button type="button" class="btn btn-success">Buat Training</button></a>
-                            <a href="#"><button type="button" class="btn btn-primary">Permintaan Gabung</button></a>
+                    <a href="/club/manager"><button type="button" class="btn btn-primary">Permintaan Gabung</button></a>
                         @endif
                     </div>
                 </div>

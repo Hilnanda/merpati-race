@@ -91,11 +91,11 @@ class ClubController extends Controller
         ->where('id',$id)
         ->first();
         }
-        
+        $data = ClubMember::find($id);
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
 
-        return view('subscribed.pages.club_saya_detail',compact('club','data_medsos','data_footer','users','clubs'));
+        return view('subscribed.pages.club_saya_detail',compact('club','data_medsos','data_footer','users','clubs','data'));
     }
     public function detail_belum_ikut($id)
     {
@@ -133,6 +133,13 @@ class ClubController extends Controller
         return back()->with('Sukses','Berhasil menambahkan data!');
         
     }
+    public function manager(){
+       return redirect('/');
+    }
+    // public function manager($id){
+    //     $data = ClubMember::find($id);
+    //     return view('subscribed.pages.club_manager',compact('data'));
+    // }
 
     /**
      * Store a newly created resource in storage.
