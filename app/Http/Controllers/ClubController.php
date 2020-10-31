@@ -140,15 +140,9 @@ class ClubController extends Controller
         ->where('pigeons.id_user', auth()->user()->id)
         ->get();
         // dd($club_ikut);
-        $pigeon = DB::table('pigeons')
-        ->select('clubs.*','pigeons.*','pigeons.id as pigeon_id')
-        // ->selectRaw('team_members.*, teams.*,clubs.*,pigeons.id as pigeon_id')
-        ->join('club_members', 'pigeons.id', '=', 'club_members.id_pigeon')
-        ->join('clubs', 'club_members.id_club', '=', 'clubs.id')
-        ->where('pigeons.is_active', 1)
+        $pigeon = Pigeons::where('pigeons.is_active', 1)
         ->where('pigeons.id_user', auth()->user()->id)
-        // ->whereRaw('pigeons.id NOT IN (SELECT id_pigeon FROM team_members)')
-        ->whereRaw('pigeons.id IN (SELECT id_pigeon FROM club_members)')
+        ->whereRaw('pigeons.id NOT IN (SELECT id_pigeon FROM club_members)')
         ->get();
         return view('subscribed.pages.club_detail_belum_ikut',compact('club','data_medsos','data_footer','users','club_ikut','pigeon'));
     }
