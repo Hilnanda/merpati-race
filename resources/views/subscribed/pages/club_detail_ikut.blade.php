@@ -78,11 +78,11 @@
                                     <th>Aksi</th>
                                 </thead>
                                 <tbody>
-                                    @if (count($list_pigeons) == 0)
+                                    {{-- @if (count($list_pigeons) == 0)
                                         <tr class="text-center">
                                             <td colspan="8">-- Tidak ada Club yang belum Diikuti --</td>
                                         </tr>
-                                    @endif
+                                    @endif --}}
                                     @foreach ($list_pigeons as $item)
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>                                                                                   
