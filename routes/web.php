@@ -103,6 +103,8 @@ Route::middleware('is_subscribed')->group(function () {
     Route::post('/club/join','ClubController@join_club')->name('join_club');
     Route::post('/club/join-operator','ClubController@join_operator');
     Route::get('/club/manager','ClubController@manager')->name('manager');
+    Route::get('/club/delete-operator/{id}', 'ClubController@destroy_operator');
+
 
     // Events
     Route::get('/events/index', 'EventController@menuPage')->name('events_menu');

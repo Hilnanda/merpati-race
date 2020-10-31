@@ -30,7 +30,7 @@
         swal("Gagal!", "{{ session('Gagal') }}", "error");
     @endif
 
-    $('.delete-club').on('click', function (event) {
+    $('.delete').on('click', function (event) {
         event.preventDefault();
         const url = $(this).attr('href');
         swal({

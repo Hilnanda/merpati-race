@@ -86,9 +86,11 @@ class ClubController extends Controller
         ->join('pigeons', 'pigeons.id', '=', 'club_members.id_pigeon')
         ->join('users', 'pigeons.id_user', '=', 'users.id')
         ->where('club_members.id_club', $id)
+        ->whereRaw('users.id NOT IN (SELECT id_user FROM operator_clubs)')
         ->get();
 
         $join_operator = DB::table('operator_clubs')
+        ->select('clubs.*','users.*','operator_clubs.*','operator_clubs.id as operator_id')
         ->join('clubs','operator_clubs.id_club','=','clubs.id')
         ->join('users', 'operator_clubs.id_user', '=', 'users.id')
         ->where('operator_clubs.id_club', $id)
@@ -146,6 +148,14 @@ class ClubController extends Controller
     //    $data =  ClubMember::create($request->all());
        
         return back()->with('Sukses','Berhasil menambahkan data!');
+        
+    }
+    public function destroy_operator($id)
+    {
+        OperatorClubs::find($id)->delete();
+
+        return back()->with('Sukses','Berhasil menghapus data!');
+       
         
     }
     public function join_operator(Request $request)

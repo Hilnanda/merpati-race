@@ -27,8 +27,11 @@
                         @if (Auth::user()->id==$clubs->manager_club)
                             <a href="#"><button type="button" class="btn btn-success">Buat Lomba Club</button></a>
                             <a href="/club/manager/"><button type="button" class="btn btn-primary">Permintaan Gabung</button></a>
+                            @if (count($operator)!=0)
                             <a href="#tambah_jenisstandar" data-toggle="modal"
-                                data-target="#tambah_jenisstandar"><button type="button" class="btn btn-warning">Tambah Operator Club</button></a>
+                            data-target="#tambah_jenisstandar"><button type="button" class="btn btn-warning">Tambah Operator Club</button></a>
+                            @endif
+                            
                         @endif
                         <div class="modal fade" id="tambah_jenisstandar" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -87,7 +90,7 @@
                                     <p>Manager club : <b style="color: red">{{ $clubs->manager->name }} ({{ $clubs->manager->username }})</b></p>
                                     @if (count($join_operator)!=0)
                                         @foreach ($join_operator as $item)
-                                        <p>Operator Club {{ $loop->index + 1 }} : <b style="color: red">{{ $item->name }} ({{ $item->username }})</b></p>    
+                                        <p>Operator Club {{ $loop->index + 1 }} : <b style="color: red">{{ $item->name }} ({{ $item->username }})</b> | <a class="delete" href="/club/delete-operator/{{ $item->operator_id }}"><i class="fa fa-trash"></i> Delete</a></p>    
                                         @endforeach
                                     @endif
                                     
