@@ -70,7 +70,7 @@ Detail Lomba
                         @endif
                         <td>{{ $result->clubs_name_club ? $result->clubs_name_club : '-' }}</td>
                         <td>{{ $result->pigeons ? $result->pigeons->uid_pigeon : '-' }}</td>
-                        <td>{{ $result->event_results ? $result->event_results_created_at : '-' }}</td>
+                        <td>{{ $result->event_results_created_at ? $result->event_results_created_at : '-' }}</td>
                         <td>{{ $result->event_results_speed_event_result ? $result->event_results_speed_event_result : '-' }}</td>
                         <td>{{ $result->pigeons ? $result->pigeons->name_pigeon : '-' }}</td>
                     </tr>
@@ -96,7 +96,13 @@ Detail Lomba
                     <select class="form-control" name="id_pigeon">
                         <option value="" selected disabled>-- Pilih Pigeon --</option>
                         @foreach($pigeons as $pigeon)
+                        @if($event->category_event == 'Team')
+                        @if($pigeon->name_team)
+                        <option value="{{ $pigeon->id }}">({{ $pigeon->uid_pigeon }}) {{ $pigeon->name_pigeon }} [{{ $pigeon->name_team }}]</option>
+                        @endif
+                        @else
                         <option value="{{ $pigeon->id }}">({{ $pigeon->uid_pigeon }}) {{ $pigeon->name_pigeon }}</option>
+                        @endif
                         @endforeach
                     </select>
                 </div>
