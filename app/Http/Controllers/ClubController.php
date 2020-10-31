@@ -43,12 +43,16 @@ class ClubController extends Controller
         $club_id = DB::select('select * from clubs order by name_club');
         
         
-        $club_ikut = DB::table('clubs')
-        ->join('club_members','club_members.id_club','=','clubs.id')
-        ->join('pigeons','club_members.id_pigeon','=','pigeons.id')
-        ->join('users', 'users.id', '=', 'pigeons.id_user')
-        ->where('pigeons.id_user', auth()->user()->id)
-        ->where('club_members.is_active', 1)
+        $club_ikut = ClubMember::
+        // ->select('clubs.*','users.*','pigeons.*','clubs.id_user as operator_id')
+        // ->join('club_members','club_members.id_club','=','clubs.id')
+        // ->join('pigeons','club_members.id_pigeon','=','pigeons.id')
+        // ->join('users', 'users.id', '=', 'pigeons.id_user')
+        whereHas('pigeon', function($q){
+            $q->where('id_user', auth()->user()->id);
+         })
+        // where('pigeons.id_user', auth()->user()->id)
+        ->where('is_active', 1)
         ->get();
        // dd($club_ikut);
        $club_belum_ikut = Clubs::select('clubs.*');
@@ -71,6 +75,9 @@ class ClubController extends Controller
         ->join('users','users.id','pigeons.id_user')
         ->where('pigeons.id_user', auth()->user()->id)->get();
 
+        $operator = OperatorClubs::where('id_user',auth()->user()->id)
+        ->first();
+
         $join_operator = DB::table('operator_clubs')
         ->select('clubs.*','users.*','operator_clubs.*','operator_clubs.id as operator_id')
         ->join('clubs','operator_clubs.id_club','=','clubs.id')
@@ -78,7 +85,7 @@ class ClubController extends Controller
         ->where('operator_clubs.id_club', $id)
         ->get();
 
-        return view('subscribed.pages.club_detail_ikut',compact('club','data_medsos','data_footer','users','clubs','list_pigeons','join_operator'));
+        return view('subscribed.pages.club_detail_ikut',compact('club','data_medsos','data_footer','users','clubs','list_pigeons','join_operator','operator'));
     }
     public function detail_saya($id)
     {

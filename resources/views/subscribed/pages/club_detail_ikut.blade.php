@@ -21,7 +21,13 @@
             <div class="box-body">
                 <div class="row" style="margin-bottom: 20px">
                     <div class="col-12">
-                        <a href="#"><button type="button" class="btn btn-success">Buat Training</button></a>
+                        <a href="#"><button type="button" class="btn btn-danger"><i class="fa fa-twitter"></i> Join Pigeon</button></a>
+                        @if (isset($operator->id_user))
+                            @if (Auth::user()->id==$operator->id_user)
+                            <a href="#"><button type="button" class="btn btn-success">Buat Lomba Club</button></a>
+                            <a href="/club/manager/"><button type="button" class="btn btn-primary">Permintaan Gabung</button></a>
+                            @endif
+                        @endif
                     </div>
                 </div>
                 <div class="row" style="margin-bottom: 20px">
@@ -41,7 +47,7 @@
                                     <p>Manager club : <b style="color: red">{{ $clubs->manager->name }} ({{ $clubs->manager->username }})</b></p>
                                     @if (count($join_operator)!=0)
                                         @foreach ($join_operator as $item)
-                                        <p>Operator Club {{ $loop->index + 1 }} : <b style="color: red">{{ $item->name }} ({{ $item->username }})</b> | <a class="delete" href="/club/delete-operator/{{ $item->operator_id }}"><i class="fa fa-trash"></i> Delete</a></p>    
+                                        <p>Operator Club {{ $loop->index + 1 }} : <b style="color: red">{{ $item->name }} ({{ $item->username }})</b> </p>    
                                         @endforeach
                                     @endif
                                     
