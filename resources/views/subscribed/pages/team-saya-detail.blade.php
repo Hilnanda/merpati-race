@@ -75,11 +75,14 @@
             <table id="table_two" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
+                    <th>Nama Lomba</th>
                     <th>Nama Team</th>
-                    <th>User</th>
-                    <th>Tanggal Team</th>
-                    {{-- <th>Mulai</th> --}}
+                    <th>ID</th>
+                    <th>Pigeon</th>
+                    <th>Nama Club</th>
+                    <th>Tanggal Lomba</th>
                     <th>Aksi</th>
+
                 </thead>
                 {{-- <tbody>
                     @if(count($team) == 0)
@@ -114,10 +117,14 @@
             <table id="table_two" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
+                    <th>Nama Lomba</th>
                     <th>Nama Team</th>
-                    <th>User</th>
-                    <th>Tanggal Team</th>
-                    {{-- <th>Mulai</th> --}}
+                    <th>Jarak</th>
+                    <th>ID</th>
+                    <th>Pigeon</th>
+                    <th>Nama Club</th>
+                    <th>Meter/Menit</th>
+
                     <th>Aksi</th>
                 </thead>
                 {{-- <tbody>

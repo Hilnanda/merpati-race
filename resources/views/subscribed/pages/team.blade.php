@@ -173,13 +173,16 @@
                                 <td>{{ $item->user->username }}</td>
                                 <td>{{ date('d F Y  H:i:s', strtotime($item->created_at)) }}</td>
                                 <td class="action-link">
-                                    <a href="#" title="Details" class="mx-1"><i class="fa fa-list-alt"
+                                    <a href="/team/details-not-register/{{ $item->id }}" title="Details" class="mx-1"><i class="fa fa-list-alt"
                                             aria-hidden="true"></i></a>
                                     {{-- <a href="#" title="Join" class="mx-1"><i class="fa fa-sign-in"
                                             aria-hidden="true"></i></a> --}}
+                                    @if (count($pigeon)!=0)
                                     <a href="#tambah_jenisstandar{{ $item->id }}"  data-toggle="modal"
                                         data-target="#tambah_jenisstandar{{ $item->id }}"><i class="fa fa-sign-in"
                                         aria-hidden="true"></i></a>
+                                    @endif
+                                    
                                     <div class="modal fade" id="tambah_jenisstandar{{ $item->id }}" tabindex="-1" role="dialog"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -197,12 +200,13 @@
                                                         <div class="form-group">
                                                             <label for="">Pigeon</label>
                                                             <input type="hidden" name="id_team" value="{{ $item->id }}">
+                                                            
                                                             <select name="id_pigeon" class="form-control" required>
                                                                 <option value="">-- Pilih Pigeon --</option>
                                                                 @foreach($pigeon as $pigeons)
-                                                                @if ($item->id!=$pigeons->id_team)
-                                                                <option value="{{$pigeons->id}}">{{$pigeons->uid_pigeon}} - {{$pigeons->name_pigeon}}</option>
-                                                                @endif
+                                                                {{-- @if ($item->id!=$pigeons->id_team) --}}
+                                                                <option value="{{$pigeons->pigeon_id}}">{{$pigeons->uid_pigeon}} - {{$pigeons->name_pigeon}} ({{$pigeons->name_club}})</option>
+                                                                {{-- @endif --}}
                                                                 @endforeach
                                                               </select>
                                                         </div>

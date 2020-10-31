@@ -118,7 +118,8 @@ Route::middleware('is_subscribed')->group(function () {
     Route::post('/team/join-team', 'TeamController@join_team');
     Route::get('/team/details/{id}','TeamController@details_ikut');
     Route::get('/team/details-teamku/{id}','TeamController@details_saya');
-
+    Route::get('/team/details-not-register/{id}','TeamController@details_not_register');
+    Route::post('/team/join-team-details', 'TeamController@join_team_not_register');
     //pigeons
     Route::get('/pigeons','PigeonsController@index');
     Route::get('/pigeons/burungku','PigeonsController@burungku');
