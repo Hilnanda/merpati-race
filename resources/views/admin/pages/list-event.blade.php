@@ -80,11 +80,11 @@ Dashboard Panitia
                     </div>
                     <div class="form-group">
                       <label for="">Waktu Mulai Lomba</label>
-                      <input type="datetime-local" id="release_time_event_add" name="release_time_event" class="form-control" placeholder="Isi waktu mulai lomba" required onchange="setMaxDueDateAdd()">
+                      <input type="datetime-local" step="1" id="release_time_event_add" name="release_time_event" class="form-control" placeholder="Isi waktu mulai lomba" required onchange="setMaxDueDateAdd()">
                     </div>
                     <div class="form-group">
                       <label for="">Waktu Selesai Lomba</label>
-                      <input type="datetime-local" name="expired_time_event" class="form-control" placeholder="Isi waktu selesai lomba">
+                      <input type="datetime-local" step="1" name="expired_time_event" class="form-control" placeholder="Isi waktu selesai lomba">
                     </div>
                     <div class="form-group">
                       <label for="">Harga Pendaftaran Lomba</label>
@@ -92,7 +92,7 @@ Dashboard Panitia
                     </div>
                     <div class="form-group">
                       <label for="">Batas Waktu Pendaftaran</label>
-                      <input type="datetime-local" id="due_join_date_event_add" name="due_join_date_event" class="form-control" placeholder="Isi batas pendaftaran lomba">
+                      <input type="datetime-local" step="1" id="due_join_date_event_add" name="due_join_date_event" class="form-control" placeholder="Isi batas pendaftaran lomba">
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -210,11 +210,11 @@ Dashboard Panitia
                             </div>
                             <div class="form-group">
                               <label for="">Waktu Mulai Lomba</label>
-                              <input type="datetime-local" id="release_time_event_update" name="release_time_event" class="form-control" placeholder="Isi waktu mulai lomba" required onchange="setMaxDueDateUpdate()" value="{{ $event->release_time_event }}">
+                              <input type="datetime-local" step="1" id="release_time_event_update" name="release_time_event" class="form-control" placeholder="Isi waktu mulai lomba" required onchange="setMaxDueDateUpdate()" value="{{ $event->release_time_event }}">
                             </div>
                             <div class="form-group">
                               <label for="">Waktu Selesai Lomba</label>
-                              <input type="datetime-local" name="expired_time_event" class="form-control" placeholder="Isi waktu selesai lomba" value="{{ $event->expired_time_event }}">
+                              <input type="datetime-local" step="1" name="expired_time_event" class="form-control" placeholder="Isi waktu selesai lomba" value="{{ $event->expired_time_event }}">
                             </div>
                             <div class="form-group">
                               <label for="">Harga Pendaftaran Lomba</label>
@@ -222,7 +222,7 @@ Dashboard Panitia
                             </div>
                             <div class="form-group">
                               <label for="">Batas Waktu Pendaftaran</label>
-                              <input type="datetime-local" id="due_join_date_event_update" name="due_join_date_event" class="form-control" placeholder="Isi batas pendaftaran lomba" value="{{ $event->due_join_date_event }}">
+                              <input type="datetime-local" step="1" id="due_join_date_event_update" name="due_join_date_event" class="form-control" placeholder="Isi batas pendaftaran lomba" value="{{ $event->due_join_date_event }}">
                             </div>
                           </div>
                           <div class="modal-footer">

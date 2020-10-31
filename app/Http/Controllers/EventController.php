@@ -127,10 +127,11 @@ class EventController extends Controller
         ->where('pigeons.is_active', 1)
         ->where('pigeons.id_user', $auth_session)
         ->whereRaw('pigeons.id NOT IN (
-            SELECT id_pigeon FROM event_participants
-            INNER JOIN event_results
-            ON event_participants.id = event_results.id_event_participant
-        )')
+                SELECT id_pigeon FROM event_participants
+                JOIN event_results
+                ON event_participants.id = event_results.id_event_participant
+            )
+        ')
         ->get();
 
         $current_datetime = Carbon::now();
