@@ -78,6 +78,12 @@ class ClubController extends Controller
         $users = User::all();
         $clubs= Clubs::where('id',$id)
         ->first();
+
+        $operator = DB::table('club_members')
+        ->join('clubs','club_members.id_pigeon','=','pigeons.id')
+        ->join('users', 'users.id', '=', 'pigeons.id_user')
+        ->where('pigeons.id_user', auth()->user()->id)
+        ->get();
         
         // dd($clubs->manager_club);
         // dd($clubs);
