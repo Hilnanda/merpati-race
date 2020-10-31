@@ -61,7 +61,8 @@ class ClubController extends Controller
     {
         $club = Clubs::find($id);
         $users = User::all();
-        $clubs= Clubs::where('id_user', auth()->user()->id)->get();
+        $clubs= Clubs::where('id',$id)
+        ->first();        
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
         $list_pigeons = DB::table('club_members')
@@ -69,7 +70,15 @@ class ClubController extends Controller
         ->join('pigeons','club_members.id_pigeon','=','pigeons.id')
         ->join('users','users.id','pigeons.id_user')
         ->where('pigeons.id_user', auth()->user()->id)->get();
-        return view('subscribed.pages.club_detail_ikut',compact('club','data_medsos','data_footer','users','clubs','list_pigeons'));
+
+        $join_operator = DB::table('operator_clubs')
+        ->select('clubs.*','users.*','operator_clubs.*','operator_clubs.id as operator_id')
+        ->join('clubs','operator_clubs.id_club','=','clubs.id')
+        ->join('users', 'operator_clubs.id_user', '=', 'users.id')
+        ->where('operator_clubs.id_club', $id)
+        ->get();
+
+        return view('subscribed.pages.club_detail_ikut',compact('club','data_medsos','data_footer','users','clubs','list_pigeons','join_operator'));
     }
     public function detail_saya($id)
     {

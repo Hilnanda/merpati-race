@@ -27,15 +27,24 @@
                 <div class="row" style="margin-bottom: 20px">
                     <div class="col-12">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-3">
                                 <img src="{{ asset('image/favicon.ico') }}" style="width:220px;height:200px"
                                     class="rounded float-left" alt="...">
                                 {{-- bagian keterangan --}}
-                                @foreach ($clubs as $item)
+                                
+                            </div>
+                            <div class="col-6">
                                     <h4>Club Details</h4>
-                                    <h5>Nama club : <b style="color: red">{{ $item->name_club }}</b></h5>
-                                    <h5>Alamat club: <b style="color: red">{{ $item->address_club }}</b></h5>
-                                @endforeach
+                                    <p>Nama club : <b style="color: red">{{ $clubs->name_club }}</b></p>
+                                    <p>Alamat club : <b style="color: red">{{ $clubs->address_club }}</b></p>
+                                    <p>Posisi club : <b style="color: red">{{ $clubs->lat_club }} , {{ $clubs->lng_club }}</b></p>
+                                    <p>Manager club : <b style="color: red">{{ $clubs->manager->name }} ({{ $clubs->manager->username }})</b></p>
+                                    @if (count($join_operator)!=0)
+                                        @foreach ($join_operator as $item)
+                                        <p>Operator Club {{ $loop->index + 1 }} : <b style="color: red">{{ $item->name }} ({{ $item->username }})</b> | <a class="delete" href="/club/delete-operator/{{ $item->operator_id }}"><i class="fa fa-trash"></i> Delete</a></p>    
+                                        @endforeach
+                                    @endif
+                                    
                             </div>
 
                         </div>
