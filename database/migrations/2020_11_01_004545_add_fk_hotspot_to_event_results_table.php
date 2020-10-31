@@ -14,8 +14,8 @@ class AddFkHotspotToEventResultsTable extends Migration
     public function up()
     {
         Schema::table('event_results', function (Blueprint $table) {
-            $table->index('id_hotspot');
-            $table->foreignId('id_hotspot')->after('id_event_participant')->references('id')->on('event_hotspots')->onDelete('cascade')->onUpdate('cascade');
+            $table->index('id_event_hotspot');
+            $table->foreignId('id_event_hotspot')->after('id_event_participant')->references('id')->on('event_hotspots')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -27,9 +27,9 @@ class AddFkHotspotToEventResultsTable extends Migration
     public function down()
     {
         Schema::table('event_results', function (Blueprint $table) {
-            $table->dropForeign(['id_hotspot']);
-            $table->dropIndex(['id_hotspot']);
-            $table->dropColumn('id_hotspot');
+            $table->dropForeign(['id_event_hotspot']);
+            $table->dropIndex(['id_event_hotspot']);
+            $table->dropColumn('id_event_hotspot');
         });
     }
 }
