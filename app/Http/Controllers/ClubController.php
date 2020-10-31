@@ -8,6 +8,7 @@ use App\User;
 use App\CMSNews;
 use App\CMSContact;
 use App\ClubMember;
+use App\OperatorClubs;
 use DB;
 use App\Pigeons;
 use Illuminate\Http\Request;
@@ -136,6 +137,14 @@ class ClubController extends Controller
         $data['is_active'] = 0;
 
         ClubMember::create($data);
+    //    $data =  ClubMember::create($request->all());
+       
+        return back()->with('Sukses','Berhasil menambahkan data!');
+        
+    }
+    public function join_operator(Request $request)
+    {
+        OperatorClubs::create($request->all());
     //    $data =  ClubMember::create($request->all());
        
         return back()->with('Sukses','Berhasil menambahkan data!');

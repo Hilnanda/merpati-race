@@ -42,7 +42,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="/team/join-team" method="POST">
+                                        <form action="/club/join-operator" method="POST">
                                             {{ csrf_field() }}
                                             <div class="form-group">
                                                 <label for="">Operator Club</label>
