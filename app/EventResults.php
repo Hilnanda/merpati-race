@@ -12,7 +12,8 @@ class EventResults extends Model
     //deklarasi field yang bisa diisi pada table
     protected $fillable = [
         'speed_event_result',
-        'id_event_participant'
+        'id_event_participant',
+        'id_event_hotspot'
     ];
 
     public function event_participants()
