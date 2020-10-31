@@ -46,15 +46,13 @@
                                             {{ csrf_field() }}
                                             <div class="form-group">
                                                 <label for="">Operator Club</label>
-                                                {{-- <input type="hidden" name="id_team" value="{{ $item->id }}"> --}}
+                                                <input type="hidden" name="id_club" value="{{ $clubs->id }}">
                                                 
                                                 <select name="id_user" class="form-control" required>
                                                     <option value="">-- Pilih User --</option>
-                                                    {{-- @foreach($pigeon as $pigeons) --}}
-                                                    {{-- @if ($item->id!=$pigeons->id_team) --}}
-                                                    {{-- <option value="{{$pigeons->pigeon_id}}">{{$pigeons->uid_pigeon}} - {{$pigeons->name_pigeon}} ({{$pigeons->name_club}})</option> --}}
-                                                    {{-- @endif --}}
-                                                    {{-- @endforeach --}}
+                                                    @foreach($operator as $item)
+                                                    <option value="{{$item->user_id}}">{{$item->name}} ({{$item->username}})</option>
+                                                    @endforeach
                                                   </select>
                                             </div>
 
@@ -86,7 +84,7 @@
                                     <h5>Nama club : <b style="color: red">{{ $clubs->name_club }}</b></h5>
                                     <h5>Alamat club: <b style="color: red">{{ $clubs->address_club }}</b></h5>
                                     <h5>Posisi club: <b style="color: red">{{ $clubs->lat_club }} , {{ $clubs->lng_club }}</b></h5>
-                                    <h5>Manager club: <b style="color: red">{{ $clubs->manager->username }}</b></h5>
+                                    <h5>Manager club: <b style="color: red">{{ $clubs->manager->name }} ({{ $clubs->manager->username }})</b></h5>
                                     
                             </div>
 
