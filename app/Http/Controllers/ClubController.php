@@ -69,11 +69,11 @@ class ClubController extends Controller
         ->first();        
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
-        $list_pigeons = DB::table('club_members')
-        ->join('clubs','club_members.id_club','=','clubs.id')
-        ->join('pigeons','club_members.id_pigeon','=','pigeons.id')
-        ->join('users','users.id','pigeons.id_user')
-        ->where('pigeons.id_user', auth()->user()->id)->get();
+        $list_pigeons = ClubMember::
+        // ->join('clubs','club_members.id_club','=','clubs.id')
+        // ->join('pigeons','club_members.id_pigeon','=','pigeons.id')
+        // ->join('users','users.id','pigeons.id_user')
+        where('id_club', $id)->get();
 
         $operator = OperatorClubs::where('id_user',auth()->user()->id)
         ->first();
