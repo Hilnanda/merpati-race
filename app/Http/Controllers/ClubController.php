@@ -127,6 +127,7 @@ class ClubController extends Controller
     {
         $club = Clubs::where('id','=',$id)        
         ->get();
+        
         $users = User::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all(); 

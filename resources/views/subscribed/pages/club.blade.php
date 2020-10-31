@@ -119,7 +119,7 @@
                         <td>{{ $items->name_club }}</td>
                         <td>{{ date('d F Y  H:i:s', strtotime($items->created_at)) }}</td>
                         <td class="action-link">
-                            <a href="#" title="Details" class="mx-1"><i class="fa fa-list-alt"
+                            <a href="/club/{{$items->id}}/detail_belum_ikut" title="Details" class="mx-1"><i class="fa fa-list-alt"
                                     aria-hidden="true"></i></a>
                             {{-- <a href="#" title="Join" class="mx-1"><i class="fa fa-sign-in"
                                     aria-hidden="true"></i></a> --}}

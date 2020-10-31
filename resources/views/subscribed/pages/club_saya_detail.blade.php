@@ -104,47 +104,6 @@
                         {{-- bagian statistik --}}
                     </div>
                 </div>
-                
-                <div class="row" style="margin-bottom: 20px">
-                    <div class="col-12">
-                        {{-- bagian list burung --}}
-                        <h4>List My Pigeon</h4>
-                        <div class="box-body">
-                            <table id="table_one" class="table table-bordered table-striped">
-                                <thead>
-                                    <th>No.</th>
-                                    <th>Nama Club</th>
-                                    <th>Lokasi Mulai</th>
-                                    <th>Alamat</th>
-                                    <th>Nama Pigeon</th>
-                                    <th>Aksi</th>
-                                </thead>
-                                <tbody>
-                                    {{-- @if (count($club_ikut) == 0)
-                                        <tr class="text-center">
-                                            <td colspan="8">-- Tidak ada Club yang belum Diikuti --</td>
-                                        </tr>
-                                    @endif
-                                    @foreach ($club_ikut as $item)
-                                        <tr>
-                                            <td>{{ $loop->index + 1 }}</td>
-                                            <td>{{ $item->name_club }}</td>
-                                            <td>({{ $item->lat_club }}), ({{ $item->lng_club }})</td>
-                                            <td>{{ $item->address_club }}</td>
-                                            <td>{{ $item->name_pigeon }}</td>
-                                            <td class="action-link">
-                                                <a href="#" title="Live Results" class="mx-1"><i class="fa fa-list-ol"
-                                                        aria-hidden="true"></i></a>
-                                                <a href="club/{{ $item->id }}/detail_ikut" title="Details" class="mx-1"><i
-                                                        class="fa fa-list-alt" aria-hidden="true"></i></a>
-                                            </td>
-                                        </tr>
-                                    @endforeach --}}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
                 <div class="row" style="margin-bottom: 20px">
                     <div class="col-12">
                         {{-- bagian list burung --}}
