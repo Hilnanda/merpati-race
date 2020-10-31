@@ -101,18 +101,19 @@ Route::middleware('is_subscribed')->group(function () {
     Route::get('/club/{id}/detail_ikut','ClubController@detail_ikut')->name('club_detail_ikut');
     Route::get('/club/{id}/detail_saya','ClubController@detail_saya')->name('club_detail_ikut');
     Route::post('/club/join','ClubController@join_club')->name('join_club');
-    Route::get('/club/manager/{id}','ClubController@manager')->name('manager');
+    Route::post('/club/join-operator','ClubController@join_operator');
+    Route::get('/club/manager','ClubController@manager')->name('manager');
+    Route::get('/club/delete-operator/{id}', 'ClubController@destroy_operator');
+
 
     // Events
     Route::get('/events/index', 'EventController@menuPage')->name('events_menu');
     Route::get('/events', 'EventController@index')->name('events');
+    Route::get('/events-club', 'EventController@eventClub')->name('event_clubs');
     Route::get('/events/{id}/details', 'EventController@showDetails')->name('events_details');
     Route::get('/events/{id}/basket', 'EventController@showBasketedList')->name('events_basketed');
     Route::get('/events/{id}/live-result', 'EventController@showLiveResults')->name('events_live_result');
     Route::post('/events/{id}/join_event', 'EventController@joinEvent')->name('join_event');
-
-    // Events Club
-    Route::get('/events-club', 'EventsClubController@index')->name('events_club');
 
     //team
     Route::get('/team', 'TeamController@index')->name('teams');

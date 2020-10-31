@@ -8,6 +8,7 @@ use App\User;
 use App\CMSNews;
 use App\CMSContact;
 use App\ClubMember;
+use App\OperatorClubs;
 use DB;
 use App\Pigeons;
 use Illuminate\Http\Request;
@@ -78,6 +79,22 @@ class ClubController extends Controller
         $users = User::all();
         $clubs= Clubs::where('id',$id)
         ->first();
+
+        $operator = DB::table('club_members')
+        ->select('clubs.*','users.*','pigeons.*','pigeons.id_user as user_id')
+        ->join('clubs','club_members.id_club','=','clubs.id')
+        ->join('pigeons', 'pigeons.id', '=', 'club_members.id_pigeon')
+        ->join('users', 'pigeons.id_user', '=', 'users.id')
+        ->where('club_members.id_club', $id)
+        ->whereRaw('users.id NOT IN (SELECT id_user FROM operator_clubs)')
+        ->get();
+
+        $join_operator = DB::table('operator_clubs')
+        ->select('clubs.*','users.*','operator_clubs.*','operator_clubs.id as operator_id')
+        ->join('clubs','operator_clubs.id_club','=','clubs.id')
+        ->join('users', 'operator_clubs.id_user', '=', 'users.id')
+        ->where('operator_clubs.id_club', $id)
+        ->get();
         
         // dd($clubs->manager_club);
         // dd($clubs);
@@ -94,11 +111,8 @@ class ClubController extends Controller
         $data = ClubMember::find($id);
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
-        // $acc = Clubs::where('id_user', auth()->user()->id)
-        // ->orwhere('manager_club',auth()->user()->id)
-        // // ->where('manager_club',auth()->user()->id)
-        // ->get();
-        return view('subscribed.pages.club_saya_detail',compact('club','data_medsos','data_footer','users','clubs','data','id'));
+
+        return view('subscribed.pages.club_saya_detail',compact('club','data_medsos','data_footer','users','clubs','data','operator','join_operator'));
     }
     public function detail_belum_ikut($id)
     {
@@ -132,6 +146,22 @@ class ClubController extends Controller
         $data['is_active'] = 0;
 
         ClubMember::create($data);
+    //    $data =  ClubMember::create($request->all());
+       
+        return back()->with('Sukses','Berhasil menambahkan data!');
+        
+    }
+    public function destroy_operator($id)
+    {
+        OperatorClubs::find($id)->delete();
+
+        return back()->with('Sukses','Berhasil menghapus data!');
+       
+        
+    }
+    public function join_operator(Request $request)
+    {
+        OperatorClubs::create($request->all());
     //    $data =  ClubMember::create($request->all());
        
         return back()->with('Sukses','Berhasil menambahkan data!');
