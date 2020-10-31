@@ -20,11 +20,12 @@
         
         <div class="box-body">
             <div class="row" style="margin-bottom: 20px">
-                <div class="col-12">                   
-                    @foreach ($club_ikut as $item)                        
-                    <h5>Nama Team : <b style="color: red">{{ $team->name_team }}</b></h5>
-                    <h5>Deskripsi Team : <b style="color: red">{{ $team->desc_team }}</b></h5>
-                    <h5>Pemilik Team : <b style="color: red">{{ $team->user->username }}</b></h5>
+                <div class="col-12">               
+                    <h4>Club Details</h4>    
+                    @foreach ($club as $item)                        
+                    <h5>Nama Club : <b style="color: red">{{ $item->name_club }}</b></h5>
+                    <h5>Alamat Club : <b style="color: red">{{ $item->address_club }}</b></h5>
+                    <h5>Pemilik Team : <b style="color: red">{{ $item->user->username }}</b></h5>
                     @endforeach
                 </div>
             </div>
