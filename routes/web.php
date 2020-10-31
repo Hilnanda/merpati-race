@@ -101,6 +101,7 @@ Route::middleware('is_subscribed')->group(function () {
     Route::get('/club/{id}/detail_ikut','ClubController@detail_ikut')->name('club_detail_ikut');
     Route::get('/club/{id}/detail_saya','ClubController@detail_saya')->name('club_detail_ikut');
     Route::post('/club/join','ClubController@join_club')->name('join_club');
+    Route::get('/club/manager','ClubController@manager')->name('manager');
 
     // Events
     Route::get('/events/index', 'EventController@menuPage')->name('events_menu');

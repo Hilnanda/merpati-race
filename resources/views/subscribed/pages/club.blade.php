@@ -152,7 +152,6 @@
                                                         @endforeach
                                                       </select>                                                     
                                                 </div>
-
                                                 <div class="form-group">
                                                     <input type="submit" value="Simpan" class="btn btn-primary">
                                                 </div>
