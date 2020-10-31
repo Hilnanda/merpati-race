@@ -30,16 +30,16 @@
                     <th>Aksi</th>
                 </thead>
                 <tbody>
-                    @if(count($clubku) == 0)
+                    {{-- @if(count($clubku) == 0)
                     <tr class="text-center">
                         <td colspan="8">-- Tidak ada Club yang belum Diikuti --</td>
                     </tr>
-                    @endif
+                    @endif --}}
                     @foreach($clubku as $item)
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
                         <td>{{ $item->name_club }}</td>
-                        <td>{{ $item->manager->username }}</td>
+                        <td>{{ $item->manager->name }}</td>
                         <td>({{ $item->lat_club }}), ({{ $item->lng_club }})</td>
                         <td>{{ $item->address_club }}</td>
                         <td class="action-link">
@@ -59,28 +59,32 @@
         <!-- /.box-header -->
         <h4>Club Yang Di Ikuti</h4>
         <div class="box-body">
-            <table id="table_one" class="table table-bordered table-striped">
+            <table id="table_two" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
                     <th>Nama Club</th>
+                    <th>Pemilik Club</th>
                     <th>Lokasi Mulai</th>
                     <th>Alamat</th>
-                    <th>Nama Burung</th>                   
+                    <th>ID</th>
+                    <th>Pigeon</th>                   
                     <th>Aksi</th>
                 </thead>
                 <tbody>                   
-                    @if(count($club_ikut) == 0)
+                    {{-- @if(count($club_ikut) == 0)
                     <tr class="text-center">
                         <td colspan="8">-- Tidak ada Club yang belum Diikuti --</td>
                     </tr>
-                    @endif
+                    @endif --}}
                     @foreach($club_ikut as $item)
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
-                        <td>{{ $item->name_club }}</td>
-                        <td>({{ $item->lat_club }}), ({{ $item->lng_club }})</td>
-                        <td>{{ $item->address_club }}</td>
-                        <td>{{ $item->name_pigeon }}</td>
+                        <td>{{ $item->club->name_club }}</td>
+                        <td>{{ $item->club->user->name }}</td>
+                        <td>({{ $item->club->lat_club }}), ({{ $item->club->lng_club }})</td>
+                        <td>{{ $item->club->address_club }}</td>
+                        <td>{{ $item->pigeon->uid_pigeon }}</td>
+                        <td>{{ $item->pigeon->name_pigeon }}</td>
                         <td class="action-link">
                             <a href="#" title="Live Results" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
                             <a href="club/{{$item->id_club}}/detail_ikut" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
