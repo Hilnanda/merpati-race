@@ -81,10 +81,15 @@
                             </div>
                             <div class="col-6">
                                     <h4>Club Details</h4>
-                                    <h5>Nama club : <b style="color: red">{{ $clubs->name_club }}</b></h5>
-                                    <h5>Alamat club: <b style="color: red">{{ $clubs->address_club }}</b></h5>
-                                    <h5>Posisi club: <b style="color: red">{{ $clubs->lat_club }} , {{ $clubs->lng_club }}</b></h5>
-                                    <h5>Manager club: <b style="color: red">{{ $clubs->manager->name }} ({{ $clubs->manager->username }})</b></h5>
+                                    <p>Nama club : <b style="color: red">{{ $clubs->name_club }}</b></p>
+                                    <p>Alamat club : <b style="color: red">{{ $clubs->address_club }}</b></p>
+                                    <p>Posisi club : <b style="color: red">{{ $clubs->lat_club }} , {{ $clubs->lng_club }}</b></p>
+                                    <p>Manager club : <b style="color: red">{{ $clubs->manager->name }} ({{ $clubs->manager->username }})</b></p>
+                                    @if (count($join_operator)!=0)
+                                        @foreach ($join_operator as $item)
+                                        <p>Operator Club {{ $loop->index + 1 }} : <b style="color: red">{{ $item->name }} ({{ $item->username }})</b></p>    
+                                        @endforeach
+                                    @endif
                                     
                             </div>
 

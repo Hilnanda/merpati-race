@@ -87,6 +87,12 @@ class ClubController extends Controller
         ->join('users', 'pigeons.id_user', '=', 'users.id')
         ->where('club_members.id_club', $id)
         ->get();
+
+        $join_operator = DB::table('operator_clubs')
+        ->join('clubs','operator_clubs.id_club','=','clubs.id')
+        ->join('users', 'operator_clubs.id_user', '=', 'users.id')
+        ->where('operator_clubs.id_club', $id)
+        ->get();
         
         // dd($clubs->manager_club);
         // dd($clubs);
@@ -104,7 +110,7 @@ class ClubController extends Controller
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
 
-        return view('subscribed.pages.club_saya_detail',compact('club','data_medsos','data_footer','users','clubs','data','operator'));
+        return view('subscribed.pages.club_saya_detail',compact('club','data_medsos','data_footer','users','clubs','data','operator','join_operator'));
     }
     public function detail_belum_ikut($id)
     {
