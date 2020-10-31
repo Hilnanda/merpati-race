@@ -15,4 +15,13 @@ class OperatorClubs extends Model
         'id_club'
         
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'id_user', 'id');
+    }
+    public function clubs()
+    {
+        return $this->belongsTo('App\Clubs', 'id_club', 'id');
+    }
 }

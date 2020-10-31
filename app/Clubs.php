@@ -34,4 +34,8 @@ class Clubs extends Model
     {
         return $this->hasMany('App\ClubMember','id');
     }
+    public function operator_clubs()
+    {
+        return $this->hasMany('App\OperatorClubs','id');
+    }
 }
