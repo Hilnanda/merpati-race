@@ -297,7 +297,9 @@ class EventController extends Controller
         $data = $request->all();
 
         $club_member = CLubMember::where('id_pigeon', $data['id_pigeon'])->first();
-        $team_member = TeamMembers::where('id_club', $club_member['id_club'])->first();
+        if ($club_member['id_club']) {
+            $team_member = TeamMembers::where('id_club', $club_member['id_club'])->first();
+        }
 
         $data['id_event'] = $id;
         $data['current_id_club'] = $club_member['id_club'];
