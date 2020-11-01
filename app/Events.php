@@ -30,4 +30,14 @@ class Events extends Model
     {
         return $this->hasMany('App\EventParticipants','id');
     }
+
+    public function club()
+    {
+        return $this->belongsTo('App\Clubs', 'id_club','id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'id_user','id');
+    }
 }

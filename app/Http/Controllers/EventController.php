@@ -24,7 +24,9 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Events::orderBy('events.id', 'desc')->get();
+        $title = 'Lomba Umum';
+        $events = Events::where('branch_event', 'Umum')
+        ->orderBy('events.id', 'desc')->get();
         $users = User::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
@@ -56,7 +58,7 @@ class EventController extends Controller
         }
 
         return view('subscribed.pages.events_content', 
-            compact('data_medsos','data_footer','users','events','current_datetime')
+            compact('data_medsos','data_footer','users','events','current_datetime','title')
         );
     }
 
@@ -83,7 +85,12 @@ class EventController extends Controller
      */
     public function eventClub()
     {
-        $events = Events::orderBy('events.id', 'desc')->get();
+        $title = 'Lomba Club';
+        $events = Events::join('clubs', 'clubs.id', 'events.id_club')
+        ->where('events.branch_event', 'Club')
+        ->orderBy('events.id', 'desc')
+        ->get();
+
         $users = User::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
@@ -115,7 +122,7 @@ class EventController extends Controller
         }
 
         return view('subscribed.pages.events_content', 
-            compact('data_medsos','data_footer','users','events','current_datetime')
+            compact('data_medsos','data_footer','users','events','current_datetime','title')
         );
     }
 

@@ -1,12 +1,12 @@
 @extends('subscribed.layout.subscribed')
 @section('title')
-    Lomba Umum
+    {{ $title }}
 @endsection
 @section('content')
     <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ url('image/breadcumb-1.jpg') }});">
     <div class="bradcumbContent">
-        <h2>Lomba Umum</h2>
+        <h2>{{ $title }}</h2>
     </div>
 </div>
 <!-- bg gradients -->
@@ -16,12 +16,15 @@
 <div class="row mt-5 px-5">
     <div class="col-lg-12">
         <!-- /.box-header -->
-        <h4>Daftar Lomba Umum</h4>
+        <h4>Daftar {{ $title }}</h4>
         <div class="box-body">
             <table id="table_one" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
-                    <th>Nama</th>
+                    @if($title == 'Lomba Club')
+                    <th>Nama Club</th>
+                    @endif
+                    <th>Nama Lomba</th>
                     <th>Jenis Lomba</th>
                     <th>Kategori</th>
                     <th>Titik Mulai</th>
@@ -34,12 +37,15 @@
                 <tbody>
                     @if(count($events) == 0)
                     <tr class="text-center">
-                        <td colspan="8">-- Tidak ada lomba burung yang tersedia --</td>
+                        <td colspan="9">-- Tidak ada {{ $title }} yang tersedia --</td>
                     </tr>
                     @endif
                     @foreach($events as $event)
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
+                        @if($title == 'Lomba Club')
+                        <td>{{ $event->name_club }}</td>
+                        @endif
                         <td>{{ $event->name_event }}</td>
                         <td>{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</td>
                         <td>{{ $event->category_event }}</td>
