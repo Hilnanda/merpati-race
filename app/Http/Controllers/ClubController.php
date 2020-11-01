@@ -202,6 +202,7 @@ class ClubController extends Controller
         ->join('clubs','club_members.id_club','=','clubs.id')
         ->join('pigeons', 'pigeons.id', '=', 'club_members.id_pigeon')
         ->join('users', 'users.id', '=', 'pigeons.id_user')
+        ->select('club_members.*','pigeons.*','clubs.*','users.*','club_members.id as id_club_is_active_0')
         ->where('club_members.is_active',0)
         ->where('clubs.id', $id)
         ->get();
@@ -209,9 +210,13 @@ class ClubController extends Controller
        return view('subscribed.pages.club_acc_gabung',compact('acc','akun','users','data_medsos','data_footer'));
     }
    public function acc_club($id){
-   $edit_is_active = DB::update('update club_members set is_active = 1 where club_members.id_club = ?',[$id]);
-    
-    return redirect('/club');
+   $edit_is_active = DB::update('update club_members set is_active = 1 where club_members.id = ?',[$id]);    
+   return back()->with('Sukses','Berhasil Update data!');
+   }
+   public function del_club($id){
+       $hapus_acc_club = ClubMember::find($id);
+       $hapus_acc_club->delete($hapus_acc_club);
+       return back()->with('Sukses','Berhasil Delete data!');
    }
 
     /**

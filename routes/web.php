@@ -104,6 +104,7 @@ Route::middleware('is_subscribed')->group(function () {
     Route::post('/club/join-operator','ClubController@join_operator');
     Route::get('/club/{id}/permintaan_gabung','ClubController@manager')->name('manager');
     Route::get('/club/acc/{id}','ClubController@acc_club')->name('acc_club');
+    Route::get('/club/acc/{id}/delete','ClubController@del_club')->name('del_club');
     Route::get('/club/delete-operator/{id}', 'ClubController@destroy_operator');
 
 

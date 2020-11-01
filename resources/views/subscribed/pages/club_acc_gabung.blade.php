@@ -45,9 +45,9 @@
                         <td>{{ $item->name }}</td>
                         <td>{{ date('d F Y  H:i:s', strtotime($item->created_at)) }}</td>
                         <td class="action-link">                        
-                            <a href="/club/acc/{{$item->id}}" title="Centang" class="mx-1"><i class="fa fa-check fa-2" aria-hidden="true"></i></a>
-                            <a href="#" title="Silang" class="mx-1"><i class="fa fa-times fa-2" aria-hidden="true"></i></a>
-                            <a href="club/{{$item->id}}/detail_saya" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
+                            <a href="/club/acc/{{$item->id_club_is_active_0}}" title="Centang" class="mx-1"><i class="fa fa-check fa-2" aria-hidden="true"></i></a>
+                            <a href="/club/acc/{{$item->id_club_is_active_0}}/delete" title="Silang" class="mx-1 delete"><i class="fa fa-times fa-2" aria-hidden="true"></i></a>
+                            <a href="#" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
                         </td>
                     </tr>
                     @endforeach
