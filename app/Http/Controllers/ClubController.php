@@ -118,12 +118,14 @@ class ClubController extends Controller
         ->get();
 
         $operator = DB::table('club_members')
-        ->select('clubs.*','users.*','pigeons.*','pigeons.id_user as user_id')
+        ->select('users.name','users.username','users.id')
         ->join('clubs','club_members.id_club','=','clubs.id')
         ->join('pigeons', 'pigeons.id', '=', 'club_members.id_pigeon')
         ->join('users', 'pigeons.id_user', '=', 'users.id')
         ->where('club_members.id_club', $id)
         ->whereRaw('users.id NOT IN (SELECT id_user FROM operator_clubs)')
+        ->where('users.id','!=', auth()->user()->id)
+        ->groupByRaw('users.name, users.username ,users.id')
         ->get();
 
         $join_operator = DB::table('operator_clubs')
