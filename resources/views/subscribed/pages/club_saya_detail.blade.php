@@ -195,10 +195,14 @@
                             <table id="table_three" class="table table-bordered table-striped">
                                 <thead>
                                     <th>No.</th>
+                                    <th>Nama Lomba</th>
+                                    <th>Nama Team</th>
+                                    <th>Jarak</th>
+                                    <th>ID</th>
+                                    <th>Pigeon</th>
                                     <th>Nama Club</th>
-                                    <th>Lokasi Mulai</th>
-                                    <th>Alamat</th>
-                                    <th>Nama Burung</th>
+                                    <th>M/Menit</th>
+                                    <th>Jenis Lomba</th>
                                     <th>Aksi</th>
                                 </thead>
                                 <tbody>
@@ -206,8 +210,8 @@
                                         <tr class="text-center">
                                             <td colspan="8">-- Tidak ada Club yang belum Diikuti --</td>
                                         </tr>
-                                    @endif
-                                    @foreach ($club_ikut as $item)
+                                    @endif --}}
+                                    @foreach ($results as $item)
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
                                             <td>{{ $item->name_club }}</td>
@@ -221,7 +225,7 @@
                                                         class="fa fa-list-alt" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
