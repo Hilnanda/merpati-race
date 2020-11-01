@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-12 d-flex justify-content-between">
                 @foreach ($club as $item)
-                <h4>Team Details</h4>
+                <h4>Club Details</h4>
                 @if (count($pigeon)!=0)            
                     <a href="#tambah_jenisstandar{{ $item->id }}" class="btn btn-primary" data-toggle="modal"
                         data-target="#tambah_jenisstandar{{ $item->id }}">Join Club</a>

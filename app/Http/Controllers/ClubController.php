@@ -134,7 +134,7 @@ class ClubController extends Controller
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
 
-        return view('subscribed.pages.club_saya_detail',compact('club','data_medsos','data_footer','users','clubs','data','operator','join_operator','list_pigeons'));
+        return view('subscribed.pages.club_saya_detail',compact('club','data_medsos','data_footer','users','clubs','data','operator','join_operator','list_pigeons','id'));
     }
     public function detail_belum_ikut($id)
     {
@@ -193,10 +193,26 @@ class ClubController extends Controller
         return back()->with('Sukses','Berhasil menambahkan data!');
         
     }
-    public function manager(){
-       return redirect('/');
+    public function manager($id){
+        $akun = ClubMember::find($id);
+        $users = User::all();
+        $data_medsos = CMSMedsos::all();
+        $data_footer = CMSFooter::all();
+        $acc = DB::table('club_members')
+        ->join('clubs','club_members.id_club','=','clubs.id')
+        ->join('pigeons', 'pigeons.id', '=', 'club_members.id_pigeon')
+        ->join('users', 'users.id', '=', 'pigeons.id_user')
+        ->where('club_members.is_active',0)
+        ->where('clubs.id', $id)
+        ->get();
+        // dd($acc);
+       return view('subscribed.pages.club_acc_gabung',compact('acc','akun','users','data_medsos','data_footer'));
     }
-   
+   public function acc_club($id){
+   $edit_is_active = DB::update('update club_members set is_active = 1 where club_members.id_club = ?',[$id]);
+    
+    return redirect('/club');
+   }
 
     /**
      * Store a newly created resource in storage.

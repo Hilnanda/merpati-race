@@ -26,7 +26,7 @@
                         <a href="#"><button type="button" class="btn btn-danger"><i class="fa fa-twitter"></i> Join Pigeon</button></a>
                         @if (Auth::user()->id==$clubs->manager_club)
                             <a href="#"><button type="button" class="btn btn-success">Buat Lomba Club</button></a>
-                            <a href="/club/manager/"><button type="button" class="btn btn-primary">Permintaan Gabung</button></a>
+                    <a href="/club/{{$id}}/permintaan_gabung"><button type="button" class="btn btn-primary">Permintaan Gabung</button></a>
                             @if (count($operator)!=0)
                             <a href="#tambah_jenisstandar" data-toggle="modal"
                             data-target="#tambah_jenisstandar"><button type="button" class="btn btn-warning">Tambah Operator Club</button></a>
