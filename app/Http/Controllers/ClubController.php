@@ -109,6 +109,7 @@ class ClubController extends Controller
         ->join('users', 'pigeons.id_user', '=', 'users.id')
         ->where('club_members.id_club', $id)
         ->whereRaw('users.id NOT IN (SELECT id_user FROM operator_clubs)')
+        ->where('users.id','!=', auth()->user()->id)
         ->groupByRaw('users.name, users.username ,users.id')
         ->get();
 
