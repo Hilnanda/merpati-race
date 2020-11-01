@@ -5,7 +5,7 @@
 @endsection
 @section('content')
     <!-- ##### Breadcumb Area Start ##### -->
-    <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url(image/breadcumb-1.jpg);">
+    <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ url('image/breadcumb-1.jpg') }});">
         <div class="bradcumbContent">
             <h2>List Club</h2>
         </div>
@@ -25,7 +25,7 @@
                         @if (isset($operator->id_user))
                             @if (Auth::user()->id==$operator->id_user)
                             <a href="#"><button type="button" class="btn btn-success">Buat Lomba Club</button></a>
-                            <a href="/club/manager/"><button type="button" class="btn btn-primary">Permintaan Gabung</button></a>
+                            <a href="/club/{{$clubs->id}}/permintaan_gabung"><button type="button" class="btn btn-primary">Permintaan Gabung</button></a>
                             @endif
                         @endif
                     </div>

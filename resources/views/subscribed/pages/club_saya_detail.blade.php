@@ -54,7 +54,7 @@
                                                 <select name="id_user" class="form-control" required>
                                                     <option value="">-- Pilih User --</option>
                                                     @foreach($operator as $item)
-                                                    <option value="{{$item->user_id}}">{{$item->name}} ({{$item->username}})</option>
+                                                    <option value="{{$item->id}}">{{$item->name}} ({{$item->username}})</option>
                                                     @endforeach
                                                   </select>
                                             </div>
