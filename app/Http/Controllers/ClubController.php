@@ -76,6 +76,13 @@ class ClubController extends Controller
         // ->join('users','users.id','pigeons.id_user')
         where('id_club', $id)->get();
 
+        $clubku = Clubs::where('id','=',$id)        
+        ->get();
+        
+        $pigeon = Pigeons::where('pigeons.is_active', 1)
+        ->where('pigeons.id_user', auth()->user()->id)
+        ->whereRaw('pigeons.id NOT IN (SELECT id_pigeon FROM club_members)')
+        ->get();
         $operator = OperatorClubs::where('id_user',auth()->user()->id)
         ->first();
 
@@ -86,7 +93,7 @@ class ClubController extends Controller
         ->where('operator_clubs.id_club', $id)
         ->get();
 
-        return view('subscribed.pages.club_detail_ikut',compact('club','data_medsos','data_footer','users','clubs','list_pigeons','join_operator','operator'));
+        return view('subscribed.pages.club_detail_ikut',compact('pigeon','clubku','club','data_medsos','data_footer','users','clubs','list_pigeons','join_operator','operator'));
     }
     public function detail_saya($id)
     {
@@ -102,6 +109,14 @@ class ClubController extends Controller
         // ->join('pigeons','club_members.id_pigeon','=','pigeons.id')
         // ->join('users','users.id','pigeons.id_user')
         where('id_club', $id)->get();
+
+        $clubku = Clubs::where('id','=',$id)        
+        ->get();
+        
+        $pigeon = Pigeons::where('pigeons.is_active', 1)
+        ->where('pigeons.id_user', auth()->user()->id)
+        ->whereRaw('pigeons.id NOT IN (SELECT id_pigeon FROM club_members)')
+        ->get();
 
         $operator = DB::table('club_members')
         ->select('users.name','users.username','users.id')
@@ -145,7 +160,8 @@ class ClubController extends Controller
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
 
-        return view('subscribed.pages.club_saya_detail',compact('club','data_medsos','data_footer','users','clubs','data','operator','join_operator','list_pigeons','id','results'));
+        
+        return view('subscribed.pages.club_saya_detail',compact('pigeon','clubku','club','data_medsos','data_footer','users','clubs','data','operator','join_operator','list_pigeons','id','results'));
     }
     public function detail_belum_ikut($id)
     {

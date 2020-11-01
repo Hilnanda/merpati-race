@@ -18,12 +18,55 @@
     <div class="row mt-5 px-5">
         <div class="col-lg-12">
             <!-- /.box-header -->
-            <h4>Detail Club Saya</h4>
-            
+            <h4>Detail Club Saya</h4>            
             <div class="box-body">
                 <div class="row" style="margin-bottom: 20px">
                     <div class="col-12">
-                        <a href="#"><button type="button" class="btn btn-danger"><i class="fa fa-twitter"></i> Join Pigeon</button></a>
+                        @foreach ($clubku as $ite)
+                        @if (count($pigeon)!=0)
+                        <a href="#join_pigeon" data-toggle="modal"
+                        data-target="#join_pigeon"><button type="button" class="btn btn-danger"><i class="fa fa-twitter"></i> Join Pigeon</button></a>
+                        @endif
+                        <div class="modal fade" id="join_pigeon" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Join Pigeon</h5>
+                                    <button class="close" type="button" data-dismiss="modal"
+                                    aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/club/join" method="POST">
+                                    {{ csrf_field() }}
+                                            <div class="form-group">
+                                                <label for="">List Pigeon</label>
+                                                <input type="hidden" name="id_club" value="{{ $ite->id }}">
+                                                <select name="id_pigeon" class="form-control" required>
+                                                    <option value="">-- Pilih Pigeon --</option>
+                                                    @foreach($pigeon as $pigeons)
+                                                            @if ($ite->id!=$pigeons->id_club)
+                                                            <option value="{{$pigeons->id}}">{{$pigeons->uid_pigeon}} - {{$pigeons->name_pigeon}}</option>
+                                                            @endif                                                       
+                                                    @endforeach
+                                                  </select>
+                                            </div>
+                
+                                            <div class="form-group">
+                                                <input type="submit" value="Simpan" class="btn btn-primary">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" type="button"
+                                            data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
                         @if (Auth::user()->id==$clubs->manager_club)
                             <a href="#"><button type="button" class="btn btn-success">Buat Lomba Club</button></a>
                     <a href="/club/{{$id}}/permintaan_gabung"><button type="button" class="btn btn-primary">Permintaan Gabung</button></a>
@@ -168,20 +211,19 @@
                                             <td colspan="8">-- Tidak ada Club yang belum Diikuti --</td>
                                         </tr>
                                     @endif --}}
-                                    @foreach ($results as $item)
-                                        <tr>
-                                            <td>{{ $loop->index + 1 }}</td>
-                                            <td>{{ $item->name_club }}</td>
-                                            <td>({{ $item->lat_club }}), ({{ $item->lng_club }})</td>
-                                            <td>{{ $item->address_club }}</td>
-                                            <td>{{ $item->name_pigeon }}</td>
-                                            <td class="action-link">
-                                                <a href="#" title="Live Results" class="mx-1"><i class="fa fa-list-ol"
-                                                        aria-hidden="true"></i></a>
-                                                <a href="club/{{ $item->id }}/detail_ikut" title="Details" class="mx-1"><i
-                                                        class="fa fa-list-alt" aria-hidden="true"></i></a>
-                                            </td>
-                                        </tr>
+                                    @foreach($results as $result)
+                                    <tr>
+                                        <td>{{ $loop->index+1 }}</td>
+                                        <td>{{ $result->pigeons->users->name ? $result->pigeons->users->name : '-' }}</td>
+                                        @if($event->category_event == 'Team')
+                                        <td>{{ $result->teams_name_team ? $result->teams_name_team : '-' }}</td>
+                                        @endif
+                                        <td>{{ $result->clubs_name_club ? $result->clubs_name_club : '-' }}</td>
+                                        <td>{{ $result->pigeons ? $result->pigeons->uid_pigeon : '-' }}</td>
+                                        <td>{{ $result->event_results_created_at ? $result->event_results_created_at : '-' }}</td>
+                                        <td>{{ $result->event_results_speed_event_result ? $result->event_results_speed_event_result : '-' }}</td>
+                                        <td>{{ $result->pigeons ? $result->pigeons->name_pigeon : '-' }}</td>
+                                    </tr>
                                     @endforeach
                                 </tbody>
                             </table>

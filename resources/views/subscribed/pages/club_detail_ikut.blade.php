@@ -21,7 +21,51 @@
             <div class="box-body">
                 <div class="row" style="margin-bottom: 20px">
                     <div class="col-12">
-                        <a href="#"><button type="button" class="btn btn-danger"><i class="fa fa-twitter"></i> Join Pigeon</button></a>
+                        @foreach ($clubku as $ite)
+                        @if (count($pigeon)!=0)
+                        <a href="#join_pigeon" data-toggle="modal"
+                        data-target="#join_pigeon"><button type="button" class="btn btn-danger"><i class="fa fa-twitter"></i> Join Pigeon</button></a>
+                        @endif
+                        <div class="modal fade" id="join_pigeon" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Join Pigeon</h5>
+                                    <button class="close" type="button" data-dismiss="modal"
+                                    aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/club/join" method="POST">
+                                    {{ csrf_field() }}
+                                            <div class="form-group">
+                                                <label for="">List Pigeon</label>
+                                                <input type="hidden" name="id_club" value="{{ $ite->id }}">
+                                                <select name="id_pigeon" class="form-control" required>
+                                                    <option value="">-- Pilih Pigeon --</option>
+                                                    @foreach($pigeon as $pigeons)
+                                                            @if ($ite->id!=$pigeons->id_club)
+                                                            <option value="{{$pigeons->id}}">{{$pigeons->uid_pigeon}} - {{$pigeons->name_pigeon}}</option>
+                                                            @endif                                                       
+                                                    @endforeach
+                                                  </select>
+                                            </div>
+                
+                                            <div class="form-group">
+                                                <input type="submit" value="Simpan" class="btn btn-primary">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" type="button"
+                                            data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
                         @if (isset($operator->id_user))
                             @if (Auth::user()->id==$operator->id_user)
                             <a href="#"><button type="button" class="btn btn-success">Buat Lomba Club</button></a>
