@@ -127,9 +127,11 @@
                                     aria-hidden="true"></i></a>
                             {{-- <a href="#" title="Join" class="mx-1"><i class="fa fa-sign-in"
                                     aria-hidden="true"></i></a> --}}
-                            <a href="#tambah_jenisstandar{{ $items->id }}"  data-toggle="modal"
-                                data-target="#tambah_jenisstandar{{ $items->id }}"><i class="fa fa-sign-in"
-                                aria-hidden="true"></i></a>
+                                    @if (count($pigeon)!=0)                                   
+                                    <a href="#tambah_jenisstandar{{ $items->id }}"  data-toggle="modal"
+                                        data-target="#tambah_jenisstandar{{ $items->id }}"><i class="fa fa-sign-in"
+                                        aria-hidden="true"></i></a>
+                                    @endif
                             <div class="modal fade" id="tambah_jenisstandar{{ $items->id }}" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
