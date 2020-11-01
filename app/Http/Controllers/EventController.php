@@ -172,18 +172,26 @@ class EventController extends Controller
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
         $auth_session = auth()->user()->id;
-        $pigeons = Pigeons::leftJoin('team_members', 'team_members.id_pigeon', 'pigeons.id')
+        $pigeons = Pigeons::join('club_members', 'club_members.id_pigeon', 'pigeons.id')
+        ->leftJoin('team_members', 'team_members.id_pigeon', 'pigeons.id')
         ->leftJoin('teams', 'teams.id', 'team_members.id_team')
-        ->join('club_members', 'club_members.id_pigeon', 'pigeons.id')
+        ->leftJoin('event_participants', 'event_participants.id_pigeon', 'pigeons.id')
         ->where('pigeons.is_active', 1)
         ->where('club_members.is_active', 1)
         ->where('pigeons.id_user', $auth_session)
-        ->whereRaw('pigeons.id NOT IN (
+        ->whereRaw("pigeons.id NOT IN (
+                SELECT id_pigeon FROM event_participants
+            )
+            OR
+            pigeons.id IN (
                 SELECT id_pigeon FROM event_participants
                 JOIN event_results
                 ON event_participants.id = event_results.id_event_participant
+                JOIN event_hotspots
+                ON event_hotspots.id = event_results.id_event_hotspot
+                WHERE event_participants.id_event = $id
             )
-        ')
+        ")
         ->get();
 
         $current_datetime = Carbon::now();
