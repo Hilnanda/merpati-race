@@ -330,7 +330,8 @@ img {
     font-size: 12px;
     font-weight: 700;
     box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.3);
-    color: #ffffff; }
+    color: #ffffff; 
+  }
   .musica-btn.btn-2 {
     background: #262626; }
     .musica-btn.btn-2:hover, .musica-btn.btn-2:focus {
