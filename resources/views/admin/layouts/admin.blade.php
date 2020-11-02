@@ -130,7 +130,7 @@
                     </li>
                     <li class="{{ (request()->is('admin/list-event*')) ? 'active' : '' }}">
                         <a href="{{ route('list-event') }}">
-                            <i class="fa fa-superpowers"></i> <span>Lomba</span>
+                            <i class="fa fa-superpowers"></i> <span>Lomba Umum</span>
                         </a>
                     </li>
                     <li class="{{ (request()->is('admin/list-event*')) ? 'active' : '' }}">

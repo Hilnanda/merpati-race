@@ -7,7 +7,7 @@ Dashboard Panitia
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Data Lomba
+      Data Lomba Umum
       {{-- <small>advanced tables</small> --}}
     </h1>
     <ol class="breadcrumb">
@@ -58,7 +58,7 @@ Dashboard Panitia
                       <label for="">Informasi Tentang Lomba</label>
                       <textarea name="info_event" class="form-control" required="" placeholder="Isi informasi lomba"></textarea>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label for="">Lat Lomba</label>
                       <input type="number" name="lat_event" class="form-control" placeholder="Isi latitude lomba" required step="any">
                     </div>
@@ -77,15 +77,19 @@ Dashboard Panitia
                     <div class="form-group">
                       <label for="">Alamat Lomba</label>
                       <textarea name="address_event" class="form-control" required="" placeholder="Isi alamat lomba"></textarea>
+                    </div> -->
+                    <div class="form-group">
+                      <label for="">Jumlah Hotspot</label>
+                      <input type="number" name="hotspot_length_event" class="form-control" placeholder="Isi jumlah hotspot lomba (minimal 1)" required min="1">
                     </div>
                     <div class="form-group">
                       <label for="">Waktu Mulai Lomba</label>
                       <input type="datetime-local" step="1" id="release_time_event_add" name="release_time_event" class="form-control" placeholder="Isi waktu mulai lomba" required onchange="setMaxDueDateAdd()">
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label for="">Waktu Selesai Lomba</label>
                       <input type="datetime-local" step="1" name="expired_time_event" class="form-control" placeholder="Isi waktu selesai lomba">
-                    </div>
+                    </div> -->
                     <div class="form-group">
                       <label for="">Harga Pendaftaran Lomba</label>
                       <input type="number" name="price_event" class="form-control" placeholder="Isi harga pendaftaran lomba" required step=100>
@@ -112,6 +116,7 @@ Dashboard Panitia
           <table id="example1" class="table table-bordered table-striped">
             <thead>
               <th>No.</th>
+              <td>ID</td>
               <th>Nama</th>
               <th>Logo</th>
               <th>Jenis Lomba</th>
@@ -130,12 +135,14 @@ Dashboard Panitia
               @foreach($events as $event)
               <tr>
                 <td>{{ $loop->index+1 }}</td>
+                <td>{{ $event->id }}</td>
                 <td>{{ $event->name_event }}</td>
                 @php $path = Storage::url('image-logo/'.$event->logo_event); @endphp
                 <td><img src="{{ url($path) }}" height="80px"></td>
                 <td>{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</td>
                 <td>{{ $event->category_event }}</td>
                 <td>{{ $event->info_event }}</td>
+                <td>{{ $event->event_hotspot }}</td>
                 <td>({{ $event->lat_event }}), ({{ $event->lng_event }})</td>
                 <td>{{ $event->lat_event_end ? '(' . $event->lat_event_end . '), (' . $event->lng_event_end . ')' : '-' }}</td>
                 <td>{{ $event->address_event }}</td>

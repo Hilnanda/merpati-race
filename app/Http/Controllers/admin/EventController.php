@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Events;
+use App\EventHotspot;
 use App\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -18,7 +19,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Events::orderBy('events.id', 'desc')->get();
+        $events = Events::with('event_hotspot')
+        ->orderBy('events.id', 'desc')->get();
         $users = User::all();
 
         foreach ($events as $event) {
@@ -42,12 +44,14 @@ class EventController extends Controller
     {
         $data = $request->all();
 
-        if (isset($data['expired_time_event'])) {
-            $data['expired_time_event'] = str_replace("T", " ", $request->expired_time_event);
-        }
+        // if (isset($data['expired_time_event'])) {
+        //     $data['expired_time_event'] = str_replace("T", " ", $request->expired_time_event);
+        // }
 
         $data['due_join_date_event'] = str_replace("T", " ", $request->due_join_date_event);
         $data['release_time_event'] = str_replace("T", " ", $request->release_time_event);
+
+        $data['branch_event'] = "Umum";
 
         $extension = $request->file('logo_event')->extension();
         $img_name = 'logo-' . $data['name_event'] . '-' . date('dmyHis') . '.' . $extension;
@@ -56,7 +60,15 @@ class EventController extends Controller
 
         $data['logo_event'] = $img_name;
 
-        Events::create($data);
+        $id_event = Events::create($data)->id;
+
+        $hotspot = [];
+        $hotspot['id_event'] = $id_event;
+        for ($i=0; $i < $data['hotspot_length_event']; $i++) { 
+            $hotspot['release_time_hotspot'] = $data['release_time_event'];
+            EventHotspot::create($hotspot);
+            $hotspot['release_time_hotspot'] = null;
+        }
 
         return back()->with('Sukses','Berhasil menambahkan data!');
     }

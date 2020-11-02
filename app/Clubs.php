@@ -18,10 +18,7 @@ class Clubs extends Model
         'address_club',
         'manager_club'
     ];
-    public function pigeons()
-    {
-        return $this->hasMany('App\Pigeons', 'id');
-    }
+    
     public function manager()
     {
         return $this->belongsTo('App\User', 'manager_club', 'id');
@@ -32,14 +29,14 @@ class Clubs extends Model
     }
     public function club_member()
     {
-        return $this->hasMany('App\ClubMember','id');
+        return $this->hasMany('App\ClubMember','id_user');
     }
     public function operator_clubs()
     {
-        return $this->hasMany('App\OperatorClubs','id');
+        return $this->hasMany('App\OperatorClubs','id_club');
     }
     public function event()
     {
-        return $this->hasMany('App\Events','id');
+        return $this->hasMany('App\Events','id_club');
     }
 }

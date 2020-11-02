@@ -23,6 +23,6 @@ class EventHotspot extends Model
 
     public function event_results()
     {
-        return $this->hasMany('App\EventResults','id');
+        return $this->hasMany('App\EventResults','id_event_hotspot');
     }
 }

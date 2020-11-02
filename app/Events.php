@@ -14,21 +14,28 @@ class Events extends Model
         'name_event',
         'logo_event',
         'info_event',
+        'hotspot_length_event',
+        'branch_event',
+        'id_club',
+        'id_user',
         'category_event',
         'lat_event',
         'lng_event',
         'lat_event_end',
         'lng_event_end',
         'address_event',
-        'release_time_event',
         'due_join_date_event',
-        'expired_time_event',
         'price_event'
     ];
     
     public function event_participants()
     {
-        return $this->hasMany('App\EventParticipants','id');
+        return $this->hasMany('App\EventParticipants','id_event');
+    }
+
+    public function event_hotspot()
+    {
+        return $this->hasMany('App\EventHotspot','id_event');
     }
 
     public function club()
