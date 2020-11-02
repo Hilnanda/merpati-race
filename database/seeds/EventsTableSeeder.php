@@ -13,6 +13,6 @@ class EventsTableSeeder extends Seeder
     {
         $sql = file_get_contents(database_path() . '/seeds/events.sql');
     
-         DB::statement($sql);
+        DB::statement($sql);
     }
 }

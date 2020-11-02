@@ -159,6 +159,19 @@ class EventController extends Controller
         return back()->with('Sukses','Berhasil menghapus data!');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyHotspot($id)
+    {
+        EventHotspot::findOrFail($id)->delete();
+
+        return back()->with('Sukses','Berhasil menghapus hotspot!');
+    }
+
     public function formatDateLocal($value)
     {
         return Carbon::parse($value)->format('Y-m-d\TH:i:s');

@@ -19,4 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::get('medsos', 'API\CmsHomeController@get_medsos_api');
+// Route::get('medsos', 'API\CmsHomeController@get_medsos_api');
