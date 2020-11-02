@@ -47,6 +47,9 @@ Route::prefix('admin')
         Route::post('/event/update/{id}', 'EventController@update');
         Route::get('/event/delete/{id}', 'EventController@destroy');
 
+        // Event Hotspot
+        Route::post('/event/update-hotspot', 'EventController@updateHotspot');
+
         // contact
         Route::get('/list-contact', 'ContactController@index')->name('list-contact');
         Route::post('/contact/create', 'ContactController@create');
