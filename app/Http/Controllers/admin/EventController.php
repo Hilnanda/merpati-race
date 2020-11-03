@@ -165,9 +165,14 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroyHotspot($id)
+    public function destroyHotspot($id, $id_event)
     {
-        EventHotspot::findOrFail($id)->delete();
+        EventHotspot::find($id)->delete();
+        $event = Events::find($id_event);
+
+        $data['hotspot_length_event'] = $event->hotspot_length_event - 1;
+
+        $event->update($data);
 
         return back()->with('Sukses','Berhasil menghapus hotspot!');
     }

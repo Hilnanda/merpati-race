@@ -49,7 +49,7 @@ Route::prefix('admin')
 
         // Event Hotspot
         Route::post('/event/update-hotspot', 'EventController@updateHotspot');
-        Route::get('/event/delete-hotspot/{id}', 'EventController@destroyHotspot');
+        Route::get('/event/delete-hotspot/{id}/{id_event}', 'EventController@destroyHotspot');
 
         // contact
         Route::get('/list-contact', 'ContactController@index')->name('list-contact');

@@ -148,7 +148,7 @@ Dashboard Panitia
                                                 <div class="modal-header">
                                                     <h4 class="modal-title" id="exampleModalLabel">Daftar Hotspot</h4>
                                                 </div>
-                                                <form action="/admin/event/update-hotspot" method="POST" enctype="multipart/form-data">
+                                                <form action="/admin/event/update-hotspot" method="POST">
                                                     <div class="modal-body">
                                                         {{ csrf_field() }}
                                                         @foreach($event->event_hotspot as $hotspot)
@@ -168,7 +168,7 @@ Dashboard Panitia
                                                             <input type="datetime-local" step="1" name="expired_time_hotspots[]" class="form-control" placeholder="Isi waktu selesai lomba" value="{{ $hotspot->expired_time_hotspot ? date('Y-m-d\TH:i:s', strtotime($hotspot->expired_time_hotspot)) : '' }}">
                                                         </div>
 
-                                                        <!-- Delete Modal -->
+                                                        <!-- Delete Hotspot -->
                                                         <div class="modal fade" id="deleteHotspot{{$hotspot->id}}" tabindex="-1" role="dialog"
                                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
@@ -182,14 +182,47 @@ Dashboard Panitia
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <div class="form-group d-flex justify-content-end">
-                                                                            <a href="/event/delete-hotspot/{{$hotspot->id}}" class="btn btn-primary">Hapus</a>
+                                                                            <a href="/admin/event/delete-hotspot/{{$hotspot->id}}/{{$event->id}}" class="btn btn-primary">Hapus</a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!-- End Delete Modal -->
+                                                        <!-- End Delete Hotspot -->
                                                         @endforeach
+                                                    </div>
+                                                    <div class="modal-footer d-flex justify-content-between">
+                                                        <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#addHotspot"><span class="font-weight-bold ml-1">Tambah Hotspot</span></a>
+                                                        <input type="submit" value="Simpan" class="btn btn-primary">
+                                                        <button class="btn btn-secondary" type="button"
+                                                        data-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Hotspot Modal -->
+
+                                    <!-- Add Hotspot Modal -->
+                                    <div class="modal fade" id="addHotspot" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="exampleModalLabel">Daftar Hotspot</h4>
+                                                </div>
+                                                <form action="/admin/event/add-hotspot" method="POST">
+                                                    <div class="modal-body">
+                                                        {{ csrf_field() }}
+                                                        <input type="hidden" name="ids[]" value="{{ $hotspot->id }}">
+                                                        <div class="form-group">
+                                                            <label for="">Waktu Mulai Lomba</label>
+                                                            <input type="datetime-local" step="1" name="release_time_hotspots[]" class="form-control" placeholder="Isi waktu mulai lomba" required value="{{ $hotspot->release_time_hotspot ? date('Y-m-d\TH:i:s', strtotime($hotspot->release_time_hotspot)) : '' }}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="">Waktu Selesai Lomba</label>
+                                                            <input type="datetime-local" step="1" name="expired_time_hotspots[]" class="form-control" placeholder="Isi waktu selesai lomba" value="{{ $hotspot->expired_time_hotspot ? date('Y-m-d\TH:i:s', strtotime($hotspot->expired_time_hotspot)) : '' }}">
+                                                        </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <div class="form-group d-flex justify-content-end">
@@ -202,7 +235,7 @@ Dashboard Panitia
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- End Hotspot Modal -->
+                                    <!-- End Add Hotspot Modal -->
 
                                     <!-- Edit Modal -->
                                     <div class="modal fade" id="editModal{{$event->id}}" tabindex="-1" role="dialog"
@@ -306,17 +339,20 @@ Dashboard Panitia
 @endsection
 @push('admin-bottom-script')
 <script src="{{ url('admin/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ url('admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ url('admin/bower_components/datatables.net-bs/js/dataTables.bootstrap4.min.js') }}"></script>
 <script>
     $(function () {
-        $('#example1').DataTable()
+        $('#example1').DataTable({
+            'scrollX'     : true,
+        })
         $('#example2').DataTable({
             'paging'      : true,
             'lengthChange': false,
             'searching'   : false,
             'ordering'    : true,
             'info'        : true,
-            'autoWidth'   : false
+            'autoWidth'   : false,
+            'scrollX'     : true,
         })
     })
 </script>
