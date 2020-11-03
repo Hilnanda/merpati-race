@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             PigeonTableSeeder::class,
             ClubMemberTableSeeder::class,
             EventsTableSeeder::class,
+            EventHotspotsTableSeeder::class
         ]);
         
     }

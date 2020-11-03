@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class EventsTableSeeder extends Seeder
+class EventHotspotsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,7 @@ class EventsTableSeeder extends Seeder
      */
     public function run()
     {
-        $sql = file_get_contents(database_path() . '/seeds/events.sql');
+        $sql = file_get_contents(database_path() . '/seeds/event_hotspots.sql');
     
         DB::statement($sql);
     }

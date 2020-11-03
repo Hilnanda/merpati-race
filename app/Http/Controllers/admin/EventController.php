@@ -44,10 +44,6 @@ class EventController extends Controller
     {
         $data = $request->all();
 
-        // if (isset($data['expired_time_event'])) {
-        //     $data['expired_time_event'] = str_replace("T", " ", $request->expired_time_event);
-        // }
-
         $data['due_join_date_event'] = str_replace("T", " ", $request->due_join_date_event);
         $data['release_time_event'] = str_replace("T", " ", $request->release_time_event);
 
@@ -64,8 +60,8 @@ class EventController extends Controller
 
         $hotspot = [];
         $hotspot['id_event'] = $id_event;
+        $hotspot['release_time_hotspot'] = $data['release_time_event'];
         for ($i=0; $i < $data['hotspot_length_event']; $i++) { 
-            $hotspot['release_time_hotspot'] = $data['release_time_event'];
             EventHotspot::create($hotspot);
             $hotspot['release_time_hotspot'] = null;
         }
@@ -120,6 +116,37 @@ class EventController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateHotspot(Request $request)
+    {
+        $data = $request->all();
+
+        if (isset($data['expired_time_hotspot'])) {
+            $data['expired_time_hotspot'] = str_replace("T", " ", $request->expired_time_hotspot);
+        }
+
+        $data['release_time_hotspot'] = str_replace("T", " ", $request->release_time_hotspot);
+
+        $hotspot = [];
+
+        for ($i=0; $i < count($data['ids']); $i++) {
+            $hotspot['id'] = $data['ids'][$i];
+            if (isset($data['expired_time_hotspots'][$i])) {
+                $hotspot['expired_time_hotspot'] = str_replace("T", " ", $data['expired_time_hotspots'][$i]);
+            }
+            $hotspot['release_time_hotspot'] = str_replace("T", " ", $data['release_time_hotspots'][$i]);
+            EventHotspot::find($hotspot['id'])->update($hotspot);
+        }
+
+        return back()->with('Sukses','Berhasil mengubah data!');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -132,8 +159,21 @@ class EventController extends Controller
         return back()->with('Sukses','Berhasil menghapus data!');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyHotspot($id)
+    {
+        EventHotspot::findOrFail($id)->delete();
+
+        return back()->with('Sukses','Berhasil menghapus hotspot!');
+    }
+
     public function formatDateLocal($value)
     {
-        return Carbon::parse($value)->format('Y-m-d\TH:i');
+        return Carbon::parse($value)->format('Y-m-d\TH:i:s');
     }
 }
