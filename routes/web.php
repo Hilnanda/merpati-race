@@ -48,6 +48,7 @@ Route::prefix('admin')
         Route::get('/event/delete/{id}', 'EventController@destroy');
 
         // Event Hotspot
+        Route::post('/event/add-hotspot', 'EventController@addHotspot');
         Route::post('/event/update-hotspot', 'EventController@updateHotspot');
         Route::get('/event/delete-hotspot/{id}/{id_event}', 'EventController@destroyHotspot');
 

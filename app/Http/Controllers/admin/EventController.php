@@ -70,6 +70,39 @@ class EventController extends Controller
     }
 
     /**
+     * Store a newly created hotspot in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function addHotspot(Request $request)
+    {
+        $data = $request->all();
+
+        if (isset($data['expired_time_hotspot'])) {
+            $data['expired_time_hotspot'] = str_replace("T", " ", $request->expired_time_hotspot);
+        }
+
+        $data['release_time_hotspot'] = str_replace("T", " ", $request->release_time_hotspot);
+
+        $hotspot['id_event'] = $data['id_event'];
+        if (isset($data['expired_time_hotspot'])) {
+            $hotspot['expired_time_hotspot'] = str_replace("T", " ", $data['expired_time_hotspot']);
+        }
+        $hotspot['release_time_hotspot'] = str_replace("T", " ", $data['release_time_hotspot']);
+        EventHotspot::create($hotspot);
+
+        // Tambah jumlah hotspot
+        $event = Events::find($data['id_event']);
+
+        $data['hotspot_length_event'] = $event->hotspot_length_event + 1;
+
+        $event->update($data);
+
+        return back()->with('Sukses','Berhasil mengubah data!');
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -168,6 +201,8 @@ class EventController extends Controller
     public function destroyHotspot($id, $id_event)
     {
         EventHotspot::find($id)->delete();
+
+        // Kurangi jumlah hotspot
         $event = Events::find($id_event);
 
         $data['hotspot_length_event'] = $event->hotspot_length_event - 1;

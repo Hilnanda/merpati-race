@@ -124,12 +124,12 @@ Dashboard Panitia
                                 <td>{{ $event->address_event }}</td>
                                 @foreach($event->event_hotspot as $hotspot)
                                 @if($loop->index == 0)
-                                <td>{{ $hotspot ? $hotspot->release_time_hotspot : '-' }}</td>
+                                <td>{{ $hotspot ? str_replace('T', ' ', $hotspot->release_time_hotspot) : '-' }}</td>
+                                <td>{{ $hotspot->expired_time_hotspot ? str_replace('T', ' ', $hotspot->expired_time_hotspot) : '-' }}</td>
                                 @endif
                                 @endforeach
-                                <td>{{ $event->expired_time_event ? $event->expired_time_event : '-' }}</td>
                                 <td>Rp {{ number_format($event->price_event, 2) }}</td>
-                                <td>{{ $event->due_join_date_event }}</td>
+                                <td>{{ $event ? str_replace('T', ' ', $event->due_join_date_event) : '-' }}</td>
                                 <td>{{ $event->hotspot_length_event }}</td>
                                 <td>
                                     <a href="#" class="btn btn-info btn-sm" data-toggle="modal"
@@ -192,7 +192,7 @@ Dashboard Panitia
                                                         @endforeach
                                                     </div>
                                                     <div class="modal-footer d-flex justify-content-between">
-                                                        <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#addHotspot"><span class="font-weight-bold ml-1">Tambah Hotspot</span></a>
+                                                        <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#addHotspot{{$event->id}}"><span class="font-weight-bold ml-1">Tambah Hotspot</span></a>
                                                         <input type="submit" value="Simpan" class="btn btn-primary">
                                                         <button class="btn btn-secondary" type="button"
                                                         data-dismiss="modal">Cancel</button>
@@ -204,24 +204,24 @@ Dashboard Panitia
                                     <!-- End Hotspot Modal -->
 
                                     <!-- Add Hotspot Modal -->
-                                    <div class="modal fade" id="addHotspot" tabindex="-1" role="dialog"
+                                    <div class="modal fade" id="addHotspot{{$event->id}}" tabindex="-1" role="dialog"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title" id="exampleModalLabel">Daftar Hotspot</h4>
+                                                    <h4 class="modal-title" id="exampleModalLabel">Tambah Hotspot</h4>
                                                 </div>
                                                 <form action="/admin/event/add-hotspot" method="POST">
                                                     <div class="modal-body">
                                                         {{ csrf_field() }}
-                                                        <input type="hidden" name="ids[]" value="{{ $hotspot->id }}">
+                                                        <input type="text" name="id_event" value="{{ $event->id }}">
                                                         <div class="form-group">
                                                             <label for="">Waktu Mulai Lomba</label>
-                                                            <input type="datetime-local" step="1" name="release_time_hotspots[]" class="form-control" placeholder="Isi waktu mulai lomba" required value="{{ $hotspot->release_time_hotspot ? date('Y-m-d\TH:i:s', strtotime($hotspot->release_time_hotspot)) : '' }}">
+                                                            <input type="datetime-local" step="1" name="release_time_hotspot" class="form-control" placeholder="Isi waktu mulai lomba" required>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="">Waktu Selesai Lomba</label>
-                                                            <input type="datetime-local" step="1" name="expired_time_hotspots[]" class="form-control" placeholder="Isi waktu selesai lomba" value="{{ $hotspot->expired_time_hotspot ? date('Y-m-d\TH:i:s', strtotime($hotspot->expired_time_hotspot)) : '' }}">
+                                                            <input type="datetime-local" step="1" name="expired_time_hotspot" class="form-control" placeholder="Isi waktu selesai lomba">
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
