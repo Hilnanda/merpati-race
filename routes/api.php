@@ -19,4 +19,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-// Route::get('medsos', 'API\CmsHomeController@get_medsos_api');
+Route::get('medsos', 'API\CmsHomeController@get_medsos_api');
+
+
+// Team
+Route::post('team', 'API\ApiTeamController@store');
+Route::get('team', 'API\ApiTeamController@index');
+Route::get('team/{id}', 'API\ApiTeamController@show');
+Route::put('team/{id}', 'API\ApiTeamController@update');
+Route::delete('team/{id}', 'API\ApiTeamController@destroy');
+
+
+Route::fallback(function(){
+    return response()->json([
+        'message' => 'Page Not Found. If error persists, contact info@website.com'], 404);
+});
