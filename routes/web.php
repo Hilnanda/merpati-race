@@ -137,6 +137,7 @@ Route::middleware('is_subscribed')->group(function () {
     Route::post('/pigeons/create','PigeonsController@store');
     Route::post('/pigeons/edit','PigeonsController@update');
     Route::get('/pigeons/delete/{id}','PigeonsController@destroy');
+    Route::get('/pigeons/detail/{id}','PigeonsController@detail');
 
     });
 
