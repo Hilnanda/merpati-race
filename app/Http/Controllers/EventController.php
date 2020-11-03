@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
 {
+    protected $relationships = ['event_participants', 'event_hotspot', 'club', 'user'];
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +26,8 @@ class EventController extends Controller
     public function index()
     {
         $title = 'Lomba Umum';
-        $events = Events::where('branch_event', 'Umum')
+        $events = Events::with($this->relationships)
+        ->where('branch_event', 'Umum')
         ->orderBy('events.id', 'desc')->get();
         $users = User::all();
         $data_medsos = CMSMedsos::all();
@@ -34,19 +36,47 @@ class EventController extends Controller
         $current_datetime = Carbon::now();
 
         foreach ($events as $event) {
-
-            $event->release_time_event = $this->formatDateLocal($event->release_time_event);
-            $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
+            $event->release_time_event = null;
+            $event->expired_time_event = null;
+            foreach ($event->event_hotspot as $hotspot) {
+                if ($hotspot->release_time_hotspot) {
+                    $event->release_time_event = $this->formatDateLocal($hotspot->release_time_hotspot);
+                    if ($hotspot->expired_time_hotspot) {
+                        $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
+                    }
+                    if ($event->release_time_event <= $current_datetime) {
+                        break;
+                    }
+                }
+            }
             $event->due_join_date_event = $this->formatDateLocal($event->due_join_date_event);
             if ($event->release_time_event <= $current_datetime) {
-                $event->status = 'Terbang';
+                $diff = strtotime($current_datetime) - strtotime($event->release_time_event);
+                $days = floor($diff / 86400);
+                $hours = floor($diff / 3600) % 24;
+                $minutes = floor($diff / 60) % 60;
+                $seconds = $diff % 60;
+
+                $event->status = 'Terbang (' . ($days * 24 + $hours) . 'j:' . $minutes . 'm:' . $seconds . 'd)';
                 $event->color = '#32CD32';
             } else {
                 if ($event->due_join_date_event < $current_datetime) {
-                    $event->status = 'Pendaftaran ditutup';
+                    $diff = strtotime($event->release_time_event) - strtotime($current_datetime);
+                    $days = floor($diff / 86400);
+                    $hours = floor($diff / 3600) % 24;
+                    $minutes = floor($diff / 60) % 60;
+                    $seconds = $diff % 60;
+
+                    $event->status = 'Pendaftaran ditutup (-' . ($days * 24 + $hours) . 'j:' . $minutes . 'm:' . $seconds . 'd)';
                     $event->color = '#EB0000';
                 } else {
-                    $event->status = 'Belum dimulai';
+                    $diff = strtotime($event->due_join_date_event) - strtotime($current_datetime);
+                    $days = floor($diff / 86400);
+                    $hours = floor($diff / 3600) % 24;
+                    $minutes = floor($diff / 60) % 60;
+                    $seconds = $diff % 60;
+
+                    $event->status = 'Belum dimulai (-' . ($days * 24 + $hours) . 'j:' . $minutes . 'm:' . $seconds . 'd)';
                     $event->color = '#000000';
                     // $date = strtotime($event->release_time_event);
                     // $event->status = $date - time();

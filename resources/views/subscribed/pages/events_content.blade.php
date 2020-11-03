@@ -30,6 +30,7 @@
                     <th>Titik Mulai</th>
                     <th>Waktu Mulai</th>
                     <th>Jarak</th>
+                    <th>Hotspot</th>
                     <th>Status</th>
                     <!-- <th>Kedatangan</th> -->
                     <th></th>
@@ -49,9 +50,10 @@
                         <td>{{ $event->name_event }}</td>
                         <td>{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</td>
                         <td>{{ $event->category_event }}</td>
-                        <td>({{ $event->lat_event }}), ({{ $event->lng_event }})</td>
+                        <td>{{ $event->lat_event ? '(' . $event->lat_event . '), (' . $event->lng_event . ')' : '-' }}</td>
                         <td>{{ str_replace('T', ' ', $event->release_time_event) . ':00 (GMT +7:00)' }}</td>
                         <td>{{ $event->lat_event_end ? round($event->distance) . ' Km' : '-' }}</td>
+                        <td>{{ $event->hotspot_length_event }}</td>
                         <td style="color: {{ $event->color }}">{{ $event->status }}</td>
                         <!-- <td></td> -->
                         <td class="action-link">
