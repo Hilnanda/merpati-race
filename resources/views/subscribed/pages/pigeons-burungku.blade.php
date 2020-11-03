@@ -96,6 +96,8 @@
                     <th>Jenis Kelamin</th>
                     <th>Warna</th>
                     <th>Status</th>
+                    <th>Club</th>
+                    <th>Team</th>
                     <th>Aksi</th>
                 </thead>
                 <tbody>
@@ -108,13 +110,20 @@
                         <td>{{$bird->sex_pigeon}}</td>
                         <td>{{$bird->color_pigeon}}</td>
                         <td>@if($bird->is_active==0) Belum Aktif @else Aktif @endif</td>
+                        <td>{{!empty($bird->club_member->first()) ? $bird->club_member->first()->club->first()->name_club:"-"}}</td>
+                        <td>{{!empty($bird->team_member->first()) ? $bird->team_member->first()->team->first()->name_team:"-"}}</td>
                         <td><a href="#editBurungModal{{$bird->id}}" class="btn btn-warning btn-sm" data-toggle="modal"
                             data-target="#editBurungModal{{$bird->id}}"><i class="fa fa-pen" aria-hidden="true">
                             </i> <span class="font-weight-bold ml-1">Edit</span></a> 
                             <a href="/pigeons/delete/{{$bird->id}}"
                             class="btn btn-danger btn-sm delete-club">
                             <i class="fa fa-trash" aria-hidden="true"></i><span
-                                class="font-weight-bold ml-1">Hapus</span></a></td>
+                                class="font-weight-bold ml-1">Hapus</span></a>
+                                <a href="/pigeons/detail/{{$bird->id}}"
+                                class="btn btn-info btn-sm">
+                                <i class="fa fa-eye" aria-hidden="true"></i><span
+                                    class="font-weight-bold ml-1">Detail</span></a>
+                            </td>
                                 <div class="modal fade" id="editBurungModal{{$bird->id}}" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">

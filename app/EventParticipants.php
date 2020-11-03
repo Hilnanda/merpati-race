@@ -32,6 +32,6 @@ class EventParticipants extends Model
 
     public function event_results()
     {
-        return $this->hasMany('App\EventResults','id_event_participant');
+        return $this->hasMany('App\EventResults','id_event_participant','id_event_participant');
     }
 }

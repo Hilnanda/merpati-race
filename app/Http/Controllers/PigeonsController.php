@@ -31,6 +31,15 @@ class PigeonsController extends Controller
 
         return view('subscribed.pages.pigeons-burungku', ['data_medsos'=>$data_medsos,'data_footer'=>$data_footer,'burung'=>$burung]);
     }
+    public function detail($id)
+    {
+        $data_medsos = CMSMedsos::all();
+        $data_footer = CMSFooter::all();
+        $burung = Pigeons::find($id);
+
+        return view('subscribed.pages.pigeons-detail', ['data_medsos'=>$data_medsos,'data_footer'=>$data_footer,'bird'=>$burung]);
+    }
+
 
     /**
      * Show the form for creating a new resource.
