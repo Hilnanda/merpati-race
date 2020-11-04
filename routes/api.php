@@ -29,6 +29,34 @@ Route::get('team/{id}', 'API\ApiTeamController@show');
 Route::put('team/{id}', 'API\ApiTeamController@update');
 Route::delete('team/{id}', 'API\ApiTeamController@destroy');
 
+//club
+Route::post('club', 'API\ApiClubController@store');
+Route::get('club', 'API\ApiClubController@index');
+Route::get('club/{id}', 'API\ApiClubController@show');
+Route::put('club/{id}', 'API\ApiClubController@update');
+Route::delete('club/{id}', 'API\ApiClubController@destroy');
+
+//club_members
+Route::post('club_members', 'API\ApiClubMembersController@store');
+Route::get('club_members', 'API\ApiClubMembersController@index');
+Route::get('club_members/{id}', 'API\ApiClubMembersController@show');
+Route::put('club_members/{id}', 'API\ApiClubMembersController@update');
+Route::delete('club_members/{id}', 'API\ApiClubMembersController@destroy');
+
+//pigeon
+Route::post('pigeon', 'API\ApiPigeonController@store');
+Route::get('pigeon', 'API\ApiPigeonController@index');
+Route::get('pigeon/{id}', 'API\ApiPigeonController@show');
+Route::put('pigeon/{id}', 'API\ApiPigeonController@update');
+Route::delete('pigeon/{id}', 'API\ApiPigeonController@destroy');
+
+//user
+Route::post('user', 'API\ApiUsersController@store');
+Route::get('user', 'API\ApiUsersController@index');
+Route::get('user/{id}', 'API\ApiUsersController@show');
+Route::put('user/{id}', 'API\ApiUsersController@update');
+Route::delete('user/{id}', 'API\ApiUsersController@destroy');
+
 
 Route::fallback(function(){
     return response()->json([
