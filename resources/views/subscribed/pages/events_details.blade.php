@@ -36,11 +36,29 @@ Detail Lomba
                 <p>Jenis lomba : <b style="color: red">{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</b></p>
                 <p>Kategori lomba : <b style="color: red">Lomba {{ $event->category_event }}</b></p>
                 <p>Info lomba : <b style="color: red">{{ $event->info_event }}</b></p>
-                <p>Posisi lomba : <b style="color: red">{{ $event->lat_event }} , {{ $event->lng_event }}</b></p>
-                <p>Alamat lomba : <b style="color: red">{{ $event->address_event }}</b></p>
-                <p>Jadwal mulai : <b style="color: red">{{ \Carbon\Carbon::parse($event->release_time_event)->format('j F Y') }}</b></p>
+                <p>Posisi lomba : <b style="color: red">{{ $event->lat_event ? $event->lat_event . ', ' . $event->lng_event : '-' }}</b></p>
+                <p>Alamat lomba : <b style="color: red">{{ $event->address_event ? $event->address_event : '-' }}</b></p>
+                <p>Jadwal mulai : <b style="color: red">{{ \Carbon\Carbon::parse($event->release_time_event)->format('j F Y, H:i:s') }}</b></p>
             </div>
         </div>
+        @if($event->hotspot_length_event > 1)
+        <div class="row">
+            <div class="col-12 d-flex justify-content-end">
+                <div class="btn-group dropup">
+                  <button type="button" class="btn btn-primary dropdown-toggle pl-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Hotspot {{ $hotspot }}
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    @foreach($event->event_hotspot as $key => $event_hotspot)
+                    @if($hotspot != $key + 1)
+                    <a class="dropdown-item" href="/events/{{$event->id}}/{{$key+1}}/details">Hotspot {{$key+1}}</a>
+                    @endif
+                    @endforeach
+                  </div>
+                </div>
+            </div>
+        </div>
+        @endif
         <div class="box-body">
             <table id="table_one" class="table table-bordered table-striped">
                 <thead>
@@ -93,15 +111,15 @@ Detail Lomba
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="id_pigeon">Pigeon yang ingin join</label>
-                    <select class="form-control" name="id_pigeon">
+                    <select class="form-control" name="id_pigeon" required>
                         <option value="" selected disabled>-- Pilih Pigeon --</option>
                         @foreach($pigeons as $pigeon)
                         @if($event->category_event == 'Team')
                         @if($pigeon->name_team)
-                        <option value="{{ $pigeon->id }}">({{ $pigeon->uid_pigeon }}) {{ $pigeon->name_pigeon }} [{{ $pigeon->name_team }}]</option>
+                        <option value="{{ $pigeon->pigeon_id }}">({{ $pigeon->uid_pigeon }}) {{ $pigeon->name_pigeon }} [{{ $pigeon->name_team }}]</option>
                         @endif
                         @else
-                        <option value="{{ $pigeon->id }}">({{ $pigeon->uid_pigeon }}) {{ $pigeon->name_pigeon }}</option>
+                        <option value="{{ $pigeon->pigeon_id }}">({{ $pigeon->uid_pigeon }}) {{ $pigeon->name_pigeon }}</option>
                         @endif
                         @endforeach
                     </select>
@@ -109,7 +127,7 @@ Detail Lomba
                 @if($event->category_event == 'Team')
                 <div class="form-group">
                     <label for="is_core">Peran sebagai</label>
-                    <select class="form-control" name="is_core">
+                    <select class="form-control" name="is_core" required>
                         <option value="" disabled selected>-- Pilih peran --</option>
                         <option value="1">Inti</option>
                         <option value="0">Cadangan</option>

@@ -35,7 +35,7 @@ class Events extends Model
 
     public function event_hotspot()
     {
-        return $this->hasMany('App\EventHotspot','id_event');
+        return $this->hasMany('App\EventHotspot','id_event')->orderBy('release_time_hotspot', 'asc');
     }
 
     public function club()

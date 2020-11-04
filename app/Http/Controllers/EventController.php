@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 class EventController extends Controller
 {
     protected $relationships = ['event_participants', 'event_hotspot', 'club', 'user'];
+    protected $event_participant_relationships = ['pigeons', 'events', 'event_results'];
     /**
      * Display a listing of the resource.
      *
@@ -161,9 +162,9 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showBasketedList($id)
+    public function showBasketedList($id, $hotspot)
     {
-        $event = Events::find($id);
+        $event = Events::with($this->relationships)->find($id);
         $users = User::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
@@ -195,14 +196,15 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showDetails($id)
+    public function showDetails($id, $hotspot)
     {
         $event = Events::find($id);
         $users = User::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
         $auth_session = auth()->user()->id;
-        $pigeons = Pigeons::join('club_members', 'club_members.id_pigeon', 'pigeons.id')
+        $pigeons = Pigeons::selectRaw('*, pigeons.id as pigeon_id')
+        ->join('club_members', 'club_members.id_pigeon', 'pigeons.id')
         ->leftJoin('team_members', 'team_members.id_pigeon', 'pigeons.id')
         ->leftJoin('teams', 'teams.id', 'team_members.id_team')
         ->leftJoin('event_participants', 'event_participants.id_pigeon', 'pigeons.id')
@@ -226,14 +228,21 @@ class EventController extends Controller
 
         $current_datetime = Carbon::now();
 
-        $event->release_time_event = $this->formatDateLocal($event->release_time_event);
-        $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
+        foreach ($event->event_hotspot as $key => $event_hotspot) {
+            if ($key + 1 == $hotspot) {
+                $event->release_time_event = $this->formatDateLocal($event_hotspot->release_time_hotspot);
+                if ($event_hotspot->expired_time_hotspot) {
+                    $event->expired_time_event = $this->formatDateLocal($event->expired_time_hotspot);
+                }
+            }
+        }
+        
         $event->due_join_date_event = $this->formatDateLocal($event->due_join_date_event);
 
-        $results = EventParticipants::selectRaw('*, event_results.created_at as event_results_created_at, event_results.speed_event_result as event_results_speed_event_result, clubs.id as clubs_id, clubs.name_club as clubs_name_club, teams.id as teams_id, teams.name_team as teams_name_team')
+        $results = EventParticipants::with($this->event_participant_relationships)
+        ->selectRaw('*, clubs.name_club as clubs_name_club, teams.name_team as teams_name_team')
         ->leftJoin('clubs', 'event_participants.current_id_club', '=', 'clubs.id')
         ->leftJoin('teams', 'event_participants.current_id_team', '=', 'teams.id')
-        ->leftJoin('event_results', 'event_participants.id', '=', 'event_results.id_event_participant')
         ->where('event_participants.active_at', '!=', 'null')
         ->where('event_participants.id_event', '=', $event->id)
         ->get();
@@ -245,7 +254,7 @@ class EventController extends Controller
         }
 
         return view('subscribed.pages.events_details',
-            compact('data_medsos','data_footer','users','event','results','pigeons','current_datetime')
+            compact('data_medsos','data_footer','users','event','results','pigeons','current_datetime','hotspot')
         );
     }
 
@@ -254,7 +263,7 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showLiveResults($id)
+    public function showLiveResults($id, $hotspot)
     {
         $event = Events::find($id);
         $users = User::all();

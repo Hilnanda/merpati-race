@@ -214,7 +214,7 @@ Dashboard Panitia
                                                 <form action="/admin/event/add-hotspot" method="POST">
                                                     <div class="modal-body">
                                                         {{ csrf_field() }}
-                                                        <input type="text" name="id_event" value="{{ $event->id }}">
+                                                        <input type="hidden" name="id_event" value="{{ $event->id }}">
                                                         <div class="form-group">
                                                             <label for="">Waktu Mulai Lomba</label>
                                                             <input type="datetime-local" step="1" name="release_time_hotspot" class="form-control" placeholder="Isi waktu mulai lomba" required>

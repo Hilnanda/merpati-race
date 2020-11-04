@@ -117,9 +117,9 @@ Route::middleware('is_subscribed')->group(function () {
     Route::get('/events/index', 'EventController@menuPage')->name('events_menu');
     Route::get('/events', 'EventController@index')->name('events');
     Route::get('/events-club', 'EventController@eventClub')->name('event_clubs');
-    Route::get('/events/{id}/details', 'EventController@showDetails')->name('events_details');
-    Route::get('/events/{id}/basket', 'EventController@showBasketedList')->name('events_basketed');
-    Route::get('/events/{id}/live-result', 'EventController@showLiveResults')->name('events_live_result');
+    Route::get('/events/{id}/{hotspot}/details', 'EventController@showDetails')->name('events_details');
+    Route::get('/events/{id}/{hotspot}/basket', 'EventController@showBasketedList')->name('events_basketed');
+    Route::get('/events/{id}/{hotspot}/live-result', 'EventController@showLiveResults')->name('events_live_result');
     Route::post('/events/{id}/join_event', 'EventController@joinEvent')->name('join_event');
 
     //team
