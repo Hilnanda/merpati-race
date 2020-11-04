@@ -29,7 +29,7 @@ class Clubs extends Model
     }
     public function club_member()
     {
-        return $this->hasMany('App\ClubMember','id_user');
+        return $this->hasMany('App\ClubMember','id_club');
     }
     public function operator_clubs()
     {

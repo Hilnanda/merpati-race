@@ -34,6 +34,6 @@ class Pigeons extends Model
     }
     public function pigeons_participants()
     {
-        return $this->hasMany('App\EventParticipants', 'id_pigeons', 'id_pigeons');
+        return $this->hasMany('App\EventParticipants', 'id_pigeon', 'id_pigeon');
     }
 }
