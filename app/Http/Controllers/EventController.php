@@ -8,6 +8,7 @@ use App\CMSMedsos;
 use App\User;
 use App\Events;
 use App\Pigeons;
+use App\EventHotspot;
 use App\EventResults;
 use App\EventParticipants;
 use App\CLubMember;
@@ -228,8 +229,11 @@ class EventController extends Controller
 
         $current_datetime = Carbon::now();
 
+        $id_hotspot = null;
+
         foreach ($event->event_hotspot as $key => $event_hotspot) {
             if ($key + 1 == $hotspot) {
+                $id_hotspot = $event_hotspot->id;
                 $event->release_time_event = $this->formatDateLocal($event_hotspot->release_time_hotspot);
                 if ($event_hotspot->expired_time_hotspot) {
                     $event->expired_time_event = $this->formatDateLocal($event->expired_time_hotspot);
@@ -265,7 +269,7 @@ class EventController extends Controller
         }
 
         return view('subscribed.pages.events_details',
-            compact('data_medsos','data_footer','users','event','results','pigeons','current_datetime','hotspot')
+            compact('data_medsos','data_footer','users','event','results','pigeons','current_datetime','hotspot', 'id_hotspot')
         );
     }
 
@@ -415,7 +419,7 @@ class EventController extends Controller
 
     public function formatDateLocal($value)
     {
-        return Carbon::parse($value)->format('Y-m-d\TH:i');
+        return Carbon::parse($value)->format('Y-m-d\TH:i:s');
     }
 
     public function distance($lat1, $lon1, $lat2, $lon2, $unit) {

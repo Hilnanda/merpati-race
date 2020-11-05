@@ -79,9 +79,13 @@ Detail Lomba
                         <td colspan="8">-- Hasil belum bisa ditampilkan --</td>
                     </tr>
                     @endif
+                    @php
+                    $rank = 1;
+                    @endphp
                     @foreach($results as $result)
+                    @if(!$result->event_results_id_event_hotspot || $result->event_results_id_event_hotspot == $id_hotspot)
                     <tr>
-                        <td>{{ $loop->index+1 }}</td>
+                        <td>{{ $rank++ }}</td>
                         <td>{{ $result->pigeons->users->name ? $result->pigeons->users->name : '-' }}</td>
                         @if($event->category_event == 'Team')
                         <td>{{ $result->teams_name_team ? $result->teams_name_team : '-' }}</td>
@@ -89,17 +93,10 @@ Detail Lomba
                         <td>{{ $result->clubs_name_club ? $result->clubs_name_club : '-' }}</td>
                         <td>{{ $result->pigeons ? $result->pigeons->uid_pigeon : '-' }}</td>
                         <td>{{ $result->pigeons ? $result->pigeons->name_pigeon : '-' }}</td>
-                        <td>{{ $result }}</td>
-                        @if(count($result->event_results) != 0)
-                        @foreach($result->event_results as $event_result)
-                        <td>{{ $event_result }}</td>
-                        <td>{{ $event_result }}</td>
-                        @endforeach
-                        @else
-                        <td>-</td>
-                        <td>-</td>
-                        @endif
+                        <td>{{ $result->event_results_created_at ? str_replace('T', ' ', $result->event_results_created_at) : '-' }}</td>
+                        <td>{{ $result->event_results_speed_event_result ? $result->event_results_speed_event_result : '-' }}</td>
                     </tr>
+                    @endif
                     @endforeach
                 </tbody>
             </table>
