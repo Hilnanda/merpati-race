@@ -15,7 +15,7 @@
 <div class="bg-gradients"></div>
 <!-- ##### Breadcumb Area End ##### -->
 
-<div class="row mt-5 px-5">
+<div class="row mt-5 px-5 mb-5">
     <div class="col-lg-12">
         <!-- /.box-header -->
         {{-- <h4>List Club Saya</h4> --}}

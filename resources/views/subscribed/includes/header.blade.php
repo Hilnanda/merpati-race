@@ -7,7 +7,7 @@
                 <nav class="classy-navbar justify-content-between" id="musicaNav">
 
                     <!-- Nav brand -->
-                    <a href="/" class="nav-brand"><img src="{{ asset('image/favicon.ico') }}" alt=""></a>
+                    <a href="/" class="nav-brand"><h3 style="color: white">Lomba</h3></a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -25,66 +25,29 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul>
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="about-us.html">About us</a></li>
+                                <li><a href="/">Home</a></li>
                                 <li><a href="#">Pages</a>
                                     <ul class="dropdown">
-                                        <li><a href="index.html">Home</a></li>
-                                        <li><a href="about-us.html">About Us</a></li>
-                                        <li><a href="concert-tours.html">Concert &amp; Tours</a></li>
-                                        <li><a href="blog.html">News</a></li>
-                                        <li><a href="contact.html">Contact</a></li>
-                                        <li><a href="elements.html">Elements</a></li>
+                                        <li><a href="">Product & Service</a></li>
+                                        <li><a href="{{ route('home-news') }}">News</a></li>
+                                        <li><a href="{{ route('about-us') }}">About Us</a></li>
+                                        <li><a href="{{ route('contact') }}">Contact</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#">Mega Menu</a>
-                                    <div class="megamenu">
-                                        <ul class="single-mega cn-col-4">
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="about-us.html">About Us</a></li>
-                                            <li><a href="concert-tours.html">Concert &amp; Tours</a></li>
-                                            <li><a href="blog.html">News</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                            <li><a href="elements.html">Elements</a></li>
-                                        </ul>
-                                        <ul class="single-mega cn-col-4">
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="about-us.html">About Us</a></li>
-                                            <li><a href="concert-tours.html">Concert &amp; Tours</a></li>
-                                            <li><a href="blog.html">News</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                            <li><a href="elements.html">Elements</a></li>
-                                        </ul>
-                                        <ul class="single-mega cn-col-4">
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="about-us.html">About Us</a></li>
-                                            <li><a href="concert-tours.html">Concert &amp; Tours</a></li>
-                                            <li><a href="blog.html">News</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                            <li><a href="elements.html">Elements</a></li>
-                                        </ul>
-                                        <ul class="single-mega cn-col-4">
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="about-us.html">About Us</a></li>
-                                            <li><a href="concert-tours.html">Concert &amp; Tours</a></li>
-                                            <li><a href="blog.html">News</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                            <li><a href="elements.html">Elements</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li><a href="concert-tours.html">Gallery</a></li>
-                                <li><a href="contact.html">Contact</a></li>
+                                <li><a href="/pigeons">Pigeon</a></li>
+                                <li><a href="/events/index">Lomba</a></li>
+                                <li><a href="">Hasil</a></li>
+                                <li><a href="/club">Club</a></li>
+                                <li><a href="/team">Team</a></li>
                             </ul>
 
                             <!-- Social Button -->
                             <div class="top-social-info">
-                                <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                                @foreach ($data_medsos as $item)
+                                <a href="{{ $item->url_medsos }}{{ $item->username_medsos }}"><i class="fa {{ $item->icon_medsos }}" aria-hidden="true"></i></a>
+
+                                @endforeach
+                                
                             </div>
 
                         </div>

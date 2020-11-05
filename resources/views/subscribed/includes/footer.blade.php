@@ -9,10 +9,11 @@
                     </div>
                     <nav>
                         <ul class="footer-nav">
-                            <li><a href="#">About us</a></li>
-                            <li><a href="#">Our Services</a></li>
-                            <li><a href="#">The team</a></li>
-                            <li><a href="#">Careers</a></li>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="">Product & Service</a></li>
+                            <li><a href="{{ route('home-news') }}">News</a></li>
+                            <li><a href="{{ route('about-us') }}">About Us</a></li>
+                            <li><a href="{{ route('contact') }}">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
