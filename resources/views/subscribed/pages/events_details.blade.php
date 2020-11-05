@@ -89,8 +89,16 @@ Detail Lomba
                         <td>{{ $result->clubs_name_club ? $result->clubs_name_club : '-' }}</td>
                         <td>{{ $result->pigeons ? $result->pigeons->uid_pigeon : '-' }}</td>
                         <td>{{ $result->pigeons ? $result->pigeons->name_pigeon : '-' }}</td>
-                        <td>{{ $result->event_results_created_at ? $result->event_results_created_at : '-' }}</td>
-                        <td>{{ $result->event_results_speed_event_result ? $result->event_results_speed_event_result : '-' }}</td>
+                        <td>{{ $result }}</td>
+                        @if(count($result->event_results) != 0)
+                        @foreach($result->event_results as $event_result)
+                        <td>{{ $event_result }}</td>
+                        <td>{{ $event_result }}</td>
+                        @endforeach
+                        @else
+                        <td>-</td>
+                        <td>-</td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>
