@@ -240,9 +240,20 @@ class EventController extends Controller
         $event->due_join_date_event = $this->formatDateLocal($event->due_join_date_event);
 
         $results = EventParticipants::with($this->event_participant_relationships)
-        ->selectRaw('*, clubs.name_club as clubs_name_club, teams.name_team as teams_name_team')
+        ->selectRaw('
+            *,
+            clubs.name_club as clubs_name_club,
+            teams.name_team as teams_name_team,
+            event_results.id as event_results_id,
+            event_results.speed_event_result as event_results_speed_event_result,
+            event_results.id_event_participant as event_results_id_event_participant,
+            event_results.id_event_hotspot as event_results_id_event_hotspot,
+            event_results.created_at as event_results_created_at,
+            event_results.updated_at as event_results_updated_at
+        ')
         ->leftJoin('clubs', 'event_participants.current_id_club', '=', 'clubs.id')
         ->leftJoin('teams', 'event_participants.current_id_team', '=', 'teams.id')
+        ->leftJoin('event_results', 'event_results.id_event_participant', '=', 'event_participants.id')
         ->where('event_participants.active_at', '!=', 'null')
         ->where('event_participants.id_event', '=', $event->id)
         ->get();
