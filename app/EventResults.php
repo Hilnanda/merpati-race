@@ -16,7 +16,7 @@ class EventResults extends Model
         'id_event_hotspot'
     ];
 
-    public function event_participants()
+    public function event_participant()
     {
         return $this->belongsTo('App\EventParticipants', 'id_event_participant','id');
     }

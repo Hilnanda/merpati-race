@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB;
 class EventController extends Controller
 {
     protected $relationships = ['event_participants', 'event_hotspot', 'club', 'user'];
-    protected $event_participant_relationships = ['pigeons', 'events', 'event_results'];
+    protected $event_results_relationships = ['event_participant', 'event_hotspot'];
     /**
      * Display a listing of the resource.
      *
@@ -243,33 +243,16 @@ class EventController extends Controller
         
         $event->due_join_date_event = $this->formatDateLocal($event->due_join_date_event);
 
-        $results = EventParticipants::with($this->event_participant_relationships)
-        ->selectRaw('
-            *,
-            clubs.name_club as clubs_name_club,
-            teams.name_team as teams_name_team,
-            event_results.id as event_results_id,
-            event_results.speed_event_result as event_results_speed_event_result,
-            event_results.id_event_participant as event_results_id_event_participant,
-            event_results.id_event_hotspot as event_results_id_event_hotspot,
-            event_results.created_at as event_results_created_at,
-            event_results.updated_at as event_results_updated_at
-        ')
-        ->leftJoin('clubs', 'event_participants.current_id_club', '=', 'clubs.id')
-        ->leftJoin('teams', 'event_participants.current_id_team', '=', 'teams.id')
-        ->leftJoin('event_results', 'event_results.id_event_participant', '=', 'event_participants.id')
-        ->where('event_participants.active_at', '!=', 'null')
-        ->where('event_participants.id_event', '=', $event->id)
+        $event_results = EventResults::with($this->event_results_relationships)
+        ->whereHas('event_participant', function ($query) use($event) {
+            $query->where('active_at', '!=', null);
+            $query->where('id_event', '=', $event->id);
+        })
+        ->where('event_results.id_event_hotspot', '=', $id_hotspot)
         ->get();
 
-        foreach ($results as $result) {
-            if ($result->event_results_created_at) {
-                $result->event_results_created_at = $this->formatDateLocal($result->event_results_created_at);
-            }
-        }
-
         return view('subscribed.pages.events_details',
-            compact('data_medsos','data_footer','users','event','results','pigeons','current_datetime','hotspot', 'id_hotspot')
+            compact('data_medsos','data_footer','users','event','event_results','pigeons','current_datetime','hotspot', 'id_hotspot')
         );
     }
 

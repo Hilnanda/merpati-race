@@ -14,7 +14,6 @@ class EventParticipants extends Model
         'id_pigeon',
         'id_event',
         'is_core',
-        'baketed_at',
         'current_id_club',
         'current_id_team',
         'active_at'

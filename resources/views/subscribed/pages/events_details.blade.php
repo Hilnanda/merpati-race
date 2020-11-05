@@ -74,7 +74,7 @@ Detail Lomba
                     <th>Kecepatan</th>
                 </thead>
                 <tbody>
-                    @if(count($results) == 0)
+                    @if(count($event_results) == 0)
                     <tr class="text-center">
                         <td colspan="8">-- Hasil belum bisa ditampilkan --</td>
                     </tr>
@@ -82,21 +82,19 @@ Detail Lomba
                     @php
                     $rank = 1;
                     @endphp
-                    @foreach($results as $result)
-                    @if(!$result->event_results_id_event_hotspot || $result->event_results_id_event_hotspot == $id_hotspot)
+                    @foreach($event_results as $event_result)
                     <tr>
                         <td>{{ $rank++ }}</td>
-                        <td>{{ $result->pigeons->users->name ? $result->pigeons->users->name : '-' }}</td>
+                        <td>{{ $event_result->event_participant->pigeons->users->name ? $event_result->event_participant->pigeons->users->name : '-' }}</td>
                         @if($event->category_event == 'Team')
-                        <td>{{ $result->teams_name_team ? $result->teams_name_team : '-' }}</td>
+                        <td>{{ $event_result->teams_name_team ? $event_result->teams_name_team : '-' }}</td>
                         @endif
-                        <td>{{ $result->clubs_name_club ? $result->clubs_name_club : '-' }}</td>
-                        <td>{{ $result->pigeons ? $result->pigeons->uid_pigeon : '-' }}</td>
-                        <td>{{ $result->pigeons ? $result->pigeons->name_pigeon : '-' }}</td>
-                        <td>{{ $result->event_results_created_at ? str_replace('T', ' ', $result->event_results_created_at) : '-' }}</td>
-                        <td>{{ $result->event_results_speed_event_result ? $result->event_results_speed_event_result : '-' }}</td>
+                        <td>{{ $event_result->clubs_name_club ? $event_result->clubs_name_club : '-' }}</td>
+                        <td>{{ $event_result->pigeons ? $event_result->pigeons->uid_pigeon : '-' }}</td>
+                        <td>{{ $event_result->event_participant->pigeons ? $event_result->event_participant->pigeons->name_pigeon : '-' }}</td>
+                        <td>{{ $event_result->event_results_created_at ? str_replace('T', ' ', $event_result->event_results_created_at) : '-' }}</td>
+                        <td>{{ $event_result->event_results_speed_event_result ? $event_result->event_results_speed_event_result : '-' }}</td>
                     </tr>
-                    @endif
                     @endforeach
                 </tbody>
             </table>
