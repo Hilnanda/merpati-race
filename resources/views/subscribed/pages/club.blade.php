@@ -97,7 +97,7 @@
         <!-- /.box-body -->
     </div>
 </div>
-<div class="row mt-5 px-5">
+<div class="row mt-5 px-5 mb-5">
     <div class="col-lg-12">
         <!-- /.box-header -->
         <h4>Club Yang Belum Di Ikuti</h4>

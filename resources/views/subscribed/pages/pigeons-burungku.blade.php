@@ -86,7 +86,7 @@
                     </div>
                 </div>
               </div>
-        <div class="box-body mt-3">
+        <div class="box-body mt-3 mb-5">
             <table id="table_one" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
