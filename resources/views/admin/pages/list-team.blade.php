@@ -107,6 +107,9 @@
                                                 <a href="/admin/team/verifikasi/{{ $value->id }}" class="btn btn-success btn-sm"
                                                     data-toggle="modal" data-target=""><span
                                                         class="font-weight-bold ml-1">Verifikasi</span></a>
+                                                <a href="/admin/team/delete/{{ $value->id }}"
+                                                    class="btn btn-danger btn-sm delete-club"><span
+                                                    class="font-weight-bold ml-1">Tolak</span></a>
                                                 @endif
                                             </td>
 
