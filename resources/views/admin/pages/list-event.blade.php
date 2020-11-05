@@ -121,11 +121,12 @@ Dashboard Panitia
                                 <td>{{ $event->info_event }}</td>
                                 <td>{{ $event->lat_event ? '(' . $event->lat_event . '), (' . $event->lng_event . ')' : '-' }}</td>
                                 <td>{{ $event->lat_event_end ? '(' . $event->lat_event_end . '), (' . $event->lng_event_end . ')' : '-' }}</td>
-                                <td>{{ $event->address_event }}</td>
+                                <td>{{ $event->address_event ? $event->address_event : '-' }}</td>
                                 @foreach($event->event_hotspot as $hotspot)
-                                @if($loop->index == 0)
+                                @if($hotspot->release_time_hotspot)
                                 <td>{{ $hotspot ? str_replace('T', ' ', $hotspot->release_time_hotspot) : '-' }}</td>
                                 <td>{{ $hotspot->expired_time_hotspot ? str_replace('T', ' ', $hotspot->expired_time_hotspot) : '-' }}</td>
+                                @break
                                 @endif
                                 @endforeach
                                 <td>Rp {{ number_format($event->price_event, 2) }}</td>

@@ -42,7 +42,7 @@ Detail Lomba
             </div>
         </div>
         @if($event->hotspot_length_event > 1)
-        <div class="row">
+        <div class="row mb-2">
             <div class="col-12 d-flex justify-content-end">
                 <div class="btn-group dropup">
                   <button type="button" class="btn btn-primary dropdown-toggle pl-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
