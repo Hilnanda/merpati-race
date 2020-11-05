@@ -39,6 +39,22 @@
                                 <li><a href="">Hasil</a></li>
                                 <li><a href="/club">Club</a></li>
                                 <li><a href="/team">Team</a></li>
+                                @guest
+                                    <li>
+                                        <a href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    </li>
+                                @else
+                                    <li>
+                                        <a href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+                                    </li>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                @endguest
                             </ul>
 
                             <!-- Social Button -->
