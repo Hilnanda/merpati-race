@@ -23,20 +23,29 @@ class Clubs extends Model
     {
         return $this->belongsTo('App\User', 'manager_club', 'id');
     }
+
     public function user()
     {
         return $this->belongsTo('App\User', 'id_user', 'id');
     }
+
     public function club_member()
     {
         return $this->hasMany('App\ClubMember','id_club');
     }
+
     public function operator_clubs()
     {
         return $this->hasMany('App\OperatorClubs','id_club');
     }
+
     public function event()
     {
         return $this->hasMany('App\Events','id_club');
+    }
+
+    public function event_participants()
+    {
+        return $this->hasMany('App\EventParticipants','current_id_club');
     }
 }

@@ -71,14 +71,14 @@ Detail Lomba
                     <th>UID Pigeon</th>
                     <th>Nama Pigeon</th>
                     <th>Kedatangan</th>
-                    <th>Kecepatan</th>
+                    <th>Kecepatan [m/mnt]</th>
                 </thead>
                 <tbody>
                     @if(count($event_results) == 0)
                     <tr class="text-center">
                         <td colspan="8">-- Hasil belum bisa ditampilkan --</td>
                     </tr>
-                    @endif
+                    @else
                     @php
                     $rank = 1;
                     @endphp
@@ -87,15 +87,20 @@ Detail Lomba
                         <td>{{ $rank++ }}</td>
                         <td>{{ $event_result->event_participant->pigeons->users->name ? $event_result->event_participant->pigeons->users->name : '-' }}</td>
                         @if($event->category_event == 'Team')
-                        <td>{{ $event_result->teams_name_team ? $event_result->teams_name_team : '-' }}</td>
+                        <td>{{ $event_result->event_participant->team->name_team ? $event_result->event_participant->team->name_team : '-' }}</td>
                         @endif
-                        <td>{{ $event_result->clubs_name_club ? $event_result->clubs_name_club : '-' }}</td>
-                        <td>{{ $event_result->pigeons ? $event_result->pigeons->uid_pigeon : '-' }}</td>
+                        <td>{{ $event_result->event_participant->club->name_club ? $event_result->event_participant->club->name_club : '-' }}</td>
+                        <td>{{ $event_result->event_participant->pigeons ? $event_result->event_participant->pigeons->uid_pigeon : '-' }}</td>
                         <td>{{ $event_result->event_participant->pigeons ? $event_result->event_participant->pigeons->name_pigeon : '-' }}</td>
-                        <td>{{ $event_result->event_results_created_at ? str_replace('T', ' ', $event_result->event_results_created_at) : '-' }}</td>
-                        <td>{{ $event_result->event_results_speed_event_result ? $event_result->event_results_speed_event_result : '-' }}</td>
+                        <td>{{ $event_result->speed_event_result ? $event_result->updated_at : '-' }}</td>
+                        @if($event_results[0]->speed_event_result)
+                        <td>{{ $event_result->speed_event_result ? round($event_result->speed_event_result, 2) : round($unfinished_speed, 2) }}</td>
+                        @else
+                        <td>{{ '-' }}</td>
+                        @endif
                     </tr>
                     @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>

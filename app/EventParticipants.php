@@ -33,4 +33,14 @@ class EventParticipants extends Model
     {
         return $this->hasMany('App\EventResults','id_event_participant');
     }
+
+    public function club()
+    {
+        return $this->belongsTo('App\Clubs', 'current_id_club','id');
+    }
+
+    public function team()
+    {
+        return $this->belongsTo('App\Team', 'current_id_team','id');
+    }
 }

@@ -30,13 +30,31 @@ Hasil Lomba
                 <p>Jenis lomba : <b style="color: red">{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</b></p>
                 <p>Kategori lomba : <b style="color: red">Lomba {{ $event->category_event }}</b></p>
                 <p>Info lomba : <b style="color: red">{{ $event->info_event }}</b></p>
-                <p>Posisi lomba : <b style="color: red">{{ $event->lat_event }} , {{ $event->lng_event }}</b></p>
+                <p>Posisi lomba : <b style="color: red">{{ $event->lat_event ? $event->lat_event . ', ' . $event->lng_event : '-' }}</b></p>
                 <p>Jadwal mulai : <b style="color: red">{{ \Carbon\Carbon::parse($event->release_time_event)->format('j F Y') }}</b></p>
-                <p>Pigeon di basket : <b style="color: red">{{ count($basketed_pigeons) }}</b></p>
+                <p>Pigeon di basket : <b style="color: red">{{ count($event_results) }}</b></p>
                 <p>Pigeon sudah datang : <b style="color: red">{{ count($arrived_pigeons) }}</b></p>
-                <p>Pigeon belum datang : <b style="color: red">{{ count($basketed_pigeons) - count($arrived_pigeons) }}</b></p>
+                <p>Pigeon belum datang : <b style="color: red">{{ count($event_results) - count($arrived_pigeons) }}</b></p>
             </div>
         </div>
+        @if($event->hotspot_length_event > 1)
+        <div class="row mb-2">
+            <div class="col-12 d-flex justify-content-end">
+                <div class="btn-group dropup">
+                  <button type="button" class="btn btn-primary dropdown-toggle pl-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Hotspot {{ $hotspot }}
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    @foreach($event->event_hotspot as $key => $event_hotspot)
+                    @if($hotspot != $key + 1)
+                    <a class="dropdown-item" href="/events/{{$event->id}}/{{$key+1}}/live-result">Hotspot {{$key+1}}</a>
+                    @endif
+                    @endforeach
+                  </div>
+                </div>
+            </div>
+        </div>
+        @endif
         <div class="box-body">
             <table id="table_one" class="table table-bordered table-striped">
                 <thead>
@@ -46,31 +64,39 @@ Hasil Lomba
                     <th>Team</th>
                     @endif
                     <th>Club</th>
-                    <th>Pigeon</th>
+                    <th>UID Pigeon</th>
+                    <th>Nama Pigeon</th>
                     <th>Kedatangan</th>
                     <th>Kecepatan [m/mnt]</th>
-                    <th>Nama Pigeon</th>
                 </thead>
                 <tbody>
-                    @if(count($results) == 0)
+                    @if(count($event_results) == 0)
                     <tr class="text-center">
                         <td colspan="8">-- Hasil belum bisa ditampilkan --</td>
                     </tr>
-                    @endif
-                    @foreach($results as $result)
+                    @else
+                    @php
+                    $rank = 1;
+                    @endphp
+                    @foreach($event_results as $event_result)
                     <tr>
-                        <td>{{ $loop->index+1 }}</td>
-                        <td>{{ $result->pigeons->users->name ? $result->pigeons->users->name : '-' }}</td>
+                        <td>{{ $rank++ }}</td>
+                        <td>{{ $event_result->event_participant->pigeons->users->name ? $event_result->event_participant->pigeons->users->name : '-' }}</td>
                         @if($event->category_event == 'Team')
-                        <td>{{ $result->teams_name_team ? $result->teams_name_team : '-' }}</td>
+                        <td>{{ $event_result->event_participant->team->name_team ? $event_result->event_participant->team->name_team : '-' }}</td>
                         @endif
-                        <td>{{ $result->clubs_name_club ? $result->clubs_name_club : '-' }}</td>
-                        <td>{{ $result->pigeons ? $result->pigeons->uid_pigeon : '-' }}</td>
-                        <td>{{ $result->event_results_created_at ? $result->event_results_created_at : '-' }}</td>
-                        <td>{{ $result->event_results_speed_event_result ? $result->event_results_speed_event_result : '-' }}</td>
-                        <td>{{ $result->pigeons ? $result->pigeons->name_pigeon : '-' }}</td>
+                        <td>{{ $event_result->event_participant->club->name_club ? $event_result->event_participant->club->name_club : '-' }}</td>
+                        <td>{{ $event_result->event_participant->pigeons ? $event_result->event_participant->pigeons->uid_pigeon : '-' }}</td>
+                        <td>{{ $event_result->event_participant->pigeons ? $event_result->event_participant->pigeons->name_pigeon : '-' }}</td>
+                        <td>{{ $event_result->speed_event_result ? $event_result->updated_at : '-' }}</td>
+                        @if($event_results[0]->speed_event_result)
+                        <td>{{ $event_result->speed_event_result ? round($event_result->speed_event_result, 2) : round($unfinished_speed, 2) }}</td>
+                        @else
+                        <td>{{ '-' }}</td>
+                        @endif
                     </tr>
                     @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>
@@ -89,21 +115,31 @@ Hasil Lomba
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="id_pigeon">Pigeon yang ingin join</label>
-                    <select class="form-control" name="id_pigeon">
+                    <select class="form-control" name="id_pigeon" required>
                         <option value="" selected disabled>-- Pilih Pigeon --</option>
                         @foreach($pigeons as $pigeon)
-                        <option value="{{ $pigeon->id }}">({{ $pigeon->uid_pigeon }}) {{ $pigeon->name_pigeon }}</option>
+                        @if($event->category_event == 'Team')
+                        @if($pigeon->name_team)
+                        <option value="{{ $pigeon->pigeon_id }}">({{ $pigeon->uid_pigeon }}) {{ $pigeon->name_pigeon }} [{{ $pigeon->name_team }}]</option>
+                        @endif
+                        @else
+                        <option value="{{ $pigeon->pigeon_id }}">({{ $pigeon->uid_pigeon }}) {{ $pigeon->name_pigeon }}</option>
+                        @endif
                         @endforeach
                     </select>
                 </div>
+                @if($event->category_event == 'Team')
                 <div class="form-group">
                     <label for="is_core">Peran sebagai</label>
-                    <select class="form-control" name="is_core">
+                    <select class="form-control" name="is_core" required>
                         <option value="" disabled selected>-- Pilih peran --</option>
                         <option value="1">Inti</option>
                         <option value="0">Cadangan</option>
                     </select>
                 </div>
+                @else
+                <input type="hidden" name="is_core" value="1">
+                @endif
               <h5>Harga untuk mendaftar lomba sebesar Rp.{{ number_format($event->price_event, 2) }}</h5>
           </div>
           <div class="modal-footer">

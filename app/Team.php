@@ -24,8 +24,14 @@ class Team extends Model
     {
         return $this->belongsTo('App\User', 'id_user','id');
     }
+
     public function team_member()
     {
         return $this->hasMany('App\TeamMembers','id_team');
+    }
+
+    public function event_participants()
+    {
+        return $this->hasMany('App\EventParticipants','current_id_team');
     }
 }

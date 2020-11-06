@@ -58,7 +58,7 @@
                         <!-- <td></td> -->
                         <td class="action-link">
                             <a href="/events/{{$event->id}}/1/basket" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            @if($event->status == 'Terbang')
+                            @if(explode(' ', $event->status)[0] == 'Terbang')
                             <a href="/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
                             @endif
                             <a href="/events/{{$event->id}}/1/details" title="Detail Lomba" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>

@@ -309,8 +309,6 @@ img {
 /* :: 3.8.0 Musica Button */
 .musica-btn {
   background: #c22323;
-  background: -webkit-linear-gradient(to right, #c22323, #c22323);
-  background: linear-gradient(to right, #c22323, #c22323);
   -webkit-transition-duration: 500ms;
   transition-duration: 500ms;
   position: relative;
@@ -335,7 +333,6 @@ img {
   .musica-btn.btn-2 {
     background: #262626; }
     .musica-btn.btn-2:hover, .musica-btn.btn-2:focus {
-      background: #2217bd;
       box-shadow: none;
       color: #ffffff; }
   .musica-btn.btn-3 {

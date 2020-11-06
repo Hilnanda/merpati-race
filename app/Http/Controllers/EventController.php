@@ -169,26 +169,38 @@ class EventController extends Controller
         $users = User::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
-        $participants = EventParticipants::selectRaw('*, clubs.id as clubs_id, clubs.name_club as clubs_name_club, teams.id as teams_id, teams.name_team as teams_name_team')
-        ->leftJoin('clubs', 'event_participants.current_id_club', '=', 'clubs.id')
-        ->leftJoin('teams', 'event_participants.current_id_team', '=', 'teams.id')
-        ->where('event_participants.active_at', '!=', 'null')
-        ->where('event_participants.id_event', '=', $event->id)
-        ->orderBy('event_participants.basketed_at', 'asc')
-        ->get();
 
         $current_datetime = Carbon::now();
 
-        $event->release_time_event = $this->formatDateLocal($event->release_time_event);
-        $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
-        foreach ($participants as $participant) {
-            if ($participant->basketed_at) {
-                $participant->basketed_at = $this->formatDateLocal($participant->basketed_at);
+        $id_hotspot = null;
+
+        foreach ($event->event_hotspot as $key => $event_hotspot) {
+            if ($key + 1 == $hotspot) {
+                $id_hotspot = $event_hotspot->id;
+                $event->release_time_event = $this->formatDateLocal($event_hotspot->release_time_hotspot);
+                if ($event_hotspot->expired_time_hotspot) {
+                    $event->expired_time_event = $this->formatDateLocal($event->expired_time_hotspot);
+                }
             }
         }
 
+        $event_participants = EventResults::with($this->event_results_relationships)
+        ->whereHas('event_participant', function ($query) use($event) {
+            $query->where('active_at', '!=', null);
+            $query->where('id_event', '=', $event->id);
+        })
+        ->where('event_results.id_event_hotspot', '=', $id_hotspot)
+        ->orderBy('event_results.created_at', 'asc')
+        ->get();
+
+        $event->release_time_event = $this->formatDateLocal($event->release_time_event);
+        $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
+        foreach ($event_participants as $event_participant) {
+            $event_participant->created_at = $this->formatDateLocal($event_participant->created_at);
+        }
+
         return view('subscribed.pages.events_basketed_list',
-            compact('data_medsos','data_footer','users','current_datetime','event','participants')
+            compact('data_medsos','data_footer','users','current_datetime','event','event_participants','hotspot')
         );
     }
 
@@ -199,7 +211,7 @@ class EventController extends Controller
      */
     public function showDetails($id, $hotspot)
     {
-        $event = Events::find($id);
+        $event = Events::with($this->relationships)->find($id);
         $users = User::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
@@ -249,10 +261,19 @@ class EventController extends Controller
             $query->where('id_event', '=', $event->id);
         })
         ->where('event_results.id_event_hotspot', '=', $id_hotspot)
+        ->orderBy('event_results.speed_event_result', 'desc')
         ->get();
 
+        if (count($event_results) > 0) {
+            $distance = $event_results[0]->speed_event_result ? ($event_results[0]->speed_event_result) * ((strtotime($event_results[0]->updated_at) - strtotime($event->release_time_event)) / 60) : null;
+
+            $duration = strtotime(date("Y-m-d h:i:sa")) - strtotime($event->release_time_event);
+
+            $unfinished_speed = $distance ? $distance / ($duration / 60) : null;
+        }
+
         return view('subscribed.pages.events_details',
-            compact('data_medsos','data_footer','users','event','event_results','pigeons','current_datetime','hotspot', 'id_hotspot')
+            compact('data_medsos','data_footer','users','event','event_results','pigeons','current_datetime','hotspot', 'id_hotspot','unfinished_speed')
         );
     }
 
@@ -263,52 +284,77 @@ class EventController extends Controller
      */
     public function showLiveResults($id, $hotspot)
     {
-        $event = Events::find($id);
+        $event = Events::with($this->relationships)->find($id);
         $users = User::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
         $auth_session = auth()->user()->id;
-        $pigeons = Pigeons::where('pigeons.is_active', 1)
+        $pigeons = Pigeons::selectRaw('*, pigeons.id as pigeon_id')
+        ->join('club_members', 'club_members.id_pigeon', 'pigeons.id')
+        ->leftJoin('team_members', 'team_members.id_pigeon', 'pigeons.id')
+        ->leftJoin('teams', 'teams.id', 'team_members.id_team')
+        ->leftJoin('event_participants', 'event_participants.id_pigeon', 'pigeons.id')
+        ->where('pigeons.is_active', 1)
+        ->where('club_members.is_active', 1)
         ->where('pigeons.id_user', $auth_session)
-        ->whereRaw('pigeons.id NOT IN (
-            SELECT id_pigeon FROM event_participants
-            INNER JOIN event_results
-            ON event_participants.id = event_results.id_event_participant
-        )')
-        ->get();
-
-        $basketed_pigeons = EventParticipants::where('id_event', $event->id)
-        ->whereNotNull('event_participants.basketed_at')
-        ->get();
-
-        $arrived_pigeons = EventParticipants::where('id_event', $event->id)
-        ->whereRaw('event_participants.id IN (
-            SELECT id_event_participant FROM event_results
-        )')
+        ->whereRaw("pigeons.id NOT IN (
+                SELECT id_pigeon FROM event_participants
+            )
+            OR
+            pigeons.id IN (
+                SELECT id_pigeon FROM event_participants
+                JOIN event_results
+                ON event_participants.id = event_results.id_event_participant
+                JOIN event_hotspots
+                ON event_hotspots.id = event_results.id_event_hotspot
+                WHERE event_participants.id_event = $id
+            )
+        ")
         ->get();
 
         $current_datetime = Carbon::now();
 
-        $event->release_time_event = $this->formatDateLocal($event->release_time_event);
-        $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
+        $id_hotspot = null;
+
+        foreach ($event->event_hotspot as $key => $event_hotspot) {
+            if ($key + 1 == $hotspot) {
+                $id_hotspot = $event_hotspot->id;
+                $event->release_time_event = $this->formatDateLocal($event_hotspot->release_time_hotspot);
+                if ($event_hotspot->expired_time_hotspot) {
+                    $event->expired_time_event = $this->formatDateLocal($event->expired_time_hotspot);
+                }
+            }
+        }
+        
         $event->due_join_date_event = $this->formatDateLocal($event->due_join_date_event);
 
-        $results = EventParticipants::selectRaw('*, event_results.created_at as event_results_created_at, event_results.speed_event_result as event_results_speed_event_result, clubs.id as clubs_id, clubs.name_club as clubs_name_club, teams.id as teams_id, teams.name_team as teams_name_team')
-        ->leftJoin('clubs', 'event_participants.current_id_club', '=', 'clubs.id')
-        ->leftJoin('teams', 'event_participants.current_id_team', '=', 'teams.id')
-        ->leftJoin('event_results', 'event_participants.id', '=', 'event_results.id_event_participant')
-        ->where('event_participants.active_at', '!=', 'null')
-        ->where('event_participants.id_event', '=', $event->id)
+        $event_results = EventResults::with($this->event_results_relationships)
+        ->whereHas('event_participant', function ($query) use($event) {
+            $query->where('active_at', '!=', null);
+            $query->where('id_event', '=', $event->id);
+        })
+        ->where('event_results.id_event_hotspot', '=', $id_hotspot)
+        ->orderBy('event_results.speed_event_result', 'desc')
         ->get();
 
-        foreach ($results as $result) {
-            if ($result->event_results_created_at) {
-                $result->event_results_created_at = $this->formatDateLocal($result->event_results_created_at);
+        if (count($event_results) > 0) {
+            $distance = $event_results[0]->speed_event_result ? ($event_results[0]->speed_event_result) * ((strtotime($event_results[0]->updated_at) - strtotime($event->release_time_event)) / 60) : null;
+
+            $duration = strtotime(date("Y-m-d h:i:sa")) - strtotime($event->release_time_event);
+
+            $unfinished_speed = $distance ? $distance / ($duration / 60) : null;
+        }
+
+        $arrived_pigeons = [];
+
+        foreach ($event_results as $key => $event_result) {
+            if ($event_result->speed_event_result) {
+                array_push($arrived_pigeons, $event_result->event_participant->pigeons);
             }
         }
 
         return view('subscribed.pages.events_live_results',
-            compact('data_medsos','data_footer','users','event','results','pigeons','current_datetime','basketed_pigeons','arrived_pigeons')
+            compact('data_medsos','data_footer','users','event','event_results','pigeons','current_datetime','hotspot', 'id_hotspot','unfinished_speed','arrived_pigeons')
         );
     }
 

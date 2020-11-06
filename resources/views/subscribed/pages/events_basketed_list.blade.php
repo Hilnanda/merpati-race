@@ -17,44 +17,63 @@
     <div class="col-lg-12">
         <!-- /.box-header -->
         <h4>Basket List "{{ $event->name_event }}"</h4>
+        @if($event->hotspot_length_event > 1)
+        <div class="row mb-2">
+            <div class="col-12 d-flex justify-content-end">
+                <div class="btn-group dropup">
+                  <button type="button" class="btn btn-primary dropdown-toggle pl-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Hotspot {{ $hotspot }}
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    @foreach($event->event_hotspot as $key => $event_hotspot)
+                    @if($hotspot != $key + 1)
+                    <a class="dropdown-item" href="/events/{{$event->id}}/{{$key+1}}/basket">Hotspot {{$key+1}}</a>
+                    @endif
+                    @endforeach
+                  </div>
+                </div>
+            </div>
+        </div>
+        @endif
         <div class="box-body">
             <table id="table_one" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
                     <th>Pemilik</th>
+                    @if($event->category_event == 'Team')
                     <th>Team</th>
-                    <!-- @if($event->category_event == 'Team') -->
-                    
-                    <!-- @endif -->
+                    @endif
                     <th>Club</th>
-                    <th>Pigeon</th>
+                    <th>UID Pigeon</th>
                     <th>Nama Pigeon</th>
                     <th>Waktu Basket</th>
                 </thead>
                 <tbody>
-                    @if(count($participants) == 0)
+                    @if(count($event_participants) == 0)
                     <tr class="text-center">
-                        <td colspan="8">-- Belum ada pigeon yang tiba --</td>
+                        <td colspan="8">-- Hasil belum bisa ditampilkan --</td>
                     </tr>
-                    @endif
-                    @foreach($participants as $participant)
+                    @else
+                    @php
+                    $rank = 1;
+                    @endphp
+                    @foreach($event_participants as $event_participant)
                     <tr>
-                        <td>{{ $loop->index+1 }}</td>
-                        <td>{{ $participant->pigeons->users->name }}</td>
-                        <td>{{ $participant->teams_name_team }}</td>
-                        <td>{{ $participant->clubs_name_club }}</td>
-                        <td>{{ $participant->pigeons ? $participant->pigeons->uid_pigeon : '-' }}</td>
-                        <td>{{ $participant->pigeons ? $participant->pigeons->name_pigeon : '-' }}</td>
-                        <td>{{ $participant->basketed_at ? str_replace('T', ' ', $participant->basketed_at) . ':00 (GMT +7:00)' : '-' }}</td>
-                        <!-- @if($event->category_event == 'Team') -->
-                        
-                        <!-- @endif -->
+                        <td>{{ $rank++ }}</td>
+                        <td>{{ $event_participant->event_participant->pigeons->users->name ? $event_participant->event_participant->pigeons->users->name : '-' }}</td>
+                        @if($event->category_event == 'Team')
+                        <td>{{ $event_participant->event_participant->team->name_team ? $event_participant->event_participant->team->name_team : '-' }}</td>
+                        @endif
+                        <td>{{ $event_participant->event_participant->club->name_club ? $event_participant->event_participant->club->name_club : '-' }}</td>
+                        <td>{{ $event_participant->event_participant->pigeons ? $event_participant->event_participant->pigeons->uid_pigeon : '-' }}</td>
+                        <td>{{ $event_participant->event_participant->pigeons ? $event_participant->event_participant->pigeons->name_pigeon : '-' }}</td>
+                        <td>{{ $event_participant->created_at ? $event_participant->created_at : '-' }}</td>
                     </tr>
                     @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>
-        <!-- /.box-body -->
     </div>
 </div>
 @endsection
