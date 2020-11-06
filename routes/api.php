@@ -57,6 +57,8 @@ Route::get('user/{id}', 'API\ApiUsersController@show');
 Route::put('user/{id}', 'API\ApiUsersController@update');
 Route::delete('user/{id}', 'API\ApiUsersController@destroy');
 
+// Event
+Route::put('event/{id}', 'API\EventController@updateEventLocation');
 
 Route::fallback(function(){
     return response()->json([
