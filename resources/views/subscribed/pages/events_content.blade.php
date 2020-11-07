@@ -45,7 +45,7 @@
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
                         @if($title == 'Lomba Club')
-                        <td>{{ $event->name_club }}</td>
+                        <td>{{ $event->club->name_club }}</td>
                         @endif
                         <td>{{ $event->name_event }}</td>
                         <td>{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</td>
