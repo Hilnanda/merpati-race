@@ -245,7 +245,9 @@ class ClubController extends Controller
        $hapus_acc_club->delete($hapus_acc_club);
        return back()->with('Sukses','Berhasil Delete data!');
    }
+   public function add_lomba(){
 
+   }
     /**
      * Store a newly created resource in storage.
      *
@@ -255,6 +257,7 @@ class ClubController extends Controller
     public function store(Request $request)
     {
         //
+        
     }
 
     /**
