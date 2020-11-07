@@ -116,7 +116,7 @@
                             <!-- Content -->
                             <div class="featured-shows-content">
                                 <div class="shows-text">
-                                    <a href="#" class="buy-tickets-btn"><h4>Result</h4>
+                                    <a href="/results" class="buy-tickets-btn"><h4>Hasil</h4>
                                         {{-- <p>January 23</p> --}}
                                         </a>
                                 </div>

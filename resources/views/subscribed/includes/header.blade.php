@@ -7,7 +7,7 @@
                 <nav class="classy-navbar justify-content-between" id="musicaNav">
 
                     <!-- Nav brand -->
-                    <a href="/" class="nav-brand"><h3 style="color: white">Lomba</h3></a>
+                    <a href="/" class="nav-brand"><h3 style="color: white">PigeonTime</h3></a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">

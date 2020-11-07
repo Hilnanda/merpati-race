@@ -122,6 +122,9 @@ Route::middleware('is_subscribed')->group(function () {
     Route::get('/events/{id}/{hotspot}/live-result', 'EventController@showLiveResults')->name('events_live_result');
     Route::post('/events/{id}/join_event', 'EventController@joinEvent')->name('join_event');
 
+    // Result
+    Route::get('/results', 'EventResultController@index')->name('results_menu');
+
     //team
     Route::get('/team', 'TeamController@index')->name('teams');
     Route::post('/team/create', 'TeamController@team_create');
@@ -130,6 +133,7 @@ Route::middleware('is_subscribed')->group(function () {
     Route::get('/team/details-teamku/{id}','TeamController@details_saya');
     Route::get('/team/details-not-register/{id}','TeamController@details_not_register');
     Route::post('/team/join-team-details', 'TeamController@join_team_not_register');
+    
     //pigeons
     Route::get('/pigeons','PigeonsController@index');
     Route::get('/pigeons/burungku','PigeonsController@burungku');
