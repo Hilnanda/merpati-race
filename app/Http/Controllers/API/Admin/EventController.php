@@ -105,7 +105,7 @@ class EventController extends Controller
             if (auth()->user()->type_user == '1') {
                 $event = Events::find($id);
 
-                $event->update($request->all());
+                $event->update($input);
 
                 return response()->json(Events::find($id));
             }else{
