@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Team;
-use App\TeamMembers;
 use Illuminate\Http\Request;
+use App\Clubs;
 
-class ApiTeamController extends Controller
+class ApiClubController extends Controller
 {
-    public $relation_team = ['team_member','user'];
+    public $relation_club = ['manager','user','club_member','operator_clubs','event'];
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +16,7 @@ class ApiTeamController extends Controller
      */
     public function index()
     {
-        return response()->json(Team::with($this->relation_team)->get());
+        return response()->json(Clubs::with($this->relation_club)->get());
     }
 
     /**
@@ -38,9 +37,9 @@ class ApiTeamController extends Controller
      */
     public function store(Request $request)
     {
-        $team = Team::create($request->all())->id;
+        $club = Clubs::create($request->all())->id;
 
-        return response()->json(Team::find($team));
+        return response()->json(Clubs::find($club));
     }
 
     /**
@@ -51,7 +50,7 @@ class ApiTeamController extends Controller
      */
     public function show($id)
     {
-        return response()->json(Team::with($this->relation_team)->findOrFail($id));
+        return response()->json(Clubs::with($this->relation_club)->findOrFail($id));
     }
 
     /**
@@ -72,12 +71,12 @@ class ApiTeamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-        $team = Team::find($id);
-        $team->update($request->all());
+        $club = Clubs::find($id);
+        $club->update($request->all());
 
-        return response()->json(Team::find($id));
+        return response()->json(Clubs::find($id));
     }
 
     /**
@@ -88,7 +87,7 @@ class ApiTeamController extends Controller
      */
     public function destroy($id)
     {
-        Team::find($id)->delete();
+        Clubs::find($id)->delete();
         return response()->json('Delete Success');
     }
 }

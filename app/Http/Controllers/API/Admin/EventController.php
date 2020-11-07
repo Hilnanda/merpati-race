@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,9 +11,12 @@ use App\EventResults;
 use App\EventParticipants;
 use App\CLubMember;
 use App\TeamMembers;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class EventController extends Controller
 {
+    use AuthenticatesUsers;
+
     protected $relationships = ['event_participants', 'event_hotspot', 'club', 'user'];
     protected $event_results_relationships = ['event_participant', 'event_hotspot'];
     /**
@@ -90,11 +93,37 @@ class EventController extends Controller
      */
     public function updateEventLocation(Request $request, $id)
     {
-        $event = Events::find($id);
+        $input = $request->all();
+   
+        $this->validate($request, [
+            'user.email' => 'required|email',
+            'user.password' => 'required',
+        ]);
 
-        $event->update($request->all());
+        if(auth()->attempt(array('email' => $input['user']['email'], 'password' => $input['user']['password'])))
+        {
+            if (auth()->user()->type_user == '1') {
+                $event = Events::find($id);
 
-        return response()->json(Events::find($id));
+                $event->update($request->all());
+
+                return response()->json(Events::find($id));
+            }else{
+                return response()->json(
+                    array(
+                        'code' => 403,
+                        'message' => 'Akses hanya bisa dilakukan oleh admin.'
+                    )
+                );
+            }
+        }else{
+            return response()->json(
+                    array(
+                        'code' => 401,
+                        'message' => 'Akun gagal dikenali.'
+                    )
+                );
+        }
     }
 
     /**

@@ -18,47 +18,56 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Access for admins
+Route::group(['namespace' => 'API\\Admin', 'prefix' => 'admin/v1'], function () {
 
-Route::get('medsos', 'API\CmsHomeController@get_medsos_api');
+	Route::get('medsos', 'CmsHomeController@get_medsos_api');
+	// Team
+	Route::post('team', 'ApiTeamController@store');
+	Route::get('team', 'ApiTeamController@index');
+	Route::get('team/{id}', 'ApiTeamController@show');
+	Route::put('team/{id}', 'ApiTeamController@update');
+	Route::delete('team/{id}', 'ApiTeamController@destroy');
 
+	//club
+	Route::post('club', 'ApiClubController@store');
+	Route::get('club', 'ApiClubController@index');
+	Route::get('club/{id}', 'ApiClubController@show');
+	Route::put('club/{id}', 'ApiClubController@update');
+	Route::delete('club/{id}', 'ApiClubController@destroy');
 
-// Team
-Route::post('team', 'API\ApiTeamController@store');
-Route::get('team', 'API\ApiTeamController@index');
-Route::get('team/{id}', 'API\ApiTeamController@show');
-Route::put('team/{id}', 'API\ApiTeamController@update');
-Route::delete('team/{id}', 'API\ApiTeamController@destroy');
+	//club_members
+	Route::post('club_members', 'ApiClubMembersController@store');
+	Route::get('club_members', 'ApiClubMembersController@index');
+	Route::get('club_members/{id}', 'ApiClubMembersController@show');
+	Route::put('club_members/{id}', 'ApiClubMembersController@update');
+	Route::delete('club_members/{id}', 'ApiClubMembersController@destroy');
 
-//club
-Route::post('club', 'API\ApiClubController@store');
-Route::get('club', 'API\ApiClubController@index');
-Route::get('club/{id}', 'API\ApiClubController@show');
-Route::put('club/{id}', 'API\ApiClubController@update');
-Route::delete('club/{id}', 'API\ApiClubController@destroy');
+	//pigeon
+	Route::post('pigeon', 'ApiPigeonController@store');
+	Route::get('pigeon', 'ApiPigeonController@index');
+	Route::get('pigeon/{id}', 'ApiPigeonController@show');
+	Route::put('pigeon/{id}', 'ApiPigeonController@update');
+	Route::delete('pigeon/{id}', 'ApiPigeonController@destroy');
 
-//club_members
-Route::post('club_members', 'API\ApiClubMembersController@store');
-Route::get('club_members', 'API\ApiClubMembersController@index');
-Route::get('club_members/{id}', 'API\ApiClubMembersController@show');
-Route::put('club_members/{id}', 'API\ApiClubMembersController@update');
-Route::delete('club_members/{id}', 'API\ApiClubMembersController@destroy');
+	//user
+	Route::post('user', 'ApiUsersController@store');
+	Route::get('user', 'ApiUsersController@index');
+	Route::get('user/{id}', 'ApiUsersController@show');
+	Route::put('user/{id}', 'ApiUsersController@update');
+	Route::delete('user/{id}', 'ApiUsersController@destroy');
 
-//pigeon
-Route::post('pigeon', 'API\ApiPigeonController@store');
-Route::get('pigeon', 'API\ApiPigeonController@index');
-Route::get('pigeon/{id}', 'API\ApiPigeonController@show');
-Route::put('pigeon/{id}', 'API\ApiPigeonController@update');
-Route::delete('pigeon/{id}', 'API\ApiPigeonController@destroy');
+	// Event
+	Route::put('event/{id}', 'EventController@updateEventLocation');
 
-//user
-Route::post('user', 'API\ApiUsersController@store');
-Route::get('user', 'API\ApiUsersController@index');
-Route::get('user/{id}', 'API\ApiUsersController@show');
-Route::put('user/{id}', 'API\ApiUsersController@update');
-Route::delete('user/{id}', 'API\ApiUsersController@destroy');
+});
 
-// Event
-Route::put('event/{id}', 'API\EventController@updateEventLocation');
+// Access for subscribed users
+Route::group(['namespace' => 'API\\Subscribed', 'prefix' => 'subscribed/v1'], function () {
+
+	// 
+
+});
 
 Route::fallback(function(){
     return response()->json([

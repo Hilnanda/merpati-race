@@ -1,21 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Team;
+use App\TeamMembers;
 use Illuminate\Http\Request;
-use App\CMSMedsos;
 
-class CmsApiController extends Controller
+class ApiTeamController extends Controller
 {
+    public $relation_team = ['team_member','user'];
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function get_api_medsos()
+    public function index()
     {
-        return response()->json(CMSMedsos::all(),200);
+        return response()->json(Team::with($this->relation_team)->get());
     }
 
     /**
@@ -36,7 +38,9 @@ class CmsApiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $team = Team::create($request->all())->id;
+
+        return response()->json(Team::find($team));
     }
 
     /**
@@ -47,7 +51,7 @@ class CmsApiController extends Controller
      */
     public function show($id)
     {
-        //
+        return response()->json(Team::with($this->relation_team)->findOrFail($id));
     }
 
     /**
@@ -68,9 +72,12 @@ class CmsApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
-        //
+        $team = Team::find($id);
+        $team->update($request->all());
+
+        return response()->json(Team::find($id));
     }
 
     /**
@@ -81,6 +88,7 @@ class CmsApiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Team::find($id)->delete();
+        return response()->json('Delete Success');
     }
 }

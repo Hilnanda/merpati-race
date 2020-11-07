@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\ClubMember;
+use App\User;
 
-class ApiClubMembersController extends Controller
+class ApiUsersController extends Controller
 {
-    public $relation_club_member = ['club','pigeon'];
+    public $relation_user = ['clubs','manager_club','team','pigeons','operator_clubs','event'];
 
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class ApiClubMembersController extends Controller
      */
     public function index()
     {
-        return response()->json(ClubMember::with($this->relation_club_member)->get());
+        return response()->json(User::with($this->relation_user)->get());
     }
 
     /**
@@ -38,9 +38,9 @@ class ApiClubMembersController extends Controller
      */
     public function store(Request $request)
     {
-        $clubMember = ClubMember::create($request->all())->id;
+        $users = User::create($request->all())->id;
 
-        return response()->json(ClubMember::find($clubMember));
+        return response()->json(User::find($users));
     }
 
     /**
@@ -51,7 +51,7 @@ class ApiClubMembersController extends Controller
      */
     public function show($id)
     {
-        return response()->json(ClubMember::with($this->relation_club_member)->findOrFail($id));
+        return response()->json(User::with($this->relation_user)->findOrFail($id));
     }
 
     /**
@@ -74,10 +74,10 @@ class ApiClubMembersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $clubMember = ClubMember::find($id);
-        $clubMember->update($request->all());
+        $users = User::find($id);
+        $users->update($request->all());
 
-        return response()->json(ClubMember::find($id));
+        return response()->json(User::find($id));
     }
 
     /**
@@ -88,7 +88,7 @@ class ApiClubMembersController extends Controller
      */
     public function destroy($id)
     {
-        ClubMember::find($id)->delete();
+        User::find($id)->delete();
         return response()->json('Delete Success');
     }
 }

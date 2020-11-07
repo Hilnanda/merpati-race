@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Clubs;
+use App\Pigeons;
 
-class ApiClubController extends Controller
+class ApiPigeonController extends Controller
 {
-    public $relation_club = ['manager','user','club_member','operator_clubs','event'];
+    public $relation_pigeon = ['users','club_member','team_member','pigeons_participants'];
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +17,7 @@ class ApiClubController extends Controller
      */
     public function index()
     {
-        return response()->json(Clubs::with($this->relation_club)->get());
+        return response()->json(Pigeons::with($this->relation_pigeon)->get());
     }
 
     /**
@@ -37,9 +38,9 @@ class ApiClubController extends Controller
      */
     public function store(Request $request)
     {
-        $club = Clubs::create($request->all())->id;
+        $clubMember = Pigeons::create($request->all())->id;
 
-        return response()->json(Clubs::find($club));
+        return response()->json(Pigeons::find($clubMember));
     }
 
     /**
@@ -50,7 +51,7 @@ class ApiClubController extends Controller
      */
     public function show($id)
     {
-        return response()->json(Clubs::with($this->relation_club)->findOrFail($id));
+        return response()->json(Pigeons::with($this->relation_pigeon)->findOrFail($id));
     }
 
     /**
@@ -73,10 +74,10 @@ class ApiClubController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $club = Clubs::find($id);
-        $club->update($request->all());
+        $clubMember = Pigeons::find($id);
+        $clubMember->update($request->all());
 
-        return response()->json(Clubs::find($id));
+        return response()->json(Pigeons::find($id));
     }
 
     /**
@@ -87,7 +88,7 @@ class ApiClubController extends Controller
      */
     public function destroy($id)
     {
-        Clubs::find($id)->delete();
+        Pigeons::find($id)->delete();
         return response()->json('Delete Success');
     }
 }
