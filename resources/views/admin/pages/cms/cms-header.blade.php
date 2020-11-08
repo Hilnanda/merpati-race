@@ -375,14 +375,12 @@
               <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6">
                   <div class="form-group">
-                    <label for="name" class="control-label">Instagram</label>
+                    <label for="name" class="control-label">Nama Website</label>
                     <div class="row">
-                      <div class="col-xs-12 col-sm-6 col-md-6">
+                      <div class="col-xs-12 col-sm-12 col-md-12">
                         <input type="text" name="instagram" class="form-control"  value="https://www.instagram.com/" disabled>
                       </div>
-                      <div class="col-xs-12 col-sm-6 col-md-6">
-                        <input type="text" name="username_medsos" class="form-control" placeholder="Masukkan Username IG">
-                      </div>
+                      
                     </div>
                   </div>
                   <div class="form-group">
@@ -399,14 +397,12 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                   <div class="form-group">
-                    <label for="name" class="control-label">Facebook</label>
+                    <label for="name" class="control-label">Nama Carousel</label>
                     <div class="row">
-                      <div class="col-xs-12 col-sm-6 col-md-6">
+                      <div class="col-xs-12 col-sm-12 col-md-12">
                         <input type="text" name="instagram" class="form-control"  value="https://www.instagram.com/" disabled>
                       </div>
-                      <div class="col-xs-12 col-sm-6 col-md-6">
-                        <input type="text" name="username_medsos" class="form-control" placeholder="Masukkan Username IG">
-                      </div>
+                      
                     </div>
                   </div>
                   

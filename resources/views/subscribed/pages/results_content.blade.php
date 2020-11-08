@@ -40,11 +40,11 @@
                         <td>{{ $loop->index+1 }}</td>
                         <td>{{ $event_result->event_participant->pigeons->uid_pigeon }}</td>
                         <td>{{ $event_result->event_participant->pigeons->name_pigeon }}</td>
-                        <td>{{ $event_result->event_participant->events->name_event }}</td>
+                        <td><a href="/events/{{$event_result->event_participant->events->id}}/1/details" class="text-primary">{{ $event_result->event_participant->events->name_event }}</a></td>
                         <td>{{ $event_result->event_participant->events->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</td>
                         <td>{{ $event_result->event_participant->events->category_event }}</td>
-                        <td>{{ $event_result->speed_event_result ? $event_result->speed_event_result : '-' }}</td>
-                        <td>{{ $event_result->speed_event_result ? $event_result->speed_event_result : '-' }}</td>
+                        <td>{{ $event_result->speed_event_result }}</td>
+                        <td>{{ $event_result->rank }}</td>
                     </tr>
                     @endforeach
                 </tbody>

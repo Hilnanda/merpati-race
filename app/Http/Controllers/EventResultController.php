@@ -28,7 +28,25 @@ class EventResultController extends Controller
         $current_datetime = Carbon::now();
 
         $event_results = EventResults::with($this->relationships)
+        ->where("event_results.speed_event_result", "!=", null)
         ->get();
+
+        $all_event_results = EventResults::with($this->relationships)
+        ->orderBy("event_results.speed_event_result","desc")
+        ->where("event_results.speed_event_result", "!=", null)
+        ->get();
+
+        foreach ($event_results as $key => $event_result) {
+            $rank = 1;
+            foreach ($all_event_results as $all_key => $all_event_result) {
+                if ($event_result->event_participant->id_event == $all_event_result->event_participant->id_event) {
+                    if ($event_result->id_event_participant == $all_event_result->id_event_participant) {
+                        $event_result->rank = $rank;
+                    }
+                    $rank++;
+                }
+            }
+        }
 
         return view('subscribed.pages.results_content', 
             compact('data_medsos','data_footer','users','current_datetime','title','event_results')
