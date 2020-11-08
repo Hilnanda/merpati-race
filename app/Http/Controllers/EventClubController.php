@@ -38,7 +38,7 @@ class EventClubController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($id,Request $request)
     {
         //
         $data = $request->all();
@@ -47,7 +47,7 @@ class EventClubController extends Controller
         $data['release_time_event'] = str_replace("T", " ", $request->release_time_event);
 
         $data['branch_event'] = "Club";
-
+        $data['id_club'] = $id;
         $extension = $request->file('logo_event')->extension();
         $img_name = 'logo-' . $data['name_event'] . '-' . date('dmyHis') . '.' . $extension;
         $this->validate($request, ['logo_event' => 'required|file|max:5000']);

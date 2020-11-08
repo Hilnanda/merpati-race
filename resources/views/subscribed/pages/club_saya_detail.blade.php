@@ -77,7 +77,7 @@
                                 <div class="modal-header">
                                     <h4 class="modal-title" id="exampleModalLabel">Tambah Data Lomba</h4>
                                 </div>
-                                <form action="/club/add_lomba" method="POST" enctype="multipart/form-data">
+                            <form action="/club/add_lomba/{{$id}}" method="POST" enctype="multipart/form-data">
                                     <div class="modal-body">
                                         {{ csrf_field() }}
                                         <div class="form-group">
