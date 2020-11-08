@@ -89,13 +89,13 @@
                                             <input type="file" name="logo_event" class="form-control" placeholder="Isi logo lomba" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="category_event">Kategori Lomba</label>
+                                            {{-- <label for="category_event">Kategori Lomba</label> --}}
                                             {{-- <select class="form-control" name="category_event">
                                                 <option value="" disabled selected>-- Pilih kategori --</option>
                                                 <option value="Individu">Lomba Individu</option>
                                                 <option value="Team">Lomba Team</option>
                                             </select> --}}
-                                            <input type="text" value="club" name="category_event" class="form-control" placeholder="Isi nama lomba" hidden>
+                                            <input type="text" value="Individu" name="category_event" class="form-control" placeholder="Isi nama lomba" hidden>
                                         </div>
                                         <div class="form-group">
                                             <label for="">Informasi Tentang Lomba</label>
@@ -296,3 +296,11 @@
     </div>
 
 @endsection
+@push('bottom-script')
+<script>
+    function setMaxDueDateAdd() {
+        var release_time = document.getElementById("release_time_event_add").value;
+        document.getElementById("due_join_date_event_add").max = release_time;
+    }
+</script>
+@endpush

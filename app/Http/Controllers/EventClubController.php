@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Controller;
+use App\Events;
+use App\EventHotspot;
+use App\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 class EventClubController extends Controller
 {
     /**
@@ -36,7 +41,31 @@ class EventClubController extends Controller
     public function store(Request $request)
     {
         //
-        
+        $data = $request->all();
+
+        $data['due_join_date_event'] = str_replace("T", " ", $request->due_join_date_event);
+        $data['release_time_event'] = str_replace("T", " ", $request->release_time_event);
+
+        $data['branch_event'] = "Club";
+
+        $extension = $request->file('logo_event')->extension();
+        $img_name = 'logo-' . $data['name_event'] . '-' . date('dmyHis') . '.' . $extension;
+        $this->validate($request, ['logo_event' => 'required|file|max:5000']);
+        $path = Storage::putFileAs('public/image-logo', $request->file('logo_event'), $img_name);
+
+        $data['logo_event'] = $img_name;
+
+        $id_event = Events::create($data)->id;
+
+        $hotspot = [];
+        $hotspot['id_event'] = $id_event;
+        $hotspot['release_time_hotspot'] = $data['release_time_event'];
+        for ($i=0; $i < $data['hotspot_length_event']; $i++) { 
+            EventHotspot::create($hotspot);
+            $hotspot['release_time_hotspot'] = null;
+        }
+
+        return back()->with('Sukses','Berhasil menambahkan data!');
     }
 
     /**
@@ -82,5 +111,9 @@ class EventClubController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function formatDateLocal($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d\TH:i:s');
     }
 }
