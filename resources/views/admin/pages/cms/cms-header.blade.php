@@ -368,7 +368,59 @@
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Module Website Name & Carousel</h3><br>
+              <h3 class="box-title">Module Website Name & Carousel</h3><br><br>
+              <a id="modal-090" href="#modal-container-090" role="button" class="btn btn-success" data-toggle="modal">+ Content Home</a>
+			
+              <div class="modal fade" id="modal-container-090" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="myModalLabel">
+                        Add Content
+                      </h5> 
+                      <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <form action="{{ route('cms-medsos-create') }}" method="POST">
+                      {{csrf_field()}}
+                    <div class="modal-body">
+                        <div class="form-group">
+                          
+                          <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                              <label for="name" class="control-label">Nama Website</label>
+                              <input type="text" name="name_website" class="form-control"  placeholder="Nama Website"><br>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                              <label for="name" class="control-label">Nama Carousel</label>
+                              <input type="text" name="name_corousel" class="form-control"  placeholder="Nama Carousel"><br>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                              <label for="name" class="control-label">Username Social Media</label>
+                              <input type="text" name="username_medsos" class="form-control" placeholder="user_123"><br>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                              <label for="name" class="control-label">Icon Social Media</label>
+                              <input type="text" name="icon_medsos" class="form-control" placeholder="Ex: fa-facebook"><br>
+                            </div>
+                          </div>
+                        </div>
+                      
+                    </div>
+                    <div class="modal-footer">
+                       <input type="submit" class="btn btn-primary" value="Simpan">
+                      
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                      </button>
+                    </div>
+                  </form>
+                  </div>
+                  
+                </div>
+                
+              </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">

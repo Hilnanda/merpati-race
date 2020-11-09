@@ -10,10 +10,12 @@ use App\CMSFooter;
 use App\TeamMembers;
 use App\Clubs;
 use App\Pigeons;
+
 use DB;
 
 class TeamController extends Controller
 {
+   
     public function index()
     {
         $team = Team::where('teams.is_active', 1)
@@ -34,8 +36,8 @@ class TeamController extends Controller
         // ->get();
         // dd($club);
         $user = User::all();
-        $data_medsos = CMSMedsos::all();
-        $data_footer = CMSFooter::all();
+        // $data_medsos = CMSMedsos::all();
+        // $data_footer = CMSFooter::all();
         $auth_session = auth()->user()->id;
 
         $teamku = DB::table('teams')
@@ -62,8 +64,8 @@ class TeamController extends Controller
         return view('subscribed.pages.team', [
             'team' => $team,
             'users' => $user,
-            'data_medsos' => $data_medsos,
-            'data_footer' => $data_footer,
+            // 'data_medsos' => $data_medsos,
+            // 'data_footer' => $data_footer,   
             'teamku' => $teamku,
             'team_ikut' => $team_ikut,
             'auth' => $auth_session,
