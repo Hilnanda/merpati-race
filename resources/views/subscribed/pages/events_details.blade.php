@@ -28,8 +28,7 @@ Detail Lomba
         </div>
         <div class="row my-2">
             <div class="col-2">
-                @php $path = Storage::url('image-logo/'.$event->logo_event); @endphp
-                <img src="{{ url($path) }}" style="width:220px;" alt="...">
+                <img style="width: 220px" src="{{ asset('image/'.$event->logo_event.'') }}">
             </div>
             <div class="col-10">
                 <p>Nama lomba : <b style="color: red">{{ $event->name_event }}</b></p>
