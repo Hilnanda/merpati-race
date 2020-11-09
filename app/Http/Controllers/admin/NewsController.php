@@ -42,7 +42,6 @@ class NewsController extends Controller
             'image_news' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-
         $input['image_news'] = time().'.'.$request->image_news->getClientOriginalExtension();
         $request->image_news->move(public_path('image'), $input['image_news']);
         $input['title_news'] = $request->title_news;
