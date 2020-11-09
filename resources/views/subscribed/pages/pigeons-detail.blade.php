@@ -57,7 +57,11 @@
             </div>
           </div>
         </div>
-
+        <div class="row mt-3">
+            <div style="width: 100%">
+                {!! $statisticsChart->container() !!}
+            </div>
+        </div>
         <div class="row mt-5">
             <div class="col-md-12">
                 <h2>List Lomba</h2>

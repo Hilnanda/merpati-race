@@ -19,7 +19,7 @@
     @include('subscribed.includes.style')
     @stack('bottom-style')
     <!-- Core Stylesheet -->
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -36,6 +36,10 @@
     @stack('top-script')
     @include('subscribed.includes.script')
     @stack('bottom-script')
+
+    @if($statisticsChart)
+    {!! $statisticsChart->script() !!}
+    @endif
 </body>
 
 </html>
