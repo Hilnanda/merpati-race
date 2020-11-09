@@ -114,8 +114,7 @@ Dashboard Panitia
                                 <td>{{ $loop->index+1 }}</td>
                                 <td>{{ $event->id }}</td>
                                 <td>{{ $event->name_event }}</td>
-                                @php $path = Storage::url('image-logo/'.$event->logo_event); @endphp
-                                <td><img src="{{ url($path) }}" height="80px"></td>
+                                <td><img style="height: 80px" src="{{ asset('image/'.$event->logo_event.'') }}"></td>
                                 <td>{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</td>
                                 <td>{{ $event->category_event }}</td>
                                 <td>{{ $event->info_event }}</td>

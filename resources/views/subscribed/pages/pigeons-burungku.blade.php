@@ -19,7 +19,7 @@
         <h4>Data Burungku</h4>
         <button class="btn btn-info w-100" data-toggle="modal" data-target="#tambah_burung">Daftarkan Burung</button>
         <button class="btn btn-info w-100 mt-3" data-toggle="modal" data-target="#tambah_burung">Buat Training</button>
-        <div id="accordion" class="mt-3">
+        {{-- <div id="accordion" class="mt-3">
           <div class="card">
             <div class="card-header" id="headingOne">
               <h5 class="mb-0">
@@ -35,7 +35,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> --}}
               <div class="modal fade" id="tambah_burung" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">

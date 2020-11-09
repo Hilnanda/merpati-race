@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\CMSMedsos;
 use App\CMSFooter;
 use App\Pigeons;
+use App\EventParticipants;
+use App\Charts\StatisticsChart;
 
 
 class PigeonsController extends Controller
@@ -36,8 +38,33 @@ class PigeonsController extends Controller
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
         $burung = Pigeons::find($id);
+        $events = EventParticipants::with('events:id,name_event')->where('id_pigeon',$burung->id)->get();
+        // dd($event);
+        $statisticsChart = new StatisticsChart;
+        $name_event = [];
+        $speed = [];
+        foreach ($events as $event) {
+            array_push($name_event, $event->name_event);
+            array_push($speed, $event->event_results->first()->speed_event_result);
+        }
 
-        return view('subscribed.pages.pigeons-detail', ['data_medsos'=>$data_medsos,'data_footer'=>$data_footer,'bird'=>$burung]);
+
+        $statisticsChart->labels($name_event);
+        $statisticsChart->dataset('Rank events', 'line', $speed)
+        ->color("rgb(255, 99, 132)")
+            ->backgroundcolor("rgb(255, 99, 132)")
+            ->fill(false)
+            ->linetension(0.1)
+            ->dashed([5]);
+        // dd($statisticsChart);
+
+
+        return view('subscribed.pages.pigeons-detail', ['data_medsos'=>$data_medsos,'data_footer'=>$data_footer,'bird'=>$burung,
+    'statisticsChart' => $statisticsChart]);
+    }
+    public function topburung()
+    {
+
     }
 
 

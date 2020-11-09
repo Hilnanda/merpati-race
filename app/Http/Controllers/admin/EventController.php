@@ -49,12 +49,12 @@ class EventController extends Controller
 
         $data['branch_event'] = "Umum";
 
-        $extension = $request->file('logo_event')->extension();
-        $img_name = 'logo-' . $data['name_event'] . '-' . date('dmyHis') . '.' . $extension;
-        $this->validate($request, ['logo_event' => 'required|file|max:5000']);
-        $path = Storage::putFileAs('public/image-logo', $request->file('logo_event'), $img_name);
+        $this->validate($request, [
+            'logo_event' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-        $data['logo_event'] = $img_name;
+        $data['logo_event'] = 'logo-' . time().'.'.$request->logo_event->getClientOriginalExtension();
+        $request->logo_event->move(public_path('image'), $data['logo_event']);
 
         $id_event = Events::create($data)->id;
 

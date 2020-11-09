@@ -23,8 +23,7 @@ Hasil Lomba
         </div>
         <div class="row my-2">
             <div class="col-2">
-                @php $path = Storage::url('image-logo/'.$event->logo_event); @endphp
-                <img src="{{ url($path) }}" style="width:220px;" alt="...">
+                <img style="width: 220px" src="{{ asset('image/'.$event->logo_event.'') }}">
             </div>
             <div class="col-10">
                 <p>Jenis lomba : <b style="color: red">{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</b></p>
