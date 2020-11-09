@@ -1,95 +1,28 @@
-@extends('admin.layouts.admin')
+@extends('subscribed.layout.subscribed')
+
 @section('title')
-Dashboard Panitia
+    Data Event Club
 @endsection
+
 @section('content')
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <h1>
-            Data Lomba Umum
-            {{-- <small>advanced tables</small> --}}
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#">Tables</a></li>
-            <li class="active">Data tables</li>
-        </ol>
-    </section>
+ <!-- ##### Breadcumb Area Start ##### -->
+ <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ url('image/breadcumb-1.jpg') }});">
+    <div class="bradcumbContent">
+        <h2>List Event Club</h2>
+    </div>
+</div>
+<!-- bg gradients -->
+<div class="bg-gradients"></div>
+<!-- ##### Breadcumb Area End ##### -->
 
-    <!-- Main content -->
-    <section class="content">
-        <div class="row">
-            <div class="col-xs-12">
-
-                <!-- /.box -->
-
-                <div class="box">
-                    <div class="box-header">
-                        {{-- <h3 class="box-title">Data Table With Full Features</h3><br> --}}
-                        <a href="#" class="btn btn-info" data-toggle="modal" data-target="#tambah_jenisstandar">Tambah Data</a>
-                        <div class="modal fade" id="tambah_jenisstandar" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="exampleModalLabel">Tambah Data Lomba</h4>
-                                </div>
-                                <form action="/admin/event/create" method="POST" enctype="multipart/form-data">
-                                    <div class="modal-body">
-                                        {{ csrf_field() }}
-                                        <div class="form-group">
-                                            <label for="name_event">Nama Lomba</label>
-                                            <input type="text" name="name_event" class="form-control" placeholder="Isi nama lomba" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="logo_event">Logo Lomba</label>
-                                            <input type="file" name="logo_event" class="form-control" placeholder="Isi logo lomba" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="category_event">Kategori Lomba</label>
-                                            <select class="form-control" name="category_event">
-                                                <option value="" disabled selected>-- Pilih kategori --</option>
-                                                <option value="Individu">Lomba Individu</option>
-                                                <option value="Team">Lomba Team</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Informasi Tentang Lomba</label>
-                                            <textarea name="info_event" class="form-control" required="" placeholder="Isi informasi lomba"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Jumlah Hotspot</label>
-                                            <input type="number" name="hotspot_length_event" class="form-control" placeholder="Isi jumlah hotspot lomba (minimal 1)" required min="1">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Waktu Mulai Lomba</label>
-                                            <input type="datetime-local" step="1" id="release_time_event_add" name="release_time_event" class="form-control" placeholder="Isi waktu mulai lomba" required onchange="setMaxDueDateAdd()">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Harga Pendaftaran Lomba</label>
-                                            <input type="number" name="price_event" class="form-control" placeholder="Isi harga pendaftaran lomba" required step=100>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Batas Waktu Pendaftaran</label>
-                                            <input type="datetime-local" step="1" id="due_join_date_event_add" name="due_join_date_event" class="form-control" placeholder="Isi batas pendaftaran lomba">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <div class="form-group d-flex justify-content-end">
-                                            <input type="submit" value="Simpan" class="btn btn-primary">
-                                            <button class="btn btn-secondary" type="button"
-                                            data-dismiss="modal">Cancel</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped">
+<div class="row mt-5 px-5">
+    <div class="col-lg-12">
+        <!-- /.box-header -->
+        <h4>Detail Event Club </h4>
+        <div class="box-body">
+            <div class="row" style="margin-bottom: 20px">
+                <div class="col-12">
+                    <table id="example1"  class="table table-bordered table-striped">
                         <thead>
                             <th>No.</th>
                             <th>ID</th>
@@ -114,7 +47,8 @@ Dashboard Panitia
                                 <td>{{ $loop->index+1 }}</td>
                                 <td>{{ $event->id }}</td>
                                 <td>{{ $event->name_event }}</td>
-                                <td><img style="height: 80px" src="{{ asset('image/'.$event->logo_event.'') }}"></td>
+                                @php $path = Storage::url('image-logo/'.$event->logo_event); @endphp
+                                <td><img src="{{ url($path) }}" height="80px"></td>
                                 <td>{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</td>
                                 <td>{{ $event->category_event }}</td>
                                 <td>{{ $event->info_event }}</td>
@@ -325,19 +259,13 @@ Dashboard Panitia
                                 @endforeach
                             </tbody>
                         </table>
-                    </div>
-                    <!-- /.box-body -->
                 </div>
-                <!-- /.box -->
             </div>
-            <!-- /.col -->
         </div>
-        <!-- /.row -->
-    </section>
-    <!-- /.content -->
+    </div>
 </div>
 @endsection
-@push('admin-bottom-script')
+@push('bottom-script')
 <script src="{{ url('admin/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ url('admin/bower_components/datatables.net-bs/js/dataTables.bootstrap4.min.js') }}"></script>
 <script>
