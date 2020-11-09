@@ -112,6 +112,7 @@ Route::middleware('is_subscribed')->group(function () {
     Route::get('/club/acc/{id}/delete','ClubController@del_club')->name('del_club');
     Route::get('/club/delete-operator/{id}', 'ClubController@destroy_operator');
     Route::post('/club/add_lomba/{id}','EventClubController@store');
+    Route::get('/club/lihat_data/{id}','EventClubController@index');
 
     // Events
     Route::get('/events/index', 'EventController@menuPage')->name('events_menu');
