@@ -17,7 +17,7 @@ class ApiUsersController extends Controller
      */
     public function index()
     {
-        return response()->json(User::with($this->relation_user)->get());
+        return response()->json(User::with($this->relation_user)->where('is_active','!=',0)->get());
     }
 
     /**

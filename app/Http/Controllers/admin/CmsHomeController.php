@@ -23,7 +23,7 @@ class CmsHomeController extends Controller
     public function header()
     {
         $data_medsos = CMSMedsos::all();
-        // $data_medsos = CMSHeader::all();
+        $data_header = CMSHeader::all();
         return view('admin.pages.cms.cms-header',['data_medsos'=>$data_medsos]);
     }
     public function content()
@@ -114,6 +114,13 @@ class CmsHomeController extends Controller
         CMSFooter::find($id)->delete();
 
         return back()->with('Sukses','Berhasil menghapus data!');
+    }
+
+    public function header_create(Request $request)
+    {
+        CMSHeader::create($request->all());
+
+        return back()->with('Sukses','Berhasil menambahkan data!');
     }
     /**
      * Show the form for creating a new resource.
