@@ -86,14 +86,17 @@ Route::prefix('admin')
                 // create data
                 Route::post('/medsos-create','CmsHomeController@medsos_create')->name('cms-medsos-create');
                 Route::post('/footer-create','CmsHomeController@footer_create')->name('cms-footer-create');
+                Route::post('/header-create','CmsHomeController@header_create')->name('cms-header-create');
 
                 //delete data
                 Route::get('/medsos-delete/{id}','CmsHomeController@medsos_destroy');
                 Route::get('/footer-delete/{id}','CmsHomeController@footer_destroy');
+                Route::get('/header-delete/{id}','CmsHomeController@header_destroy');
 
                 //edit data
                 Route::post('/medsos-edit', 'CmsHomeController@medsos_update')->name('medsos-edit');
                 Route::post('/footer-edit', 'CmsHomeController@footer_update')->name('footer-edit');
+                Route::post('/header-edit', 'CmsHomeController@header_update')->name('header-edit');
 
             });
     });

@@ -122,6 +122,20 @@ class CmsHomeController extends Controller
 
         return back()->with('Sukses','Berhasil menambahkan data!');
     }
+
+    public function header_destroy($id)
+    {
+        CMSHeader::find($id)->delete();
+
+        return back()->with('Sukses','Berhasil menghapus data!');
+    }
+
+    public function header_update(Request $request){
+        $header = CMSHeader::find($request->id);
+        $header->update($request->all());
+
+        return back()->with('Sukses','Berhasil mengubah data!');
+    }
     /**
      * Show the form for creating a new resource.
      *

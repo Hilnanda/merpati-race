@@ -382,7 +382,7 @@
                         <span aria-hidden="true">×</span>
                       </button>
                     </div>
-                    <form action="{{ route('cms-medsos-create') }}" method="POST">
+                    <form action="{{ route('cms-header-create') }}" method="POST">
                       {{csrf_field()}}
                     <div class="modal-body">
                         <div class="form-group">
@@ -397,13 +397,10 @@
                               <input type="text" name="name_corousel" class="form-control"  placeholder="Nama Carousel"><br>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                              <label for="name" class="control-label">Username Social Media</label>
-                              <input type="text" name="username_medsos" class="form-control" placeholder="user_123"><br>
+                              <label for="name" class="control-label">Deskripsi Carousel</label>
+                              <input type="text" name="desc_title" class="form-control" placeholder="Deskripsi Carousel"><br>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                              <label for="name" class="control-label">Icon Social Media</label>
-                              <input type="text" name="icon_medsos" class="form-control" placeholder="Ex: fa-facebook"><br>
-                            </div>
+                            
                           </div>
                         </div>
                       
