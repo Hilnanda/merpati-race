@@ -34,6 +34,7 @@ class EventClubController extends Controller
         $title = 'Lomba Club';
         $events = Events::with($this->relationships)
         ->where('branch_event', 'Club')
+        ->where('id_club', $id)
         ->orderBy('events.id', 'desc')->get();
         $users = User::all();
         $data_medsos = CMSMedsos::all();

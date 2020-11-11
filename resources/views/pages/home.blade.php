@@ -5,6 +5,16 @@
 @endsection
 @push('top-style')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+    <style>
+        .fitur{
+            padding: 10px;
+            height: 600px;
+        }
+        .gambar {
+            height: 500px;
+            margin-bottom: 20px;
+        }
+    </style>
 @endpush
 @section('content')
     @if(!Auth::user())
@@ -69,6 +79,57 @@
     <!-- ##### About Us Area End ##### -->
 
     <!-- ##### Upcoming Shows Area Start ##### -->
+    <div class="upcoming-shows-area section-padding-100" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading dark">
+                        <h2 style="color: white">Perlombaan merpati</h2>
+                        <h5 style="color: white">Website Untuk Perlombaan Burung Merpati.</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+				<div class="col-md-4">
+					<div class="card fitur">
+						<img class="card-img-top gambar" alt="Bootstrap Thumbnail First" src="{{ url('image-logo/burung.jpg') }}" />
+						<div class="card-block">
+							
+							<div class="featured-shows-content">
+                                <div class="shows-text">
+                                    <a href="/results" class="buy-tickets-btn"><h4>One Loft Race</h4>
+                                        {{-- <p>January 23</p> --}}
+                                        </a>
+                                </div>
+                                <div class="bg-gradients"></div>
+                            </div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card fitur">
+						<img class="card-img-top gambar" alt="Bootstrap Thumbnail Second" src="{{ url('image-logo/pigeon-racing.jpg') }}" />
+						<div class="card-block">
+							
+							<div class="featured-shows-content">
+                                <div class="shows-text">
+                                    <a href="/club" class="buy-tickets-btn"><h4>Public Race</h4>
+                                        {{-- <p>January 23</p> --}}
+                                        </a>
+                                </div>
+                                <div class="bg-gradients"></div>
+                            </div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+
+            
+        </div>
+    </div>
+
     <div class="upcoming-shows-area section-padding-100" id="about">
         <div class="container">
             <div class="row">

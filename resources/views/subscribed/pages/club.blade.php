@@ -43,7 +43,7 @@
                         <td>({{ $item->lat_club }}), ({{ $item->lng_club }})</td>
                         <td>{{ $item->address_club }}</td>
                         <td class="action-link">
-                            <a href="#" title="Live Results" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+                            <a href="/club/lihat_data/{{$item->id}}" title="Event Club" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
                             <a href="club/{{$item->id}}/detail_saya" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
                         </td>
                     </tr>

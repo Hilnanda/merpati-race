@@ -70,7 +70,7 @@
                         @if (Auth::user()->id==$clubs->manager_club)
                         <a href="#tambah_lomba_club" data-toggle="modal"
                         data-target="#tambah_lomba_club"><button type="button" class="btn btn-success">Buat Lomba Club</button></a>
-                        <a href="/club/lihat_data/{{$id}}"><button type="button" class="btn btn-info">List Event Club</button></a>
+                        {{-- <a href="/club/lihat_data/{{$id}}"><button type="button" class="btn btn-info">List Event Club</button></a> --}}
                             <div class="modal fade" id="tambah_lomba_club" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
