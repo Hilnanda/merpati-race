@@ -97,6 +97,7 @@ Route::prefix('admin')
                 Route::post('/medsos-edit', 'CmsHomeController@medsos_update')->name('medsos-edit');
                 Route::post('/footer-edit', 'CmsHomeController@footer_update')->name('footer-edit');
                 Route::post('/header-edit', 'CmsHomeController@header_update')->name('header-edit');
+                Route::post('/header_update_title', 'CmsHomeController@header_update_title')->name('header_update_title');
 
             });
     });

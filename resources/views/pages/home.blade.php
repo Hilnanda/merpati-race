@@ -11,20 +11,22 @@
     <section class="hero-area">
         <div class="hero-slides owl-carousel">
             <!-- Single Hero Slide -->
+            @foreach ($data_header as $item)
+
             <div class="single-hero-slide d-flex align-items-center justify-content-center">
                 <!-- Slide Img -->
-                <div class="slide-img bg-img" style="background-image: url({{ url('image/burung1.jpg') }});"></div>
+                <div class="slide-img bg-img" style="background-image: url('image/burung{{$loop->index+1}}.jpg');"></div>
                 <!-- Slide Content -->
                 <div class="hero-slides-content text-center">
-                    <h2 data-animation="fadeInUp" data-delay="100ms">Lomba Merpati <span>Lomba Merpati</span></h2>
-                    <p data-animation="fadeInUp" data-delay="300ms">Music Theme</p>
+                    <h2 data-animation="fadeInUp" data-delay="100ms">{{ $item->name_corousel }} <span>{{ $item->name_corousel }}</span></h2>
+                    <p data-animation="fadeInUp" data-delay="300ms">{{ $item->desc_title }}</p>
                 </div>
                 <!-- Big Text -->
-                <h2 class="big-text">Lomba Merpati</h2>
+                <h2 class="big-text">{{ $item->name_corousel }}</h2>
             </div>
-
+            @endforeach
             <!-- Single Hero Slide -->
-            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            {{-- <div class="single-hero-slide d-flex align-items-center justify-content-center">
                 <!-- Slide Img -->
                 <div class="slide-img bg-img" style="background-image: url({{ url('image/burung2.jpg') }});"></div>
                 <!-- Slide Content -->
@@ -47,7 +49,7 @@
                 </div>
                 <!-- Big Text -->
                 <h2 class="big-text">Festival</h2>
-            </div>
+            </div> --}}
 
         </div>
         <!-- bg gradients -->
