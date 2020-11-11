@@ -116,7 +116,18 @@ Route::middleware('is_subscribed')->group(function () {
     Route::get('/club/acc/{id}/delete','ClubController@del_club')->name('del_club');
     Route::get('/club/delete-operator/{id}', 'ClubController@destroy_operator');
     Route::post('/club/add_lomba/{id}','EventClubController@store');
-    Route::get('/club/lihat_data/{id}','EventClubController@index');
+    
+    // Event Hotspot club   
+    Route::post('/club/event/add-hotspot', 'EventClubController@addHotspot');
+    Route::post('/club/event/update-hotspot', 'EventClubController@updateHotspot');
+    Route::get('/club/event/delete-hotspot/{id}/{id_event}', 'EventClubController@destroyHotspot');
+
+      // Event list club
+    //   Route::get('/list-event', 'EventController@index')->name('list-event');
+    //   Route::post('/event/create', 'EventController@store');
+      Route::get('/club/lihat_data/{id}','EventClubController@index');
+      Route::post('/club/event/update/{id}', 'EventClubController@update');
+      Route::get('/club/event/delete/{id}', 'EventClubController@destroy');
 
     // Events
     Route::get('/events/index', 'EventController@menuPage')->name('events_menu');
