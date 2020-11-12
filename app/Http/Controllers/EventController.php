@@ -40,8 +40,10 @@ class EventController extends Controller
         foreach ($events as $event) {
             $event->release_time_event = null;
             $event->expired_time_event = null;
+            $event->countFrom = null;
             foreach ($event->event_hotspot as $hotspot) {
                 if ($hotspot->release_time_hotspot) {
+                    $event->countFrom = $this->formatDateCountdown($hotspot->release_time_hotspot);
                     $event->release_time_event = $this->formatDateLocal($hotspot->release_time_hotspot);
                     if ($hotspot->expired_time_hotspot) {
                         $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
@@ -51,37 +53,24 @@ class EventController extends Controller
                     }
                 }
             }
+            $event->countTo = $this->formatDateCountdown($event->due_join_date_event);
             $event->due_join_date_event = $this->formatDateLocal($event->due_join_date_event);
             if ($event->release_time_event <= $current_datetime) {
-                $diff = strtotime($current_datetime) - strtotime($event->release_time_event);
-                $days = floor($diff / 86400);
-                $hours = floor($diff / 3600) % 24;
-                $minutes = floor($diff / 60) % 60;
-                $seconds = $diff % 60;
-
-                $event->status = 'Terbang (' . ($days * 24 + $hours) . 'j:' . $minutes . 'm:' . $seconds . 'd)';
+                $event->status = 'Terbang';
                 $event->color = '#32CD32';
+                $event->countFrom = $event->countFrom;
+                $event->countTo = $this->formatDateCountdown($event->current_datetime);
             } else {
                 if ($event->due_join_date_event < $current_datetime) {
-                    $diff = strtotime($event->release_time_event) - strtotime($current_datetime);
-                    $days = floor($diff / 86400);
-                    $hours = floor($diff / 3600) % 24;
-                    $minutes = floor($diff / 60) % 60;
-                    $seconds = $diff % 60;
-
-                    $event->status = 'Pendaftaran ditutup (-' . ($days * 24 + $hours) . 'j:' . $minutes . 'm:' . $seconds . 'd)';
+                    $event->status = 'Pendaftaran ditutup';
                     $event->color = '#EB0000';
+                    $event->countFrom = $this->formatDateCountdown($event->current_datetime);
+                    $event->countTo = $event->countFrom;
                 } else {
-                    $diff = strtotime($event->due_join_date_event) - strtotime($current_datetime);
-                    $days = floor($diff / 86400);
-                    $hours = floor($diff / 3600) % 24;
-                    $minutes = floor($diff / 60) % 60;
-                    $seconds = $diff % 60;
-
-                    $event->status = 'Belum dimulai (-' . ($days * 24 + $hours) . 'j:' . $minutes . 'm:' . $seconds . 'd)';
+                    $event->status = 'Pendaftaran dibuka';
                     $event->color = '#000000';
-                    // $date = strtotime($event->release_time_event);
-                    // $event->status = $date - time();
+                    $event->countFrom = $this->formatDateCountdown($event->current_datetime);
+                    $event->countTo = $event->countTo;
                 }
             }
             if ($event->lat_event_end != null) {
@@ -475,6 +464,11 @@ class EventController extends Controller
     public function formatDateLocal($value)
     {
         return Carbon::parse($value)->format('Y-m-d\TH:i:s');
+    }
+
+    public function formatDateCountdown($value)
+    {
+        return Carbon::parse($value)->format('Y m d H i s');
     }
 
     public function distance($lat1, $lon1, $lat2, $lon2, $unit) {

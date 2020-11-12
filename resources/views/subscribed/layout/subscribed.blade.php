@@ -37,8 +37,8 @@
     @include('subscribed.includes.script')
     @stack('bottom-script')
 
-    @if($statisticsChart ?? '')
-    {!! $statisticsChart ?? ''->script() !!}
+    @if(isset($statisticsChart))
+    {!! $statisticsChart->script() !!}
     @endif
 </body>
 

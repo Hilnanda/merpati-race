@@ -1,9 +1,9 @@
 @extends('subscribed.layout.subscribed')
 @section('title')
-    {{ $title }}
+{{ $title }}
 @endsection
 @section('content')
-    <!-- ##### Breadcumb Area Start ##### -->
+<!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ url('image/breadcumb-1.jpg') }});">
     <div class="bradcumbContent">
         <h2>{{ $title }}</h2>
@@ -63,6 +63,8 @@
                             @endif
                             <a href="/events/{{$event->id}}/1/details" title="Detail Lomba" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
                         </td>
+                        <!-- <td><div id="{{ 'countdown' . $loop->index }}"></div></td>
+                        <td>{{ $event->countFrom . ' -> ' . $event->countTo }}</td> -->
                     </tr>
                     @endforeach
                 </tbody>
@@ -72,3 +74,54 @@
     </div>
 </div>
 @endsection
+@push('bottom-script')
+<script>
+    count = <?php echo count($events); ?>;
+    <?php $i = 0; ?>
+
+    alert(<?php echo $events[3]->countFrom; ?>)
+
+    for(let i = 0, length = count; i < length; i++){
+        CountDownTimer('<?= $events[3]->countFrom; ?>','<?= $events[3]->countTo; ?>', 'countdown' + i);
+        <?php $i++; ?>
+    }
+
+    function CountDownTimer(from, to, id)
+    {
+        var tos = to.split(",");
+        var to = new Date(tos[0], tos[1], tos[2], tos[3], tos[4], tos[5]);
+
+        var _second = 1000;
+        var _minute = _second * 60;
+        var _hour = _minute * 60;
+        var _day = _hour * 24;
+        var timer;
+
+        function showRemaining() {
+            var froms = from.split(",");
+            var from = new Date(froms[0], froms[1], froms[2], froms[3], froms[4], froms[5]);
+            var distance = to - from;
+            if (distance < 0) {
+
+                clearInterval(timer);
+                document.getElementById(id).innerHTML = 'EXPIRED!';
+
+                return;
+            }
+            var days = Math.floor(distance / _day);
+            var hours = Math.floor((distance % _day) / _hour);
+            var minutes = Math.floor((distance % _hour) / _minute);
+            var seconds = Math.floor((distance % _minute) / _second);
+
+            document.getElementById(id).innerHTML = days + 'days ';
+            document.getElementById(id).innerHTML += hours + 'hrs ';
+            document.getElementById(id).innerHTML += minutes + 'mins ';
+            document.getElementById(id).innerHTML += seconds + 'secs';
+            document.getElementById(id).innerHTML = id + from + '-' + to;
+        }
+
+        timer = setInterval(showRemaining, 1000);
+    }
+
+</script>
+@endpush
