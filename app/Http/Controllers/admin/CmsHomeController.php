@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\CMSMedsos;
 use App\CMSFooter;
 use App\CMSHeader;
+use Illuminate\Support\Facades\DB;
 
 class CmsHomeController extends Controller
 {
@@ -24,7 +25,12 @@ class CmsHomeController extends Controller
     {
         $data_medsos = CMSMedsos::all();
         $data_header = CMSHeader::all();
-        return view('admin.pages.cms.cms-header',['data_medsos'=>$data_medsos]);
+        $nama_website = CMSHeader::select('name_website')->distinct()->get();
+        return view('admin.pages.cms.cms-header',[
+            'data_medsos'=>$data_medsos,
+            'data_header'=>$data_header,
+            'nama_website'=>$nama_website
+            ]);
     }
     public function content()
     {
@@ -134,6 +140,11 @@ class CmsHomeController extends Controller
         $header = CMSHeader::find($request->id);
         $header->update($request->all());
 
+        return back()->with('Sukses','Berhasil mengubah data!');
+    }
+    public function header_update_title(Request $request){
+        // $header = ::find($request->id);
+        DB::table('cms_header')->update(['name_website' => $request->name_website]);
         return back()->with('Sukses','Berhasil mengubah data!');
     }
     /**

@@ -14,6 +14,7 @@ use App\EventResults;
 use App\EventParticipants;
 use App\CLubMember;
 use App\TeamMembers;
+use App\Clubs;
 use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Storage;
@@ -31,9 +32,12 @@ class EventClubController extends Controller
     public function index($id)
     {
         //
+        $clubs= Clubs::where('id',$id)
+        ->first();
         $title = 'Lomba Club';
         $events = Events::with($this->relationships)
         ->where('branch_event', 'Club')
+        ->where('id_club', $id)
         ->orderBy('events.id', 'desc')->get();
         $users = User::all();
         $data_medsos = CMSMedsos::all();
@@ -95,7 +99,7 @@ class EventClubController extends Controller
         }
 
         return view('subscribed.pages.club_lihat_event', 
-            compact('event_clubs','data_medsos','data_footer','users','events','current_datetime','title')
+            compact('id','clubs','event_clubs','data_medsos','data_footer','users','events','current_datetime','title')
         );
     }
 
@@ -175,9 +179,94 @@ class EventClubController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id) 
     {
-        //
+        $event = Events::find($id);
+        $data = $request->all();
+
+        if (isset($data['expired_time_event'])) {
+            $data['expired_time_event'] = str_replace("T", " ", $request->expired_time_event);
+        }
+
+        $data['due_join_date_event'] = str_replace("T", " ", $request->due_join_date_event);
+        $data['release_time_event'] = str_replace("T", " ", $request->release_time_event);
+
+        if ($request->logo_event == null) {
+            $data['logo_event'] = $event->logo_event;
+        } else {
+            $this->validate($request, [
+                'logo_event' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+
+            $data['logo_event'] = 'logo-' . time().'.'.$request->logo_event->getClientOriginalExtension();
+            $request->logo_event->move(public_path('image'), $data['logo_event']);
+        }
+
+        $event->update($data);
+
+        return back()->with('Sukses','Berhasil mengubah data!');
+    }
+    public function addHotspot(Request $request)
+    {
+        $data = $request->all();
+
+        if (isset($data['expired_time_hotspot'])) {
+            $data['expired_time_hotspot'] = str_replace("T", " ", $request->expired_time_hotspot);
+        }
+
+        $data['release_time_hotspot'] = str_replace("T", " ", $request->release_time_hotspot);
+
+        $hotspot['id_event'] = $data['id_event'];
+        if (isset($data['expired_time_hotspot'])) {
+            $hotspot['expired_time_hotspot'] = str_replace("T", " ", $data['expired_time_hotspot']);
+        }
+        $hotspot['release_time_hotspot'] = str_replace("T", " ", $data['release_time_hotspot']);
+        EventHotspot::create($hotspot);
+
+        // Tambah jumlah hotspot
+        $event = Events::find($data['id_event']);
+
+        $data['hotspot_length_event'] = $event->hotspot_length_event + 1;
+
+        $event->update($data);
+
+        return back()->with('Sukses','Berhasil mengubah data!');
+    }
+    public function updateHotspot(Request $request)
+    {
+        $data = $request->all();
+
+        if (isset($data['expired_time_hotspot'])) {
+            $data['expired_time_hotspot'] = str_replace("T", " ", $request->expired_time_hotspot);
+        }
+
+        $data['release_time_hotspot'] = str_replace("T", " ", $request->release_time_hotspot);
+
+        $hotspot = [];
+
+        for ($i=0; $i < count($data['ids']); $i++) {
+            $hotspot['id'] = $data['ids'][$i];
+            if (isset($data['expired_time_hotspots'][$i])) {
+                $hotspot['expired_time_hotspot'] = str_replace("T", " ", $data['expired_time_hotspots'][$i]);
+            }
+            $hotspot['release_time_hotspot'] = str_replace("T", " ", $data['release_time_hotspots'][$i]);
+            EventHotspot::find($hotspot['id'])->update($hotspot);
+        }
+
+        return back()->with('Sukses','Berhasil mengubah data!');
+    }
+    public function destroyHotspot($id, $id_event)
+    {
+        EventHotspot::find($id)->delete();
+
+        // Kurangi jumlah hotspot
+        $event = Events::find($id_event);
+
+        $data['hotspot_length_event'] = $event->hotspot_length_event - 1;
+
+        $event->update($data);
+
+        return back()->with('Sukses','Berhasil menghapus hotspot!');
     }
 
     /**
@@ -188,7 +277,9 @@ class EventClubController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Events::find($id)->delete();
+
+        return back()->with('Sukses','Berhasil menghapus data!');
     }
     public function formatDateLocal($value)
     {

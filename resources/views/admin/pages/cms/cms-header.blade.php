@@ -369,8 +369,9 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Module Website Name & Carousel</h3><br><br>
+              @if (count($data_header)!=3)
               <a id="modal-090" href="#modal-container-090" role="button" class="btn btn-success" data-toggle="modal">+ Content Home</a>
-			
+              @endif
               <div class="modal fade" id="modal-container-090" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
@@ -388,10 +389,17 @@
                         <div class="form-group">
                           
                           <div class="row">
+                            @if (count($data_header)==0)
                             <div class="col-xs-12 col-sm-12 col-md-12">
                               <label for="name" class="control-label">Nama Website</label>
                               <input type="text" name="name_website" class="form-control"  placeholder="Nama Website"><br>
                             </div>
+                            @else
+                            @foreach ($nama_website as $item)
+                            <input type="hidden" name="name_website" value="{{ $item->name_website }}">
+                            @endforeach
+                            @endif
+                            
                             <div class="col-xs-12 col-sm-12 col-md-12">
                               <label for="name" class="control-label">Nama Carousel</label>
                               <input type="text" name="name_corousel" class="form-control"  placeholder="Nama Carousel"><br>
@@ -422,40 +430,139 @@
             <!-- /.box-header -->
             <div class="box-body">
               <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="col-xs-12 col-sm-12 col-md-12">
                   <div class="form-group">
-                    <label for="name" class="control-label">Nama Website</label>
-                    <div class="row">
-                      <div class="col-xs-12 col-sm-12 col-md-12">
-                        <input type="text" name="instagram" class="form-control"  value="https://www.instagram.com/" disabled>
+                    @foreach ($nama_website as $item)
+                    <label for="name" class="control-label"><h3>Nama Website : <b>{{$item->name_website}}</b></h3></label>
+                    <a style="margin-left: 5px;color: blue" id="name_website{{$item->id}}" href="#name_website-container{{$item->id}}" role="button" data-toggle="modal"><i class="fa fa-pencil"></i> Edit</a> 
+                    <div class="modal fade" id="name_website-container{{$item->id}}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel">
+                              Edit Nama Website
+                            </h5> 
+                            <button type="button" class="close" data-dismiss="modal">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                          </div>
+                          <form action="{{ route('header_update_title') }}" method="POST">
+                            {{csrf_field()}}
+                          <div class="modal-body">
+                              <div class="form-group">
+                                <div class="row">
+                                  <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <label for="name" class="control-label">Nama Website</label>
+                                    <input type="text" name="name_website" class="form-control"  value="{{$item->name_website}}"><br>
+                                  </div>
+                                  
+                                </div>
+                              </div>
+                            
+                          </div>
+                          <div class="modal-footer">
+                             <input type="submit" class="btn btn-primary" value="Simpan">
+                            
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                              Close
+                            </button>
+                          </div>
+                        </form>
+                        </div>
+                        
                       </div>
                       
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="name" class="control-label">Twitter</label>
-                    <div class="row">
-                      <div class="col-xs-12 col-sm-6 col-md-6">
-                        <input type="text" name="twitter" class="form-control"  value="https://twitter.com/" disabled>
-                      </div>
-                      <div class="col-xs-12 col-sm-6 col-md-6">
-                        <input type="text" name="username_medsos" class="form-control" placeholder="Masukkan Username Twitter">
-                      </div>
+                        @endforeach
                     </div>
-                  </div>
+                  
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
+                @foreach ($data_header as $item)
+                    
+                
+                
+                <div class="col-xs-12 col-sm-5 col-md-5">
                   <div class="form-group">
                     <label for="name" class="control-label">Nama Carousel</label>
                     <div class="row">
                       <div class="col-xs-12 col-sm-12 col-md-12">
-                        <input type="text" name="instagram" class="form-control"  value="https://www.instagram.com/" disabled>
+                        <input type="text" name="instagram" class="form-control"  value="{{ $item->name_corousel }}" disabled>
                       </div>
                       
                     </div>
                   </div>
                   
                 </div>
+                <div class="col-xs-12 col-sm-5 col-md-5">
+                  <div class="form-group">
+                    <label for="name" class="control-label">Deskripsi Carousel</label>
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-12 col-md-12">
+                        <input type="text" name="instagram" class="form-control"  value="{{ $item->desc_title }}" disabled>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="col-xs-12 col-sm-1 col-md-1">
+                  <div class="form-group">
+                    <a class="btn btn-primary" style="width: 100%;margin-top: 25px" id="header{{$item->id}}" href="#header-container{{$item->id}}" role="button" data-toggle="modal"> Edit</a> 
+                    <div class="modal fade" id="header-container{{$item->id}}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel">
+                              Edit Content
+                            </h5> 
+                            <button type="button" class="close" data-dismiss="modal">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                          </div>
+                          <form action="{{ route('header-edit') }}" method="POST">
+                            {{csrf_field()}}
+                          <div class="modal-body">
+                              <div class="form-group">
+                                <div class="row">
+                                  <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <label for="name" class="control-label">Nama Carousel</label>
+                                    <input type="hidden" name="id" value="{{$item->id}}">
+                                    <input type="text" name="name_corousel" class="form-control"  value="{{$item->name_corousel}}"><br>
+                                  </div>
+                                  <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <label for="name" class="control-label">Deskripsi Carousel</label>
+                                    <input type="text" name="desc_title" class="form-control" value="{{$item->desc_title}}"><br>
+                                  </div>
+                                </div>
+                              </div>
+                            
+                          </div>
+                          <div class="modal-footer">
+                             <input type="submit" class="btn btn-primary" value="Simpan">
+                            
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                              Close
+                            </button>
+                          </div>
+                        </form>
+                        </div>
+                        
+                      </div>
+                      
+                    </div>
+                    
+
+                  </div>
+                  
+                </div>
+
+                <div class="col-xs-12 col-sm-1 col-md-1">
+                <div class="form-group">
+                  <a style="width: 100%;margin-top: 25px" class="btn btn-danger delete-club" href="header-delete/{{$item->id}}"> Delete</a>
+
+                </div>
+                </div>
+                @endforeach
               </div>
               
             </div>

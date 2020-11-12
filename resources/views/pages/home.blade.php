@@ -5,26 +5,38 @@
 @endsection
 @push('top-style')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+    <style>
+        .fitur{
+            padding: 10px;
+            height: 600px;
+        }
+        .gambar {
+            height: 500px;
+            margin-bottom: 20px;
+        }
+    </style>
 @endpush
 @section('content')
     @if(!Auth::user())
     <section class="hero-area">
         <div class="hero-slides owl-carousel">
             <!-- Single Hero Slide -->
+            @foreach ($data_header as $item)
+
             <div class="single-hero-slide d-flex align-items-center justify-content-center">
                 <!-- Slide Img -->
-                <div class="slide-img bg-img" style="background-image: url({{ url('image/burung1.jpg') }});"></div>
+                <div class="slide-img bg-img" style="background-image: url('image/burung{{$loop->index+1}}.jpg');"></div>
                 <!-- Slide Content -->
                 <div class="hero-slides-content text-center">
-                    <h2 data-animation="fadeInUp" data-delay="100ms">Lomba Merpati <span>Lomba Merpati</span></h2>
-                    <p data-animation="fadeInUp" data-delay="300ms">Music Theme</p>
+                    <h2 data-animation="fadeInUp" data-delay="100ms">{{ $item->name_corousel }} <span>{{ $item->name_corousel }}</span></h2>
+                    <p data-animation="fadeInUp" data-delay="300ms">{{ $item->desc_title }}</p>
                 </div>
                 <!-- Big Text -->
-                <h2 class="big-text">Lomba Merpati</h2>
+                <h2 class="big-text">{{ $item->name_corousel }}</h2>
             </div>
-
+            @endforeach
             <!-- Single Hero Slide -->
-            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            {{-- <div class="single-hero-slide d-flex align-items-center justify-content-center">
                 <!-- Slide Img -->
                 <div class="slide-img bg-img" style="background-image: url({{ url('image/burung2.jpg') }});"></div>
                 <!-- Slide Content -->
@@ -47,7 +59,7 @@
                 </div>
                 <!-- Big Text -->
                 <h2 class="big-text">Festival</h2>
-            </div>
+            </div> --}}
 
         </div>
         <!-- bg gradients -->
@@ -67,6 +79,57 @@
     <!-- ##### About Us Area End ##### -->
 
     <!-- ##### Upcoming Shows Area Start ##### -->
+    <div class="upcoming-shows-area section-padding-100" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading dark">
+                        <h2 style="color: white">Perlombaan merpati</h2>
+                        <h5 style="color: white">Website Untuk Perlombaan Burung Merpati.</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+				<div class="col-md-4">
+					<div class="card fitur">
+						<img class="card-img-top gambar" alt="Bootstrap Thumbnail First" src="{{ url('image-logo/burung.jpg') }}" />
+						<div class="card-block">
+							
+							<div class="featured-shows-content">
+                                <div class="shows-text">
+                                    <a href="/results" class="buy-tickets-btn"><h4>One Loft Race</h4>
+                                        {{-- <p>January 23</p> --}}
+                                        </a>
+                                </div>
+                                <div class="bg-gradients"></div>
+                            </div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card fitur">
+						<img class="card-img-top gambar" alt="Bootstrap Thumbnail Second" src="{{ url('image-logo/pigeon-racing.jpg') }}" />
+						<div class="card-block">
+							
+							<div class="featured-shows-content">
+                                <div class="shows-text">
+                                    <a href="/club" class="buy-tickets-btn"><h4>Public Race</h4>
+                                        {{-- <p>January 23</p> --}}
+                                        </a>
+                                </div>
+                                <div class="bg-gradients"></div>
+                            </div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+
+            
+        </div>
+    </div>
+
     <div class="upcoming-shows-area section-padding-100" id="about">
         <div class="container">
             <div class="row">

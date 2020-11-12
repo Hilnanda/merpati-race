@@ -14,7 +14,10 @@
                 <nav class="classy-navbar justify-content-between" id="musicaNav">
 
                     <!-- Nav brand -->
-                    <a href="/" class="nav-brand"><h3 style="color: white">Lomba</h3></a>
+                    @foreach ($nama_website as $item)
+                    <a href="/" class="nav-brand"><h3 style="color: white">{{ $item->name_website }}</h3></a>
+
+                    @endforeach
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">

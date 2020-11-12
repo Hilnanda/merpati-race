@@ -18,7 +18,47 @@
 <div class="row mt-5 px-5">
     <div class="col-lg-12">
         <!-- /.box-header -->
-        <h4>Detail Event Club </h4>
+        <h4>List Loft</h4>
+        <div class="box-body">
+            <table id="table_one" class="table table-bordered table-striped">
+                <thead>
+                    <th>No.</th>
+                    <th>Nama Club</th>
+                    <th>Manajer Club</th>
+                    <th>Lokasi Mulai</th>
+                    <th>Alamat</th>
+                    <th>Aksi</th>
+                </thead>
+                <tbody>
+                    {{-- @if(count($clubku) == 0)
+                    <tr class="text-center">
+                        <td colspan="8">-- Tidak ada Club yang belum Diikuti --</td>
+                    </tr>
+                    @endif --}}
+                    {{-- @foreach($clubku as $item)
+                    <tr>
+                        <td>{{ $loop->index+1 }}</td>
+                        <td>{{ $item->name_club }}</td>
+                        <td>{{ $item->manager->name }}</td>
+                        <td>({{ $item->lat_club }}), ({{ $item->lng_club }})</td>
+                        <td>{{ $item->address_club }}</td>
+                        <td class="action-link">
+                            <a href="/club/lihat_data/{{$item->id}}" title="Event Club" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+                            <a href="club/{{$item->id}}/detail_saya" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                    @endforeach --}}
+                </tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</div>
+
+<div class="row mt-5 px-5">
+    <div class="col-lg-12">
+        <!-- /.box-header -->
+        <h4>List Event Club </h4>
         <div class="box-body">
             <div class="row" style="margin-bottom: 20px">
                 <div class="col-12">
@@ -61,7 +101,7 @@
                                 <td>{{ $hotspot->expired_time_hotspot ? str_replace('T', ' ', $hotspot->expired_time_hotspot) : '-' }}</td>
                                 @break
                                 @endif
-                                @endforeach
+                                @endforeach 
                                 <td>Rp {{ number_format($event->price_event, 2) }}</td>
                                 <td>{{ $event ? str_replace('T', ' ', $event->due_join_date_event) : '-' }}</td>
                                 <td>{{ $event->hotspot_length_event }}</td>
@@ -82,7 +122,7 @@
                                                 <div class="modal-header">
                                                     <h4 class="modal-title" id="exampleModalLabel">Daftar Hotspot</h4>
                                                 </div>
-                                                <form action="/admin/event/update-hotspot" method="POST">
+                                                <form action="/club/event/update-hotspot" method="POST">
                                                     <div class="modal-body">
                                                         {{ csrf_field() }}
                                                         @foreach($event->event_hotspot as $hotspot)
@@ -116,7 +156,7 @@
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <div class="form-group d-flex justify-content-end">
-                                                                            <a href="/admin/event/delete-hotspot/{{$hotspot->id}}/{{$event->id}}" class="btn btn-primary">Hapus</a>
+                                                                            <a href="/club/event/delete-hotspot/{{$hotspot->id}}/{{$event->id}}" class="btn btn-primary">Hapus</a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -145,7 +185,7 @@
                                                 <div class="modal-header">
                                                     <h4 class="modal-title" id="exampleModalLabel">Tambah Hotspot</h4>
                                                 </div>
-                                                <form action="/admin/event/add-hotspot" method="POST">
+                                                <form action="/club/event/add-hotspot" method="POST">
                                                     <div class="modal-body">
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="id_event" value="{{ $event->id }}">
@@ -179,7 +219,7 @@
                                                 <div class="modal-header">
                                                     <h4 class="modal-title" id="exampleModalLabel">Edit Data Lomba</h4>
                                                 </div>
-                                                <form action="/admin/event/update/{{$event->id}}" method="POST" enctype="multipart/form-data">
+                                                <form action="/club/event/update/{{$event->id}}" method="POST" enctype="multipart/form-data">
                                                     <div class="modal-body">
                                                         {{ csrf_field() }}
                                                         <div class="form-group">
@@ -246,7 +286,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <div class="form-group d-flex justify-content-end">
-                                                        <a href="/admin/event/delete/{{$event->id}}" class="btn btn-primary">Hapus</a>
+                                                        <a href="/club/event/delete/{{$event->id}}" class="btn btn-primary">Hapus</a>
                                                         <button class="btn btn-secondary" type="button"
                                                         data-dismiss="modal">Batal</button>
                                                     </div>
