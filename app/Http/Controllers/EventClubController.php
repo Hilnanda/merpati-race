@@ -14,6 +14,7 @@ use App\EventResults;
 use App\EventParticipants;
 use App\CLubMember;
 use App\TeamMembers;
+use App\Clubs;
 use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Storage;
@@ -31,6 +32,8 @@ class EventClubController extends Controller
     public function index($id)
     {
         //
+        $clubs= Clubs::where('id',$id)
+        ->first();
         $title = 'Lomba Club';
         $events = Events::with($this->relationships)
         ->where('branch_event', 'Club')
@@ -96,7 +99,7 @@ class EventClubController extends Controller
         }
 
         return view('subscribed.pages.club_lihat_event', 
-            compact('event_clubs','data_medsos','data_footer','users','events','current_datetime','title')
+            compact('id','clubs','event_clubs','data_medsos','data_footer','users','events','current_datetime','title')
         );
     }
 
