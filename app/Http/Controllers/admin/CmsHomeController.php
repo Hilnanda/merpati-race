@@ -142,11 +142,23 @@ class CmsHomeController extends Controller
 
         return back()->with('Sukses','Berhasil mengubah data!');
     }
+
+
     public function header_update_title(Request $request){
         // $header = ::find($request->id);
         DB::table('cms_header')->update(['name_website' => $request->name_website]);
         return back()->with('Sukses','Berhasil mengubah data!');
     }
+
+
+    // about us
+    public function about_us()
+    {
+        
+        return view('admin.pages.cms.cms-about-us');
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

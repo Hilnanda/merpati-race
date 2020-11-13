@@ -74,6 +74,10 @@ Route::prefix('admin')
         //user 
         Route::get('/user', 'ListUserController@index')->name('list-user');
 
+        // about us
+        Route::get('/cms-about-us', 'CmsHomeController@about_us')->name('cms-about-us');
+
+
         // kelompok untuk cms
         // http admin/cms/...
         Route::prefix('cms')
@@ -158,6 +162,9 @@ Route::middleware('is_subscribed')->group(function () {
     Route::post('/pigeons/edit','PigeonsController@update');
     Route::get('/pigeons/delete/{id}','PigeonsController@destroy');
     Route::get('/pigeons/detail/{id}','PigeonsController@detail');
+
+    //one loft race
+    Route::get('/one_loft_race','OneLoft@index');
 
     });
 

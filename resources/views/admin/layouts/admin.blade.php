@@ -160,7 +160,7 @@
                         </a>
                         <ul class="treeview-menu">
                             <li class="{{ (request()->is('admin/cms/cms-header*')) ? 'active' : '' }}"><a href="{{ route('cms-header-dashboard') }}"><i class="fa fa-circle-o"></i> Module Header</a></li>
-                            <li class="{{ (request()->is('admin/cms/cms-content*')) ? 'active' : '' }}"><a href="{{ route('cms-content-dashboard') }}"><i class="fa fa-circle-o"></i> Module Content</a></li>
+                            {{-- <li class="{{ (request()->is('admin/cms/cms-content*')) ? 'active' : '' }}"><a href="{{ route('cms-content-dashboard') }}"><i class="fa fa-circle-o"></i> Module Content</a></li> --}}
                             <li class="{{ (request()->is('admin/cms/cms-footer*')) ? 'active' : '' }}"><a href="{{ route('cms-footer-dashboard') }}"><i class="fa fa-circle-o"></i> Module Footer</a></li>
                         </ul>
                     </li>
@@ -181,6 +181,13 @@
                     <li class="{{ (request()->is('admin/news*')) ? 'active' : '' }}">
                         <a href="{{ route('news-admin') }}">
                             <i class="fa fa-newspaper-o"></i> <span>CMS News</span>
+                           
+                        </a>
+                        
+                    </li>
+                    <li class="{{ (request()->is('admin/cms-about-us*')) ? 'active' : '' }}">
+                        <a href="{{ route('cms-about-us') }}">
+                            <i class="fa fa-quote-right" ></i><span>CMS About Us</span>
                            
                         </a>
                         
