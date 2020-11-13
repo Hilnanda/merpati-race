@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class OneLoft extends Controller
+class OneLoftController extends Controller
 {
     public function index()
     {
