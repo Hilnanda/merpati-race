@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\CMSMedsos;
 use App\CMSFooter;
 use App\CMSHeader;
+use App\CMSAbout;
 use Illuminate\Support\Facades\DB;
 
 class CmsHomeController extends Controller
@@ -154,10 +155,32 @@ class CmsHomeController extends Controller
     // about us
     public function about_us()
     {
-        
-        return view('admin.pages.cms.cms-about-us');
+        $about = CMSAbout::all();
+        return view('admin.pages.cms.cms-about-us',compact('about'));
     }
 
+    public function about_us_create(Request $request)
+    {
+        CMSAbout::create($request->all());
+
+        return back()->with('Sukses','Berhasil menambahkan data!');
+    }
+
+    public function about_us_destroy($id)
+    {
+        CMSAbout::find($id)->delete();
+
+        return back()->with('Sukses','Berhasil menghapus data!');
+    }
+
+    public function about_us_update(Request $request)
+    {
+        // dd($request->all());
+        $about = CMSAbout::find($request->id);
+        $about->update($request->all());
+
+        return back()->with('Sukses','Berhasil mengubah data!');
+    }
 
     /**
      * Show the form for creating a new resource.

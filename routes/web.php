@@ -76,7 +76,9 @@ Route::prefix('admin')
 
         // about us
         Route::get('/cms-about-us', 'CmsHomeController@about_us')->name('cms-about-us');
-
+        Route::post('/about-us/create', 'CmsHomeController@about_us_create');
+        Route::post('/about-us/edit', 'CmsHomeController@about_us_update')->name('about-us-edit');
+        Route::get('/about-us/delete/{id}', 'CmsHomeController@about_us_destroy');
 
         // kelompok untuk cms
         // http admin/cms/...
