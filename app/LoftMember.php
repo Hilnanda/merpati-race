@@ -15,10 +15,12 @@ class LoftMember extends Model
         'id_pigeon',
         'is_active'
     ];
+
     public function loft()
     {
         return $this->belongsTo('App\Loft', 'id_loft', 'id');
     }
+    
     public function pigeon()
     {
         return $this->belongsTo('App\Pigeons', 'id_pigeon', 'id');
