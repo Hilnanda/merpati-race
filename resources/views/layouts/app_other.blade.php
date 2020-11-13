@@ -26,7 +26,7 @@
     <!-- ##### Preloader ##### -->
     @include('includes.header')
 
-    <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ asset('img/bg-img/breadcumb4.jpg') }});">
+    <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ url('image/breadcumb-1.jpg') }});">
         <div class="bradcumbContent">
             <h2>@yield('subtitle')</h2>
         </div>

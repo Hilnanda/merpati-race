@@ -71,7 +71,7 @@
             <div class="line"></div>
         </div>
     </section>
-    @endif
+    
     <!-- ##### Hero Area End ##### -->
 
     <!-- ##### About Us Area Start ##### -->
@@ -79,7 +79,15 @@
     <!-- ##### About Us Area End ##### -->
 
     <!-- ##### Upcoming Shows Area Start ##### -->
-    <div class="upcoming-shows-area section-padding-100" id="about">
+    @else
+    <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ url('image/breadcumb-1.jpg') }});">
+        {{-- <div class="bradcumbContent">
+            <h2>List Club</h2>
+        </div> --}}
+    </div>
+    @endif
+    <!-- bg gradients -->
+    <div class="upcoming-shows-area section-padding-100" style="margin-top: -50px" id="about">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -130,7 +138,7 @@
         </div>
     </div>
 
-    <div class="upcoming-shows-area section-padding-100" id="about">
+    {{-- <div class="upcoming-shows-area section-padding-100" id="about">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -152,7 +160,6 @@
                             <div class="featured-shows-content">
                                 <div class="shows-text">
                                     <a href="/pigeons" class="buy-tickets-btn"><h4>Pigeon</h4>
-                                    {{-- <p>January 23</p> --}}
                                     </a>
                                 </div>
                                 <div class="bg-gradients"></div>
@@ -166,7 +173,6 @@
                             <div class="featured-shows-content">
                                 <div class="shows-text">
                                     <a href="/events/index" class="buy-tickets-btn"><h4>Lomba</h4>
-                                        {{-- <p>January 23</p> --}}
                                         </a>
                                 </div>
                                 <div class="bg-gradients"></div>
@@ -180,7 +186,6 @@
                             <div class="featured-shows-content">
                                 <div class="shows-text">
                                     <a href="/results" class="buy-tickets-btn"><h4>Hasil</h4>
-                                        {{-- <p>January 23</p> --}}
                                         </a>
                                 </div>
                                 <div class="bg-gradients"></div>
@@ -219,7 +224,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- ##### Upcoming Shows Area End ##### -->
 
     <!-- ##### Music Player Area Start ##### -->
@@ -717,13 +722,13 @@
     <!-- ##### Music Player Area End ##### -->
 
     <!-- ##### Featured Album Area Start ##### -->
+    @if (count($news)!=0)
     <div class="featured-album-area section-padding-100 clearfix">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
                     <div class="section-heading dark">
                         <h2 style="color: white">Berita Terkini</h2>
-                        {{-- <h6>Sed porta cursus enim, vitae maximus felis luctus iaculis.</h6> --}}
                     </div>
                 </div>
             </div>
@@ -751,6 +756,8 @@
             </div>
         </div>
     </div>
+    @endif
+    
     <!-- ##### Featured Album Area End ##### -->
 
     <!-- ##### Music Artists Area Start ##### -->
