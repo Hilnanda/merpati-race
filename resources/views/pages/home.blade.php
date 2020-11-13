@@ -98,7 +98,7 @@
 							
 							<div class="featured-shows-content">
                                 <div class="shows-text">
-                                    <a href="/results" class="buy-tickets-btn"><h4>One Loft Race</h4>
+                                    <a href="/one_loft_race" class="buy-tickets-btn"><h4>One Loft Race</h4>
                                         {{-- <p>January 23</p> --}}
                                         </a>
                                 </div>
