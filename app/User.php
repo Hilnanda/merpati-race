@@ -17,7 +17,15 @@ class User extends Authenticatable
      */
     protected $primaryKey = 'id';
     protected $fillable = [
-        'username', 'email', 'password', 'name', 'type_user', 'is_active'
+        'username',
+        'email',
+        'password',
+        'name',
+        'name_loft',
+        'lng_loft',
+        'lat_loft',
+        'type_user',
+        'is_active'
     ];
 
     /**
@@ -36,6 +44,8 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'lng_loft' => 'double',
+        'lat_loft' => 'double',
     ];
 
     public function clubs()
