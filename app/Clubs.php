@@ -13,8 +13,6 @@ class Clubs extends Model
     protected $fillable = [
         'id_user',
         'name_club',
-        'lat_club',
-        'lng_club',
         'address_club',
         'manager_club'
     ];

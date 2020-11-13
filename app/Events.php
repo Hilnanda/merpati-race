@@ -16,6 +16,7 @@ class Events extends Model
         'info_event',
         'hotspot_length_event',
         'branch_event',
+        'id_loft',
         'id_club',
         'id_user',
         'category_event',
@@ -41,6 +42,11 @@ class Events extends Model
     public function club()
     {
         return $this->belongsTo('App\Clubs', 'id_club','id');
+    }
+
+    public function loft()
+    {
+        return $this->belongsTo('App\Loft', 'id_loft','id');
     }
 
     public function user()

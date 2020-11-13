@@ -18,7 +18,7 @@ class CreateLoftsTable extends Migration
             $table->index('id_user');
             $table->foreignId('id_user')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('name_loft');
-            $table->string('logo_event')->nullable();
+            $table->string('logo_loft')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
