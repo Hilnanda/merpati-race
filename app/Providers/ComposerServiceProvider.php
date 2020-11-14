@@ -33,6 +33,9 @@ class ComposerServiceProvider extends ServiceProvider
             $view->with('data_medsos', CMSMedsos::all());
             $view->with('data_footer', CMSFooter::all());
             $view->with('data_header', CMSHeader::all());
+            if(isset(auth()->user()->id)){
+                $view->with('auth', auth()->user()->id);
+            }
             $view->with('nama_website', CMSHeader::select('name_website')->distinct()->get());
         });
     }

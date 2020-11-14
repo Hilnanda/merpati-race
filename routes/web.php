@@ -127,6 +127,7 @@ Route::middleware('is_subscribed')->group(function () {
     Route::get('/club/acc/{id}','ClubController@acc_club')->name('acc_club');
     Route::get('/club/acc/{id}/delete','ClubController@del_club')->name('del_club');
     Route::get('/club/delete-operator/{id}', 'ClubController@destroy_operator');
+    Route::get('/club/join_loft_club/{id}/{id_club}', 'ClubController@join_loft_club');
     Route::post('/club/add_lomba/{id}','EventClubController@store');
     
     // Event Hotspot club   

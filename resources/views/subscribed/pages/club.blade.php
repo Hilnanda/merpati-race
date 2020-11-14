@@ -66,8 +66,7 @@
                     <th>Pemilik Club</th>
                     <th>Lokasi Mulai</th>
                     <th>Alamat</th>
-                    <th>ID</th>
-                    <th>Pigeon</th>                   
+                    <th>Loft Saya</th>
                     <th>Aksi</th>
                 </thead>
                 <tbody>                   
@@ -83,8 +82,7 @@
                         <td>{{ $item->club->user->name }}</td>
                         <td>({{ $item->club->lat_club }}), ({{ $item->club->lng_club }})</td>
                         <td>{{ $item->club->address_club }}</td>
-                        <td>{{ $item->pigeon->uid_pigeon }}</td>
-                        <td>{{ $item->pigeon->name_pigeon }}</td>
+                        {{-- <td>{{ $item->user->loft->name_loft }}</td> --}}
                         <td class="action-link">
                             <a href="#" title="Live Results" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
                             <a href="club/{{$item->id_club}}/detail_ikut" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
@@ -119,57 +117,22 @@
                     @endif --}}
                     @foreach($club_id as $items)
                     <tr>
-                        <td>{{ $loop->index+1 }}</td>
+                        <td>{{ $loop->index+1 }} </td>
                         <td>{{ $items->name_club }}</td>
                         <td>{{ date('d F Y  H:i:s', strtotime($items->created_at)) }}</td>
                         <td class="action-link">
-                            <a href="/club/{{$items->id}}/detail_belum_ikut" title="Details" class="mx-1"><i class="fa fa-list-alt"
+
+                                <a href="/club/{{$items->id}}/detail_belum_ikut" title="Details" class="mx-1"><i class="fa fa-list-alt"
                                     aria-hidden="true"></i></a>
                             {{-- <a href="#" title="Join" class="mx-1"><i class="fa fa-sign-in"
                                     aria-hidden="true"></i></a> --}}
-                                    @if (count($loft)!=0)                                   
-                                    <a href="#tambah_jenisstandar{{ $items->id }}"  data-toggle="modal"
-                                        data-target="#tambah_jenisstandar{{ $items->id }}"><i class="fa fa-sign-in"
+                                    <a href="/club/join_loft_club/{{$items->id}}/{{ $auth }}" title="Join" class="mx-1"><i class="fa fa-sign-in"
                                         aria-hidden="true"></i></a>
-                                    @endif
-                            <div class="modal fade" id="tambah_jenisstandar{{ $items->id }}" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Join club</h5>
-                                            <button class="close" type="button" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="/club/join" method="POST">
-                                                {{ csrf_field() }}
-                                                <div class="form-group">
-                                                    <label for="">Pigeon</label>
-                                                    <input type="hidden" name="id_club" value="{{ $items->id }}">
-                                                    <select name="id_pigeon" class="form-control" required>
-                                                        <option value="">-- Pilih Loft --</option>
-                                                        @foreach($loft as $kandang)
-                                                        @if ($items->id!=$kandang->id_club)
-                                                        <option value="{{$kandang->id}}">{{$kandang->uid_pigeon}} - {{$kandang->name_pigeon}}</option>
-                                                        @endif
-                                                        @endforeach
-                                                      </select>                                                     
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="submit" value="Simpan" class="btn btn-primary">
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button class="btn btn-secondary" type="button"
-                                                data-dismiss="modal">Cancel</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    {{-- <a href="#tambah_jenisstandar{{ $items->id }}"  data-toggle="modal"
+                                        data-target="#tambah_jenisstandar{{ $items->id }}"><i class="fa fa-sign-in"
+                                        aria-hidden="true"></i></a> --}}
+                            
+                            
                         </td>
                     </tr>
                     @endforeach
