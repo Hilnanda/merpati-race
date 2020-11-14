@@ -32,6 +32,11 @@ class Clubs extends Model
         return $this->hasMany('App\ClubMember','id_club');
     }
 
+    public function pigeons()
+    {
+        return $this->hasMany('App\Pigeons','id_club');
+    }
+
     public function operator_clubs()
     {
         return $this->hasMany('App\OperatorClubs','id_club');

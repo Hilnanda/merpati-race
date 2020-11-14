@@ -28,8 +28,8 @@ class ClubMember extends Model
         return $this->belongsTo('App\User', 'id_user', 'id');
     }
 
-    public function pigeon()
-    {
-        return $this->belongsTo('App\Pigeons', 'id_pigeon', 'id');
-    }
+    // public function pigeon()
+    // {
+    //     return $this->belongsTo('App\Pigeons', 'id_pigeon', 'id');
+    // }
 }
