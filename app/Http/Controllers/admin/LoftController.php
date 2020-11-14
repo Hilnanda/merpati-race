@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class LoftController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -16,9 +17,14 @@ class LoftController extends Controller
      */
     public function index()
     {
-        $club = Clubs::all();
-        $user = User::all();
-        return view('admin.pages.list-club', ['clubs' => $club, 'users' => $user]);
+        $lofts = Loft::orderBy('lofts.id', 'desc')
+            ->get();
+
+        $users = User::all();
+
+        return view('admin.pages.list-loft', 
+            compact('lofts', 'users')
+        );
     }
 
     /**
@@ -28,19 +34,7 @@ class LoftController extends Controller
      */
     public function create(Request $request)
     {
-        // Clubs::create($request->all());
-        $Clubs = new Clubs;
-
-        $Clubs->id_user = $request->id_user;
-        $Clubs->name_club = $request->name_club;
-        $Clubs->lat_club = $request->lat_club;
-        $Clubs->lng_club = $request->lng_club;
-        $Clubs->address_club = $request->address_club;
-        $Clubs->manager_club = $request->id_user;
-
-        $Clubs->save();
-
-        return back()->with('Sukses','Berhasil menambahkan data!');
+        // 
     }
 
     /**
@@ -51,7 +45,18 @@ class LoftController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $this->validate($request, [
+            'logo_loft' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $data['logo_loft'] = 'loft-' . time().'.'.$request->logo_loft->getClientOriginalExtension();
+        $request->logo_loft->move(public_path('image'), $data['logo_loft']);
+
+        Loft::create($data);
+
+        return back()->with('Sukses','Berhasil menambahkan data!');
     }
 
     /**
@@ -73,10 +78,7 @@ class LoftController extends Controller
      */
     public function edit(Request $request)
     {
-        $club = Clubs::find($request->id);
-        $club->update($request->all());
-
-        return back()->with('Sukses','Berhasil mengubah data!');
+        // 
     }
 
     /**
@@ -88,7 +90,23 @@ class LoftController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $loft = Loft::find($id);
+        $data = $request->all();
+
+        if ($request->logo_loft == null) {
+            $data['logo_loft'] = $loft->logo_loft;
+        } else {
+            $this->validate($request, [
+                'logo_loft' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+
+            $data['logo_loft'] = 'loft-' . time().'.'.$request->logo_loft->getClientOriginalExtension();
+            $request->logo_loft->move(public_path('image'), $data['logo_loft']);
+        }
+
+        $loft->update($data);
+
+        return back()->with('Sukses','Berhasil mengubah data!');
     }
 
     /**
@@ -99,7 +117,7 @@ class LoftController extends Controller
      */
     public function destroy($id)
     {
-        Clubs::find($id)->delete();
+        Loft::find($id)->delete();
 
         return back()->with('Sukses','Berhasil menghapus data!');
     }

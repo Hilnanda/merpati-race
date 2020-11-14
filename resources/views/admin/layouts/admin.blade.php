@@ -149,6 +149,12 @@
                             <i class="fa fa-users"></i> <span>Team</span>
                         </a>
                     </li>
+                    <li class="header">One Loft Race</li>
+                    <li class="{{ (request()->is('admin/list-loft*')) ? 'active' : '' }}">
+                        <a href="{{ route('list-loft') }}">
+                            <i class="fa fa-star"></i> <span>Loft</span>
+                        </a>
+                    </li>
                     <li class="header">COMPANY PROFILE</li>
                     <li class="treeview {{ (request()->is('admin/cms/*')) ? 'active menu-open' : '' }}">
                         <a href="#">

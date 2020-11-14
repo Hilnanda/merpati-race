@@ -52,6 +52,12 @@ Route::prefix('admin')
         Route::post('/event/update-hotspot', 'EventController@updateHotspot');
         Route::get('/event/delete-hotspot/{id}/{id_event}', 'EventController@destroyHotspot');
 
+        // Loft
+        Route::get('/list-loft', 'LoftController@index')->name('list-loft');
+        Route::post('/loft/create', 'LoftController@store');
+        Route::post('/loft/update/{id}', 'LoftController@update');
+        Route::get('/loft/delete/{id}', 'LoftController@destroy');
+
         // contact
         Route::get('/list-contact', 'ContactController@index')->name('list-contact');
         Route::post('/contact/create', 'ContactController@create');

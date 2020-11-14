@@ -308,7 +308,7 @@ Dashboard Panitia
                                                 </div>
                                                 <div class="modal-body">
                                                     {{ csrf_field() }}
-                                                    Apakah anda yakin ingin menghapus {{ $event->name_event }}
+                                                    Apakah anda yakin ingin menghapus {{ $event->name_event }}?
                                                 </div>
                                                 <div class="modal-footer">
                                                     <div class="form-group d-flex justify-content-end">
