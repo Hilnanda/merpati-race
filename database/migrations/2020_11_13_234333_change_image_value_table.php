@@ -28,7 +28,6 @@ class ChangeImageValueTable extends Migration
     {
         Schema::table('cms_about', function (Blueprint $table) {
             $table->string('image_about')->change();
-            
         });
     }
 }

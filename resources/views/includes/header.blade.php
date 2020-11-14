@@ -14,11 +14,14 @@
                 <nav class="classy-navbar justify-content-between" id="musicaNav">
 
                     <!-- Nav brand -->
+                    @if (count($nama_website)!=0)
                     @foreach ($nama_website as $item)
                     <a href="/" class="nav-brand"><h3 style="color: white">{{ $item->name_website }}</h3></a>
 
                     @endforeach
-
+                    @else
+                    <a href="/" class="nav-brand"><h3 style="color: white">Nama Website</h3></a>
+                    @endif
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
                         <span class="navbarToggler"><span></span><span></span><span></span></span>

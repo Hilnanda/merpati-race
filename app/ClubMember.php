@@ -13,13 +13,21 @@ class ClubMember extends Model
     //deklarasi field yang bisa diisi pada table
     protected $fillable = [
         'id_club',
+        'id_user',
         'id_pigeon',
         'is_active'
     ];
+
     public function club()
     {
         return $this->belongsTo('App\Clubs', 'id_club', 'id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'id_user', 'id');
+    }
+
     public function pigeon()
     {
         return $this->belongsTo('App\Pigeons', 'id_pigeon', 'id');
