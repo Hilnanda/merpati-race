@@ -21,6 +21,9 @@
     <section class="hero-area">
         <div class="hero-slides owl-carousel">
             <!-- Single Hero Slide -->
+            @if (count($data_header)!=0)
+                
+            
             @foreach ($data_header as $item)
 
             <div class="single-hero-slide d-flex align-items-center justify-content-center">
@@ -35,6 +38,32 @@
                 <h2 class="big-text">{{ $item->name_corousel }}</h2>
             </div>
             @endforeach
+            @else
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <!-- Slide Img -->
+                <div class="slide-img bg-img" style="background-image: url({{ url('image/burung2.jpg') }});"></div>
+                <!-- Slide Content -->
+                <div class="hero-slides-content text-center">
+                    <h2 data-animation="fadeInUp" data-delay="100ms">Pigeon Time <span>Pigeon Time</span></h2>
+                    <p data-animation="fadeInUp" data-delay="300ms">Pigeon Time</p>
+                </div>
+                <!-- Big Text -->
+                <h2 class="big-text">Pigeon Time</h2>
+            </div>
+
+            <!-- Single Hero Slide -->
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <!-- Slide Img -->
+                <div class="slide-img bg-img" style="background-image: url({{ url('image/burung3.jpg') }});"></div>
+                <!-- Slide Content -->
+                <div class="hero-slides-content text-center">
+                    <h2 data-animation="fadeInUp" data-delay="100ms">Pigeon Time <span>Pigeon Time</span></h2>
+                    <p data-animation="fadeInUp" data-delay="300ms">Pigeon Time</p>
+                </div>
+                <!-- Big Text -->
+                <h2 class="big-text">Pigeon Time</h2>
+            </div>
+            @endif
             <!-- Single Hero Slide -->
             {{-- <div class="single-hero-slide d-flex align-items-center justify-content-center">
                 <!-- Slide Img -->
