@@ -330,14 +330,16 @@ class ClubController extends Controller
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
 
-        $acc = DB::table('loft_members')
-        ->join('lofts','loft_members.id_loft','=','lofts.id')
-        ->join('pigeons', 'pigeons.id', '=', 'club_members.id_pigeon')
-        ->join('users', 'users.id', '=', 'pigeons.id_user')
-        ->select('club_members.*','pigeons.*','clubs.*','users.*','club_members.id as id_club_is_active_0')
-        ->where('club_members.is_active',0)
-        ->where('clubs.id', $id)
-        ->get();
+        // $acc = DB::table('club_members')
+        // ->join('lofts','loft_members.id_loft','=','lofts.id')
+        // ->join('pigeons', 'pigeons.id', '=', 'club_members.id_pigeon')
+        // ->join('users', 'users.id', '=', 'pigeons.id_user')
+        // ->select('club_members.*','pigeons.*','clubs.*','users.*','club_members.id as id_club_is_active_0')
+        // ->where('club_members.is_active',0)
+        // ->where('clubs.id', $id)
+        // ->get();
+
+        $acc = ClubMember::where('club_members.is_active',0)->get();
 
         // dd($acc);
        return view('subscribed.pages.club_acc_gabung',compact('acc','akun','users','data_medsos','data_footer'));
