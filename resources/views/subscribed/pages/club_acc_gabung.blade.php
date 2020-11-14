@@ -36,7 +36,7 @@
                         <td colspan="8">-- Tidak ada Club yang belum Diikuti --</td>
                     </tr>
                     @endif --}}
-                    @foreach($acc as $item)
+                    @foreach($acc as $item) 
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
                         <td>{{ $item->uid_pigeon }}</td>

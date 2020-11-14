@@ -78,11 +78,7 @@ class ClubController extends Controller
         ->first();        
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
-        $list_pigeons = ClubMember::
-        // ->join('clubs','club_members.id_club','=','clubs.id')
-        // ->join('pigeons','club_members.id_pigeon','=','pigeons.id')
-        // ->join('users','users.id','pigeons.id_user')
-        where('id_club', $id)->get();
+        $list_pigeons = ClubMember::where('id_club', $id)->get();
 
         $clubku = Clubs::where('id','=',$id)        
         ->get();
@@ -334,14 +330,16 @@ class ClubController extends Controller
         $users = User::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
-        $acc = DB::table('club_members')
-        ->join('clubs','club_members.id_club','=','clubs.id')
+
+        $acc = DB::table('loft_members')
+        ->join('lofts','loft_members.id_loft','=','lofts.id')
         ->join('pigeons', 'pigeons.id', '=', 'club_members.id_pigeon')
         ->join('users', 'users.id', '=', 'pigeons.id_user')
         ->select('club_members.*','pigeons.*','clubs.*','users.*','club_members.id as id_club_is_active_0')
         ->where('club_members.is_active',0)
         ->where('clubs.id', $id)
         ->get();
+
         // dd($acc);
        return view('subscribed.pages.club_acc_gabung',compact('acc','akun','users','data_medsos','data_footer'));
     }
