@@ -127,7 +127,7 @@
                                     aria-hidden="true"></i></a>
                             {{-- <a href="#" title="Join" class="mx-1"><i class="fa fa-sign-in"
                                     aria-hidden="true"></i></a> --}}
-                                    @if (count($pigeon)!=0)                                   
+                                    @if (count($loft)!=0)                                   
                                     <a href="#tambah_jenisstandar{{ $items->id }}"  data-toggle="modal"
                                         data-target="#tambah_jenisstandar{{ $items->id }}"><i class="fa fa-sign-in"
                                         aria-hidden="true"></i></a>
@@ -151,9 +151,9 @@
                                                     <input type="hidden" name="id_club" value="{{ $items->id }}">
                                                     <select name="id_pigeon" class="form-control" required>
                                                         <option value="">-- Pilih Loft --</option>
-                                                        @foreach($pigeon as $pigeons)
-                                                        @if ($items->id!=$pigeons->id_club)
-                                                        <option value="{{$pigeons->id}}">{{$pigeons->uid_pigeon}} - {{$pigeons->name_pigeon}}</option>
+                                                        @foreach($loft as $kandang)
+                                                        @if ($items->id!=$kandang->id_club)
+                                                        <option value="{{$kandang->id}}">{{$kandang->uid_pigeon}} - {{$kandang->name_pigeon}}</option>
                                                         @endif
                                                         @endforeach
                                                       </select>                                                     

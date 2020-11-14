@@ -38,9 +38,8 @@ class ClubController extends Controller
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
         $auth_session = auth()->user()->id;
-        $loft = Loft::where('pigeons.is_active', 1)
-        ->where('id_user', auth()->user()->id)
-        ->whereRaw('pigeons.id NOT IN (SELECT id_pigeon FROM club_members)')
+        $loft = Loft::where('id_user', auth()->user()->id)
+        // ->whereRaw('users.id NOT IN (SELECT id_user FROM club_members)')
         ->get();
         $clubku = Clubs::where('id_user', auth()->user()->id)
         ->orwhere('manager_club',auth()->user()->id)
