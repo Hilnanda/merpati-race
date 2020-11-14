@@ -166,7 +166,7 @@ Route::middleware('is_subscribed')->group(function () {
     Route::get('/pigeons/detail/{id}','PigeonsController@detail');
 
     //one loft race
-    Route::get('/one_loft_race','OneLoftController@index');
+    Route::get('/one_loft_race','LoftController@index');
 
     });
 
