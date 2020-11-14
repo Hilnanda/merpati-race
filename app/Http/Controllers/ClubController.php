@@ -9,6 +9,7 @@ use App\CMSNews;
 use App\CMSContact;
 use App\ClubMember;
 use App\Events;
+use App\Loft;
 use App\OperatorClubs;
 use DB;
 use App\Pigeons;
@@ -37,8 +38,8 @@ class ClubController extends Controller
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
         $auth_session = auth()->user()->id;
-        $pigeon = Pigeons::where('pigeons.is_active', 1)
-        ->where('pigeons.id_user', auth()->user()->id)
+        $loft = Loft::where('pigeons.is_active', 1)
+        ->where('id_user', auth()->user()->id)
         ->whereRaw('pigeons.id NOT IN (SELECT id_pigeon FROM club_members)')
         ->get();
         $clubku = Clubs::where('id_user', auth()->user()->id)
@@ -62,7 +63,7 @@ class ClubController extends Controller
        // dd($club_ikut);
        $club_belum_ikut = Clubs::select('clubs.*');
         return view('subscribed.pages.club',
-        compact('users','club','data_medsos','data_footer','club_id','club_ikut','club_belum_ikut','clubku','pigeon')
+        compact('users','club','data_medsos','data_footer','club_id','club_ikut','club_belum_ikut','clubku','loft')
         );
     }
 

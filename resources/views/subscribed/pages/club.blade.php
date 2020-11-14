@@ -150,7 +150,7 @@
                                                     <label for="">Pigeon</label>
                                                     <input type="hidden" name="id_club" value="{{ $items->id }}">
                                                     <select name="id_pigeon" class="form-control" required>
-                                                        <option value="">-- Pilih Pigeon --</option>
+                                                        <option value="">-- Pilih Loft --</option>
                                                         @foreach($pigeon as $pigeons)
                                                         @if ($items->id!=$pigeons->id_club)
                                                         <option value="{{$pigeons->id}}">{{$pigeons->uid_pigeon}} - {{$pigeons->name_pigeon}}</option>
