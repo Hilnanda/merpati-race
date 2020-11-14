@@ -52,22 +52,32 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Clubs','id');
     }
+
+    public function club_members()
+    {
+        return $this->hasMany('App\ClubMember','id');
+    }
+
     public function manager_club()
     {
         return $this->hasMany('App\Clubs','id');
     }
+
     public function team()
     {
         return $this->hasMany('App\Team','id');
     }
+
     public function pigeons()
     {
         return $this->hasMany('App\Pigeons','id');
     }
+
     public function operator_clubs()
     {
         return $this->hasMany('App\OperatorClubs','id');
     }
+
     public function event()
     {
         return $this->hasMany('App\Events','id');
