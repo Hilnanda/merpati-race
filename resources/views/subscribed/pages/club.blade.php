@@ -82,7 +82,7 @@
                         <td>{{ $item->club->user->name }}</td>
                         <td>({{ $item->club->lat_club }}), ({{ $item->club->lng_club }})</td>
                         <td>{{ $item->club->address_club }}</td>
-                        {{-- <td>{{ $item->user->loft->name_loft }}</td> --}}
+                        <td>{{ $item->user->name_loft }}</td>
                         <td class="action-link">
                             <a href="#" title="Live Results" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
                             <a href="club/{{$item->id_club}}/detail_ikut" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>

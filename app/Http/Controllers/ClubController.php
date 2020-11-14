@@ -42,14 +42,13 @@ class ClubController extends Controller
         // ->where('pigeons.id_user', auth()->user()->id)
         // ->whereRaw('pigeons.id NOT IN (SELECT id_pigeon FROM club_members)')
         // ->get();
-        
         $clubku = Clubs::where('id_user', auth()->user()->id)
         ->orwhere('manager_club',auth()->user()->id)
         ->get();
 
         $club_id = DB::table('clubs')
         
-        ->whereRaw('clubs.id NOT IN (SELECT id_club FROM club_members)')
+        ->whereRaw("id NOT IN (SELECT id_club FROM club_members where id_user = $auth_session)")
         ->orderBy('name_club','asc')
         ->get();
         

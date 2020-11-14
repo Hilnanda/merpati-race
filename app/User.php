@@ -82,9 +82,6 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Events','id');
     }
-    public function loft()
-    {
-        return $this->hasMany('App\Loft','id');
-    }
+    
     
 }
