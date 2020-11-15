@@ -1,7 +1,7 @@
 @extends('one_loft_race.layout.app_one')
 
 @section('title')
-    One Loft Race
+    {{ $title }}
 @endsection
 
 @section('content')
@@ -23,31 +23,37 @@
             <table id="table_one" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
-                    <th>Nama Club</th>
-                    <th>Manajer Club</th>
-                    <th>Lokasi Mulai</th>
-                    <th>Alamat</th>
-                    <th>Aksi</th>
+                    <th>Nama</th>
+                    <th>Logo</th>
+                    <th>Lomba</th>
+                    <th>Waktu mulai</th>
+                    <th>Titik mulai</th>
+                    <th>Jarak</th>
+                    <th>Status</th>
+                    <th>Sudah sampai</th>
+                    <th></th>
                 </thead>
                 <tbody>
-                    {{-- @if(count($clubku) == 0)
+                    @if(count($loft_owns) == 0)
                     <tr class="text-center">
-                        <td colspan="8">-- Tidak ada Club yang belum Diikuti --</td>
+                        <td colspan="10">-- Tidak ada Club yang belum Diikuti --</td>
                     </tr>
-                    @endif --}}
-                    {{-- @foreach($clubku as $item)
+                    @endif
+                    @foreach($loft_owns as $loft)
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
-                        <td>{{ $item->name_club }}</td>
-                        <td>{{ $item->manager->name }}</td>
-                        <td>({{ $item->lat_club }}), ({{ $item->lng_club }})</td>
-                        <td>{{ $item->address_club }}</td>
+                        <td>{{ $loft->name_loft }}</td>
+                        <td><img style="height: 80px" src="{{ asset('image/'.$loft->logo_loft.'') }}"></td>
+                        <td>{{ count($loft->event) > 0 ? $loft->event[0]->name_event : '-' }}</td>
+                        <td>{{ count($loft->event) > 0 && $loft->event[0] ? $loft->event[0]->event_hotspot[0]->release_time_hotspot : '-' }}</td>
+                        <td>{{ count($loft->event) > 0 && $loft->event[0] ? $loft->event[0]->address_event : '-' }}</td>
+                        <td>{{ $loft->distance ? round($loft->distance, 2) . ' Km' : '-' }}</td>
                         <td class="action-link">
-                            <a href="/club/lihat_data/{{$item->id}}" title="Event Club" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
-                            <a href="club/{{$item->id}}/detail_saya" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
+                            <a href="/club/lihat_data/{{$loft->id}}" title="Event Club" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+                            <a href="club/{{$loft->id}}/detail_saya" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
                         </td>
                     </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -57,7 +63,7 @@
 <div class="row mt-5 px-5">
     <div class="col-lg-12">
         <!-- /.box-header -->
-        <h4>Club Yang Di Ikuti</h4>
+        <h4>Loft Yang Di Ikuti</h4>
         <div class="box-body">
             <table id="table_two" class="table table-bordered table-striped">
                 <thead>
