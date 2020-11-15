@@ -110,6 +110,7 @@
                 <thead>
                     <th>No.</th>
                     <th>Nama Club</th>
+                    <th>Pemilik Club</th>
                     <th>Tanggal Club</th>
                     
                                       
@@ -125,6 +126,7 @@
                     <tr>
                         <td>{{ $loop->index+1 }} </td>
                         <td>{{ $items->name_club }}</td>
+                        <td>{{ $items->manager->name }}</td>
                         <td>{{ date('d F Y  H:i:s', strtotime($items->created_at)) }}</td>
                         <td class="action-link">
 
