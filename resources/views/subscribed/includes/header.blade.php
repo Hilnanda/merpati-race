@@ -38,7 +38,7 @@
                                         <li><a href="{{ route('contact') }}">Contact</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="/pigeons">Pigeon</a></li>
+                                <li><a href="/pigeons">My Loft</a></li>
                                 <li><a href="/events/index">Lomba</a></li>
                                 <li><a href="">Hasil</a></li>
                                 <li><a href="/club">Club</a></li>

@@ -67,6 +67,7 @@
                     <th>Lokasi Mulai</th>
                     <th>Alamat</th>
                     <th>Loft Saya</th>
+                    <th>Tgl Join</th>
                     <th>Aksi</th>
                 </thead>
                 <tbody>                   
@@ -82,11 +83,16 @@
                         <td>{{ $item->club->user->name }}</td>
                         <td>({{ $item->club->lat_club }}), ({{ $item->club->lng_club }})</td>
                         <td>{{ $item->club->address_club }}</td>
-                        {{-- <td>{{ $item->user->loft->name_loft }}</td> --}}
+                        <td>{{ $item->user->name_loft }}</td>
+                        <td>{{ date('d F Y  H:i:s', strtotime($item->created_at)) }}</td>                        @if ($item->is_active == 0)
+                        <td>Pending</td>
+                        @else
                         <td class="action-link">
                             <a href="#" title="Live Results" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
                             <a href="club/{{$item->id_club}}/detail_ikut" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
                         </td>
+                        @endif
+                        
                     </tr>
                     @endforeach
                 </tbody>
@@ -104,6 +110,7 @@
                 <thead>
                     <th>No.</th>
                     <th>Nama Club</th>
+                    <th>Pemilik Club</th>
                     <th>Tanggal Club</th>
                     
                                       
@@ -119,22 +126,57 @@
                     <tr>
                         <td>{{ $loop->index+1 }} </td>
                         <td>{{ $items->name_club }}</td>
+                        <td>{{ $items->manager->name }}</td>
                         <td>{{ date('d F Y  H:i:s', strtotime($items->created_at)) }}</td>
                         <td class="action-link">
 
-                                <a href="/club/{{$items->id}}/detail_belum_ikut" title="Details" class="mx-1"><i class="fa fa-list-alt"
-                                    aria-hidden="true"></i></a>
+                                {{-- <a href="/club/{{$items->id}}/detail_belum_ikut" title="Details" class="mx-1"><i class="fa fa-list-alt"
+                                    aria-hidden="true"></i></a> --}}
+                                    <a href="#tambah_jenisstandar{{ $items->id }}"  data-toggle="modal"
+                                        data-target="#tambah_jenisstandar{{ $items->id }}"><i class="fa fa-list-alt"
+                                        aria-hidden="true"></i></a>
                             {{-- <a href="#" title="Join" class="mx-1"><i class="fa fa-sign-in"
                                     aria-hidden="true"></i></a> --}}
                                     <a href="/club/join_loft_club/{{$items->id}}/{{ $auth }}" title="Join" class="mx-1"><i class="fa fa-sign-in"
                                         aria-hidden="true"></i></a>
-                                    {{-- <a href="#tambah_jenisstandar{{ $items->id }}"  data-toggle="modal"
-                                        data-target="#tambah_jenisstandar{{ $items->id }}"><i class="fa fa-sign-in"
-                                        aria-hidden="true"></i></a> --}}
+                                    
                             
                             
                         </td>
                     </tr>
+
+                    <div class="modal fade" id="tambah_jenisstandar{{ $items->id }}" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Club Detail</h5>
+                                    <button class="close" type="button" data-dismiss="modal"
+                                        aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {{-- <form action="/club/join" method="POST">
+                                        {{ csrf_field() }} --}}
+                                        <div class="form-group">
+                                            <p>Nama Club : <b style="color: red">{{ $items->name_club }}</b></p>
+                                            <p>Alamat Club : <b style="color: red">{{ $items->address_club }}</b></p>
+                                            <p>Pemilik Club : <b style="color: red">{{ $items->manager->name }} ({{ $items->manager->username }})</b></p>
+                                        </div>
+            
+                                        
+                                    {{-- </form> --}}
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="/club/join_loft_club/{{$items->id}}/{{ $auth }}" title="Join" class="btn btn-success mx-1">Join</a>
+
+                                    <button class="btn btn-secondary" type="button"
+                                        data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     @endforeach
                 </tbody>
             </table>
