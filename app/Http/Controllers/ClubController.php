@@ -46,12 +46,10 @@ class ClubController extends Controller
         ->orwhere('manager_club',auth()->user()->id)
         ->get();
 
-        $club_id = DB::table('clubs')
-        
-        ->whereRaw("id NOT IN (SELECT id_club FROM club_members where id_user = $auth_session)")
+        $club_id = Clubs::whereRaw("id NOT IN (SELECT id_club FROM club_members where id_user = $auth_session)")
         ->orderBy('name_club','asc')
         ->get();
-        
+        // dd($club_id);
         
         $club_ikut = ClubMember::
         // ->select('clubs.*','users.*','pigeons.*','clubs.id_user as operator_id')
@@ -62,7 +60,7 @@ class ClubController extends Controller
         //     $q->where('id_user', auth()->user()->id);
         //  })
         where('id_user', auth()->user()->id)
-        ->where('is_active', 1)
+        // ->where('is_active', 1)
         ->get();
     //    dd($club_ikut);
        $club_belum_ikut = Clubs::select('clubs.*');
@@ -82,7 +80,7 @@ class ClubController extends Controller
 
         $Clubs->save();
 
-        return back()->with('Sukses','Berhasil menambahkan data!');
+        return back()->with('Sukses','Menunggu Konfirmasi Pemilik Club!');
     }
 
 
