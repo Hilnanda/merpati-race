@@ -137,7 +137,7 @@
                                         aria-hidden="true"></i></a> --}}
                             {{-- <a href="#" title="Join" class="mx-1"><i class="fa fa-sign-in"
                                     aria-hidden="true"></i></a> --}}
-                                    <a href="/club/join_loft_club/{{$items->id}}/{{ $auth }}" title="Join" class="mx-1"><i class="fa fa-sign-in"
+                                    <a href="/club/join_loft_club/{{$items->id}}/{{ $auth }}" title="Join" class="mx-1 join"><i class="fa fa-sign-in"
                                         aria-hidden="true"></i></a>
                                     
                             

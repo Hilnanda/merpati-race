@@ -18,7 +18,7 @@
     <div class="row mt-5 px-5">
         <div class="col-lg-12">
             <!-- /.box-header -->
-            <h4>Detail Club Saya</h4>            
+            {{-- <h4>Detail Club Saya</h4>             --}}
             <div class="box-body">
                 <div class="row" style="margin-bottom: 20px">
                     <div class="col-12">
@@ -188,6 +188,7 @@
                             </div>
                             <div class="col-6">
                                     <h4>Club Details</h4>
+                                    {{-- <p>Nama club : <b style="color: red">{{ $clubs->id }}</b></p> --}}
                                     <p>Nama club : <b style="color: red">{{ $clubs->name_club }}</b></p>
                                     <p>Alamat club : <b style="color: red">{{ $clubs->address_club }}</b></p>
                                     {{-- <p>Posisi club : <b style="color: red">{{ $clubs->lat_club }} , {{ $clubs->lng_club }}</b></p> --}}
@@ -234,9 +235,9 @@
                                             <td>{{ $item->user->name_loft }}</td>
                                             <td>{{ date('d F Y  H:i:s', strtotime($item->updated_at)) }}</td>
                                             <td class="action-link">
-                                                <a href="#" title="Live Results" class="mx-1"><i class="fa fa-list-ol"
-                                                        aria-hidden="true"></i></a>
-                                                <a href="#" title="Details" class="mx-1"><i
+                                                {{-- <a href="#" title="Live Results" class="mx-1"><i class="fa fa-list-ol"
+                                                        aria-hidden="true"></i></a> --}}
+                                                <a href="/club/desc_loft/{{ $item->id_user }}/{{ $clubs->id }}" title="Details" class="mx-1"><i
                                                         class="fa fa-list-alt" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
