@@ -330,7 +330,9 @@
                                             <th>Harga Pendaftaran</th>
                                             <th>Batas Pendaftaran</th>
                                             <th>Hotspot</th>
+                                            @if (Auth::user()->id == $clubs->manager_club || $exist == 1)
                                             <th>Aksi</th>
+                                            @endif
                                         </thead>
                                         <tbody>
                                             @foreach ($events as $event)
@@ -361,6 +363,7 @@
                                                     <td>{{ $event ? str_replace('T', ' ', $event->due_join_date_event) : '-' }}
                                                     </td>
                                                     <td>{{ $event->hotspot_length_event }}</td>
+                                                    @if (Auth::user()->id == $clubs->manager_club || $exist == 1)
                                                     <td>
                                                         <a href="#" class="btn btn-info btn-sm" data-toggle="modal"
                                                             data-target="#hotspotModal{{ $event->id }}"><span
@@ -373,7 +376,7 @@
                                                             data-target="#deleteModal{{ $event->id }}"><span
                                                                 class="font-weight-bold ml-1">Hapus</span></a>
                                                     </td>
-
+                                                    @endif
                                                     <!-- Hotspot Modal -->
                                                     <div class="modal fade" id="hotspotModal{{ $event->id }}" tabindex="-1"
                                                         role="dialog" aria-labelledby="exampleModalLabel"
