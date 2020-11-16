@@ -41,4 +41,8 @@ class Pigeons extends Model
     {
         return $this->hasMany('App\EventParticipants', 'id_pigeon', 'id_pigeon');
     }
+    public function loft_member()
+    {
+        return $this->belongsTo('App\Clubs', 'id_pigeon','id');
+    }
 }

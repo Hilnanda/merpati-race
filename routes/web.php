@@ -172,8 +172,13 @@ Route::middleware('is_subscribed')->group(function () {
     Route::get('/pigeons/delete/{id}','PigeonsController@destroy');
     Route::get('/pigeons/detail/{id}','PigeonsController@detail');
 
-    //one loft race
+    // One Loft Race
     Route::get('/one_loft_race','LoftController@index');
+    Route::get('/loft/{id}/details', 'LoftController@showLoftDetails')->name('loft_loft_details');
+    Route::get('/loft/events/{id}/{hotspot}/details', 'LoftController@showEventDetails')->name('loft_events_details');
+    Route::get('/loft/events/{id}/{hotspot}/basket', 'LoftController@showBasketedList')->name('loft_events_basketed');
+    Route::get('/loft/events/{id}/{hotspot}/live-result', 'LoftController@showLiveResults')->name('loft_events_live_result');
+    Route::post('/loft/events/{id}/join_event', 'LoftController@joinEvent')->name('join_loft_event');
 
     });
 

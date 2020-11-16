@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Loft;
+use App\LoftMember;
 use App\User;
+use App\Pigeons;
+use App\Events;
+use App\EventResults;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class LoftController extends Controller
 {
@@ -20,20 +25,163 @@ class LoftController extends Controller
     	$title = 'One Loft Race';
     	$current_user = auth()->user();
     	$loft_owns = Loft::where('id_user', $current_user->id)
-    	->orderBy('lofts.id', 'desc')
-    	->get();
+	    	->orderBy('lofts.id', 'desc')
+	    	->get();
+
+	    $event_results = EventResults::selectRaw('
+	    		COUNT(id) as amount, 
+	    		event_results.id_event_hotspot as id_event_hotspot
+    		')
+	    	->whereNotNull('event_results.speed_event_result')
+	    	->groupBy('event_results.id_event_hotspot')
+	    	->get();
+
+    	$current_datetime = Carbon::now();
 
     	foreach ($loft_owns as $loft) {
     		if (count($loft->event) > 0) {
                 $loft->distance = $this->distance($loft->event[0]->lat_event, $loft->event[0]->lng_event, $loft->event[0]->lat_event_end, $loft->event[0]->lng_event_end, "K");
+
+                if ($loft->event[0]->event_hotspot[0]->release_time_hotspot <= $current_datetime) {
+	                $loft->status = 'Terbang';
+	                $loft->color = '#32CD32';
+	            } else {
+	                if ($loft->event[0]->due_join_date_event < $current_datetime) {
+	                    $loft->status = 'Pendaftaran ditutup';
+	                    $loft->color = '#EB0000';
+	                } else {
+	                    $loft->status = 'Pendaftaran dibuka';
+	                    $loft->color = '#000000';
+	                }
+	            }
+
+	            foreach ($event_results as $event_result) {
+	            	if ($event_result->id_event_hotspot == $loft->event[0]->event_hotspot[0]->id) {
+			            $loft->arrived = $event_result->amount;
+	            	}
+	            }
             }
     	}
 
     	$users = User::all();
 
     	return view('one_loft_race.pages.one_loft',
-    		compact('title', 'lofts', 'users', 'loft_owns')
+    		compact('title', 'lofts', 'current_user', 'loft_owns')
     	);
+    }
+
+    /**
+     * Show the detail of the loft.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLoftDetails($id)
+    {
+    	$title = 'Loft Detail';
+    	$current_user = auth()->user();
+    	$loft = Loft::find($id);
+    	$pigeons = Pigeons::all();
+
+    	$loft->fanciers = LoftMember::selectRaw('pigeons.id_user as id_user')
+    		->join('pigeons', 'loft_members.id_pigeon', 'pigeons.id')
+    		->where('loft_members.id_loft', $id)
+    		->where('loft_members.is_active', true)
+    		->groupBy('pigeons.id_user')
+    		->get();
+
+		$current_datetime = Carbon::now();
+
+    	foreach ($loft->event as $event) {
+    		$event->distance = $this->distance($event->lat_event, $event->lng_event, $event->lat_event_end, $event->lng_event_end, "K");
+
+    		if ($event->event_hotspot[0]->release_time_hotspot <= $current_datetime) {
+                $event->status = 'Terbang';
+                $event->color = '#32CD32';
+            } else {
+                if ($event->due_join_date_event < $current_datetime) {
+                    $event->status = 'Pendaftaran ditutup';
+                    $event->color = '#EB0000';
+                } else {
+                    $event->status = 'Pendaftaran dibuka';
+                    $event->color = '#000000';
+                }
+            }
+    	}
+
+    	return view('one_loft_race.pages.one_loft_detail',
+    		compact('title','loft','current_user','events','pigeons')
+    	);
+    }
+
+    /**
+     * Show the detail of the event.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showEventDetails($id, $hotspot)
+    {
+        $event = Events::with('loft')->find($id);
+        $users = User::all();
+        $auth_session = auth()->user()->id;
+        $pigeons = Pigeons::selectRaw('*, pigeons.id as pigeon_id')
+	        ->join('club_members', 'club_members.id_pigeon', 'pigeons.id')
+	        ->leftJoin('team_members', 'team_members.id_pigeon', 'pigeons.id')
+	        ->leftJoin('teams', 'teams.id', 'team_members.id_team')
+	        ->leftJoin('event_participants', 'event_participants.id_pigeon', 'pigeons.id')
+	        ->where('pigeons.is_active', 1)
+	        ->where('club_members.is_active', 1)
+	        ->where('pigeons.id_user', $auth_session)
+	        ->whereRaw("pigeons.id NOT IN (
+	                SELECT id_pigeon FROM event_participants
+	            )
+	            OR
+	            pigeons.id IN (
+	                SELECT id_pigeon FROM event_participants
+	                JOIN event_results
+	                ON event_participants.id = event_results.id_event_participant
+	                JOIN event_hotspots
+	                ON event_hotspots.id = event_results.id_event_hotspot
+	                WHERE event_participants.id_event = $id
+	            )
+	        ")
+	        ->get();
+
+        $current_datetime = Carbon::now();
+
+        $id_hotspot = null;
+
+        foreach ($event->event_hotspot as $key => $event_hotspot) {
+            if ($key + 1 == $hotspot) {
+                $id_hotspot = $event_hotspot->id;
+                $event->release_time_event = $this->formatDateLocal($event_hotspot->release_time_hotspot);
+                if ($event_hotspot->expired_time_hotspot) {
+                    $event->expired_time_event = $this->formatDateLocal($event->expired_time_hotspot);
+                }
+            }
+        }
+        
+        $event->due_join_date_event = $this->formatDateLocal($event->due_join_date_event);
+
+        $event_results = EventResults::
+	        whereHas('event_participant', function ($query) use($event) {
+	            $query->where('active_at', '!=', null);
+	            $query->where('id_event', '=', $event->id);
+	        })
+	        ->where('event_results.id_event_hotspot', '=', $id_hotspot)
+	        ->orderBy('event_results.speed_event_result', 'desc')
+	        ->get();
+
+        if (count($event_results) > 0) {
+            $distance = $event_results[0]->speed_event_result ? ($event_results[0]->speed_event_result) * ((strtotime($event_results[0]->updated_at) - strtotime($event->release_time_event)) / 60) : null;
+
+            $duration = strtotime(date("Y-m-d h:i:sa")) - strtotime($event->release_time_event);
+
+            $unfinished_speed = $distance ? $distance / ($duration / 60) : null;
+        }
+
+        return view('one_loft_race.pages.one_loft_event_detail',
+            compact('users','event','event_results','pigeons','current_datetime','hotspot', 'id_hotspot','unfinished_speed')
+        );
     }
 
     /**
