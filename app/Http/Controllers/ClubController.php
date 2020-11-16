@@ -210,8 +210,8 @@ class ClubController extends Controller
         $operator = DB::table('club_members')
         ->select('users.name','users.username','users.id')
         ->join('clubs','club_members.id_club','=','clubs.id')
-        ->join('pigeons', 'pigeons.id', '=', 'club_members.id_pigeon')
-        ->join('users', 'pigeons.id_user', '=', 'users.id')
+        ->join('users', 'users.id', '=', 'club_members.id_user')
+        // ->join('users', 'pigeons.id_user', '=', 'users.id')
         ->where('club_members.id_club', $id)
         ->whereRaw('users.id NOT IN (SELECT id_user FROM operator_clubs)')
         ->where('users.id','!=', auth()->user()->id)
@@ -349,26 +349,32 @@ class ClubController extends Controller
         $users = User::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
-        $acc = DB::table('club_members')
-        ->join('clubs','club_members.id_club','=','clubs.id')
-        ->join('pigeons', 'pigeons.id', '=', 'club_members.id_pigeon')
-        ->join('users', 'users.id', '=', 'pigeons.id_user')
-        ->select('club_members.*','pigeons.*','clubs.*','users.*','club_members.id as id_club_is_active_0')
-        ->where('club_members.is_active',0)
-        ->where('clubs.id', $id)
+        $acc = ClubMember::where('club_members.is_active',0)
+        ->where('id_club', $id)
         ->get();
         // dd($acc);
        return view('subscribed.pages.club_acc_gabung',compact('acc','akun','users','data_medsos','data_footer'));
     }
+
+
    public function acc_club($id){
-   $edit_is_active = DB::update('update club_members set is_active = 1 where club_members.id = ?',[$id]);    
+    $Clubs = ClubMember::find($id);
+    $Clubs->is_active = 1;
+    
+
+    $Clubs->save();
+
    return back()->with('Sukses','Berhasil Update data!');
    }
+
+
    public function del_club($id){
        $hapus_acc_club = ClubMember::find($id);
        $hapus_acc_club->delete($hapus_acc_club);
        return back()->with('Sukses','Berhasil Delete data!');
    }
+
+
    public function add_lomba(){
 
    }

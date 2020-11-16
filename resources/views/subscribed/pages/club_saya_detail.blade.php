@@ -190,7 +190,7 @@
                                     <h4>Club Details</h4>
                                     <p>Nama club : <b style="color: red">{{ $clubs->name_club }}</b></p>
                                     <p>Alamat club : <b style="color: red">{{ $clubs->address_club }}</b></p>
-                                    <p>Posisi club : <b style="color: red">{{ $clubs->lat_club }} , {{ $clubs->lng_club }}</b></p>
+                                    {{-- <p>Posisi club : <b style="color: red">{{ $clubs->lat_club }} , {{ $clubs->lng_club }}</b></p> --}}
                                     <p>Manager club : <b style="color: red">{{ $clubs->manager->name }} ({{ $clubs->manager->username }})</b></p>
                                     @if (count($join_operator)!=0)
                                         @foreach ($join_operator as $item)
@@ -211,14 +211,13 @@
                 <div class="row" style="margin-bottom: 20px">
                     <div class="col-12">
                         {{-- bagian list burung --}}
-                        <h4>List Pigeon</h4>
+                        <h4>List Loft</h4>
                         <div class="box-body">
                             <table id="table_two" class="table table-bordered table-striped">
                                 <thead>
                                     <th>No.</th>
-                                    <th>ID</th>
-                                    <th>Pigeon</th>
-                                    <th>Nama Pemilik</th>                                   
+                                    <th>Nama Pemilik</th>
+                                    <th>Nama Loft</th>
                                     <th>Tanggal Join</th>                                   
                                     <th>Aksi</th>
                                 </thead>
@@ -231,10 +230,9 @@
                                     @foreach ($list_pigeons as $item)
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>                                                                                   
-                                            <td>{{ $item->pigeon->uid_pigeon }}</td>
-                                            <td>{{ $item->pigeon->name_pigeon }}</td>
-                                            <td>{{ $item->pigeon->users->name }}</td>
-                                            <td>{{ date('d F Y  H:i:s', strtotime($item->created_at)) }}</td>
+                                            <td>{{ $item->user->name }}</td>
+                                            <td>{{ $item->user->name_loft }}</td>
+                                            <td>{{ date('d F Y  H:i:s', strtotime($item->updated_at)) }}</td>
                                             <td class="action-link">
                                                 <a href="#" title="Live Results" class="mx-1"><i class="fa fa-list-ol"
                                                         aria-hidden="true"></i></a>

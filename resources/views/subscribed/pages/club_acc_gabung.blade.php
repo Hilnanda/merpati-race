@@ -23,11 +23,9 @@
             <table id="table_one" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
-                    <th>UID Pigeon</th>
-                    <th>Nama Pigeon</th>
-                    <th>Warna Pigeon</th>
-                    <th>Pemilik</th>
-                    <th>Bergabung</th>
+                    <th>Nama User</th>
+                    <th>Nama Loft</th>
+                    <th>Tgl Join</th>
                     <th>Aksi</th>
                 </thead>
                 <tbody>
@@ -39,14 +37,13 @@
                     @foreach($acc as $item) 
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
-                        <td>{{ $item->uid_pigeon }}</td>
-                        <td>{{ $item->name_pigeon }}</td>
-                        <td>{{ $item->color_pigeon}}</td>
-                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->user->name }}</td>
+                        <td>{{ $item->user->name_loft }}</td>
+                        
                         <td>{{ date('d F Y  H:i:s', strtotime($item->created_at)) }}</td>
                         <td class="action-link">                        
-                            <a href="/club/acc/{{$item->id_club_is_active_0}}" title="Centang" class="mx-1"><i class="fa fa-check fa-2" aria-hidden="true"></i></a>
-                            <a href="/club/acc/{{$item->id_club_is_active_0}}/delete" title="Silang" class="mx-1 delete"><i class="fa fa-times fa-2" aria-hidden="true"></i></a>
+                            <a href="/club/acc/{{$item->id}}" title="Centang" class="mx-1"><i class="fa fa-check fa-2" aria-hidden="true"></i></a>
+                            <a href="/club/acc/{{$item->id}}/delete" title="Silang" class="mx-1 delete"><i class="fa fa-times fa-2" aria-hidden="true"></i></a>
                             <a href="#" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
                         </td>
                     </tr>
