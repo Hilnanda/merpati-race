@@ -191,15 +191,15 @@ class ClubController extends Controller
         // club
         $club = Clubs::find($id);
         $users = User::all();
-        $clubs= Clubs::where('id',$id)
-        ->first();
-
+        
+// dd($clubs);
         $list_pigeons = ClubMember::
         // ->join('clubs','club_members.id_club','=','clubs.id')
         // ->join('pigeons','club_members.id_pigeon','=','pigeons.id')
         // ->join('users','users.id','pigeons.id_user')
         where('is_active',1)->
         where('id_club', $id)->get();
+
 
         $clubku = Clubs::where('id','=',$id)        
         ->get();
@@ -215,10 +215,16 @@ class ClubController extends Controller
         ->join('users', 'users.id', '=', 'club_members.id_user')
         // ->join('users', 'pigeons.id_user', '=', 'users.id')
         ->where('club_members.id_club', $id)
+        ->where('club_members.is_active', 1)
         ->whereRaw('users.id NOT IN (SELECT id_user FROM operator_clubs)')
         ->where('users.id','!=', auth()->user()->id)
         ->groupByRaw('users.name, users.username ,users.id')
         ->get();
+
+        $operator_exist = OperatorClubs::where('id_user',auth()->user()->id)
+        ->where('id_club',$id)
+        ->first();
+        // dd($operator_exist);
 
         $join_operator = DB::table('operator_clubs')
         ->select('clubs.*','users.*','operator_clubs.*','operator_clubs.id as operator_id')
@@ -237,22 +243,31 @@ class ClubController extends Controller
         
         // dd($clubs->manager_club);
         // dd($clubs);
-        if($clubs->manager_club==auth()->user()->id){
+        $clubs= Clubs::where('id',$id)
+        ->first();
+        // if($clubs->manager_club==auth()->user()->id){
             
-            $clubs= Clubs::where('manager_club', auth()->user()->id)
-        ->where('id',$id)
-        ->first();
-        } else {
-            $clubs= Clubs::where('id_user', auth()->user()->id)
-        ->where('id',$id)
-        ->first();
-        }
+        //     $clubs= Clubs::where('manager_club', auth()->user()->id)
+        // ->where('id',$id)
+        // ->first();
+        // } else {
+        //     $clubs= Clubs::where('id_user', auth()->user()->id)
+        // ->where('id',$id)
+        // ->first();
+        // }
         $data = ClubMember::find($id);
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
 
+        $count_acc = ClubMember::where('is_active',0)
+        ->where('id_club', $id)
+        ->count();
+
+        $count_pigeon = Pigeons::where('id_club', $id)
+        ->count();
+
         
-        return view('subscribed.pages.club_saya_detail',compact('pigeon','clubku','club','data_medsos','data_footer','users','clubs','data','operator','join_operator','list_pigeons','id','results','event_clubs','events','current_datetime'));
+        return view('subscribed.pages.club_saya_detail',compact('operator_exist','pigeon','clubku','club','data_medsos','data_footer','users','clubs','data','operator','join_operator','list_pigeons','id','results','event_clubs','events','current_datetime','count_acc','count_pigeon'));
     }
 
 
@@ -457,8 +472,18 @@ class ClubController extends Controller
     public function desc_loft($id_loft,$id_club){
         $get_loft = ClubMember::where('id_club',$id_club)
         ->where('id_user',$id_loft)->first();
+        $count_pigeon = Pigeons::where('id_user',$id_loft)->count();
+        $list_pigeon = Pigeons::where('id_user',$id_loft)->get();
+        // dd($count_pigeon);
+        $clubs= Clubs::where('id',$id_club)
+        ->first();
 
-        return view('subscribed.pages.club_loft',compact('get_loft'));
+        return view('subscribed.pages.club_loft',compact(
+            'get_loft',
+            'count_pigeon',
+            'list_pigeon',
+            'clubs'
+        ));
     }
 
 
