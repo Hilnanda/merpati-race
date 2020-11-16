@@ -44,4 +44,18 @@
             }
         });
     });
+    $('.join').on('click', function (event) {
+        event.preventDefault();
+        const url = $(this).attr('href');
+        swal({
+            title: 'Apakah yakin ingin Join ke Club ini?',
+            text: 'Anda Akan Bergabung kedalam Club',
+            icon: 'warning',
+            buttons: ["Tidak", "Ya!"],
+        }).then(function (value) {
+            if (value) {
+                window.location.href = url;
+            }
+        });
+    });
 </script>

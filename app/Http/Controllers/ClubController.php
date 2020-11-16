@@ -80,7 +80,7 @@ class ClubController extends Controller
 
         $Clubs->save();
 
-        return back()->with('Sukses','Menunggu Konfirmasi Pemilik Club!');
+        return redirect('/club')->with('Sukses','Menunggu Konfirmasi Pemilik Club!');
     }
 
 
@@ -97,6 +97,7 @@ class ClubController extends Controller
         // ->join('clubs','club_members.id_club','=','clubs.id')
         // ->join('pigeons','club_members.id_pigeon','=','pigeons.id')
         // ->join('users','users.id','pigeons.id_user')
+        where('is_active',1)->
         where('id_club', $id)->get();
 
         $clubku = Clubs::where('id','=',$id)        
@@ -190,14 +191,15 @@ class ClubController extends Controller
         // club
         $club = Clubs::find($id);
         $users = User::all();
-        $clubs= Clubs::where('id',$id)
-        ->first();
-
+        
+// dd($clubs);
         $list_pigeons = ClubMember::
         // ->join('clubs','club_members.id_club','=','clubs.id')
         // ->join('pigeons','club_members.id_pigeon','=','pigeons.id')
         // ->join('users','users.id','pigeons.id_user')
+        where('is_active',1)->
         where('id_club', $id)->get();
+
 
         $clubku = Clubs::where('id','=',$id)        
         ->get();
@@ -213,10 +215,21 @@ class ClubController extends Controller
         ->join('users', 'users.id', '=', 'club_members.id_user')
         // ->join('users', 'pigeons.id_user', '=', 'users.id')
         ->where('club_members.id_club', $id)
+        ->where('club_members.is_active', 1)
         ->whereRaw('users.id NOT IN (SELECT id_user FROM operator_clubs)')
         ->where('users.id','!=', auth()->user()->id)
         ->groupByRaw('users.name, users.username ,users.id')
         ->get();
+
+        $operator_exist = OperatorClubs::where('id_user',auth()->user()->id)
+        ->where('id_club',$id)
+        ->first();
+        if (isset($operator_exist)) {
+            $exist = 1;
+        }else {
+            $exist = 0;
+        }
+        // dd($exist);
 
         $join_operator = DB::table('operator_clubs')
         ->select('clubs.*','users.*','operator_clubs.*','operator_clubs.id as operator_id')
@@ -235,22 +248,31 @@ class ClubController extends Controller
         
         // dd($clubs->manager_club);
         // dd($clubs);
-        if($clubs->manager_club==auth()->user()->id){
+        $clubs= Clubs::where('id',$id)
+        ->first();
+        // if($clubs->manager_club==auth()->user()->id){
             
-            $clubs= Clubs::where('manager_club', auth()->user()->id)
-        ->where('id',$id)
-        ->first();
-        } else {
-            $clubs= Clubs::where('id_user', auth()->user()->id)
-        ->where('id',$id)
-        ->first();
-        }
+        //     $clubs= Clubs::where('manager_club', auth()->user()->id)
+        // ->where('id',$id)
+        // ->first();
+        // } else {
+        //     $clubs= Clubs::where('id_user', auth()->user()->id)
+        // ->where('id',$id)
+        // ->first();
+        // }
         $data = ClubMember::find($id);
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
 
+        $count_acc = ClubMember::where('is_active',0)
+        ->where('id_club', $id)
+        ->count();
+
+        $count_pigeon = Pigeons::where('id_club', $id)
+        ->count();
+
         
-        return view('subscribed.pages.club_saya_detail',compact('pigeon','clubku','club','data_medsos','data_footer','users','clubs','data','operator','join_operator','list_pigeons','id','results','event_clubs','events','current_datetime'));
+        return view('subscribed.pages.club_saya_detail',compact('exist','operator_exist','pigeon','clubku','club','data_medsos','data_footer','users','clubs','data','operator','join_operator','list_pigeons','id','results','event_clubs','events','current_datetime','count_acc','count_pigeon'));
     }
 
 
@@ -292,6 +314,74 @@ class ClubController extends Controller
         $users = User::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all(); 
+
+        $events = Events::with($this->relationships)
+        ->where('branch_event', 'Club')
+        ->where('id_club', $id)
+        ->orderBy('events.id', 'desc')->get();
+
+        $event_clubs = Events::find($id); 
+        // dd($event_clubs);
+        $current_datetime = Carbon::now();
+
+        $list_pigeons = ClubMember::
+        // ->join('clubs','club_members.id_club','=','clubs.id')
+        // ->join('pigeons','club_members.id_pigeon','=','pigeons.id')
+        // ->join('users','users.id','pigeons.id_user')
+        where('is_active',1)
+        ->where('id_club', $id)->get();
+
+        foreach ($events as $event) {
+            $event->release_time_event = null;
+            $event->expired_time_event = null;
+            foreach ($event->event_hotspot as $hotspot) {
+                if ($hotspot->release_time_hotspot) {
+                    $event->release_time_event = $this->formatDateLocal($hotspot->release_time_hotspot);
+                    if ($hotspot->expired_time_hotspot) {
+                        $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
+                    }
+                    if ($event->release_time_event <= $current_datetime) {
+                        break;
+                    }
+                }
+            }
+            $event->due_join_date_event = $this->formatDateLocal($event->due_join_date_event);
+            if ($event->release_time_event <= $current_datetime) {
+                $diff = strtotime($current_datetime) - strtotime($event->release_time_event);
+                $days = floor($diff / 86400);
+                $hours = floor($diff / 3600) % 24;
+                $minutes = floor($diff / 60) % 60;
+                $seconds = $diff % 60;
+
+                $event->status = 'Terbang (' . ($days * 24 + $hours) . 'j:' . $minutes . 'm:' . $seconds . 'd)';
+                $event->color = '#32CD32';
+            } else {
+                if ($event->due_join_date_event < $current_datetime) {
+                    $diff = strtotime($event->release_time_event) - strtotime($current_datetime);
+                    $days = floor($diff / 86400);
+                    $hours = floor($diff / 3600) % 24;
+                    $minutes = floor($diff / 60) % 60;
+                    $seconds = $diff % 60;
+
+                    $event->status = 'Pendaftaran ditutup (-' . ($days * 24 + $hours) . 'j:' . $minutes . 'm:' . $seconds . 'd)';
+                    $event->color = '#EB0000';
+                } else {
+                    $diff = strtotime($event->due_join_date_event) - strtotime($current_datetime);
+                    $days = floor($diff / 86400);
+                    $hours = floor($diff / 3600) % 24;
+                    $minutes = floor($diff / 60) % 60;
+                    $seconds = $diff % 60;
+
+                    $event->status = 'Belum dimulai (-' . ($days * 24 + $hours) . 'j:' . $minutes . 'm:' . $seconds . 'd)';
+                    $event->color = '#000000';
+                    // $date = strtotime($event->release_time_event);
+                    // $event->status = $date - time();
+                }
+            }
+            if ($event->lat_event_end != null) {
+                $event->distance = $this->distance($event->lat_event, $event->lng_event, $event->lat_event_end, $event->lng_event_end, "K");
+            }
+        }
         // $pigeon = DB::select('select * from pigeons where is_active = 1');
         // dd($pigeon);
         $club_ikut = DB::table('clubs')
@@ -300,12 +390,20 @@ class ClubController extends Controller
         ->join('users', 'users.id', '=', 'pigeons.id_user')
         ->where('pigeons.id_user', auth()->user()->id)
         ->get();
+
+        $results = EventParticipants::selectRaw('*, event_results.created_at as event_results_created_at, event_results.speed_event_result as event_results_speed_event_result, clubs.id as clubs_id, clubs.name_club as clubs_name_club, teams.id as teams_id, teams.name_team as teams_name_team')
+        ->leftJoin('clubs', 'event_participants.current_id_club', '=', 'clubs.id')
+        ->leftJoin('teams', 'event_participants.current_id_team', '=', 'teams.id')
+        ->leftJoin('event_results', 'event_participants.id', '=', 'event_results.id_event_participant')
+        ->where('event_participants.active_at', '!=', 'null')
+        ->where('event_participants.current_id_club', '=', $id)
+        ->get();
         // dd($club_ikut);
         $pigeon = Pigeons::where('pigeons.is_active', 1)
         ->where('pigeons.id_user', auth()->user()->id)
         ->whereRaw('pigeons.id NOT IN (SELECT id_pigeon FROM club_members)')
         ->get();
-        return view('subscribed.pages.club_detail_belum_ikut',compact('club','data_medsos','data_footer','users','club_ikut','pigeon'));
+        return view('subscribed.pages.club_detail_belum_ikut',compact('club','data_medsos','data_footer','users','club_ikut','list_pigeons','results','event_clubs','events','current_datetime'));
     }
 
 
@@ -321,7 +419,7 @@ class ClubController extends Controller
          $data = $request->all();
 
         $data['is_active'] = 0;
-
+        
         ClubMember::create($data);
     //    $data =  ClubMember::create($request->all());
        
@@ -373,6 +471,35 @@ class ClubController extends Controller
        $hapus_acc_club->delete($hapus_acc_club);
        return back()->with('Sukses','Berhasil Delete data!');
    }
+
+
+//    Loft
+    public function desc_loft($id_loft,$id_club){
+        $get_loft = ClubMember::where('id_club',$id_club)
+        ->where('id_user',$id_loft)->first();
+        $count_pigeon = Pigeons::where('id_user',$id_loft)->count();
+        $list_pigeon = Pigeons::where('id_user',$id_loft)->get();
+        // dd($count_pigeon);
+        $clubs= Clubs::where('id',$id_club)
+        ->first();
+
+        $operator_exist = OperatorClubs::where('id_user',auth()->user()->id)
+        ->where('id_club',$id_club)
+        ->first();
+        if (isset($operator_exist)) {
+            $exist = 1;
+        }else {
+            $exist = 0;
+        }
+
+        return view('subscribed.pages.club_loft',compact(
+            'get_loft',
+            'count_pigeon',
+            'list_pigeon',
+            'clubs',
+            'exist'
+        ));
+    }
 
 
    public function add_lomba(){

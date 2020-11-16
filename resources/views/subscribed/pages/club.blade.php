@@ -88,8 +88,10 @@
                         <td>Pending</td>
                         @else
                         <td class="action-link">
-                            <a href="#" title="Live Results" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
-                            <a href="club/{{$item->id_club}}/detail_ikut" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
+                            {{-- <a href="#" title="Live Results" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a> --}}
+                            <a href="club/{{$item->id_club}}/detail_saya" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
+
+                            {{-- <a href="club/{{$item->id_club}}/detail_ikut" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a> --}}
                         </td>
                         @endif
                         
@@ -137,7 +139,7 @@
                                         aria-hidden="true"></i></a> --}}
                             {{-- <a href="#" title="Join" class="mx-1"><i class="fa fa-sign-in"
                                     aria-hidden="true"></i></a> --}}
-                                    <a href="/club/join_loft_club/{{$items->id}}/{{ $auth }}" title="Join" class="mx-1"><i class="fa fa-sign-in"
+                                    <a href="/club/join_loft_club/{{$items->id}}/{{ $auth }}" title="Join" class="mx-1 join"><i class="fa fa-sign-in"
                                         aria-hidden="true"></i></a>
                                     
                             
