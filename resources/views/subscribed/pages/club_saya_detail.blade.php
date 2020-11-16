@@ -82,7 +82,7 @@
                         @endforeach
 
 
-                        @if (Auth::user()->id == $clubs->manager_club)
+                        @if (Auth::user()->id == $clubs->manager_club || $exist == 1)
 
 
                                 <a href="#tambah_lomba_club" data-toggle="modal" data-target="#tambah_lomba_club"><button
@@ -173,11 +173,12 @@
                                         @endif
                                     </button></a>
 
-                            
-                            @if (count($operator) != 0)
-                                <a href="#tambah_jenisstandar" data-toggle="modal"
-                                    data-target="#tambah_jenisstandar"><button type="button" class="btn btn-warning">Tambah
-                                        Operator Club</button></a>
+                            @if ($clubs->manager_club==$auth)
+                                @if (count($operator) != 0 )
+                                    <a href="#tambah_jenisstandar" data-toggle="modal"
+                                        data-target="#tambah_jenisstandar"><button type="button" class="btn btn-warning">Tambah
+                                            Operator Club</button></a>
+                                @endif
                             @endif
 
                         @endif

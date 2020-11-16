@@ -28,7 +28,7 @@
                 </div>
                 <div class="row" style="margin-bottom: 20px">
                     <div class="col-12">
-                        @if (Auth::user()->id==$clubs->manager_club)
+                        @if (Auth::user()->id==$clubs->manager_club||$exist == 1)
                         <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#tambah_burung">Daftarkan
                             Burung</button>
                             @endif

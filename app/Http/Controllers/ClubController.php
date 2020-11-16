@@ -224,7 +224,12 @@ class ClubController extends Controller
         $operator_exist = OperatorClubs::where('id_user',auth()->user()->id)
         ->where('id_club',$id)
         ->first();
-        // dd($operator_exist);
+        if (isset($operator_exist)) {
+            $exist = 1;
+        }else {
+            $exist = 0;
+        }
+        // dd($exist);
 
         $join_operator = DB::table('operator_clubs')
         ->select('clubs.*','users.*','operator_clubs.*','operator_clubs.id as operator_id')
@@ -267,7 +272,7 @@ class ClubController extends Controller
         ->count();
 
         
-        return view('subscribed.pages.club_saya_detail',compact('operator_exist','pigeon','clubku','club','data_medsos','data_footer','users','clubs','data','operator','join_operator','list_pigeons','id','results','event_clubs','events','current_datetime','count_acc','count_pigeon'));
+        return view('subscribed.pages.club_saya_detail',compact('exist','operator_exist','pigeon','clubku','club','data_medsos','data_footer','users','clubs','data','operator','join_operator','list_pigeons','id','results','event_clubs','events','current_datetime','count_acc','count_pigeon'));
     }
 
 
@@ -478,11 +483,21 @@ class ClubController extends Controller
         $clubs= Clubs::where('id',$id_club)
         ->first();
 
+        $operator_exist = OperatorClubs::where('id_user',auth()->user()->id)
+        ->where('id_club',$id_club)
+        ->first();
+        if (isset($operator_exist)) {
+            $exist = 1;
+        }else {
+            $exist = 0;
+        }
+
         return view('subscribed.pages.club_loft',compact(
             'get_loft',
             'count_pigeon',
             'list_pigeon',
-            'clubs'
+            'clubs',
+            'exist'
         ));
     }
 
