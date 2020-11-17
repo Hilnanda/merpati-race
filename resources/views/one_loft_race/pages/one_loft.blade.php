@@ -26,32 +26,38 @@
                     <th>Nama</th>
                     <th>Logo</th>
                     <th>Lomba</th>
-                    <th>Waktu mulai</th>
-                    <th>Titik mulai</th>
+                    <th>Waktu Mulai</th>
+                    <th>Titik Mulai</th>
                     <th>Jarak</th>
                     <th>Status</th>
-                    <th>Sudah sampai</th>
-                    <th></th>
+                    <th>Sudah Sampai</th>
                 </thead>
                 <tbody>
-                    @if(count($loft_owns) == 0)
-                    <tr class="text-center">
-                        <td colspan="10">-- Tidak ada Club yang belum Diikuti --</td>
-                    </tr>
-                    @endif
                     @foreach($loft_owns as $loft)
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
-                        <td>{{ $loft->name_loft }}</td>
-                        <td><img style="height: 80px" src="{{ asset('image/'.$loft->logo_loft.'') }}"></td>
-                        <td>{{ count($loft->event) > 0 ? $loft->event[0]->name_event : '-' }}</td>
+                        <td>
+                            <a href="/loft/{{$loft->id}}/details" class="text-info">
+                                {{ $loft->name_loft }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/loft/{{$loft->id}}/details">
+                                <img style="height: 80px; display: block;" src="{{ asset('image/'.$loft->logo_loft.'') }}">
+                            </a>
+                        </td>
+                        <td>
+                            @if(count($loft->event) > 0)
+                            <a href="/loft/events/{{$loft->event[0]->id}}/1/details" class="text-info">{{ $loft->event[0]->name_event }}</a>
+                            @else
+                            -
+                            @endif
+                        </td>
                         <td>{{ count($loft->event) > 0 && $loft->event[0] ? $loft->event[0]->event_hotspot[0]->release_time_hotspot : '-' }}</td>
                         <td>{{ count($loft->event) > 0 && $loft->event[0] ? $loft->event[0]->address_event : '-' }}</td>
                         <td>{{ $loft->distance ? round($loft->distance, 2) . ' Km' : '-' }}</td>
-                        <td class="action-link">
-                            <a href="/club/lihat_data/{{$loft->id}}" title="Event Club" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
-                            <a href="club/{{$loft->id}}/detail_saya" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
-                        </td>
+                        <td style="color: {{ $loft->color ? $loft->color : '' }};">{{ $loft->status ? $loft->status : '-' }}</td>
+                        <td>{{ count($loft->event) > 0 ? ($loft->arrived ? $loft->arrived : 0) : '-' }}</td>
                     </tr>
                     @endforeach
                 </tbody>

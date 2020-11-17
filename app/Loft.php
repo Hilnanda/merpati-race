@@ -23,11 +23,11 @@ class Loft extends Model
 
     public function loft_member()
     {
-        return $this->hasMany('App\LoftMember','id_loft');
+        return $this->hasMany('App\LoftMember','id_loft')->where('is_active', true);
     }
 
     public function event()
     {
-        return $this->hasMany('App\Events','id_club');
+        return $this->hasMany('App\Events','id_loft');
     }
 }

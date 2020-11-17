@@ -86,7 +86,7 @@
                     </div>
                 </div>
               </div>
-        {{-- <div class="box-body mt-3 mb-5">
+         {{-- <div class="box-body mt-3 mb-5">
             <table id="table_one" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
@@ -109,9 +109,9 @@
                         <td>{{$bird->sex_pigeon}}</td>
                         <td>{{$bird->color_pigeon}}</td>
                         <td>@if($bird->is_active==0) Belum Aktif @else Aktif @endif</td>
-                        <td>{{$bird->club->name_club}}</td>                        
-                        <td>
-                            <a href="#editBurungModal{{$bird->id}}" class="btn btn-warning btn-sm" data-toggle="modal"
+                        <td>{{!empty($bird->club_member->first()) ? $bird->club_member->first()->club->first()->name_club:"-"}}</td>
+                        <td>{{!empty($bird->team_member->first()) ? $bird->team_member->first()->team->first()->name_team:"-"}}</td>
+                        <td><a href="#editBurungModal{{$bird->id}}" class="btn btn-warning btn-sm" data-toggle="modal"
                             data-target="#editBurungModal{{$bird->id}}"><i class="fa fa-pen" aria-hidden="true">
                             </i> <span class="font-weight-bold ml-1">Edit</span></a> 
                             <a href="/pigeons/delete/{{$bird->id}}"
