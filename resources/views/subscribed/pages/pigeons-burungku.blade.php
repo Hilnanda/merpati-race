@@ -18,7 +18,7 @@
         <!-- /.box-header -->
         <h4>Data Pigeons</h4>
         {{-- <button class="btn btn-info w-100" data-toggle="modal" data-target="#tambah_burung">Daftarkan Burung</button> --}}
-        <button class="btn btn-info w-100 mt-3" data-toggle="modal" data-target="#tambah_burung">Buat Training</button>
+        <button class="btn btn-info  mt-3" data-toggle="modal" data-target="#tambah_burung">Buat Training</button>
         {{-- <div id="accordion" class="mt-3">
           <div class="card">
             <div class="card-header" id="headingOne">
@@ -36,7 +36,7 @@
             </div>
           </div>
         </div> --}}
-              <div class="modal fade" id="tambah_burung" tabindex="-1" role="dialog"
+              {{-- <div class="modal fade" id="tambah_burung" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -85,7 +85,7 @@
                         </div>
                     </div>
                 </div>
-              </div>
+              </div> --}}
          {{-- <div class="box-body mt-3 mb-5">
             <table id="table_one" class="table table-bordered table-striped">
                 <thead>

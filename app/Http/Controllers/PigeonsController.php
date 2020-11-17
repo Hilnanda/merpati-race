@@ -7,6 +7,8 @@ use App\CMSMedsos;
 use App\CMSFooter;
 use App\Pigeons;
 use App\EventParticipants;
+use App\User;
+use App\Events;
 use App\Charts\StatisticsChart;
 
 
@@ -47,7 +49,6 @@ class PigeonsController extends Controller
             array_push($name_event, $event->name_event);
             array_push($speed, $event->event_results->first()->speed_event_result);
         }
-
 
         $statisticsChart->labels($name_event);
         $statisticsChart->dataset('Rank events', 'line', $speed)
@@ -138,5 +139,11 @@ class PigeonsController extends Controller
         Pigeons::find($id)->delete();
 
         return back()->with('Sukses','Berhasil menghapus data!');
+    }
+
+    public function id_training_pigeon($id_user)
+    {
+        Events::find($id_user);
+        return view('subscribed.pages.pigeon_training');
     }
 }

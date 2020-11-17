@@ -173,7 +173,12 @@ Route::middleware('is_subscribed')->group(function () {
     Route::post('/pigeons/edit','PigeonsController@update');
     Route::get('/pigeons/delete/{id}','PigeonsController@destroy');
     Route::get('/pigeons/detail/{id}','PigeonsController@detail');
+
+    // update Nama Loft
     Route::Post('/pigeons/update/name_loft/{id}','ClubController@update_name_loft');
+    // Training Pigeon
+    Route::get('/club/training_pigeon/{id_user}','PigeonsController@id_training_pigeon');
+    
 
 
     // One Loft Race

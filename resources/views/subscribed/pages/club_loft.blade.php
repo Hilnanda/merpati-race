@@ -177,7 +177,7 @@
                                             <td>{{ $item->color_pigeon }}</td>
                                             <td>{{ date('d F Y  H:i:s', strtotime($item->updated_at)) }}</td>
                                             <td class="action-link">
-                                                <a href="#" title="Details" class="mx-1"><i class="fa fa-list-alt"
+                                            <a href="/club/training_pigeon/{{$item->id_user}}" title="Details" class="mx-1"><i class="fa fa-list-alt"
                                                         aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
@@ -220,6 +220,5 @@
             var release_time = document.getElementById("release_time_event_add").value;
             document.getElementById("due_join_date_event_add").max = release_time;
         }
-
     </script>
 @endpush
