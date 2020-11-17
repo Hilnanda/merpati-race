@@ -78,7 +78,7 @@
                                     <input type="submit" value="Simpan" class="btn btn-primary">
                                 </div>
                             </form>
-                        </div>
+                        </div> 
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button"
                                 data-dismiss="modal">Cancel</button>

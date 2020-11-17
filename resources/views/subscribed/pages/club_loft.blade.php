@@ -29,8 +29,9 @@
                 <div class="row" style="margin-bottom: 20px">
                     <div class="col-12">
                         @if (Auth::user()->id==$clubs->manager_club||$exist == 1)
-                        <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#tambah_burung">Daftarkan
-                            Burung</button>
+                        <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#tambah_burung">Daftarkan </button>
+                        <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#edit_name_loft">Edit Nama Loft
+                            </button>
                             @endif
                         <div class="modal fade" id="tambah_burung" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -75,6 +76,38 @@
                                                     placeholder="Isi warna burung" required>
                                             </div>
 
+                                            <div class="form-group">
+                                                <input type="submit" value="Simpan" class="btn btn-primary">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="edit_name_loft" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Edit Nama Loft</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <form action="/pigeons/update/name_loft/{{$get_loft->user->id}}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{-- <input type="hidden" name="id_user" value="{{ $get_loft->user->id }}">
+                                            <input type="hidden" name="id_club" value="{{ $get_loft->id_club }}"> --}}
+                                            <div class="form-group">
+                                                <label for="">Nama Loft</label>
+                                                <input type="text" value="{{ $get_loft->user->name_loft }}" name="name_loft" class="form-control"
+                                                    placeholder="Isi uid burung" required>
+                                            </div>
+                                           
                                             <div class="form-group">
                                                 <input type="submit" value="Simpan" class="btn btn-primary">
                                             </div>
@@ -144,7 +177,6 @@
                                             <td>{{ $item->color_pigeon }}</td>
                                             <td>{{ date('d F Y  H:i:s', strtotime($item->updated_at)) }}</td>
                                             <td class="action-link">
-
                                                 <a href="#" title="Details" class="mx-1"><i class="fa fa-list-alt"
                                                         aria-hidden="true"></i></a>
                                             </td>
