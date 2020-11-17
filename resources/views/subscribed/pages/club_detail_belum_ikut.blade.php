@@ -58,10 +58,9 @@
                                     <td>{{ $item->user->name_loft }}</td>
                                     <td>{{ date('d F Y  H:i:s', strtotime($item->updated_at)) }}</td>
                                     <td class="action-link">
-                                        <a href="#" title="Live Results" class="mx-1"><i class="fa fa-list-ol"
+                                        <a href="/club/desc_loft/{{ $item->id_user }}/{{ $item->id_club }}"
+                                            title="Details" class="mx-1"><i class="fa fa-list-alt"
                                                 aria-hidden="true"></i></a>
-                                        <a href="#" title="Details" class="mx-1"><i
-                                                class="fa fa-list-alt" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
