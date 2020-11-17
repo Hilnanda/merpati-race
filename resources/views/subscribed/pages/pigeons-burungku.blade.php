@@ -6,7 +6,7 @@
     <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ url('image/breadcumb-1.jpg') }});">
     <div class="bradcumbContent">
-        <h2>Pigeons</h2>
+        <h2>My Loft</h2>
     </div>
 </div>
 <!-- bg gradients -->
@@ -16,8 +16,8 @@
 <div class="row mt-5 px-5">
     <div class="col-lg-12">
         <!-- /.box-header -->
-        <h4>Data Burungku</h4>
-        <button class="btn btn-info w-100" data-toggle="modal" data-target="#tambah_burung">Daftarkan Burung</button>
+        <h4>Data Pigeons</h4>
+        {{-- <button class="btn btn-info w-100" data-toggle="modal" data-target="#tambah_burung">Daftarkan Burung</button> --}}
         <button class="btn btn-info w-100 mt-3" data-toggle="modal" data-target="#tambah_burung">Buat Training</button>
         {{-- <div id="accordion" class="mt-3">
           <div class="card">
@@ -86,7 +86,7 @@
                     </div>
                 </div>
               </div>
-        <div class="box-body mt-3 mb-5">
+        {{-- <div class="box-body mt-3 mb-5">
             <table id="table_one" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
@@ -96,8 +96,7 @@
                     <th>Jenis Kelamin</th>
                     <th>Warna</th>
                     <th>Status</th>
-                    <th>Club</th>
-                    <th>Team</th>
+                    <th>Club</th>                    
                     <th>Aksi</th>
                 </thead>
                 <tbody>
@@ -110,9 +109,9 @@
                         <td>{{$bird->sex_pigeon}}</td>
                         <td>{{$bird->color_pigeon}}</td>
                         <td>@if($bird->is_active==0) Belum Aktif @else Aktif @endif</td>
-                        <td>{{!empty($bird->club_member->first()) ? $bird->club_member->first()->club->first()->name_club:"-"}}</td>
-                        <td>{{!empty($bird->team_member->first()) ? $bird->team_member->first()->team->first()->name_team:"-"}}</td>
-                        <td><a href="#editBurungModal{{$bird->id}}" class="btn btn-warning btn-sm" data-toggle="modal"
+                        <td>{{$bird->club->name_club}}</td>                        
+                        <td>
+                            <a href="#editBurungModal{{$bird->id}}" class="btn btn-warning btn-sm" data-toggle="modal"
                             data-target="#editBurungModal{{$bird->id}}"><i class="fa fa-pen" aria-hidden="true">
                             </i> <span class="font-weight-bold ml-1">Edit</span></a> 
                             <a href="/pigeons/delete/{{$bird->id}}"
@@ -177,7 +176,7 @@
                     @endforeach
                 </tbody>
             </table>
-        </div>
+        </div> --}}
         <!-- /.box-body -->
     </div>
 </div>

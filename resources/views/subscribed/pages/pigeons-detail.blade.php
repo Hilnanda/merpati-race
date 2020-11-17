@@ -37,8 +37,8 @@
                         <th>Jenis Kelamin</th>
                         <th>Warna</th>
                         <th>Status</th>
-                        <th>Club</th>
-                        <th>Team</th>
+                        {{-- <th>Club</th>
+                        <th>Team</th> --}}
                     </thead>
                     <tbody>
                         <tr>
@@ -48,8 +48,8 @@
                             <td>{{$bird->sex_pigeon}}</td>
                             <td>{{$bird->color_pigeon}}</td>
                             <td>@if($bird->is_active==0) Belum Aktif @else Aktif @endif</td>
-                            <td>{{!empty($bird->club_member->first()) ? $bird->club_member->first()->club->first()->name_club:"-"}}</td>
-                            <td>{{!empty($bird->team_member->first()) ? $bird->team_member->first()->team->first()->name_team:"-"}}</td>
+                            {{-- <td>{{!empty($bird->club_member->first()) ? $bird->club_member->first()->club->first()->name_club:"-"}}</td> --}}
+                            {{-- <td>{{!empty($bird->team_member->first()) ? $bird->team_member->first()->team->first()->name_team:"-"}}</td> --}}
                         </tr>
                     </tbody>
                 </table>
