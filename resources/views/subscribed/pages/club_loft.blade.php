@@ -30,8 +30,8 @@
                     <div class="col-12">
                         @if (Auth::user()->id==$clubs->manager_club||$exist == 1)
                         <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#tambah_burung">Daftarkan </button>
-                        <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#edit_name_loft">Edit Nama Loft
-                            </button>
+                        {{-- <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#edit_name_loft">Edit Nama Loft
+                            </button> --}}
                             @endif
                         <div class="modal fade" id="tambah_burung" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">

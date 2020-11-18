@@ -129,13 +129,14 @@
                                                         <textarea name="info_event" class="form-control" required=""
                                                             placeholder="Isi informasi lomba"></textarea>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="">Jumlah Hotspot</label>
-                                                        <input type="number" name="hotspot_length_event"
-                                                            class="form-control"
+                                                    {{-- <div class="form-group"> --}}
+                                                        {{-- <label for="">Jumlah Hotspot</label> --}}
+                                                        <input type="hidden" name="hotspot_length_event" value="1"
+                                                            {{-- class="form-control"
                                                             placeholder="Isi jumlah hotspot lomba (minimal 1)" required
-                                                            min="1">
-                                                    </div>
+                                                            min="1" --}}
+                                                            >
+                                                    {{-- </div> --}}
                                                     <div class="form-group">
                                                         <label for="">Waktu Mulai Lomba</label>
                                                         <input type="datetime-local" step="1" id="release_time_event_add"
@@ -238,6 +239,7 @@
                                 <p>Alamat club : <b style="color: red">{{ $clubs->address_club }}</b></p>
                                 <p>Jumlah Loft : <b style="color: red">{{ count($list_pigeons) }}</b></p>
                                 <p>Jumlah Pigeon : <b style="color: red">{{ $count_pigeon }}</b></p>
+                                <p>Jumlah Lomba : <b style="color: red">{{ count($events) }}</b></p>
                                 {{-- <p>Posisi club : <b
                                         style="color: red">{{ $clubs->lat_club }} , {{ $clubs->lng_club }}</b></p>
                                 --}}
@@ -329,7 +331,7 @@
                                             <th>Selesai</th>
                                             <th>Harga Pendaftaran</th>
                                             <th>Batas Pendaftaran</th>
-                                            <th>Hotspot</th>
+                                            {{-- <th>Hotspot</th> --}}
                                             @if (Auth::user()->id == $clubs->manager_club || $exist == 1)
                                             <th>Aksi</th>
                                             @endif
@@ -341,7 +343,7 @@
                                                     <td>{{ $event->id }}</td>
                                                     <td>{{ $event->name_event }}</td>
                                                     @php $path = Storage::url('image-logo/'.$event->logo_event); @endphp
-                                                    <td><img src="{{ url($path) }}" height="80px"></td>
+                                                    <td><img src="{{ asset('image/'.$event->logo_event.'') }}" height="80px"></td>
                                                     <td>{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</td>
                                                     <td>{{ $event->category_event }}</td>
                                                     <td>{{ $event->info_event }}</td>
@@ -350,19 +352,16 @@
                                                     <td>{{ $event->lat_event_end ? '(' . $event->lat_event_end . '), (' . $event->lng_event_end . ')' : '-' }}
                                                     </td>
                                                     <td>{{ $event->address_event ? $event->address_event : '-' }}</td>
-                                                    @foreach ($event->event_hotspot as $hotspot)
-                                                        @if ($hotspot->release_time_hotspot)
-                                                            <td>{{ $hotspot ? str_replace('T', ' ', $hotspot->release_time_hotspot) : '-' }}
-                                                            </td>
-                                                            <td>{{ $hotspot->expired_time_hotspot ? str_replace('T', ' ', $hotspot->expired_time_hotspot) : '-' }}
-                                                            </td>
-                                                            @break
-                                                        @endif
-                                                    @endforeach
-                                                    <td>Rp {{ number_format($event->price_event, 2) }}</td>
-                                                    <td>{{ $event ? str_replace('T', ' ', $event->due_join_date_event) : '-' }}
-                                                    </td>
-                                                    <td>{{ $event->hotspot_length_event }}</td>
+                                                    @foreach($event->event_hotspot as $hotspot)
+                                        @if($hotspot->release_time_hotspot)
+                                        <td>{{ $hotspot ? str_replace('T', ' ', date('d F Y  H:i:s', strtotime($hotspot->release_time_hotspot))) : '-' }}</td>
+                                        <td>{{ $hotspot->expired_time_hotspot ? str_replace('T', ' ', date('d F Y  H:i:s', strtotime($hotspot->expired_time_hotspot))) : '-' }}</td>
+                                        @break
+                                        @endif
+                                        @endforeach 
+                                        <td>Rp {{ number_format($event->price_event, 2) }}</td>
+                                        <td>{{ $event ? str_replace('T', ' ', date('d F Y  H:i:s', strtotime($event->due_join_date_event))) : '-' }}</td>
+                                                    {{-- <td>{{ $event->hotspot_length_event }}</td> --}}
                                                     @if (Auth::user()->id == $clubs->manager_club || $exist == 1)
                                                     <td>
                                                         <a href="#" class="btn btn-info btn-sm" data-toggle="modal"
