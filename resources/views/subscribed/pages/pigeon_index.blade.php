@@ -29,11 +29,11 @@
                 <div class="col-12">
                     {{-- @if (Auth::user()->id==$clubs->manager_club||$exist == 1) --}}
                     {{-- <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#tambah_burung">Daftarkan </button> --}}
-                    <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#edit_name_loft">Edit Nama Loft</button>
-                                     
+                    <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#edit_name_loft">Edit Info Loft</button>
+                     <a href="#"><button class="btn musica-btn mb-3">Add Training</button></a>                
                     <div class="row">
                         <div class="col-3">
-                            <img src="{{asset('image/favicon.ico') }}" style="width:220px;height:200px"
+                            <img src="{{asset('image/'.$id_user->image_loft.'') }}" style="width:220px;height:200px"
                                 class="rounded float-left" alt="...">
                             {{-- bagian keterangan --}}
 
@@ -45,7 +45,7 @@
                             <p>Nama Loft : <b style="color: red">{{ $id_user->name_loft }}</b></p>
                             <p>Posisi Loft : <b style="color: red">{{ $id_user->lat_loft }} ,
                                     {{ $id_user->lng_loft }}</b></p>
-                            {{-- <p>Nama Loft : <b style="color: red">{{ $id_user->name }}</b></p> --}}
+                            <p>Email : <b style="color: red">{{ $id_user->email }}</b></p>
                             {{-- <p>Nama Club : <b style="color: red">{{ $get_loft->club->name_club }}</b></p>
                             <p>Jumlah Pigeon : <b style="color: red">{{ $count_pigeon }}</b></p>                           --}}
 
@@ -57,13 +57,13 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Edit Nama Loft</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Edit Info Loft</h5>
                                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                            <form action="/pigeons/update/name_loft/{{$id_user->id}}" method="POST">
+                            <form action="/pigeons/update/name_loft/{{$id_user->id}}" method="POST" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     {{-- <input type="hidden" name="id_user" value="{{ $get_loft->user->id }}">
                                     <input type="hidden" name="id_club" value="{{ $get_loft->id_club }}"> --}}
@@ -74,7 +74,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="">Gambar Logo</label>
-                                        <input type="file" name="image_news" class="form-control" required>
+                                    <input type="file"  name="image_loft" class="form-control" >
                                     </div>
                                    
                                     <div class="form-group">
@@ -88,8 +88,52 @@
                         </div>
                     </div>
                 </div>
+                
+           </div>
+        </div>
+        <div class="row" style="margin-bottom: 20px">
+            <div class="col-12">
+                {{-- bagian list burung --}}
+                <h4>List Pigeons</h4>
+                <div class="box-body">
+                    <table id="table_two" class="table table-bordered table-striped">
+                        <thead>
+                            <th>No.</th>                           
+                            <th>UID Pigeon</th>
+                            <th>Nama Pigeon</th>
+                            <th>Ring Size Pigeon</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Warna</th>
+                            <th>Tanggal Join</th>
+                            <th>Aksi</th>
+                        </thead>
+                        <tbody>
+                            {{-- @if (count($list_pigeons) == 0)
+                                <tr class="text-center">
+                                    <td colspan="8">-- Tidak ada Club yang belum Diikuti --</td>
+                                </tr>
+                            @endif --}}
+                            @foreach ($id_pigeon as $item)
+                                <tr>
+                                    <td>{{ $loop->index + 1 }}</td>
+                                   
+                                    <td>{{ $item->uid_pigeon }}</td>
+                                    <td>{{ $item->name_pigeon }}</td>
+                                    <td>{{ $item->ring_size_pigeon }}</td>
+                                    <td>{{ $item->sex_pigeon }}</td>
+                                    <td>{{ $item->color_pigeon }}</td>
+                                    <td>{{ date('d F Y  H:i:s', strtotime($item->updated_at)) }}</td>
+                                    <td class="action-link">
+                                    <a href="/club/training_pigeon/{{$item->id_user}}" title="Details" class="mx-1"><i class="fa fa-list-alt"
+                                                aria-hidden="true"></i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
             <div class="row" style="margin-bottom: 20px">
                 <div class="col-12">
                     {{-- bagian statistik --}}

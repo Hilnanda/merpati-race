@@ -21,6 +21,7 @@ class User extends Authenticatable
         'email',
         'password',
         'name',
+        'image_loft',
         'name_loft',
         'lng_loft',
         'lat_loft',

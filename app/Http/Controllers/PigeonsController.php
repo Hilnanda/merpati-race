@@ -27,15 +27,32 @@ class PigeonsController extends Controller
     public function index()
     {
         $id_user = User::where('id',auth()->user()->id)->first();
+        $id_pigeon = Pigeons::where('id_user',auth()->user()->id)->get();
         // dd($id_user);
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
 
-        return view('subscribed.pages.pigeon_index',compact('data_medsos','data_footer','id_user'));
+        return view('subscribed.pages.pigeon_index',compact('data_medsos','data_footer','id_user','id_pigeon'));
     }
     public function update_name_loft($id_user,Request $request)
     {
-       $data =  User::find($id_user)->update($request->all());
+
+        $gambar = User::find($id_user);
+        $data = $request->all();
+
+    //    $data =  User::find($id_user)->update($request->all());
+       if ($request->image_loft == null) {
+        $data['image_loft'] = $gambar->image_loft;
+    } else {
+        $this->validate($request, [
+            'image_loft' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $data['image_loft'] = 'logo-' . time().'.'.$request->image_loft->getClientOriginalExtension();
+        $request->image_loft->move(public_path('image'), $data['image_loft']);
+    }
+
+    $gambar->update($data);
         // 
         return back()->with('Sukses','Berhasil Update Nama Loft!');
     }
