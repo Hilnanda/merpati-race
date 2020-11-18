@@ -40,9 +40,9 @@
                                 </li>
                                 <li><a href="/pigeons">My Loft</a></li>
                                 <li><a href="/events/index">Lomba</a></li>
-                                <li><a href="">Hasil</a></li>
+                                {{-- <li><a href="">Hasil</a></li> --}}
                                 <li><a href="/club">Club</a></li>
-                                <li><a href="/team">Team</a></li>
+                                {{-- <li><a href="/team">Team</a></li> --}}
                                 @guest
                                     <li>
                                         <a href="{{ route('login') }}">{{ __('Login') }}</a>
