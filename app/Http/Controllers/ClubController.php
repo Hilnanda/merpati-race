@@ -503,12 +503,7 @@ class ClubController extends Controller
 
 // update nama loft User
 
-    public function update_name_loft($id_loft,Request $request)
-    {
-       $data =  User::find($id_loft)->update($request->all());
-        // 
-        return back()->with('Sukses','Berhasil Update Nama Loft!');
-    }
+    
 
    public function add_lomba(){
 
