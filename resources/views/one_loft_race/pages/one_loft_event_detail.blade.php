@@ -1,7 +1,7 @@
-@extends('subscribed.layout.subscribed')
+@extends('one_loft_race.layout.app_one')
 
 @section('title')
-Detail Lomba
+{{ $title }}
 @endsection
 
 @section('content')
