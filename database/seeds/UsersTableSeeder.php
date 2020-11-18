@@ -24,6 +24,7 @@ class UsersTableSeeder extends Seeder
         'name'  => 'user',
         'email' => 'user@gmail.com',
         'password'  => bcrypt('user'),
+        'name_loft'  => 'User Loft',
         'type_user' => 2
         ]);
 
@@ -32,6 +33,7 @@ class UsersTableSeeder extends Seeder
         'name'  => 'Sahabul',
         'email' => 'sahabulashfari@gmail.com',
         'password'  => bcrypt('sahabul'),
+        'name_loft'  => 'Sahabul Loft',
         'type_user' => 2,
         'is_active' => 1
         ]);
@@ -41,6 +43,7 @@ class UsersTableSeeder extends Seeder
         'name'  => 'Baidhowi',
         'email' => 'baidhowi@gmail.com',
         'password'  => bcrypt('owi'),
+        'name_loft'  => 'Baidhowi Loft',
         'type_user' => 2,
         'is_active' => 1
         ]);
@@ -49,6 +52,7 @@ class UsersTableSeeder extends Seeder
         'name'  => 'Dion',
         'email' => 'dion@gmail.com',
         'password'  => bcrypt('dion'),
+        'name_loft'  => 'Dion Loft',
         'type_user' => 2,
         'is_active' => 1
         ]);
@@ -57,6 +61,7 @@ class UsersTableSeeder extends Seeder
         'name'  => 'Hilnanda Ardiansyah',
         'email' => 'ardi@gmail.com',
         'password'  => bcrypt('ardi'),
+        'name_loft'  => 'Hilnanda Loft',
         'type_user' => 2,
         'is_active' => 1
         ]);
