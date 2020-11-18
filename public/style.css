@@ -335,6 +335,11 @@ img {
     .musica-btn.btn-2:hover, .musica-btn.btn-2:focus {
       box-shadow: none;
       color: #ffffff; }
+  .musica-btn.btn-primary {
+    background: #0096FF; }
+    .musica-btn.btn-2:hover, .musica-btn.btn-2:focus {
+      box-shadow: none;
+      color: #ffffff; }
   .musica-btn.btn-3 {
     color: #2217bd;
     line-height: 42px;

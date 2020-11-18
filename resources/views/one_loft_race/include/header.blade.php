@@ -39,6 +39,7 @@
                                         <li><a href="{{ route('contact') }}">Contact</a></li>
                                     </ul>
                                 </li>
+                                <li><a href="/one_loft_race">One Loft Race</a></li>
                                 {{-- <li><a href="/pigeons">Pigeon</a></li>
                                 <li><a href="/events/index">Lomba</a></li>
                                 <li><a href="">Hasil</a></li>

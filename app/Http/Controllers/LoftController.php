@@ -28,6 +28,31 @@ class LoftController extends Controller
 	    	->orderBy('lofts.id', 'desc')
 	    	->get();
 
+        $loft_follows = Loft::selectRaw('*, lofts.id as id')
+            ->where('lofts.id_user', '!=', $current_user->id)
+            ->join('loft_members', 'lofts.id', 'loft_members.id_loft')
+            ->join('pigeons', 'pigeons.id', 'loft_members.id_pigeon')
+            ->where('pigeons.id_user', $current_user->id)
+            ->orderBy('lofts.id', 'desc')
+            ->get();
+
+        $loft_others_db = Loft::where('lofts.id_user', '!=', $current_user->id)
+            ->orderBy('lofts.id', 'desc')
+            ->get();
+
+        $loft_follows_id = [];
+        $loft_others = [];
+
+        foreach ($loft_follows as $data) {
+            array_push($loft_follows_id, $data->id);
+        }
+
+        foreach ($loft_others_db as $data) {
+            if (!in_array($data->id, $loft_follows_id)) {
+                array_push($loft_others, $data);
+            }
+        }
+
 	    $event_results = EventResults::selectRaw('
 	    		COUNT(id) as amount, 
 	    		event_results.id_event_hotspot as id_event_hotspot
@@ -66,7 +91,7 @@ class LoftController extends Controller
     	$users = User::all();
 
     	return view('one_loft_race.pages.one_loft',
-    		compact('title', 'lofts', 'current_user', 'loft_owns')
+    		compact('title','lofts','current_user','loft_owns','loft_follows','loft_others')
     	);
     }
 
@@ -77,10 +102,15 @@ class LoftController extends Controller
      */
     public function showLoftDetails($id)
     {
-    	$title = 'Loft Detail';
+    	$title = 'Detail Loft';
     	$current_user = auth()->user();
     	$loft = Loft::find($id);
-    	$pigeons = Pigeons::all();
+    	$pigeons = Pigeons::where('id_user', $current_user->id)
+            ->whereRaw("id NOT IN (
+                    SELECT id_pigeon FROM loft_members
+                )
+            ")
+            ->get();
 
     	$loft->fanciers = LoftMember::selectRaw('pigeons.id_user as id_user')
     		->join('pigeons', 'loft_members.id_pigeon', 'pigeons.id')
@@ -114,12 +144,33 @@ class LoftController extends Controller
     }
 
     /**
+     * Show the detail of the loft.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showJoinList($id)
+    {
+        $title = 'Permintaan Join';
+        $current_user = auth()->user();
+        $loft = Loft::find($id);
+
+        $loft_members = LoftMember::where('id_loft', $loft->id)
+            ->where('is_active', 0)
+            ->get();
+
+        return view('one_loft_race.pages.one_loft_detail_join_list',
+            compact('title','loft','current_user','loft_members')
+        );
+    }
+
+    /**
      * Show the detail of the event.
      *
      * @return \Illuminate\Http\Response
      */
     public function showEventDetails($id, $hotspot)
     {
+        $title = 'Detail Lomba';
         $event = Events::with('loft')->find($id);
         $users = User::all();
         $auth_session = auth()->user()->id;
@@ -180,7 +231,7 @@ class LoftController extends Controller
         }
 
         return view('one_loft_race.pages.one_loft_event_detail',
-            compact('users','event','event_results','pigeons','current_datetime','hotspot', 'id_hotspot','unfinished_speed')
+            compact('title','users','event','event_results','pigeons','current_datetime','hotspot', 'id_hotspot','unfinished_speed')
         );
     }
 
@@ -289,7 +340,8 @@ class LoftController extends Controller
     	return Carbon::parse($value)->format('Y m d H i s');
     }
 
-    public function distance($lat1, $lon1, $lat2, $lon2, $unit) {
+    public function distance($lat1, $lon1, $lat2, $lon2, $unit)
+    {
     	if (($lat1 == $lat2) && ($lon1 == $lon2)) {
     		return 0;
     	}

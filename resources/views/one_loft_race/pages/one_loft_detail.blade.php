@@ -1,7 +1,7 @@
-@extends('subscribed.layout.subscribed')
+@extends('one_loft_race.layout.app_one')
 
 @section('title')
-Detail Loft
+{{ $title }}
 @endsection
 
 @section('content')
@@ -21,7 +21,12 @@ Detail Loft
         <div class="row">
             <div class="col d-flex justify-content-between">
                 <h4>Detail Loft "{{ $loft->name_loft }}"</h4>
-                @if($loft->id_user != $current_user->id)
+                @if($loft->id_user == $current_user->id)
+                <div>
+                    <a href="#" class="btn musica-btn" data-toggle="modal" data-target="#createEvent">Buat Lomba</a>
+                    <a href="/loft/{{$loft->id}}/details/join-list" class="btn musica-btn btn-primary">Permintaan Join</a>
+                </div>
+                @else
                 <a href="#" class="btn musica-btn" data-toggle="modal" data-target="#joinLoft">Join Loft</a>
                 @endif
             </div>
@@ -54,7 +59,7 @@ Detail Loft
                     @foreach($loft->event as $event)
                     <tr>
                         <td>{{ $row++ }}</td>
-                        <td>{{ $event->name_event }}</td>
+                        <td><a href="/loft/events/{{$event->id}}/1/details" class="text-info">{{ $event->name_event }}</a></td>
                         <td>{{ $event->lng_event . ', ' . $event->lat_event }}</td>
                         <td>{{ $event->event_hotspot[0]->release_time_hotspot }}</td>
                         <td>{{ $event->distance ? round($event->distance, 2) . ' Km' : '-' }}</td>
@@ -74,56 +79,97 @@ Detail Loft
         <!-- Modal Join Loft -->
         <div class="modal fade" id="joinLoft" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title" id="exampleModalLabel">Join Lomba {{ $event ? $event->name_event : '-' }}</h4>
-          </div>
-          <form action="/events/{{ $event->id }}/join_event" method="POST">
-              <div class="modal-body">
-                {{ csrf_field() }}
-                <div class="form-group">
-                    <label for="id_pigeon">Pigeon yang ingin join</label>
-                    <select class="form-control" name="id_pigeon" required>
-                        <option value="" selected disabled>-- Pilih Pigeon --</option>
-                        @foreach($pigeons as $pigeon)
-                        @if($event->category_event == 'Team')
-                        @if($pigeon->name_team)
-                        <option value="{{ $pigeon->pigeon_id }}">({{ $pigeon->uid_pigeon }}) {{ $pigeon->name_pigeon }} [{{ $pigeon->name_team }}]</option>
-                        @endif
-                        @else
-                        <option value="{{ $pigeon->pigeon_id }}">({{ $pigeon->uid_pigeon }}) {{ $pigeon->name_pigeon }}</option>
-                        @endif
-                        @endforeach
-                    </select>
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel">Join Loft</h4>
+                    </div>
+                    <form action="" method="POST">
+                        <div class="modal-body">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                <label for="id_pigeon">Pigeon yang ingin join</label>
+                                <select class="form-control" name="id_pigeon" required>
+                                    <option value="" selected disabled>-- Pilih Pigeon --</option>
+                                    @foreach($pigeons as $pigeon)
+                                    <option value="{{ $pigeon->pigeon_id }}">({{ $pigeon->uid_pigeon }}) {{ $pigeon->name_pigeon }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="form-group d-flex justify-content-end">
+                                <button class="btn musica-btn btn-2" type="button"
+                                data-dismiss="modal">Cancel</button>
+                                <input type="submit" value="Daftarkan" class="btn musica-btn">
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                @if($event->category_event == 'Team')
-                <div class="form-group">
-                    <label for="is_core">Peran sebagai</label>
-                    <select class="form-control" name="is_core" required>
-                        <option value="" disabled selected>-- Pilih peran --</option>
-                        <option value="1">Inti</option>
-                        <option value="0">Cadangan</option>
-                    </select>
-                </div>
-                @else
-                <input type="hidden" name="is_core" value="1">
-                @endif
-              <h5>Harga untuk mendaftar lomba sebesar Rp.{{ number_format($event->price_event, 2) }}</h5>
-          </div>
-          <div class="modal-footer">
-            <div class="form-group d-flex justify-content-end">
-                <button class="btn musica-btn btn-2" type="button"
-                data-dismiss="modal">Cancel</button>
-                <input type="submit" value="Lanjut Pembayaran" class="btn musica-btn">
             </div>
         </div>
-    </form>
-</div>
-</div>
-</div>
-<!-- End Modal Join Loft -->
+        <!-- End Modal Join Loft -->
 
-</div>
+        <!-- Modal Create Event -->
+        <div class="modal fade" id="createEvent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel">Buat Lomba</h4>
+                    </div>
+                    <form action="/admin/event/create" method="POST" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                <label for="name_event">Nama Lomba</label>
+                                <input type="text" name="name_event" class="form-control" placeholder="Isi nama lomba" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="logo_event">Logo Lomba</label>
+                                <input type="file" name="logo_event" class="form-control" placeholder="Isi logo lomba" required>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="category_event">Kategori Lomba</label>
+                                <select class="form-control" name="category_event">
+                                    <option value="" disabled selected>-- Pilih kategori --</option>
+                                    <option value="Individu">Lomba Individu</option>
+                                    <option value="Team">Lomba Team</option>
+                                </select>
+                            </div> -->
+                            <div class="form-group">
+                                <label for="">Informasi Tentang Lomba</label>
+                                <textarea name="info_event" class="form-control" required="" placeholder="Isi informasi lomba"></textarea>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="">Jumlah Hotspot</label>
+                                <input type="number" name="hotspot_length_event" class="form-control" placeholder="Isi jumlah hotspot lomba (minimal 1)" required min="1">
+                            </div> -->
+                            <div class="form-group">
+                                <label for="">Waktu Mulai Lomba</label>
+                                <input type="datetime-local" step="1" id="release_time_event_add" name="release_time_event" class="form-control" placeholder="Isi waktu mulai lomba" required onchange="setMaxDueDateAdd()">
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="">Harga Pendaftaran Lomba</label>
+                                <input type="number" name="price_event" class="form-control" placeholder="Isi harga pendaftaran lomba" required step=100>
+                            </div> -->
+                            <div class="form-group">
+                                <label for="">Batas Waktu Pendaftaran</label>
+                                <input type="datetime-local" step="1" id="due_join_date_event_add" name="due_join_date_event" class="form-control" placeholder="Isi batas pendaftaran lomba">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="form-group d-flex justify-content-end">
+                                <button class="btn musica-btn btn-2" type="button"
+                                data-dismiss="modal">Cancel</button>
+                                <input type="submit" value="Simpan" class="btn musica-btn">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal Create Event -->
+
+    </div>
 </div>
 @endsection

@@ -184,6 +184,7 @@ Route::middleware('is_subscribed')->group(function () {
     // One Loft Race
     Route::get('/one_loft_race','LoftController@index');
     Route::get('/loft/{id}/details', 'LoftController@showLoftDetails')->name('loft_loft_details');
+    Route::get('/loft/{id}/details/join-list', 'LoftController@showJoinList')->name('loft_loft_details_join_list');
     Route::get('/loft/events/{id}/{hotspot}/details', 'LoftController@showEventDetails')->name('loft_events_details');
     Route::get('/loft/events/{id}/{hotspot}/basket', 'LoftController@showBasketedList')->name('loft_events_basketed');
     Route::get('/loft/events/{id}/{hotspot}/live-result', 'LoftController@showLiveResults')->name('loft_events_live_result');
