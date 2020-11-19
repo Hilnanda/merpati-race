@@ -139,8 +139,15 @@ class LoftController extends Controller
             }
     	}
 
+        $participants = LoftMember::selectRaw('users.id as id, users.name as name, count(pigeons.id) as count')
+            ->join('pigeons', 'pigeons.id', 'loft_members.id_pigeon')
+            ->join('users', 'users.id', 'pigeons.id_user')
+            ->where('loft_members.id_loft', $loft->id)
+            ->groupBy('users.id', 'users.name')
+            ->get();
+
     	return view('one_loft_race.pages.one_loft_detail',
-    		compact('title','loft','current_user','events','pigeons')
+    		compact('title','loft','current_user','events','pigeons','participants')
     	);
     }
 
