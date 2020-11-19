@@ -9,6 +9,7 @@ use App\User;
 use App\Pigeons;
 use App\Events;
 use App\EventResults;
+use App\EventHotspot;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -265,6 +266,45 @@ class LoftController extends Controller
     	Loft::create($data);
 
     	return back()->with('Sukses','Berhasil menambahkan data!');
+    }
+
+    /**
+     * Store a newly created resource in events.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function createEvent(Request $request)
+    {
+        $data = $request->all();
+
+        $data['due_join_date_event'] = str_replace("T", " ", $request->due_join_date_event);
+        $data['release_time_event'] = str_replace("T", " ", $request->release_time_event);
+
+        $data['branch_event'] = "One Loft Race";
+        $data['category_event'] = "Individu";
+
+        $this->validate($request, [
+            'logo_event' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $data['logo_event'] = 'logo-' . time().'.'.$request->logo_event->getClientOriginalExtension();
+        $request->logo_event->move(public_path('image'), $data['logo_event']);
+
+        $data['hotspot_length_event'] = 1;
+        $data['price_event'] = 0;
+
+        $id_event = Events::create($data)->id;
+
+        $hotspot = [];
+        $hotspot['id_event'] = $id_event;
+        $hotspot['release_time_hotspot'] = $data['release_time_event'];
+        for ($i=0; $i < $data['hotspot_length_event']; $i++) { 
+            EventHotspot::create($hotspot);
+            $hotspot['release_time_hotspot'] = null;
+        }
+
+        return back()->with('Sukses','Berhasil menambahkan data!');
     }
 
     /**

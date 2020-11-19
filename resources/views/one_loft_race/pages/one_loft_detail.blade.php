@@ -60,7 +60,7 @@
                     <tr>
                         <td>{{ $row++ }}</td>
                         <td><a href="/loft/events/{{$event->id}}/1/details" class="text-info">{{ $event->name_event }}</a></td>
-                        <td>{{ $event->lng_event . ', ' . $event->lat_event }}</td>
+                        <td>{{ $event->lng_event ? $event->lng_event . ', ' . $event->lat_event : '-' }}</td>
                         <td>{{ $event->event_hotspot[0]->release_time_hotspot }}</td>
                         <td>{{ $event->distance ? round($event->distance, 2) . ' Km' : '-' }}</td>
                         <td style="color: {{ $event->color ? $event->color : '' }};">{{ $event->status ? $event->status : '-' }}</td>
@@ -117,9 +117,13 @@
                     <div class="modal-header">
                         <h4 class="modal-title" id="exampleModalLabel">Buat Lomba</h4>
                     </div>
-                    <form action="/admin/event/create" method="POST" enctype="multipart/form-data">
+                    <form action="/loft/events" method="POST" enctype="multipart/form-data">
                         <div class="modal-body">
                             {{ csrf_field() }}
+                            <div class="form-group" hidden>
+                                <label for="id_loft">ID Loft</label>
+                                <input type="text" name="id_loft" class="form-control" value="{{$loft->id}}" required>
+                            </div>
                             <div class="form-group">
                                 <label for="name_event">Nama Lomba</label>
                                 <input type="text" name="name_event" class="form-control" placeholder="Isi nama lomba" required>
@@ -173,3 +177,11 @@
     </div>
 </div>
 @endsection
+@push('bottom-script')
+<script>
+    function setMaxDueDateAdd() {
+        var release_time = document.getElementById("release_time_event_add").value;
+        document.getElementById("due_join_date_event_add").max = release_time;
+    }
+</script>
+@endpush
