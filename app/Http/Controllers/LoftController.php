@@ -146,8 +146,12 @@ class LoftController extends Controller
             ->groupBy('users.id', 'users.name')
             ->get();
 
+            $count_acc = LoftMember::where('id_loft', $loft->id)
+            ->where('is_active', 0)
+            ->count();
+
     	return view('one_loft_race.pages.one_loft_detail',
-    		compact('title','loft','current_user','pigeons','participants')
+    		compact('title','loft','current_user','pigeons','participants','count_acc')
     	);
     }
 
@@ -530,5 +534,21 @@ class LoftController extends Controller
     			return $miles;
     		}
     	}
+    }
+
+
+    public function acc_join($id_event){
+        $loft = LoftMember::find($id_event);
+        $loft->is_active = 1;
+        
+    
+        $loft->save();
+    
+       return back()->with('Sukses','Berhasil Update data!');
+    }
+    public function delete_join($id_event){
+        LoftMember::find($id_event)->delete();
+
+        return back()->with('Sukses','Berhasil Menolak!');
     }
 }
