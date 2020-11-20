@@ -147,7 +147,7 @@ class LoftController extends Controller
             ->get();
 
     	return view('one_loft_race.pages.one_loft_detail',
-    		compact('title','loft','current_user','events','pigeons','participants')
+    		compact('title','loft','current_user','pigeons','participants')
     	);
     }
 
@@ -288,7 +288,6 @@ class LoftController extends Controller
         $data['due_join_date_event'] = str_replace("T", " ", $request->due_join_date_event);
         $data['release_time_event'] = str_replace("T", " ", $request->release_time_event);
 
-        $data['branch_event'] = "One Loft Race";
         $data['category_event'] = "Individu";
 
         $this->validate($request, [

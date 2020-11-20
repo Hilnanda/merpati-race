@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class PigeonTableSeeder extends Seeder
+class EventResultsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,7 @@ class PigeonTableSeeder extends Seeder
      */
     public function run()
     {
-        $sql = file_get_contents(database_path() . '/seeds/pigeons.sql');
+        $sql = file_get_contents(database_path() . '/seeds/event_results.sql');
     
         DB::statement($sql);
     }
