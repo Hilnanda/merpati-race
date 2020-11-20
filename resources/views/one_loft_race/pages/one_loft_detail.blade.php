@@ -5,6 +5,18 @@
 @endsection
 
 @section('content')
+<style>
+    .badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        padding: 5px 10px;
+        border-radius: 50%;
+        background: red;
+        color: white;
+    }
+
+</style>
 <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ url('image/breadcumb-1.jpg') }});">
     <div class="bradcumbContent">
@@ -25,7 +37,11 @@
                 <div>
                     <a href="#" class="btn musica-btn" data-toggle="modal" data-target="#createEvent">Buat Lomba</a>
                     <a href="#" class="btn musica-btn btn-2" data-toggle="modal" data-target="#createTraining">Buat Training</a>
-                    <a href="/loft/{{$loft->id}}/details/join-list" class="btn musica-btn btn-primary">Permintaan Join</a>
+                    <a href="/loft/{{$loft->id}}/details/join-list" class="btn musica-btn btn-primary">
+                        Permintaan Join
+                        @if ($count_acc != 0)
+                        <span class="badge">{{ $count_acc }}</span>
+                        @endif</a>
                 </div>
                 @else
                 <a href="#" class="btn musica-btn" data-toggle="modal" data-target="#joinLoft">Join Loft</a>
@@ -101,8 +117,8 @@
                         <td>{{ $event->distance ? round($event->distance, 2) . ' Km' : '-' }}</td>
                         <td style="color: {{ $event->color ? $event->color : '' }};">{{ $event->status ? $event->status : '-' }}</td>
                         <td class="action-link">
-                            <a href="/events/{{$event->id}}/1/basket" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+                            <a href="/loft/events/{{$event->id}}/1/basket" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="/loft/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
                             <!-- <a href="/events/{{$event->id}}/1/details" title="Detail Lomba" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a> -->
                         </td>
                     </tr>
@@ -140,8 +156,8 @@
                         <td>{{ $event->distance ? round($event->distance, 2) . ' Km' : '-' }}</td>
                         <td style="color: {{ $event->color ? $event->color : '' }};">{{ $event->status ? $event->status : '-' }}</td>
                         <td class="action-link">
-                            <a href="/events/{{$event->id}}/1/basket" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+                            <a href="/loft/events/{{$event->id}}/1/basket" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="/loft/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
                             <!-- <a href="/events/{{$event->id}}/1/details" title="Detail Lomba" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a> -->
                         </td>
                     </tr>

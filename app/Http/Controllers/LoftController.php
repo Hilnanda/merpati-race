@@ -146,8 +146,12 @@ class LoftController extends Controller
             ->groupBy('users.id', 'users.name')
             ->get();
 
+            $count_acc = LoftMember::where('id_loft', $loft->id)
+            ->where('is_active', 0)
+            ->count();
+
     	return view('one_loft_race.pages.one_loft_detail',
-    		compact('title','loft','current_user','pigeons','participants')
+    		compact('title','loft','current_user','pigeons','participants','count_acc')
     	);
     }
 
@@ -230,6 +234,8 @@ class LoftController extends Controller
 	        ->orderBy('event_results.speed_event_result', 'desc')
 	        ->get();
 
+
+        $unfinished_speed = null;
         if (count($event_results) > 0) {
             $distance = $event_results[0]->speed_event_result ? ($event_results[0]->speed_event_result) * ((strtotime($event_results[0]->updated_at) - strtotime($event->release_time_event)) / 60) : null;
 
@@ -250,7 +256,7 @@ class LoftController extends Controller
      */
     public function showBasketedList($id, $hotspot)
     {
-        $event = Events::with($this->relationships)->find($id);
+        $event = Events::find($id);
         $users = User::all();
 
         $current_datetime = Carbon::now();
@@ -267,14 +273,13 @@ class LoftController extends Controller
             }
         }
 
-        $event_participants = EventResults::with($this->event_results_relationships)
-        ->whereHas('event_participant', function ($query) use($event) {
-            $query->where('active_at', '!=', null);
-            $query->where('id_event', '=', $event->id);
-        })
-        ->where('event_results.id_event_hotspot', '=', $id_hotspot)
-        ->orderBy('event_results.created_at', 'asc')
-        ->get();
+        $event_participants = EventResults::whereHas('event_participant', function ($query) use($event) {
+                $query->where('active_at', '!=', null);
+                $query->where('id_event', '=', $event->id);
+            })
+            ->where('event_results.id_event_hotspot', '=', $id_hotspot)
+            ->orderBy('event_results.created_at', 'asc')
+            ->get();
 
         $event->release_time_event = $this->formatDateLocal($event->release_time_event);
         $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
@@ -282,7 +287,7 @@ class LoftController extends Controller
             $event_participant->created_at = $this->formatDateLocal($event_participant->created_at);
         }
 
-        return view('subscribed.pages.events_basketed_list',
+        return view('one_loft_race.pages.one_loft_basketed_list',
             compact('users','current_datetime','event','event_participants','hotspot')
         );
     }
@@ -294,7 +299,7 @@ class LoftController extends Controller
      */
     public function showLiveResults($id, $hotspot)
     {
-        $event = Events::with($this->relationships)->find($id);
+        $event = Events::find($id);
         $users = User::all();
         $auth_session = auth()->user()->id;
         $pigeons = Pigeons::selectRaw('*, pigeons.id as pigeon_id')
@@ -336,14 +341,13 @@ class LoftController extends Controller
         
         $event->due_join_date_event = $this->formatDateLocal($event->due_join_date_event);
 
-        $event_results = EventResults::with($this->event_results_relationships)
-        ->whereHas('event_participant', function ($query) use($event) {
-            $query->where('active_at', '!=', null);
-            $query->where('id_event', '=', $event->id);
-        })
-        ->where('event_results.id_event_hotspot', '=', $id_hotspot)
-        ->orderBy('event_results.speed_event_result', 'desc')
-        ->get();
+        $event_results = EventResults::whereHas('event_participant', function ($query) use($event) {
+                $query->where('active_at', '!=', null);
+                $query->where('id_event', '=', $event->id);
+            })
+            ->where('event_results.id_event_hotspot', '=', $id_hotspot)
+            ->orderBy('event_results.speed_event_result', 'desc')
+            ->get();
 
         if (count($event_results) > 0) {
             $distance = $event_results[0]->speed_event_result ? ($event_results[0]->speed_event_result) * ((strtotime($event_results[0]->updated_at) - strtotime($event->release_time_event)) / 60) : null;
@@ -361,7 +365,7 @@ class LoftController extends Controller
             }
         }
 
-        return view('subscribed.pages.events_live_results',
+        return view('one_loft_race.pages.one_loft_live_results',
             compact('users','event','event_results','pigeons','current_datetime','hotspot', 'id_hotspot','unfinished_speed','arrived_pigeons')
         );
     }
@@ -530,5 +534,21 @@ class LoftController extends Controller
     			return $miles;
     		}
     	}
+    }
+
+
+    public function acc_join($id_event){
+        $loft = LoftMember::find($id_event);
+        $loft->is_active = 1;
+        
+    
+        $loft->save();
+    
+       return back()->with('Sukses','Berhasil Update data!');
+    }
+    public function delete_join($id_event){
+        LoftMember::find($id_event)->delete();
+
+        return back()->with('Sukses','Berhasil Menolak!');
     }
 }

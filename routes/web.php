@@ -195,6 +195,10 @@ Route::middleware('is_subscribed')->group(function () {
     Route::post('/loft/events/{id}/join_event', 'LoftController@joinEvent')->name('join_loft_event');
     Route::post('/loft/events', 'LoftController@createEvent')->name('create_loft_event');
 
+    Route::get('/loft/acc/{id}', 'LoftController@acc_join');
+    Route::get('/loft/acc/{id}/delete', 'LoftController@delete_join');
+
+
     });
 
 Auth::routes();
