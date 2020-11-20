@@ -91,7 +91,7 @@ class PigeonsController extends Controller
 
         $data['due_join_date_event'] = str_replace("T", " ", $request->due_join_date_event);
         $data['release_time_event'] = str_replace("T", " ", $request->release_time_event);
-
+        $data['id_user'] = auth()->user()->id;
         $data['branch_event'] = "Training";
         $data['category_event'] = "Individu";
 
@@ -322,9 +322,12 @@ class PigeonsController extends Controller
         return back()->with('Sukses','Berhasil menghapus data!');
     }
 
-    public function id_training_pigeon($id_user)
+    public function training_pigeon($id_user)
     {
-        Events::find($id_user);
-        return view('subscribed.pages.pigeon_training');
+        $data = Events::where('id_user',auth()->user()->id)->get();        
+        // dd($data);
+        // $data_medsos = CMSMedsos::all();
+        // $data_footer = CMSFooter::all();
+        return view('subscribed.pages.pigeon_training',compact('data'));
     }
 }
