@@ -167,12 +167,14 @@ class EventClubController extends Controller
     }
 
 
-    public function list_participant($id_club){
-        $list_parti = Pigeons::where('id_club',$id_club)->get();
+    public function list_participant($id_event){
+        $event_desc = Events::where('id',$id_event)->first();
+        // dd($event_desc->id_club);
+        $list_parti = Pigeons::where('id_club',$event_desc->id_club)->get();
 
 
         return view('subscribed.pages.club_add_participant', 
-            compact('list_parti')
+            compact('list_parti','event_desc')
         );
     }
 
