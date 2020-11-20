@@ -18,8 +18,12 @@ class DatabaseSeeder extends Seeder
             FootersTableSeeder::class,
             PigeonTableSeeder::class,
             ClubMemberTableSeeder::class,
+            LoftsTableSeeder::class,
+            LoftMembersTableSeeder::class,
             EventsTableSeeder::class,
-            EventHotspotsTableSeeder::class
+            EventHotspotsTableSeeder::class,
+            EventParticipantsTableSeeder::class,
+            EventResultsTableSeeder::class
         ]);
         
     }
