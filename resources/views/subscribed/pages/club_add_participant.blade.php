@@ -68,7 +68,7 @@ List Add Participant
                                     <input type="hidden" name="id_event" value="{{ $event->id }}">
                                     @foreach ($club_members as $club_member)
                                     <tr>
-                                        <td><input type="checkbox" name="id_pigeons[]" value="{{ $club_member->id }}"></td>
+                                        <td><input type="checkbox" {{ in_array($club_member->id, $event_participant_pigeons) ? 'checked' : '' }} name="id_pigeons[]" value="{{ $club_member->id }}"></td>
                                         <td hidden><input type="text" name="id_clubs[]" value="{{ $club_member->id_club }}"></td>
                                         <td>{{ $loop->index + 1 }} </td>
                                         <td>{{ $club_member->users->name_loft }}</td>
@@ -77,7 +77,7 @@ List Add Participant
                                         <td>{{ $club_member->ring_size_pigeon }}</td>
                                         <td>{{ $club_member->sex_pigeon }}</td>
                                         <td>{{ $club_member->color_pigeon }}</td>
-                                        <td>{{ date('d F Y  H:i:s', strtotime($club_member->updated_at)) }}</td>
+                                        <td>{{ date('d F Y  H:i:s', strtotime($club_member->created_at)) }}</td>
                                         <!-- <td class="action-link">
                                             <a href="/club/training_pigeon/{{$club_member->id_user}}" title="Details" class="mx-1"><i class="fa fa-list-alt"
                                             aria-hidden="true"></i></a>

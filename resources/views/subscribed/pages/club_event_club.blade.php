@@ -21,25 +21,24 @@
             {{-- <h4>Detail Club Saya</h4> --}}
             <div class="box-body">
                 <div class="row" style="margin-bottom: 20px">
-                    <div class="col-12">
-
-                        <a href="/club/list-participant/{{ $event_desc->id }}" class="btn musica-btn">Tambah Partisipan</a>
+                    <div class="col-3">
+                        <a href="/club/list-participant/{{ $event_desc->id }}" style="width: 100%;" class="btn musica-btn">Tambah Partisipan</a>
+                    </div>
+                    <div class="col-9 d-flex justify-content-end">
+                        <a href="/club/{{$event_desc->id_club}}/detail_saya" class="btn musica-btn btn-primary">Detail Club</a>
                     </div>
                 </div>
                 <div class="row" style="margin-bottom: 20px">
                     <div class="col-12">
-                        
-                        
-                        
                         <div class="row">
-                            <div class="col-4">
-                                <img src="{{ asset('image/'.$event_desc->logo_event.'') }}" style="width:250px"
+                            <div class="col-3">
+                                <img src="{{ asset('image/'.$event_desc->logo_event.'') }}" style="width:100%;"
                                     class="rounded float-left" alt="...">
                                 {{-- bagian keterangan --}}
 
                             </div>
-                            <div class="col-6">
-                                <h4>Event Details</h4>
+                            <div class="col-9">
+                                <h4>Detail Lomba</h4>
                                 <p>Nama Event : <b style="color: red">{{ $event_desc->name_event }}</b></p>
                                 <p>Info Event : <b style="color: red">{{ $event_desc->info_event }}</b></p>
                                 {{-- <p>Nama Pemilik : <b style="color: red">{{ $event_desc->user->name }}
@@ -85,21 +84,21 @@
                                             <td colspan="8">-- Tidak ada Club yang belum Diikuti --</td>
                                         </tr>
                                     @endif --}}
-                                    {{-- @foreach ($list_pigeon as $item)
+                                    @foreach ($event_participants as $item)
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
-                                            <td>{{ $item->uid_pigeon }}</td>
-                                            <td>{{ $item->name_pigeon }}</td>
-                                            <td>{{ $item->ring_size_pigeon }}</td>
-                                            <td>{{ $item->sex_pigeon }}</td>
-                                            <td>{{ $item->color_pigeon }}</td>
-                                            <td>{{ date('d F Y  H:i:s', strtotime($item->updated_at)) }}</td>
+                                            <td>{{ $item->pigeons->uid_pigeon }}</td>
+                                            <td>{{ $item->pigeons->name_pigeon }}</td>
+                                            <td>{{ $item->pigeons->ring_size_pigeon }}</td>
+                                            <td>{{ $item->pigeons->sex_pigeon }}</td>
+                                            <td>{{ $item->pigeons->color_pigeon }}</td>
+                                            <td>{{ date('d F Y  H:i:s', strtotime($item->created_at)) }}</td>
                                             <td class="action-link">
-                                            <a href="/club/training_pigeon/{{$item->id_user}}" title="Details" class="mx-1"><i class="fa fa-list-alt"
+                                            <a href="/pigeons/detail/{{$item->id_pigeon}}" title="Details" class="mx-1"><i class="fa fa-list-alt"
                                                         aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

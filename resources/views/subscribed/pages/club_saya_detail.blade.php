@@ -20,7 +20,7 @@
     <!-- ##### Breadcumb Area Start ##### -->
     <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ url('image/breadcumb-1.jpg') }});">
         <div class="bradcumbContent">
-            <h2>List Club</h2>
+            <h2>Detail Club</h2>
         </div>
     </div>
     <!-- bg gradients -->
@@ -232,7 +232,7 @@
 
                             </div>
                             <div class="col-6">
-                                <h4>Club Details </h4>
+                                <h4>Detail Club</h4>
                                 {{-- <p>Nama club : <b style="color: red">{{ $clubs->id }}</b>
                                 </p> --}}
                                 <p>Nama club : <b style="color: red">{{ $clubs->name_club }}</b></p>

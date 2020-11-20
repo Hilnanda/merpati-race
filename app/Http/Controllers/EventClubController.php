@@ -160,10 +160,12 @@ class EventClubController extends Controller
     public function desc_event($id_event){
         $event_desc = Events::where('id',$id_event)->first();
 
-        
+        $event_participants = EventParticipants::where('id_event',$event_desc->id)
+            ->whereNotNull('active_at')
+            ->get();
 
         return view('subscribed.pages.club_event_club', 
-            compact('event_desc')
+            compact('event_desc','event_participants')
         );
     }
 
@@ -172,10 +174,17 @@ class EventClubController extends Controller
         $event = Events::where('id',$id_event)->first();
         // dd($event_desc->id_club);
         $club_members = Pigeons::where('id_club', $event->id_club)->get();
-        $event_participants = EventParticipants::where('id_event',$event->id)->get();
+        $event_participants = EventParticipants::where('id_event',$event->id)
+            ->whereNotNull('active_at')
+            ->get();
+
+        $event_participant_pigeons = [];
+        foreach ($event_participants as $event_participant) {
+            array_push($event_participant_pigeons, $event_participant->id_pigeon);
+        }
 
         return view('subscribed.pages.club_add_participant', 
-            compact('event','club_members','event_participants')
+            compact('event','club_members','event_participants','event_participant_pigeons')
         );
     }
 
@@ -190,23 +199,33 @@ class EventClubController extends Controller
         $data = $request->all();
         $event = Events::where('id',$data['id_event'])->first();
 
-        $club_members = Pigeons::where('id_club', $event->id_club)->get();
         $event_participants = EventParticipants::where('id_event',$event->id)->get();
 
-        foreach ($data['id_pigeons'] as $key => $id_pigeon) {
-            EventParticipants::updateOrCreate(
+        foreach ($event_participants as $event_participant) {
+            $event_participant->update(
                 [
-                    'id_pigeon' => $id_pigeon,
-                    'id_event' => $event->id
-                ],
-                [
-                    'is_core' => true,
-                    'current_id_club' => $data['id_clubs'][$key]
+                    'active_at' => null
                 ]
             );
         }
 
-        return back()->with('Sukses','Berhasil menyimpan data!');
+        if (isset($data['id_pigeons'])) {
+            foreach ($data['id_pigeons'] as $key => $id_pigeon) {
+                EventParticipants::updateOrCreate(
+                    [
+                        'id_pigeon' => $id_pigeon,
+                        'id_event' => $event->id
+                    ],
+                    [
+                        'is_core' => true,
+                        'current_id_club' => $data['id_clubs'][$key],
+                        'active_at' => now()
+                    ]
+                );
+            }
+        }
+
+        return redirect('/club/event-club/'.$event->id)->with('Sukses','Berhasil menyimpan data!');
     }
 
     /**
