@@ -40,7 +40,11 @@
                     <th></th>
                 </thead>
                 <tbody>
-                    
+                    @foreach ($loft_members as $item)
+                        <tr>
+                            <td></td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
