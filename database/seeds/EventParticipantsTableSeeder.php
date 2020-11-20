@@ -11,7 +11,7 @@ class EventParticipantsTableSeeder extends Seeder
      */
     public function run()
     {
-        $sql = file_get_contents(database_path() . '/seeds/event_partisipants.sql');
+        $sql = file_get_contents(database_path() . '/seeds/event_participants.sql');
     
         DB::statement($sql);
     }
