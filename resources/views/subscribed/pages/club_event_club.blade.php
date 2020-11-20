@@ -23,7 +23,7 @@
                 <div class="row" style="margin-bottom: 20px">
                     <div class="col-12">
 
-                        <a href="/club/list-participant/{{ $event_desc->id_club }}" class="btn musica-btn">Tambah Participant</a>
+                        <a href="/club/list-participant/{{ $event_desc->id }}" class="btn musica-btn">Tambah Participant</a>
                     </div>
                 </div>
                 <div class="row" style="margin-bottom: 20px">
