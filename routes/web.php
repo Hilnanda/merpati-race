@@ -137,14 +137,15 @@ Route::middleware('is_subscribed')->group(function () {
     Route::post('/club/event/update-hotspot', 'EventClubController@updateHotspot');
     Route::get('/club/event/delete-hotspot/{id}/{id_event}', 'EventClubController@destroyHotspot');
 
-      // Event list club
+    // Event list club
     //   Route::get('/list-event', 'EventController@index')->name('list-event');
     //   Route::post('/event/create', 'EventController@store');
-      Route::get('/club/lihat_data/{id}','EventClubController@index');
-      Route::post('/club/event/update/{id}', 'EventClubController@update');
-      Route::get('/club/event/delete/{id}', 'EventClubController@destroy');
-      Route::get('/club/event-club/{id_event}', 'EventClubController@desc_event');
-      Route::get('/club/list-participant/{id_club}', 'EventClubController@list_participant');
+    Route::get('/club/lihat_data/{id}','EventClubController@index');
+    Route::post('/club/event/update/{id}', 'EventClubController@update');
+    Route::get('/club/event/delete/{id}', 'EventClubController@destroy');
+    Route::get('/club/event-club/{id_event}', 'EventClubController@desc_event');
+    Route::get('/club/list-participant/{id_club}', 'EventClubController@list_participant');
+    Route::post('/club/list-participant/{id_club}/add', 'EventClubController@addEventParticipants');
 
     // Events
     Route::get('/events/index', 'EventController@menuPage')->name('events_menu');
