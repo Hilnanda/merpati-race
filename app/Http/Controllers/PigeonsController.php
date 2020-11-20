@@ -56,6 +56,15 @@ class PigeonsController extends Controller
         // 
         return back()->with('Sukses','Berhasil Update Nama Loft!');
     }
+    //detail pigeon
+    public function pigeon_detail($id_user,$id)
+    {     
+        $data = Pigeons::where('id_user',$id_user)
+        ->where('id',$id)->first();
+        $data_medsos = CMSMedsos::all();
+        $data_footer = CMSFooter::all();
+        return view('subscribed.pages.pigeon_details',compact('data_medsos','data_footer','data'));
+    }
     public function burungku()
     {
         $title = 'Lomba Umum';

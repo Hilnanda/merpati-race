@@ -178,7 +178,8 @@ Route::middleware('is_subscribed')->group(function () {
     Route::Post('/pigeons/update/name_loft/{id}','PigeonsController@update_name_loft');
     // Training Pigeon
     Route::get('/club/training_pigeon/{id_user}','PigeonsController@id_training_pigeon');
-    
+    // detail 
+    Route::get('/pigeon/detail/{id_user}/{id}','PigeonsController@pigeon_detail');
 
 
     // One Loft Race

@@ -21,8 +21,46 @@
         <div class="box-body">
             <div class="row" style="margin-bottom: 20px">
                 <div class="col-12">
-
-
+                    <div id="accordion" class="mt-3">
+                        <div class="card">
+                          <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <h5>Keterangan Burung</h5>
+                              </button>
+                            </h5>
+                          </div>
+              
+                          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">
+                              <table id="" class="table table-bordered table-striped table-sm">
+                                  <thead>
+                                      <th>UID Burung</th>
+                                      <th>Ukuran Cincin</th>
+                                      <th>Nama Burung</th>
+                                      <th>Jenis Kelamin</th>
+                                      <th>Warna</th>
+                                      <th>Status</th>
+                                      {{-- <th>Club</th>
+                                      <th>Team</th> --}}
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td>{{$data->uid_pigeon}}</td>
+                                          <td>{{$data->ring_size_pigeon}}</td>
+                                          <td>{{$data->name_pigeon}}</td>
+                                          <td>{{$data->sex_pigeon}}</td>
+                                          <td>{{$data->color_pigeon}}</td>
+                                          <td>@if($data->is_active==0) Belum Aktif @else Aktif @endif</td>
+                                          {{-- <td>{{!empty($bird->club_member->first()) ? $bird->club_member->first()->club->first()->name_club:"-"}}</td> --}}
+                                          {{-- <td>{{!empty($bird->team_member->first()) ? $bird->team_member->first()->team->first()->name_team:"-"}}</td> --}}
+                                      </tr>
+                                  </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                 </div>
             </div>
             <div class="row" style="margin-bottom: 20px">
@@ -41,6 +79,7 @@
             <div class="row" style="margin-bottom: 20px">
                 <div class="col-12">
                     {{-- bagian statistik --}}
+                    
                 </div>
             </div>
            
