@@ -166,6 +166,16 @@ class EventClubController extends Controller
         );
     }
 
+
+    public function list_participant($id_club){
+        $list_parti = Pigeons::where('id_club',$id_club)->get();
+
+
+        return view('subscribed.pages.club_add_participant', 
+            compact('list_parti')
+        );
+    }
+
     /**
      * Display the specified resource.
      *

@@ -144,6 +144,7 @@ Route::middleware('is_subscribed')->group(function () {
       Route::post('/club/event/update/{id}', 'EventClubController@update');
       Route::get('/club/event/delete/{id}', 'EventClubController@destroy');
       Route::get('/club/event-club/{id_event}', 'EventClubController@desc_event');
+      Route::get('/club/list-participant/{id_club}', 'EventClubController@list_participant');
 
     // Events
     Route::get('/events/index', 'EventController@menuPage')->name('events_menu');

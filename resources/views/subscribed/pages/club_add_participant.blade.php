@@ -1,14 +1,14 @@
 @extends('subscribed.layout.subscribed')
 
 @section('title')
-    Deskripsi Event
+    List Add Participant
 @endsection
 
 @section('content')
     <!-- ##### Breadcumb Area Start ##### -->
     <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ url('image/breadcumb-1.jpg') }});">
         <div class="bradcumbContent">
-            <h2>Deskripsi Event</h2>
+            <h2>List Add Participant</h2>
         </div>
     </div>
     <!-- bg gradients -->
@@ -23,7 +23,7 @@
                 <div class="row" style="margin-bottom: 20px">
                     <div class="col-12">
 
-                        <a href="/club/list-participant/{{ $event_desc->id_club }}" class="btn musica-btn">Tambah Participant</a>
+                        {{-- <a href="" class="btn musica-btn">Tambah Participant</a> --}}
                     </div>
                 </div>
                 <div class="row" style="margin-bottom: 20px">
@@ -33,24 +33,13 @@
                         
                         <div class="row">
                             <div class="col-4">
-                                <img src="{{ asset('image/'.$event_desc->logo_event.'') }}" style="width:250px"
-                                    class="rounded float-left" alt="...">
+                                {{-- <img src="{{ asset('image/'.$event_desc->logo_event.'') }}" style="width:250px"
+                                    class="rounded float-left" alt="..."> --}}
                                 {{-- bagian keterangan --}}
 
                             </div>
                             <div class="col-6">
-                                <h4>Event Details</h4>
-                                <p>Nama Event : <b style="color: red">{{ $event_desc->name_event }}</b></p>
-                                <p>Info Event : <b style="color: red">{{ $event_desc->info_event }}</b></p>
-                                {{-- <p>Nama Pemilik : <b style="color: red">{{ $event_desc->user->name }}
-                                        ({{ $get_loft->user->username }})</b></p> --}}
-                                <p>Posisi Loft : <b style="color: red">{{ $event_desc->lat_event }} ,
-                                        {{ $event_desc->lng_event }}</b></p>
-                                <p>Alamat Event : <b style="color: red">{{ $event_desc->address_event }}</b></p>
-                                <p>Harga Event : <b style="color: red">Rp {{ number_format($event_desc->price_event, 2) }}</b></p>
-                                {{-- <p>Manager club : <b
-                                        style="color: red">{{ $clubs->manager->name }} ({{ $clubs->manager->username }})</b>
-                                </p> --}}
+                                
 
 
                             </div>
@@ -71,6 +60,7 @@
                             <table id="table_two" class="table table-bordered table-striped">
                                 <thead>
                                     <th>No.</th>
+                                    <th>Nama Loft</th>
                                     <th>ID Pigeon</th>
                                     <th>Nama Pigeon</th>
                                     <th>Ring Size Pigeon</th>
@@ -85,7 +75,7 @@
                                             <td colspan="8">-- Tidak ada Club yang belum Diikuti --</td>
                                         </tr>
                                     @endif --}}
-                                    {{-- @foreach ($list_pigeon as $item)
+                                    @foreach ($list_parti as $item)
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
                                             <td>{{ $item->uid_pigeon }}</td>
@@ -99,7 +89,7 @@
                                                         aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

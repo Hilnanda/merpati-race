@@ -477,8 +477,11 @@ class ClubController extends Controller
     public function desc_loft($id_loft,$id_club){
         $get_loft = ClubMember::where('id_club',$id_club)
         ->where('id_user',$id_loft)->first();
-        $count_pigeon = Pigeons::where('id_user',$id_loft)->count();
-        $list_pigeon = Pigeons::where('id_user',$id_loft)->get();
+        $count_pigeon = Pigeons::where('id_user',$id_loft)
+        ->where('id_club',$id_club)->count();
+        $list_pigeon = Pigeons::where('id_user',$id_loft)
+        ->where('id_club',$id_club)
+        ->get();
         // dd($count_pigeon);
         $clubs= Clubs::where('id',$id_club)
         ->first();
