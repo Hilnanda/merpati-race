@@ -190,6 +190,7 @@ Route::middleware('is_subscribed')->group(function () {
     Route::get('/loft/events/{id}/{hotspot}/basket', 'LoftController@showBasketedList')->name('loft_events_basketed');
     Route::get('/loft/events/{id}/{hotspot}/live-result', 'LoftController@showLiveResults')->name('loft_events_live_result');
     Route::post('/loft/events/{id}/join_event', 'LoftController@joinEvent')->name('join_loft_event');
+    Route::post('/loft/events', 'LoftController@createEvent')->name('create_loft_event');
 
     });
 

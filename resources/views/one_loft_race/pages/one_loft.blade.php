@@ -23,8 +23,8 @@
             <table id="table_one" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
-                    <th>Nama</th>
-                    <th>Logo</th>
+                    <th>Nama Loft</th>
+                    <th>Logo Loft</th>
                     <th>Lomba</th>
                     <th>Waktu Mulai</th>
                     <th>Titik Mulai</th>
@@ -74,8 +74,8 @@
             <table id="table_two" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
-                    <th>Nama</th>
-                    <th>Logo</th>
+                    <th>Nama Loft</th>
+                    <th>Logo Loft</th>
                     <th>Lomba</th>
                     <th>Waktu Mulai</th>
                     <th>Titik Mulai</th>
@@ -125,8 +125,8 @@
             <table id="table_three" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
-                    <th>Nama</th>
-                    <th>Logo</th>
+                    <th>Nama Loft</th>
+                    <th>Logo Loft</th>
                     <th>Lomba</th>
                     <th>Waktu Mulai</th>
                     <th>Titik Mulai</th>
