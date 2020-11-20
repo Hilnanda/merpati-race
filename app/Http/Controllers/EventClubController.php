@@ -157,6 +157,15 @@ class EventClubController extends Controller
         return back()->with('Sukses','Berhasil menambahkan data!');
     }
 
+    public function desc_event($id_event){
+        $event_desc = Events::where('id',$id_event)->first();
+        
+
+        return view('subscribed.pages.club_event_club', 
+            compact('event_desc')
+        );
+    }
+
     /**
      * Display the specified resource.
      *

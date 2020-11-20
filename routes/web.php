@@ -143,6 +143,7 @@ Route::middleware('is_subscribed')->group(function () {
       Route::get('/club/lihat_data/{id}','EventClubController@index');
       Route::post('/club/event/update/{id}', 'EventClubController@update');
       Route::get('/club/event/delete/{id}', 'EventClubController@destroy');
+      Route::get('/club/event-club/{id_event}', 'EventClubController@desc_event');
 
     // Events
     Route::get('/events/index', 'EventController@menuPage')->name('events_menu');
