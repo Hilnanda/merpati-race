@@ -118,7 +118,7 @@
                     @foreach($data as $event)
                     <tr>
                         <td>{{ $loop->index + 1 }}</td>
-                        <td><a href="/loft/events/{{$event->id}}/1/details" class="text-info">{{ $event->name_event }}</a></td>
+                        <td><a href="/pigeon/training/{{$event->id}}/details" class="text-info">{{ $event->name_event }}</a></td>
                         <td>{{ $event->lng_event ? $event->lng_event . ', ' . $event->lat_event : '-' }}</td>
                         <td>{{ $event->event_hotspot[0]->release_time_hotspot }}</td>
                         <td>{{ $event->distance ? round($event->distance, 2) . ' Km' : '-' }}</td>
