@@ -63,7 +63,59 @@ class PigeonsController extends Controller
         ->where('id',$id)->first();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
-        return view('subscribed.pages.pigeon_details',compact('data_medsos','data_footer','data'));
+
+        $events = EventParticipants::with('events:id,name_event')->where('id_pigeon',$data->id)->get();
+        // dd($event);
+        $statisticsChart = new StatisticsChart;
+        $name_event = [];
+        $speed = [];
+        foreach ($events as $event) {
+            array_push($name_event, $event->name_event);
+            array_push($speed, $event->event_results->first()->speed_event_result);
+        }
+
+        $statisticsChart->labels($name_event);
+        $statisticsChart->dataset('Rank events', 'line', $speed)
+        ->color("rgb(255, 99, 132)")
+            ->backgroundcolor("rgb(255, 99, 132)")
+            ->fill(false)
+            ->linetension(0.1)
+            ->dashed([5]);
+        // dd($statisticsChart);
+        return view('subscribed.pages.pigeon_details',compact('data_medsos','data_footer','data','events','statisticsChart'));
+    }
+    // create training pigeon
+    public function CreateTraining(Request $request)
+    {
+        $data = $request->all();
+
+        $data['due_join_date_event'] = str_replace("T", " ", $request->due_join_date_event);
+        $data['release_time_event'] = str_replace("T", " ", $request->release_time_event);
+
+        $data['branch_event'] = "Training";
+        $data['category_event'] = "Individu";
+
+        $this->validate($request, [
+            'logo_event' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $data['logo_event'] = 'logo-' . time().'.'.$request->logo_event->getClientOriginalExtension();
+        $request->logo_event->move(public_path('image'), $data['logo_event']);
+
+        $data['hotspot_length_event'] = 1;
+        $data['price_event'] = 0;
+
+        $id_event = Events::create($data)->id;
+
+        $hotspot = [];
+        $hotspot['id_event'] = $id_event;
+        $hotspot['release_time_hotspot'] = $data['release_time_event'];
+        for ($i=0; $i < $data['hotspot_length_event']; $i++) { 
+            EventHotspot::create($hotspot);
+            $hotspot['release_time_hotspot'] = null;
+        }
+
+        return back()->with('Sukses','Berhasil menambahkan data!');
     }
     public function burungku()
     {
@@ -214,31 +266,7 @@ class PigeonsController extends Controller
     }
     public function buat_training(Request $request)
     {
-        $data = $request->all();
-
-        $data['due_join_date_event'] = str_replace("T", " ", $request->due_join_date_event);
-        $data['release_time_event'] = str_replace("T", " ", $request->release_time_event);
-
-        $data['branch_event'] = "Training";
-
-        $this->validate($request, [
-            'logo_event' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-
-        $data['logo_event'] = 'logo-' . time().'.'.$request->logo_event->getClientOriginalExtension();
-        $request->logo_event->move(public_path('image'), $data['logo_event']);
-
-        $id_event = Events::create($data)->id;
-
-        $hotspot = [];
-        $hotspot['id_event'] = $id_event;
-        $hotspot['release_time_hotspot'] = $data['release_time_event'];
-        for ($i=0; $i < $data['hotspot_length_event']; $i++) { 
-            EventHotspot::create($hotspot);
-            $hotspot['release_time_hotspot'] = null;
-        }
-
-        return back()->with('Sukses','Berhasil menambahkan data!');
+        
     }
     public function formatDateLocal($value)
     {

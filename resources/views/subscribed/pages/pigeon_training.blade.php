@@ -1,7 +1,7 @@
 @extends('subscribed.layout.subscribed')
 
 @section('title')
-    Detail Club
+    Training
 @endsection
 
 @section('content')
