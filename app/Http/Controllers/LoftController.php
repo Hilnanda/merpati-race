@@ -349,6 +349,7 @@ class LoftController extends Controller
             ->orderBy('event_results.speed_event_result', 'desc')
             ->get();
 
+        $unfinished_speed = null;
         if (count($event_results) > 0) {
             $distance = $event_results[0]->speed_event_result ? ($event_results[0]->speed_event_result) * ((strtotime($event_results[0]->updated_at) - strtotime($event->release_time_event)) / 60) : null;
 
