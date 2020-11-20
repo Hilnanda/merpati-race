@@ -30,7 +30,7 @@
                     {{-- @if (Auth::user()->id==$clubs->manager_club||$exist == 1) --}}
                     {{-- <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#tambah_burung">Daftarkan </button> --}}
                     <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#edit_name_loft">Edit Info Loft</button>
-                     <a href="#"><button class="btn musica-btn mb-3">Add Training</button></a>                
+                <a href="/pigeon/training_pigeon/{{$id_user->id}}"><button class="btn musica-btn btn-primary mb-3">Training Loft</button></a>                
                     <div class="row">
                         <div class="col-3">
                             <img src="{{asset('image/'.$id_user->image_loft.'') }}" style="width:220px;height:200px"

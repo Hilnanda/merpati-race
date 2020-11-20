@@ -180,7 +180,9 @@ Route::middleware('is_subscribed')->group(function () {
     // update Nama Loft
     Route::Post('/pigeons/update/name_loft/{id}','PigeonsController@update_name_loft');
     // Training Pigeon
-    Route::get('/pigeon/training_pigeon/{id_user}','PigeonsController@id_training_pigeon');
+    Route::get('/pigeon/training_pigeon/{id_user}','PigeonsController@training_pigeon');
+    Route::get('/pigeon/training/{id}/details','PigeonsController@details');
+    Route::post('/pigeon/training_pigeon/create','PigeonsController@CreateTraining');
     // detail 
     Route::get('/pigeon/detail/{id_user}/{id}','PigeonsController@pigeon_detail');
 
@@ -194,6 +196,10 @@ Route::middleware('is_subscribed')->group(function () {
     Route::get('/loft/events/{id}/{hotspot}/live-result', 'LoftController@showLiveResults')->name('loft_events_live_result');
     Route::post('/loft/events/{id}/join_event', 'LoftController@joinEvent')->name('join_loft_event');
     Route::post('/loft/events', 'LoftController@createEvent')->name('create_loft_event');
+
+    Route::get('/loft/acc/{id}', 'LoftController@acc_join');
+    Route::get('/loft/acc/{id}/delete', 'LoftController@delete_join');
+
 
     });
 

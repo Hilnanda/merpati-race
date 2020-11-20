@@ -21,46 +21,48 @@
         <div class="box-body">
             <div class="row" style="margin-bottom: 20px">
                 <div class="col-12">
-                    <div id="accordion" class="mt-3">
-                        <div class="card">
-                          <div class="card-header" id="headingOne">
-                            <h5 class="mb-0">
-                              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                <h5>Keterangan Burung</h5>
-                              </button>
-                            </h5>
-                          </div>
-              
-                          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                            <div class="card-body">
-                              <table id="" class="table table-bordered table-striped table-sm">
-                                  <thead>
-                                      <th>UID Burung</th>
-                                      <th>Ukuran Cincin</th>
-                                      <th>Nama Burung</th>
-                                      <th>Jenis Kelamin</th>
-                                      <th>Warna</th>
-                                      <th>Status</th>
-                                      {{-- <th>Club</th>
-                                      <th>Team</th> --}}
-                                  </thead>
-                                  <tbody>
-                                      <tr>
-                                          <td>{{$data->uid_pigeon}}</td>
-                                          <td>{{$data->ring_size_pigeon}}</td>
-                                          <td>{{$data->name_pigeon}}</td>
-                                          <td>{{$data->sex_pigeon}}</td>
-                                          <td>{{$data->color_pigeon}}</td>
-                                          <td>@if($data->is_active==0) Belum Aktif @else Aktif @endif</td>
-                                          {{-- <td>{{!empty($bird->club_member->first()) ? $bird->club_member->first()->club->first()->name_club:"-"}}</td> --}}
-                                          {{-- <td>{{!empty($bird->team_member->first()) ? $bird->team_member->first()->team->first()->name_team:"-"}}</td> --}}
-                                      </tr>
-                                  </tbody>
-                              </table>
+                    <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#createTraining">Add Training </button>
+                </div>
+                <div class="modal fade" id="createTraining" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="exampleModalLabel">Buat Training</h4>
                             </div>
-                          </div>
+                            <form action="/pigeon/training_pigeon/create" method="POST" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                    {{ csrf_field() }}                                   
+                                    <div class="form-group">
+                                        <label for="name_event">Nama Training</label>
+                                        <input type="text" name="name_event" class="form-control" placeholder="Isi nama training" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="logo_event">Logo Training</label>
+                                        <input type="file" name="logo_event" class="form-control" placeholder="Isi logo training" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Informasi Tentang Training</label>
+                                        <textarea name="info_event" class="form-control" required="" placeholder="Isi informasi training"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Waktu Mulai Training</label>
+                                        <input type="datetime-local" step="1" id="release_time_event_add_training" name="release_time_event" class="form-control" placeholder="Isi waktu mulai training" required onchange="setMaxDueDateAddTraining()">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Batas Waktu Pendaftaran</label>
+                                        <input type="datetime-local" step="1" id="due_join_date_event_add_training" name="due_join_date_event" class="form-control" placeholder="Isi batas pendaftaran training">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="form-group d-flex justify-content-end">
+                                        <button class="btn musica-btn btn-2" type="button"
+                                        data-dismiss="modal">Cancel</button>
+                                        <input type="submit" value="Simpan" class="btn musica-btn">
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                      </div>
+                    </div>
                 </div>
             </div>
             <div class="row" style="margin-bottom: 20px">
@@ -79,36 +81,62 @@
             <div class="row" style="margin-bottom: 20px">
                 <div class="col-12">
                     {{-- bagian statistik --}}
-                    {!! $statisticsChart->container() !!}
+                    <!-- Training Table -->
+        <h4 class="mt-3">Training</h4>
+        <div class="box-body">
+            <table id="table_one" class="table table-bordered table-striped">
+                <thead>
+                    <th>No.</th>
+                    <th>Nama</th>
+                    <th>Titik Mulai</th>
+                    <th>Waktu Mulai</th>
+                    <th>Jarak</th>
+                <th>Status</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    {{-- @php
+                    $row = 1;
+                    @endphp
+                    @foreach($data->event as $event)
+                    @if($event->branch_event == 'Training')
+                    <tr>
+                        <td>{{ $row++ }}</td>
+                        <td><a href="/loft/events/{{$event->id}}/1/details" class="text-info">{{ $event->name_event }}</a></td>
+                        <td>{{ $event->lng_event ? $event->lng_event . ', ' . $event->lat_event : '-' }}</td>
+                        <td>{{ $event->event_hotspot[0]->release_time_hotspot }}</td>
+                        <td>{{ $event->distance ? round($event->distance, 2) . ' Km' : '-' }}</td>
+                        <td style="color: {{ $event->color ? $event->color : '' }};">{{ $event->status ? $event->status : '-' }}</td>
+                        <td class="action-link">
+                            <a href="/events/{{$event->id}}/1/basket" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+                            <!-- <a href="/events/{{$event->id}}/1/details" title="Detail Lomba" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a> -->
+                        </td>
+                    </tr>
+                    @endif
+                    @endforeach --}}
+                    @foreach($data as $event)
+                    <tr>
+                        <td>{{ $loop->index + 1 }}</td>
+                        <td><a href="/pigeon/training/{{$event->id}}/details" class="text-info">{{ $event->name_event }}</a></td>
+                        <td>{{ $event->lng_event ? $event->lng_event . ', ' . $event->lat_event : '-' }}</td>
+                        <td>{{ $event->event_hotspot[0]->release_time_hotspot }}</td>
+                        <td>{{ $event->distance ? round($event->distance, 2) . ' Km' : '-' }}</td>
+                        <td style="color: {{ $event->color ? $event->color : '' }};">{{ $event->status ? $event->status : '-' }}</td>
+                        <td class="action-link">
+                            <a href="/events/{{$event->id}}/1/basket" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+                            <!-- <a href="/events/{{$event->id}}/1/details" title="Detail Lomba" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a> -->
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <!-- End Training Table -->
                 </div>
             </div>
-            <div class="row mt-5">
-                <div class="col-md-12">
-                    <h2>List Lomba</h2>
-                    <table id="table_one" class="table table-bordered table-striped table-sm">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Nama Event</th>
-                                <th>Cabang Event</th>
-                                <th>Kategori</th>
-                                <th>Juara</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{-- @foreach($bird->pigeons_participants as $participants)
-                                <tr>
-                                    <td>{{$loop->index+1}}</td>
-                                    <td>{{$participants->name_event}}</td>
-                                    <td>{{$participants->branch_event}}</td>
-                                    <td>{{$participants->category_event}}</td>
-                                    <td>{{$participants->event_results->orderBy('speed_event_result','desc')->first()->event_participants->pigeons->name_pigeon}}</td>
-                                </tr>
-                            @endforeach --}}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+           
 
         </div>
         <!-- /.box-body -->
@@ -141,6 +169,12 @@
         function setMaxDueDateAdd() {
             var release_time = document.getElementById("release_time_event_add").value;
             document.getElementById("due_join_date_event_add").max = release_time;
+        }
+    </script>
+    <script>
+        function setMaxDueDateAddTraining() {
+            var release_time = document.getElementById("release_time_event_add_training").value;
+            document.getElementById("due_join_date_event_add_training").max = release_time;
         }
     </script>
 @endpush

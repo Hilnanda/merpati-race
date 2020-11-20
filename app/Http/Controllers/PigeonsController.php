@@ -91,7 +91,7 @@ class PigeonsController extends Controller
 
         $data['due_join_date_event'] = str_replace("T", " ", $request->due_join_date_event);
         $data['release_time_event'] = str_replace("T", " ", $request->release_time_event);
-
+        $data['id_user'] = auth()->user()->id;
         $data['branch_event'] = "Training";
         $data['category_event'] = "Individu";
 
@@ -322,9 +322,30 @@ class PigeonsController extends Controller
         return back()->with('Sukses','Berhasil menghapus data!');
     }
 
-    public function id_training_pigeon($id_user)
+    public function training_pigeon($id_user)
     {
-        Events::find($id_user);
-        return view('subscribed.pages.pigeon_training');
+        $data = Events::where('id_user',auth()->user()->id)->get();
+        $current_datetime = Carbon::now();
+
+        foreach ($data as $event) {
+    		$event->distance = $this->distance($event->lat_event, $event->lng_event, $event->lat_event_end, $event->lng_event_end, "K");
+
+    		if ($event->event_hotspot[0]->release_time_hotspot <= $current_datetime) {
+                $event->status = 'Terbang';
+                $event->color = '#32CD32';
+            } else {
+                if ($event->due_join_date_event < $current_datetime) {
+                    $event->status = 'Pendaftaran ditutup';
+                    $event->color = '#EB0000';
+                } else {
+                    $event->status = 'Pendaftaran dibuka';
+                    $event->color = '#000000';
+                }
+            }
+    	}       
+        // dd($data);
+        // $data_medsos = CMSMedsos::all();
+        // $data_footer = CMSFooter::all();
+        return view('subscribed.pages.pigeon_training',compact('data'));
     }
 }

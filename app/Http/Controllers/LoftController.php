@@ -146,8 +146,12 @@ class LoftController extends Controller
             ->groupBy('users.id', 'users.name')
             ->get();
 
+            $count_acc = LoftMember::where('id_loft', $loft->id)
+            ->where('is_active', 0)
+            ->count();
+
     	return view('one_loft_race.pages.one_loft_detail',
-    		compact('title','loft','current_user','pigeons','participants')
+    		compact('title','loft','current_user','pigeons','participants','count_acc')
     	);
     }
 
@@ -230,6 +234,8 @@ class LoftController extends Controller
 	        ->orderBy('event_results.speed_event_result', 'desc')
 	        ->get();
 
+
+        $unfinished_speed = null;
         if (count($event_results) > 0) {
             $distance = $event_results[0]->speed_event_result ? ($event_results[0]->speed_event_result) * ((strtotime($event_results[0]->updated_at) - strtotime($event->release_time_event)) / 60) : null;
 
@@ -343,6 +349,7 @@ class LoftController extends Controller
             ->orderBy('event_results.speed_event_result', 'desc')
             ->get();
 
+        $unfinished_speed = null;
         if (count($event_results) > 0) {
             $distance = $event_results[0]->speed_event_result ? ($event_results[0]->speed_event_result) * ((strtotime($event_results[0]->updated_at) - strtotime($event->release_time_event)) / 60) : null;
 
@@ -528,5 +535,21 @@ class LoftController extends Controller
     			return $miles;
     		}
     	}
+    }
+
+
+    public function acc_join($id_event){
+        $loft = LoftMember::find($id_event);
+        $loft->is_active = 1;
+        
+    
+        $loft->save();
+    
+       return back()->with('Sukses','Berhasil Update data!');
+    }
+    public function delete_join($id_event){
+        LoftMember::find($id_event)->delete();
+
+        return back()->with('Sukses','Berhasil Menolak!');
     }
 }
