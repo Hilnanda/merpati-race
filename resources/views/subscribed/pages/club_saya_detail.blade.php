@@ -364,9 +364,11 @@
                                                     {{-- <td>{{ $event->hotspot_length_event }}</td> --}}
                                                     @if (Auth::user()->id == $clubs->manager_club || $exist == 1)
                                                     <td>
-                                                        <a href="#" class="btn btn-info btn-sm" data-toggle="modal"
+                                                        {{-- <a href="#" class="btn btn-info btn-sm" data-toggle="modal"
                                                             data-target="#hotspotModal{{ $event->id }}"><span
-                                                                class="font-weight-bold ml-1">Hotspot</span></a>
+                                                                class="font-weight-bold ml-1">Hotspot</span></a> --}}
+                                                        <a href="/club/event-club/{{ $event->id }}" class="btn btn-info btn-sm"><span
+                                                                class="font-weight-bold ml-1">Deskripsi</span></a>
                                                         <a href="#" class="btn btn-warning btn-sm" data-toggle="modal"
                                                             data-target="#editModal{{ $event->id }}"><span
                                                                 class="font-weight-bold ml-1">Edit</span></a>
