@@ -65,11 +65,12 @@ List Add Participant
                                     {{-- <th>Aksi</th> --}}
                                 </thead>
                                 <tbody>
-                                    <input type="hidden" name="id_event" value="{{ $event->id }}">
+                                    <input type="text" name="id_event" value="{{ $event->id }}" style="display: none">
                                     @foreach ($club_members as $club_member)
+                                    <input type="text" name="id_clubs[]" value="{{ $club_member->id_club }}" style="display: none">
                                     <tr>
                                         <td><input type="checkbox" {{ in_array($club_member->id, $event_participant_pigeons) ? 'checked' : '' }} name="id_pigeons[]" value="{{ $club_member->id }}"></td>
-                                        <td hidden><input type="text" name="id_clubs[]" value="{{ $club_member->id_club }}"></td>
+                                        {{-- <td hidden></td> --}}
                                         <td>{{ $loop->index + 1 }} </td>
                                         <td>{{ $club_member->users->name_loft }}</td>
                                         <td>{{ $club_member->uid_pigeon }}</td>
