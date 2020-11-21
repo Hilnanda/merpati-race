@@ -10,6 +10,7 @@ use App\EventParticipants;
 use App\EventHotspot;
 use App\User;
 use App\Events;
+use App\EventResults;
 use App\Charts\StatisticsChart;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
@@ -342,10 +343,48 @@ class PigeonsController extends Controller
                     $event->color = '#000000';
                 }
             }
-    	}       
+        }
+        $id_hotspot = null;
+
+        // foreach ($event->event_hotspot as $key => $event_hotspot) {
+        //     if ($key + 1 == $hotspot) {
+        //         $id_hotspot = $event_hotspot->id;
+        //         $event->release_time_event = $this->formatDateLocal($event_hotspot->release_time_hotspot);
+        //         if ($event_hotspot->expired_time_hotspot) {
+        //             $event->expired_time_event = $this->formatDateLocal($event->expired_time_hotspot);
+        //         }
+        //     }
+        // }
+        
+        $event->due_join_date_event = $this->formatDateLocal($event->due_join_date_event);
+
+        $event_results = EventResults::
+	        whereHas('event_participant', function ($query) use($event) {
+	            $query->where('active_at', '!=', null);
+	            $query->where('id_event', '=', $event->id_user);
+	        })
+	        ->where('event_results.id_event_hotspot', '=', $id_hotspot)
+	        ->orderBy('event_results.speed_event_result', 'desc')
+	        ->get();
+            // dd($event_results);
+
+        $unfinished_speed = null;
+        if (count($event_results) > 0) {
+            $distance = $event_results[0]->speed_event_result ? ($event_results[0]->speed_event_result) * ((strtotime($event_results[0]->updated_at) - strtotime($event->release_time_event)) / 60) : null;
+
+            $duration = strtotime(date("Y-m-d h:i:sa")) - strtotime($event->release_time_event);
+
+            $unfinished_speed = $distance ? $distance / ($duration / 60) : null;
+        }      
         // dd($data);
         // $data_medsos = CMSMedsos::all();
         // $data_footer = CMSFooter::all();
-        return view('subscribed.pages.pigeon_training',compact('data'));
+        return view('subscribed.pages.pigeon_training',compact('data','event_results','unfinished_speed','id_hotspot'));
+    }
+    public function training_pigeon_details($id_user,$id)
+    {
+        $data = Events::where('id_user',$id_user)
+        ->where('id',$id)->first();
+        return view('subscribed.pages.pigeon_training_details',compact('data'));
     }
 }

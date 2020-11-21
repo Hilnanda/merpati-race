@@ -15,14 +15,14 @@
 <div class="bg-gradients"></div>
 <!-- ##### Breadcumb Area End ##### -->
 <div class="row mt-5 px-5">
-    <div class="col-lg-12">
+    
+    <div class="col-lg-12">        
         <!-- /.box-header -->
         {{-- <h4>Detail Club Saya</h4> --}}
         <div class="box-body">
-            <div class="row" style="margin-bottom: 20px">
-                <div class="col-12">
-                    <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#createTraining">Add Training </button>
-                </div>
+            <div class="row" style="margin-bottom: 20px">               
+                    
+              
                 <div class="modal fade" id="createTraining" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -82,6 +82,7 @@
                 <div class="col-12">
                     {{-- bagian statistik --}}
                     <!-- Training Table -->
+                    <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#createTraining">Add Training </button>
         <h4 class="mt-3">Training</h4>
         <div class="box-body">
             <table id="table_one" class="table table-bordered table-striped">
@@ -118,14 +119,16 @@
                     @foreach($data as $event)
                     <tr>
                         <td>{{ $loop->index + 1 }}</td>
-                        <td><a href="/pigeon/training/{{$event->id}}/details" class="text-info">{{ $event->name_event }}</a></td>
+                    <td><a href="/pigeon/training/{{$event->id_user}}/{{$event->id}}/details" class="text-info">{{ $event->name_event }}</a></td>
                         <td>{{ $event->lng_event ? $event->lng_event . ', ' . $event->lat_event : '-' }}</td>
                         <td>{{ $event->event_hotspot[0]->release_time_hotspot }}</td>
                         <td>{{ $event->distance ? round($event->distance, 2) . ' Km' : '-' }}</td>
                         <td style="color: {{ $event->color ? $event->color : '' }};">{{ $event->status ? $event->status : '-' }}</td>
                         <td class="action-link">
-                            <a href="/events/{{$event->id}}/1/basket" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+                            <a href="#" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="#" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+                            {{-- <a href="/pigeon/{{$event->id_user}}/{{$event->id}}/basket" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="/pigeon/{{$event->id_user}}/{{$event->id}}/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a> --}}
                             <!-- <a href="/events/{{$event->id}}/1/details" title="Detail Lomba" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a> -->
                         </td>
                     </tr>

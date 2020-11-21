@@ -180,7 +180,9 @@ Route::middleware('is_subscribed')->group(function () {
     Route::Post('/pigeons/update/name_loft/{id}','PigeonsController@update_name_loft');
     // Training Pigeon
     Route::get('/pigeon/training_pigeon/{id_user}','PigeonsController@training_pigeon');
-    Route::get('/pigeon/training/{id}/details','PigeonsController@details');
+    Route::get('/pigeon/training/{id_user}/{id}/details','PigeonsController@training_pigeon_details');
+    Route::get('/pigeon/{id_user}/{id}/basket','PigeonsController@basket');
+    Route::get('/pigeon/{id_user}/{id}/live-result','PigeonsController@live_result');
     Route::post('/pigeon/training_pigeon/create','PigeonsController@CreateTraining');
     // detail 
     Route::get('/pigeon/detail/{id_user}/{id}','PigeonsController@pigeon_detail');
