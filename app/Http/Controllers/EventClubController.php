@@ -159,23 +159,73 @@ class EventClubController extends Controller
 
     public function desc_event($id_event){
         $event_desc = Events::where('id',$id_event)->first();
-        
+
+        $event_participants = EventParticipants::where('id_event',$event_desc->id)
+            ->whereNotNull('active_at')
+            ->get();
 
         return view('subscribed.pages.club_event_club', 
-            compact('event_desc')
+            compact('event_desc','event_participants')
         );
     }
 
 
     public function list_participant($id_event){
-        $event_desc = Events::where('id',$id_event)->first();
+        $event = Events::where('id',$id_event)->first();
         // dd($event_desc->id_club);
-        $list_parti = Pigeons::where('id_club',$event_desc->id_club)->get();
+        $club_members = Pigeons::where('id_club', $event->id_club)->get();
+        $event_participants = EventParticipants::where('id_event',$event->id)
+            ->whereNotNull('active_at')
+            ->get();
 
+        $event_participant_pigeons = [];
+        foreach ($event_participants as $event_participant) {
+            array_push($event_participant_pigeons, $event_participant->id_pigeon);
+        }
 
         return view('subscribed.pages.club_add_participant', 
-            compact('list_parti','event_desc')
+            compact('event','club_members','event_participants','event_participant_pigeons')
         );
+    }
+
+    /**
+     * Store event participants to storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function addEventParticipants(Request $request)
+    {
+        $data = $request->all();
+        $event = Events::where('id',$data['id_event'])->first();
+
+        $event_participants = EventParticipants::where('id_event',$event->id)->get();
+
+        foreach ($event_participants as $event_participant) {
+            $event_participant->update(
+                [
+                    'active_at' => null
+                ]
+            );
+        }
+
+        if (isset($data['id_pigeons'])) {
+            foreach ($data['id_pigeons'] as $key => $id_pigeon) {
+                EventParticipants::updateOrCreate(
+                    [
+                        'id_pigeon' => $id_pigeon,
+                        'id_event' => $event->id
+                    ],
+                    [
+                        'is_core' => true,
+                        'current_id_club' => $data['id_clubs'][$key],
+                        'active_at' => now()
+                    ]
+                );
+            }
+        }
+
+        return redirect('/club/event-club/'.$event->id)->with('Sukses','Berhasil menyimpan data!');
     }
 
     /**
@@ -234,6 +284,7 @@ class EventClubController extends Controller
 
         return back()->with('Sukses','Berhasil mengubah data!');
     }
+
     public function addHotspot(Request $request)
     {
         $data = $request->all();
@@ -260,6 +311,7 @@ class EventClubController extends Controller
 
         return back()->with('Sukses','Berhasil mengubah data!');
     }
+
     public function updateHotspot(Request $request)
     {
         $data = $request->all();
@@ -283,6 +335,7 @@ class EventClubController extends Controller
 
         return back()->with('Sukses','Berhasil mengubah data!');
     }
+
     public function destroyHotspot($id, $id_event)
     {
         EventHotspot::find($id)->delete();
