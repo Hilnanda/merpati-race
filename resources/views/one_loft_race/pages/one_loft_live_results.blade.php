@@ -39,18 +39,7 @@ Hasil Lomba
         @if($event->hotspot_length_event > 1)
         <div class="row mb-2">
             <div class="col-12 d-flex justify-content-end">
-                <div class="btn-group dropup">
-                  <button type="button" class="btn btn-primary dropdown-toggle pl-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Hotspot {{ $hotspot }}
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    @foreach($event->event_hotspot as $key => $event_hotspot)
-                    @if($hotspot != $key + 1)
-                    <a class="dropdown-item" href="/events/{{$event->id}}/{{$key+1}}/live-result">Hotspot {{$key+1}}</a>
-                    @endif
-                    @endforeach
-                  </div>
-                </div>
+                
             </div>
         </div>
         @endif
@@ -59,10 +48,6 @@ Hasil Lomba
                 <thead>
                     <th>Peringkat</th>
                     <th>Pemilik</th>
-                    @if($event->category_event == 'Team')
-                    <th>Team</th>
-                    @endif
-                    <th>Club</th>
                     <th>UID Pigeon</th>
                     <th>Nama Pigeon</th>
                     <th>Kedatangan</th>
@@ -80,13 +65,17 @@ Hasil Lomba
                     @foreach($event_results as $event_result)
                     <tr>
                         <td>{{ $rank++ }}</td>
-                        <td>{{ $event_result->event_participant->pigeons->users->name ? $event_result->event_participant->pigeons->users->name : '-' }}</td>
-                        @if($event->category_event == 'Team')
-                        <td>{{ $event_result->event_participant->team->name_team ? $event_result->event_participant->team->name_team : '-' }}</td>
-                        @endif
-                        <td>{{ $event_result->event_participant->club->name_club ? $event_result->event_participant->club->name_club : '-' }}</td>
-                        <td>{{ $event_result->event_participant->pigeons ? $event_result->event_participant->pigeons->uid_pigeon : '-' }}</td>
-                        <td>{{ $event_result->event_participant->pigeons ? $event_result->event_participant->pigeons->name_pigeon : '-' }}</td>
+                        <td>
+                            <a href="" class="text-info">
+                                {{ $event_result->event_participant->pigeons->users->name }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="" class="text-info">
+                                {{ $event_result->event_participant->pigeons->uid_pigeon }}
+                            </a>
+                        </td>
+                        <td>{{ $event_result->event_participant->pigeons->name_pigeon }}</td>
                         <td>{{ $event_result->speed_event_result ? $event_result->updated_at : '-' }}</td>
                         @if($event_results[0]->speed_event_result)
                         <td>{{ $event_result->speed_event_result ? round($event_result->speed_event_result, 2) : round($unfinished_speed, 2) }}</td>
