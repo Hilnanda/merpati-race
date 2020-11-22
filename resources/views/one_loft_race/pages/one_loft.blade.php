@@ -19,7 +19,7 @@
     <div class="col-lg-12">
         <!-- /.box-header -->
         <h4>Loft & Running One Loft Race Saya</h4>
-        <div class="box-body">
+        <div class="box-body" style="overflow-y: auto;">
             <table id="table_one" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
@@ -28,7 +28,9 @@
                     <th>Lomba</th>
                     <th>Waktu Mulai</th>
                     <th>Titik Mulai</th>
+                    <th>Titik Selesai</th>
                     <th>Jarak</th>
+                    <th>Batas Pendaftaran</th>
                     <th>Status</th>
                     <th>Sudah Sampai</th>
                     <th></th>
@@ -48,15 +50,17 @@
                         </td>
                         <td>
                             <a href="/loft/{{$event->loft_id}}/details">
-                                <img style="height: 80px; display: block;" src="{{ asset('image/'.$event->logo_loft.'') }}">
+                                <img style="display: block; max-height: 80px; height: auto; width: auto;" src="{{ asset('image/'.$event->logo_loft.'') }}">
                             </a>
                         </td>
                         <td>
                             <a href="/loft/events/{{$event->id}}/1/details" class="text-info">{{ $event->name_event }}</a>
                         </td>
                         <td>{{ $event->event_hotspot[0] ? $event->event_hotspot[0]->release_time_hotspot : '-' }}</td>
-                        <td>{{ $event->address_event ? $event->address_event : '-' }}</td>
+                        <td>{{ $event->lat_event ? $event->lat_event . ', ' . $event->lng_event : '-' }}</td>
+                        <td>{{ $event->lat_event ? $event->lat_event_end . ', ' . $event->lng_event_end : '-' }}</td>
                         <td>{{ $event->distance ? round($event->distance, 2) . ' Km' : '-' }}</td>
+                        <td>{{ $event->due_join_date_event ? $event->due_join_date_event : '-' }}</td>
                         <td style="color: {{ $event->color ? $event->color : '' }};">{{ $event->status ? $event->status : '-' }}</td>
                         <td>{{ $event->arrived ? $event->arrived : 0 }}</td>
                         <td class="action-link">
@@ -77,15 +81,12 @@
                         </td>
                         <td>
                             <a href="/loft/{{$loft->id}}/details">
-                                <img style="height: 80px; display: block;" src="{{ asset('image/'.$loft->logo_loft.'') }}">
+                                <img style="display: block; max-height: 80px; height: auto; width: auto;" src="{{ asset('image/'.$loft->logo_loft.'') }}">
                             </a>
                         </td>
+                        @for ($i=0; $i < 8; $i++)
                         <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
+                        @endfor
                         <td></td>
                     </tr>
                     @endif
@@ -99,8 +100,8 @@
 <div class="row mt-5 px-5">
     <div class="col-lg-12">
         <!-- /.box-header -->
-        <h4>Loft & Running One Loft Race Yang Di Ikuti</h4>
-        <div class="box-body">
+        <h4>Loft & One Loft Race Yang Di Ikuti</h4>
+        <div class="box-body" style="overflow-y: auto;">
             <table id="table_two" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
@@ -109,14 +110,20 @@
                     <th>Lomba</th>
                     <th>Waktu Mulai</th>
                     <th>Titik Mulai</th>
+                    <th>Titik Selesai</th>
                     <th>Jarak</th>
+                    <th>Batas Pendaftaran</th>
                     <th>Status</th>
                     <th>Sudah Sampai</th>
+                    <th></th>
                 </thead>
-                <tbody>                   
+                <tbody>
+                    @php
+                    $number = 1;
+                    @endphp
                     @foreach($event_follows as $event)
                     <tr>
-                        <td>{{ $loop->index+1 }}</td>
+                        <td>{{ $number++ }}</td>
                         <td>
                             <a href="/loft/{{$event->loft_id}}/details" class="text-info">
                                 {{ $event->name_loft }}
@@ -124,18 +131,45 @@
                         </td>
                         <td>
                             <a href="/loft/{{$event->loft_id}}/details">
-                                <img style="height: 80px; width: auto;" src="{{ asset('image/'.$event->logo_loft.'') }}">
+                                <img style="display: block; max-height: 80px; height: auto; width: auto;" src="{{ asset('image/'.$event->logo_loft.'') }}">
                             </a>
                         </td>
                         <td>
                             <a href="/loft/events/{{$event->id}}/1/details" class="text-info">{{ $event->name_event }}</a>
                         </td>
                         <td>{{ $event->event_hotspot[0]->release_time_hotspot }}</td>
-                        <td>{{ $event->address_event }}</td>
+                        <td>{{ $event->lat_event ? $event->lat_event . ', ' . $event->lng_event : '-' }}</td>
+                        <td>{{ $event->lat_event ? $event->lat_event_end . ', ' . $event->lng_event_end : '-' }}</td>
                         <td>{{ round($event->distance, 2) . ' Km' }}</td>
+                        <td>{{ $event->due_join_date_event ? $event->due_join_date_event : '-' }}</td>
                         <td style="color: {{ $event->color ? $event->color : '' }};">{{ $event->status }}</td>
-                        <td>{{ $event->arrived }}</td>
+                        <td>{{ $event->arrived ? $event->arrived : 0 }}</td>
+                        <td class="action-link">
+                            <a href="/loft/events/{{$event->id}}/1/basket" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="/loft/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+                        </td>
                     </tr>
+                    @endforeach
+                    @foreach($loft_follows as $loft)
+                    @if(count($loft->event) == 0)
+                    <tr>
+                        <td>{{ $number++ }}</td>
+                        <td>
+                            <a href="/loft/{{$loft->id}}/details" class="text-info">
+                                {{ $loft->name_loft }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/loft/{{$loft->id}}/details">
+                                <img style="display: block; max-height: 80px; height: auto; width: auto;" src="{{ asset('image/'.$loft->logo_loft.'') }}">
+                            </a>
+                        </td>
+                        @for ($i=0; $i < 8; $i++)
+                        <td>-</td>
+                        @endfor
+                        <td></td>
+                    </tr>
+                    @endif
                     @endforeach
                 </tbody>
             </table>
@@ -146,8 +180,8 @@
 <div class="row mt-5 px-5 mb-5">
     <div class="col-lg-12">
         <!-- /.box-header -->
-        <h4>Loft Yang Belum Di Ikuti</h4>
-        <div class="box-body">
+        <h4>Semua One Loft Race</h4>
+        <div class="box-body" style="overflow-y: auto;">
             <table id="table_three" class="table table-bordered table-striped">
                 <thead>
                     <th>No.</th>
@@ -156,12 +190,43 @@
                     <th>Lomba</th>
                     <th>Waktu Mulai</th>
                     <th>Titik Mulai</th>
+                    <th>Titik Selesai</th>
                     <th>Jarak</th>
+                    <th>Batas Pendaftaran</th>
                     <th>Status</th>
                     <th>Sudah Sampai</th>
+                    <th></th>
                 </thead>
                 <tbody>                   
-                    
+                    @foreach($all_events as $event)
+                    <tr>
+                        <td>{{ $loop->index+1 }}</td>
+                        <td>
+                            <a href="/loft/{{$event->loft_id}}/details" class="text-info">
+                                {{ $event->name_loft }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/loft/{{$event->loft_id}}/details">
+                                <img style="display: block; max-height: 80px; height: auto; width: auto;" src="{{ asset('image/'.$event->logo_loft.'') }}">
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/loft/events/{{$event->id}}/1/details" class="text-info">{{ $event->name_event }}</a>
+                        </td>
+                        <td>{{ $event->event_hotspot[0]->release_time_hotspot }}</td>
+                        <td>{{ $event->lat_event ? $event->lat_event . ', ' . $event->lng_event : '-' }}</td>
+                        <td>{{ $event->lat_event ? $event->lat_event_end . ', ' . $event->lng_event_end : '-' }}</td>
+                        <td>{{ round($event->distance, 2) . ' Km' }}</td>
+                        <td>{{ $event->due_join_date_event ? $event->due_join_date_event : '-' }}</td>
+                        <td style="color: {{ $event->color ? $event->color : '' }};">{{ $event->status }}</td>
+                        <td>{{ $event->arrived ? $event->arrived : 0 }}</td>
+                        <td class="action-link">
+                            <a href="/loft/events/{{$event->id}}/1/basket" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="/loft/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

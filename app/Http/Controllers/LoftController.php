@@ -34,11 +34,12 @@ class LoftController extends Controller
             ->orderBy('lofts.id', 'desc')
             ->get();
 
-        $event_follows = Events::selectRaw('*, events.id as id, lofts.id as loft_id, event_participants.id as event_participants_id, pigeons.id as pigeons_id')
+        $event_follows = Events::selectRaw('events.*, lofts.*, events.id as id, lofts.id as loft_id')
             ->join('lofts', 'events.id_loft', 'lofts.id')
             ->join('event_participants', 'events.id', 'event_participants.id_event')
             ->join('pigeons', 'pigeons.id', 'event_participants.id_pigeon')
             ->where('pigeons.id_user', $current_user->id)
+            ->groupBy('events.id')
             ->orderBy('lofts.id', 'desc')
             ->get();
         $loft_follows = Loft::selectRaw('*, lofts.id as id')
@@ -47,6 +48,11 @@ class LoftController extends Controller
             ->join('pigeons', 'pigeons.id', 'loft_members.id_pigeon')
             ->where('pigeons.id_user', $current_user->id)
             ->orderBy('lofts.id', 'desc')
+            ->get();
+
+        $all_events = Events::selectRaw('*, events.id as id, lofts.id as loft_id')
+            ->join('lofts', 'events.id_loft', 'lofts.id')
+            ->orderBy('events.id', 'desc')
             ->get();
 
 	    $event_results = EventResults::selectRaw('
@@ -84,10 +90,60 @@ class LoftController extends Controller
             }
     	}
 
+        foreach ($event_follows as $event) {
+            $event->distance = $this->distance($event->lat_event, $event->lng_event, $event->lat_event_end, $event->lng_event_end, "K");
+
+            if (count($event->event_hotspot) > 0) {
+                if ($event->event_hotspot[0]->release_time_hotspot <= $current_datetime) {
+                    $event->status = 'Terbang';
+                    $event->color = '#32CD32';
+                } else {
+                    if ($event->due_join_date_event < $current_datetime) {
+                        $event->status = 'Pendaftaran ditutup';
+                        $event->color = '#EB0000';
+                    } else {
+                        $event->status = 'Pendaftaran dibuka';
+                        $event->color = '#000000';
+                    }
+                }
+
+                foreach ($event_results as $event_result) {
+                    if ($event_result->id_event_hotspot == $event->event_hotspot[0]->id) {
+                        $event->arrived = $event_result->amount;
+                    }
+                }
+            }
+        }
+
+        foreach ($all_events as $event) {
+            $event->distance = $this->distance($event->lat_event, $event->lng_event, $event->lat_event_end, $event->lng_event_end, "K");
+
+            if (count($event->event_hotspot) > 0) {
+                if ($event->event_hotspot[0]->release_time_hotspot <= $current_datetime) {
+                    $event->status = 'Terbang';
+                    $event->color = '#32CD32';
+                } else {
+                    if ($event->due_join_date_event < $current_datetime) {
+                        $event->status = 'Pendaftaran ditutup';
+                        $event->color = '#EB0000';
+                    } else {
+                        $event->status = 'Pendaftaran dibuka';
+                        $event->color = '#000000';
+                    }
+                }
+
+                foreach ($event_results as $event_result) {
+                    if ($event_result->id_event_hotspot == $event->event_hotspot[0]->id) {
+                        $event->arrived = $event_result->amount;
+                    }
+                }
+            }
+        }
+
     	$users = User::all();
 
     	return view('one_loft_race.pages.one_loft',
-    		compact('title','current_user','event_owns','loft_owns','event_follows')
+    		compact('title','current_user','event_owns','loft_owns','event_follows','loft_follows','all_events')
     	);
     }
 
