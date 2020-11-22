@@ -29,7 +29,8 @@ Hasil Lomba
                 <p>Jenis lomba : <b style="color: red">{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</b></p>
                 <p>Kategori lomba : <b style="color: red">Lomba {{ $event->category_event }}</b></p>
                 <p>Info lomba : <b style="color: red">{{ $event->info_event }}</b></p>
-                <p>Posisi lomba : <b style="color: red">{{ $event->lat_event ? $event->lat_event . ', ' . $event->lng_event : '-' }}</b></p>
+                <p>Posisi mulai lomba : <b style="color: red">{{ $event->lat_event ? $event->lat_event . ', ' . $event->lng_event : '-' }}</b></p>
+                <p>Posisi selesai lomba : <b style="color: red">{{ $event->lat_event ? $event->lat_event_end . ', ' . $event->lng_event_end : '-' }}</b></p>
                 <p>Jadwal mulai : <b style="color: red">{{ \Carbon\Carbon::parse($event->release_time_event)->format('j F Y') }}</b></p>
                 <p>Pigeon di basket : <b style="color: red">{{ count($event_results) }}</b></p>
                 <p>Pigeon sudah datang : <b style="color: red">{{ count($arrived_pigeons) }}</b></p>
