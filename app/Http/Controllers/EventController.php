@@ -29,8 +29,8 @@ class EventController extends Controller
     {
         $title = 'Lomba Umum';
         $events = Events::with($this->relationships)
-        ->where('branch_event', 'Umum')
-        ->orderBy('events.id', 'desc')->get();
+            ->where('branch_event', 'Umum')
+            ->orderBy('events.id', 'desc')->get();
         $users = User::all();
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
