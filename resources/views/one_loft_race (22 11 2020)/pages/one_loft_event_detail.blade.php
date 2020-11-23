@@ -1,12 +1,14 @@
 @extends('one_loft_race.layout.app_one')
+
 @section('title')
-Hasil Lomba
+{{ $title }}
 @endsection
+
 @section('content')
 <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ url('image/breadcumb-1.jpg') }});">
     <div class="bradcumbContent">
-        <h2>Hasil Lomba</h2>
+        <h2>Detail Lomba</h2>
     </div>
 </div>
 <!-- bg gradients -->
@@ -18,29 +20,48 @@ Hasil Lomba
         <!-- /.box-header -->
         <div class="row">
             <div class="col d-flex justify-content-between">
-                <h4>Hasil Lomba "{{ $event->name_event }}"</h4>
+                <h4>Detail Lomba "{{ $event->name_event }}"</h4>
+                @if($event->due_join_date_event >= $current_datetime && $event->release_time_event > $current_datetime)
+                <a href="#" class="btn musica-btn" data-toggle="modal" data-target="#joinLomba">Join Lomba</a>
+                @elseif($event->due_join_date_event < $current_datetime && $event->release_time_event > $current_datetime)
+                <h5 style="color: #EB0000;">Pendaftaran ditutup</h5>
+                @endif
             </div>
         </div>
         <div class="row my-2">
             <div class="col-2">
-                <img style="width: 220px" src="{{ asset('image/'.$event->logo_event.'') }}">
+                <img style="width: 100%;" src="{{ asset('image/'.$event->logo_event.'') }}">
             </div>
-            <div class="col-10">
+            <div class="col-7">
+                <p>Nama lomba : <b style="color: red">{{ $event->name_event }}</b></p>
                 <p>Jenis lomba : <b style="color: red">{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</b></p>
                 <p>Kategori lomba : <b style="color: red">Lomba {{ $event->category_event }}</b></p>
                 <p>Info lomba : <b style="color: red">{{ $event->info_event }}</b></p>
-                <p>Posisi mulai lomba : <b style="color: red">{{ $event->lat_event ? $event->lat_event . ', ' . $event->lng_event : '-' }}</b></p>
-                <p>Posisi selesai lomba : <b style="color: red">{{ $event->lat_event ? $event->lat_event_end . ', ' . $event->lng_event_end : '-' }}</b></p>
-                <p>Jadwal mulai : <b style="color: red">{{ \Carbon\Carbon::parse($event->release_time_event)->format('j F Y') }}</b></p>
-                <p>Pigeon di basket : <b style="color: red">{{ count($event_results) }}</b></p>
-                <p>Pigeon sudah datang : <b style="color: red">{{ count($arrived_pigeons) }}</b></p>
-                <p>Pigeon belum datang : <b style="color: red">{{ count($event_results) - count($arrived_pigeons) }}</b></p>
+                <p>Posisi lomba : <b style="color: red">{{ $event->lat_event ? $event->lat_event . ', ' . $event->lng_event : '-' }}</b></p>
+                <p>Alamat lomba : <b style="color: red">{{ $event->address_event ? $event->address_event : '-' }}</b></p>
+                <p>Jadwal mulai : <b style="color: red">{{ \Carbon\Carbon::parse($event->release_time_event)->format('j F Y, H:i:s') }}</b></p>
+            </div>
+            <div class="col-3">
+                <a href="/loft/{{$event->loft->id}}/details">
+                    <img style="width: 100%;" src="{{ asset('image/'.$event->loft->logo_loft.'') }}">
+                </a>
             </div>
         </div>
         @if($event->hotspot_length_event > 1)
         <div class="row mb-2">
             <div class="col-12 d-flex justify-content-end">
-                
+                <div class="btn-group dropup">
+                  <button type="button" class="btn btn-primary dropdown-toggle pl-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Hotspot {{ $hotspot }}
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    @foreach($event->event_hotspot as $key => $event_hotspot)
+                    @if($hotspot != $key + 1)
+                    <a class="dropdown-item" href="/events/{{$event->id}}/{{$key+1}}/details">Hotspot {{$key+1}}</a>
+                    @endif
+                    @endforeach
+                  </div>
+                </div>
             </div>
         </div>
         @endif
@@ -49,6 +70,10 @@ Hasil Lomba
                 <thead>
                     <th>Peringkat</th>
                     <th>Pemilik</th>
+                    <!-- @if($event->category_event == 'Team')
+                    <th>Team</th>
+                    @endif
+                    <th>Club</th> -->
                     <th>UID Pigeon</th>
                     <th>Nama Pigeon</th>
                     <th>Kedatangan</th>
@@ -66,17 +91,13 @@ Hasil Lomba
                     @foreach($event_results as $event_result)
                     <tr>
                         <td>{{ $rank++ }}</td>
-                        <td>
-                            <a href="" class="text-info">
-                                {{ $event_result->event_participant->pigeons->users->name }}
-                            </a>
-                        </td>
-                        <td>
-                            <a href="" class="text-info">
-                                {{ $event_result->event_participant->pigeons->uid_pigeon }}
-                            </a>
-                        </td>
-                        <td>{{ $event_result->event_participant->pigeons->name_pigeon }}</td>
+                        <td>{{ $event_result->event_participant->pigeons->users->name ? $event_result->event_participant->pigeons->users->name : '-' }}</td>
+                        <!-- @if($event->category_event == 'Team')
+                        <td>{{ $event_result->event_participant->team->name_team ? $event_result->event_participant->team->name_team : '-' }}</td>
+                        @endif
+                        <td>{{ $event_result->event_participant->club->name_club ? $event_result->event_participant->club->name_club : '-' }}</td> -->
+                        <td>{{ $event_result->event_participant->pigeons ? $event_result->event_participant->pigeons->uid_pigeon : '-' }}</td>
+                        <td>{{ $event_result->event_participant->pigeons ? $event_result->event_participant->pigeons->name_pigeon : '-' }}</td>
                         <td>{{ $event_result->speed_event_result ? $event_result->updated_at : '-' }}</td>
                         @if($event_results[0]->speed_event_result)
                         <td>{{ $event_result->speed_event_result ? round($event_result->speed_event_result, 2) : round($unfinished_speed, 2) }}</td>
