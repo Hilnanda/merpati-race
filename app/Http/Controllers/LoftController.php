@@ -455,6 +455,25 @@ class LoftController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function joinLoft(Request $request, $id)
+    {
+        $data = $request->all();
+
+        $data['is_active'] = 0;
+
+        $data['id_loft'] = $id;
+
+        LoftMember::create($data);
+
+        return back()->with('Sukses','Berhasil menambahkan data!');
+    }
+
+    /**
      * Store a newly created resource in events.
      *
      * @param  \Illuminate\Http\Request  $request

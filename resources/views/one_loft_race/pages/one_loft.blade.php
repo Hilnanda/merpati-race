@@ -64,7 +64,7 @@
                         <td style="color: {{ $event->color ? $event->color : '' }};">{{ $event->status ? $event->status : '-' }}</td>
                         <td>{{ $event->arrived ? $event->arrived : 0 }}</td>
                         <td class="action-link">
-                            <a href="/loft/events/{{$event->id}}/1/basket" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="/loft/events/{{$event->id}}/1/basket" title="Inkorf List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                             <a href="/loft/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
                         </td>
                     </tr>
@@ -145,7 +145,7 @@
                         <td style="color: {{ $event->color ? $event->color : '' }};">{{ $event->status }}</td>
                         <td>{{ $event->arrived ? $event->arrived : 0 }}</td>
                         <td class="action-link">
-                            <a href="/loft/events/{{$event->id}}/1/basket" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="/loft/events/{{$event->id}}/1/basket" title="Inkorf List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                             <a href="/loft/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
                         </td>
                     </tr>
@@ -222,7 +222,7 @@
                         <td style="color: {{ $event->color ? $event->color : '' }};">{{ $event->status }}</td>
                         <td>{{ $event->arrived ? $event->arrived : 0 }}</td>
                         <td class="action-link">
-                            <a href="/loft/events/{{$event->id}}/1/basket" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="/loft/events/{{$event->id}}/1/basket" title="Inkorf List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                             <a href="/loft/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
                         </td>
                     </tr>

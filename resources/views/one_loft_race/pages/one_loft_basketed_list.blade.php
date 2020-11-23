@@ -1,12 +1,12 @@
 @extends('one_loft_race.layout.app_one')
 @section('title')
-    Basket List
+    Inkorf List
 @endsection
 @section('content')
     <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ url('image/breadcumb-1.jpg') }});">
     <div class="bradcumbContent">
-        <h2>Basket List</h2>
+        <h2>Inkorf List</h2>
     </div>
 </div>
 <!-- bg gradients -->
@@ -16,7 +16,7 @@
 <div class="row mt-5 px-5 mb-5">
     <div class="col-lg-12">
         <!-- /.box-header -->
-        <h4>Basket List "{{ $event->name_event }}"</h4>
+        <h4>Inkorf List "{{ $event->name_event }}"</h4>
         @if($event->hotspot_length_event > 1)
         <div class="row mb-2">
             <div class="col-12 d-flex justify-content-end">
