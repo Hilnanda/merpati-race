@@ -50,7 +50,7 @@
         </div>
         <div class="row my-2">
             <div class="col-3">
-                <img style="width: 100%;" src="{{ asset('image/'.$loft->logo_loft.'') }}">
+                <img style="width: 100%;" title="Logo Loft" src="{{ asset('image/'.$loft->logo_loft.'') }}">
             </div>
             <div class="col-9">
                 <p>Pemilik Pigeon Terdaftar : <b style="color: red">{{ $loft->fanciers ? count($loft->fanciers) : 0 }}</b></p>

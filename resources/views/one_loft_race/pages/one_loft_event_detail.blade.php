@@ -30,7 +30,7 @@ Detail {{$event->branch_event}}
         </div>
         <div class="row my-2">
             <div class="col-2">
-                <img style="width: 100%;" src="{{ asset('image/'.$event->logo_event.'') }}">
+                <img style="width: 100%;" title="Logo {{$event->branch_event}}" src="{{ asset('image/'.$event->logo_event.'') }}">
             </div>
             <div class="col-7">
                 <p>Nama lomba : <b style="color: red">{{ $event->name_event }}</b></p>
@@ -43,7 +43,7 @@ Detail {{$event->branch_event}}
             </div>
             <div class="col-3">
                 <a href="/loft/{{$event->loft->id}}/details">
-                    <img style="width: 100%;" src="{{ asset('image/'.$event->loft->logo_loft.'') }}">
+                    <img style="width: 100%;" title="Logo Loft (Click to go to detail loft)" src="{{ asset('image/'.$event->loft->logo_loft.'') }}">
                 </a>
                 <div class="d-flex justify-content-between my-2" style="overflow-y: auto;">
                     <a href="#" style="font-size: 20pt;" title="Set Titik Lokasi" class="text-danger mx-5" data-toggle="modal" data-target="#setPoint">
