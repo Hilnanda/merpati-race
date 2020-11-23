@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Clubs;
 use App\User;
 use Illuminate\Http\Request;
+use DOMDocument;
+use DOMXPath;
 
 class ClubController extends Controller
 {
@@ -18,7 +20,52 @@ class ClubController extends Controller
     {
         $club = Clubs::all();
         $user = User::all();
-        return view('admin.pages.list-club', ['clubs' => $club, 'users' => $user]);
+        
+        $url = "https://www.countryflags.io/";
+  
+        $html = file_get_contents($url);
+        $xpath = new DOMDocument();
+  
+        libxml_use_internal_errors(true);
+  
+        if (!empty($html)) {
+            $xpath -> loadHTML($html);
+  
+            libxml_clear_errors();
+            $xpath = new DOMXPath($xpath);
+  
+            $bendera = $xpath -> query('//*[@id="countries"]/div/div[1]/div/img/@src');
+            $nama = $xpath -> query('//*[@id="countries"]/div/div[1]/div/p[2]');
+            $code = $xpath -> query('//*[@id="countries"]/div/div[1]/div/p[1]');
+            
+            }
+            $arraySubClass = array();
+            
+            foreach ($code as $value) {
+                  $code_negara[] = array('code'=>$value->nodeValue);
+        
+            }
+            foreach ($bendera as $value) {
+                $bendera_negara[] = array('bendera'=>$value->nodeValue);
+        
+            }
+  
+            $i = 0;
+            foreach ($nama as $value) {
+                $nama_negara[] = array(
+                    'code'=> $code_negara[$i]['code'],
+                    'bendera'=> $bendera_negara[$i]['bendera'],
+                    'nama'=>$value->nodeValue
+                );
+                $i++;
+            }
+
+            
+            $negara = json_encode($nama_negara);
+            // dd($nama_negara);
+        return view('admin.pages.list-club', ['clubs' => $club, 'users' => $user,
+        'negara'=>$nama_negara
+        ]);
     }
 
     /**
