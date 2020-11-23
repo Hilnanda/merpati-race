@@ -48,6 +48,7 @@
                 @endif
             </div>
         </div>
+        <hr>
         <div class="row my-2">
             <div class="col-3">
                 <img style="width: 100%;" title="Logo Loft" src="{{ asset('image/'.$loft->logo_loft.'') }}">
@@ -60,7 +61,7 @@
         </div>
         <div class="row mb-2">
             <div class="col-3">
-                <button class="btn musica-btn btn-primary" style="width: 100%;" id="participant_loft_button" onclick="showHideParticipants()">Tampilkan Partisipan</button>
+                <button class="btn musica-btn btn-primary" style="width: 100%; min-width: 200px;" id="participant_loft_button" onclick="showHideParticipants()">Tampilkan Partisipan</button>
             </div>
         </div>
         <!-- Participants Table -->
@@ -119,7 +120,7 @@
                         <td>{{ $event->distance ? round($event->distance, 2) . ' Km' : '-' }}</td>
                         <td style="color: {{ $event->color ? $event->color : '' }};">{{ $event->status ? $event->status : '-' }}</td>
                         <td class="action-link">
-                            <a href="/loft/events/{{$event->id}}/1/basket" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="/loft/events/{{$event->id}}/1/basket" title="Proses Inkorf" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                             <a href="/loft/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
                             <a href="#" title="Set Titik Lokasi" class="text-danger mx-1" data-toggle="modal" data-target="#setPoint{{$event->id}}">
                                 <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -193,7 +194,7 @@
                         <td>{{ $event->distance ? round($event->distance, 2) . ' Km' : '-' }}</td>
                         <td style="color: {{ $event->color ? $event->color : '' }};">{{ $event->status ? $event->status : '-' }}</td>
                         <td class="action-link">
-                            <a href="/loft/events/{{$event->id}}/1/basket" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="/loft/events/{{$event->id}}/1/basket" title="Proses Inkorf" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                             <a href="/loft/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
                             <a href="#" title="Set Titik Lokasi" class="text-danger mx-1" data-toggle="modal" data-target="#setPoint{{$event->id}}">
                                 <i class="fa fa-map-marker" aria-hidden="true"></i>

@@ -21,6 +21,7 @@ Hasil {{$event->branch_event}}
                 <h4>Hasil {{$event->branch_event}} "{{ $event->name_event }}"</h4>
             </div>
         </div>
+        <hr>
         <div class="row my-2">
             <div class="col-2">
                 <img style="width: 220px" src="{{ asset('image/'.$event->logo_event.'') }}">

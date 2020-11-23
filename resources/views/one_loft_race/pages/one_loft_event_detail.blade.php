@@ -28,6 +28,7 @@ Detail {{$event->branch_event}}
                 @endif
             </div>
         </div>
+        <hr>
         <div class="row my-2">
             <div class="col-2">
                 <img style="width: 100%;" title="Logo {{$event->branch_event}}" src="{{ asset('image/'.$event->logo_event.'') }}">
@@ -49,7 +50,7 @@ Detail {{$event->branch_event}}
                     <a href="#" style="font-size: 20pt;" title="Set Titik Lokasi" class="text-danger mx-5" data-toggle="modal" data-target="#setPoint">
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                     </a>
-                    <a href="/loft/events/{{$event->id}}/1/basket" style="font-size: 20pt;" title="Inkorf List" class="text-danger mx-5">
+                    <a href="/loft/events/{{$event->id}}/1/basket" style="font-size: 20pt;" title="Proses Inkorf" class="text-danger mx-5">
                         <i class="fa fa-twitter" aria-hidden="true"></i>
                     </a>
                     <a href="/loft/events/{{$event->id}}/1/live-result" style="font-size: 20pt;" title="Hasil {{$event->branch_event}}" class="text-danger mx-5">

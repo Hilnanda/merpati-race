@@ -65,7 +65,9 @@ Route::group(['namespace' => 'API\\Admin', 'prefix' => 'admin/v1'], function () 
 // Access for subscribed users
 Route::group(['namespace' => 'API\\Subscribed', 'prefix' => 'subscribed/v1'], function () {
 
-	// 
+	// Loft
+	Route::get('event-inkorf/{id}', 'LoftController@index');
+	Route::post('event-inkorf/{id}/{uid}', 'LoftController@inkorfAdd');
 
 });
 

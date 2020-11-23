@@ -8,6 +8,7 @@ use App\LoftMember;
 use App\User;
 use App\Pigeons;
 use App\Events;
+use App\EventParticipants;
 use App\EventResults;
 use App\EventHotspot;
 use Illuminate\Http\Request;
@@ -324,18 +325,30 @@ class LoftController extends Controller
             }
         }
 
-        $event_participants = EventResults::whereHas('event_participant', function ($query) use($event) {
-                $query->where('active_at', '!=', null);
-                $query->where('id_event', '=', $event->id);
-            })
-            ->where('event_results.id_event_hotspot', '=', $id_hotspot)
-            ->orderBy('event_results.created_at', 'asc')
+        $event_participants = EventParticipants::where('active_at', '!=', null)
+            ->where('id_event', '=', $event->id)
+            ->orderBy('event_participants.active_at', 'asc')
             ->get();
 
         $event->release_time_event = $this->formatDateLocal($event->release_time_event);
         $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
-        foreach ($event_participants as $event_participant) {
-            $event_participant->created_at = $this->formatDateLocal($event_participant->created_at);
+
+        // Get Status Event
+        $current_datetime = Carbon::now();
+
+        $event->distance = $this->distance($event->lat_event, $event->lng_event, $event->lat_event_end, $event->lng_event_end, "K");
+
+        if ($event->event_hotspot[0]->release_time_hotspot <= $current_datetime) {
+            $event->status = 'Terbang';
+            $event->color = '#32CD32';
+        } else {
+            if ($event->due_join_date_event < $current_datetime) {
+                $event->status = 'Pendaftaran ditutup';
+                $event->color = '#EB0000';
+            } else {
+                $event->status = 'Pendaftaran dibuka';
+                $event->color = '#000000';
+            }
         }
 
         return view('one_loft_race.pages.one_loft_basketed_list',
@@ -354,27 +367,27 @@ class LoftController extends Controller
         $users = User::all();
         $auth_session = auth()->user()->id;
         $pigeons = Pigeons::selectRaw('*, pigeons.id as pigeon_id')
-        ->join('club_members', 'club_members.id_pigeon', 'pigeons.id')
-        ->leftJoin('team_members', 'team_members.id_pigeon', 'pigeons.id')
-        ->leftJoin('teams', 'teams.id', 'team_members.id_team')
-        ->leftJoin('event_participants', 'event_participants.id_pigeon', 'pigeons.id')
-        ->where('pigeons.is_active', 1)
-        ->where('club_members.is_active', 1)
-        ->where('pigeons.id_user', $auth_session)
-        ->whereRaw("pigeons.id NOT IN (
-                SELECT id_pigeon FROM event_participants
-            )
-            OR
-            pigeons.id IN (
-                SELECT id_pigeon FROM event_participants
-                JOIN event_results
-                ON event_participants.id = event_results.id_event_participant
-                JOIN event_hotspots
-                ON event_hotspots.id = event_results.id_event_hotspot
-                WHERE event_participants.id_event = $id
-            )
-        ")
-        ->get();
+            ->join('club_members', 'club_members.id_pigeon', 'pigeons.id')
+            ->leftJoin('team_members', 'team_members.id_pigeon', 'pigeons.id')
+            ->leftJoin('teams', 'teams.id', 'team_members.id_team')
+            ->leftJoin('event_participants', 'event_participants.id_pigeon', 'pigeons.id')
+            ->where('pigeons.is_active', 1)
+            ->where('club_members.is_active', 1)
+            ->where('pigeons.id_user', $auth_session)
+            ->whereRaw("pigeons.id NOT IN (
+                    SELECT id_pigeon FROM event_participants
+                )
+                OR
+                pigeons.id IN (
+                    SELECT id_pigeon FROM event_participants
+                    JOIN event_results
+                    ON event_participants.id = event_results.id_event_participant
+                    JOIN event_hotspots
+                    ON event_hotspots.id = event_results.id_event_hotspot
+                    WHERE event_participants.id_event = $id
+                )
+            ")
+            ->get();
 
         $current_datetime = Carbon::now();
 
