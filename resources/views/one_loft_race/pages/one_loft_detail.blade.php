@@ -97,8 +97,9 @@
                 <thead>
                     <th>No.</th>
                     <th>Nama</th>
-                    <th>Titik Mulai</th>
                     <th>Waktu Mulai</th>
+                    <th>Titik Mulai</th>
+                    <th>Titik Selesai</th>
                     <th>Jarak</th>
                     <th>Status</th>
                     <th></th>
@@ -112,16 +113,50 @@
                     <tr>
                         <td>{{ $row++ }}</td>
                         <td><a href="/loft/events/{{$event->id}}/1/details" class="text-info">{{ $event->name_event }}</a></td>
-                        <td>{{ $event->lng_event ? $event->lng_event . ', ' . $event->lat_event : '-' }}</td>
                         <td>{{ $event->event_hotspot[0]->release_time_hotspot }}</td>
+                        <td>{{ $event->lng_event ? $event->lng_event . ', ' . $event->lat_event : '-' }}</td>
+                        <td>{{ $event->lng_event_end ? $event->lng_event_end . ', ' . $event->lat_event_end : '-' }}</td>
                         <td>{{ $event->distance ? round($event->distance, 2) . ' Km' : '-' }}</td>
                         <td style="color: {{ $event->color ? $event->color : '' }};">{{ $event->status ? $event->status : '-' }}</td>
                         <td class="action-link">
                             <a href="/loft/events/{{$event->id}}/1/basket" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                             <a href="/loft/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+                            <a href="#" title="Set Titik Lokasi" class="text-danger mx-1" data-toggle="modal" data-target="#setPoint{{$event->id}}">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            </a>
                             <!-- <a href="/events/{{$event->id}}/1/details" title="Detail Lomba" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a> -->
                         </td>
                     </tr>
+
+                    <!-- Modal Set Point -->
+                    <div class="modal fade" id="setPoint{{$event->id}}" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="exampleModalLabel">Set Titik Lokasi {{$event->branch_event}}</h4>
+                                </div>
+                                <form action="">
+                                    <div class="modal-body">
+                                        <h5>URL Titik Lokasi Mulai</h5>
+                                        <p class="text-info">http://pigeontime.live/event-start/{{$event->id}}/&lt;latitude&gt;/&lt;longitude&gt;</p>
+                                        <p>contoh:<br>http://pigeontime.live/event-start/{{$event->id}}/-7.893274649955687/112.67354622885584</p>
+                                        <h5>URL Titik Lokasi Selesai</h5>
+                                        <p class="text-info">http://pigeontime.live/event-end/{{$event->id}}/&lt;latitude&gt;/&lt;longitude&gt;</p>
+                                        <p>contoh:<br>http://pigeontime.live/event-end/{{$event->id}}/-7.893274649955687/112.67354622885584</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="form-group d-flex justify-content-end">
+                                            <button class="btn musica-btn btn-2" type="button"
+                                            data-dismiss="modal">Cancel</button>
+                                            <input type="submit" value="Selesai" class="btn musica-btn">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Modal Set Point -->
                     @endif
                     @endforeach
                 </tbody>
@@ -136,8 +171,9 @@
                 <thead>
                     <th>No.</th>
                     <th>Nama</th>
-                    <th>Titik Mulai</th>
                     <th>Waktu Mulai</th>
+                    <th>Titik Mulai</th>
+                    <th>Titik Selesai</th>
                     <th>Jarak</th>
                     <th>Status</th>
                     <th></th>
@@ -151,16 +187,50 @@
                     <tr>
                         <td>{{ $row++ }}</td>
                         <td><a href="/loft/events/{{$event->id}}/1/details" class="text-info">{{ $event->name_event }}</a></td>
-                        <td>{{ $event->lng_event ? $event->lng_event . ', ' . $event->lat_event : '-' }}</td>
                         <td>{{ $event->event_hotspot[0]->release_time_hotspot }}</td>
+                        <td>{{ $event->lng_event ? $event->lng_event . ', ' . $event->lat_event : '-' }}</td>
+                        <td>{{ $event->lng_event_end ? $event->lng_event_end . ', ' . $event->lat_event_end : '-' }}</td>
                         <td>{{ $event->distance ? round($event->distance, 2) . ' Km' : '-' }}</td>
                         <td style="color: {{ $event->color ? $event->color : '' }};">{{ $event->status ? $event->status : '-' }}</td>
                         <td class="action-link">
                             <a href="/loft/events/{{$event->id}}/1/basket" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                             <a href="/loft/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+                            <a href="#" title="Set Titik Lokasi" class="text-danger mx-1" data-toggle="modal" data-target="#setPoint{{$event->id}}">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            </a>
                             <!-- <a href="/events/{{$event->id}}/1/details" title="Detail Lomba" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a> -->
                         </td>
                     </tr>
+
+                    <!-- Modal Set Point -->
+                    <div class="modal fade" id="setPoint{{$event->id}}" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="exampleModalLabel">Set Titik Lokasi {{$event->branch_event}}</h4>
+                                </div>
+                                <form action="">
+                                    <div class="modal-body">
+                                        <h5>URL Titik Lokasi Mulai</h5>
+                                        <p class="text-info">http://pigeontime.live/event-start/{{$event->id}}/&lt;latitude&gt;/&lt;longitude&gt;</p>
+                                        <p>contoh:<br>http://pigeontime.live/event-start/{{$event->id}}/-7.893274649955687/112.67354622885584</p>
+                                        <h5>URL Titik Lokasi Selesai</h5>
+                                        <p class="text-info">http://pigeontime.live/event-end/{{$event->id}}/&lt;latitude&gt;/&lt;longitude&gt;</p>
+                                        <p>contoh:<br>http://pigeontime.live/event-end/{{$event->id}}/-7.893274649955687/112.67354622885584</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="form-group d-flex justify-content-end">
+                                            <button class="btn musica-btn btn-2" type="button"
+                                            data-dismiss="modal">Cancel</button>
+                                            <input type="submit" value="Selesai" class="btn musica-btn">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Modal Set Point -->
                     @endif
                     @endforeach
                 </tbody>
