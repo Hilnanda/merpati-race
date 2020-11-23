@@ -119,16 +119,16 @@
                     @foreach($data as $event)
                     <tr>
                         <td>{{ $loop->index + 1 }}</td>
-                    <td><a href="/pigeon/training/{{$event->id_user}}/{{$event->id}}/details" class="text-info">{{ $event->name_event }}</a></td>
+                    <td><a href="/pigeon/training/{{$event->id_user}}/1/details" class="text-info">{{ $event->name_event }}</a></td>
                         <td>{{ $event->lng_event ? $event->lng_event . ', ' . $event->lat_event : '-' }}</td>
                         <td>{{ $event->event_hotspot[0]->release_time_hotspot }}</td>
                         <td>{{ $event->distance ? round($event->distance, 2) . ' Km' : '-' }}</td>
                         <td style="color: {{ $event->color ? $event->color : '' }};">{{ $event->status ? $event->status : '-' }}</td>
                         <td class="action-link">
-                            <a href="#" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="#" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
-                            {{-- <a href="/pigeon/{{$event->id_user}}/{{$event->id}}/basket" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="/pigeon/{{$event->id_user}}/{{$event->id}}/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a> --}}
+                            {{-- <a href="#" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a> --}}
+                            {{-- <a href="#" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a> --}}
+                            <a href="/pigeon/basket/{{$event->id_user}}/1/details" title="Basket List" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="/pigeon/live-result/{{$event->id_user}}/1/details" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
                             <!-- <a href="/events/{{$event->id}}/1/details" title="Detail Lomba" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a> -->
                         </td>
                     </tr>

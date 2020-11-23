@@ -344,17 +344,55 @@ class PigeonsController extends Controller
                 }
             }
         }
+        
+        // dd($data);
+      
+        return view('subscribed.pages.pigeon_training',compact('data'));
+    }
+    // training detail
+    public function training_pigeon_details($id_user,$hotspot)
+    {
+        $event = Events::where('id_user',$id_user)->first();
+        // ->where('id',$hostpot)->first();
+        // $event = Events::with('loft')->find($id);
+        $users = User::all();
+        $auth_session = auth()->user()->id;
+        $pigeons = Pigeons::selectRaw('*, pigeons.id as pigeon_id')
+	        ->join('club_members', 'club_members.id_pigeon', 'pigeons.id')
+	        ->leftJoin('team_members', 'team_members.id_pigeon', 'pigeons.id')
+	        ->leftJoin('teams', 'teams.id', 'team_members.id_team')
+	        ->leftJoin('event_participants', 'event_participants.id_pigeon', 'pigeons.id')
+	        ->where('pigeons.is_active', 1)
+	        ->where('club_members.is_active', 1)
+	        ->where('pigeons.id_user', $auth_session)
+	        ->whereRaw("pigeons.id NOT IN (
+	                SELECT id_pigeon FROM event_participants
+	            )
+	            OR
+	            pigeons.id IN (
+	                SELECT id_pigeon FROM event_participants
+	                JOIN event_results
+	                ON event_participants.id = event_results.id_event_participant
+	                JOIN event_hotspots
+	                ON event_hotspots.id = event_results.id_event_hotspot
+	                WHERE event_participants.id_event = $id_user
+	            )
+	        ")
+	        ->get();
+
+        $current_datetime = Carbon::now();
+
         $id_hotspot = null;
 
-        // foreach ($event->event_hotspot as $key => $event_hotspot) {
-        //     if ($key + 1 == $hotspot) {
-        //         $id_hotspot = $event_hotspot->id;
-        //         $event->release_time_event = $this->formatDateLocal($event_hotspot->release_time_hotspot);
-        //         if ($event_hotspot->expired_time_hotspot) {
-        //             $event->expired_time_event = $this->formatDateLocal($event->expired_time_hotspot);
-        //         }
-        //     }
-        // }
+        foreach ($event->event_hotspot as $key => $event_hotspot) {
+            if ($key + 1 == $hotspot) {
+                $id_hotspot = $event_hotspot->id;
+                $event->release_time_event = $this->formatDateLocal($event_hotspot->release_time_hotspot);
+                if ($event_hotspot->expired_time_hotspot) {
+                    $event->expired_time_event = $this->formatDateLocal($event->expired_time_hotspot);
+                }
+            }
+        }
         
         $event->due_join_date_event = $this->formatDateLocal($event->due_join_date_event);
 
@@ -376,15 +414,119 @@ class PigeonsController extends Controller
 
             $unfinished_speed = $distance ? $distance / ($duration / 60) : null;
         }      
-        // dd($data);
-        // $data_medsos = CMSMedsos::all();
-        // $data_footer = CMSFooter::all();
-        return view('subscribed.pages.pigeon_training',compact('data','event_results','unfinished_speed','id_hotspot'));
+        return view('subscribed.pages.pigeon_training_details',compact('event','users','event','event_results','pigeons','current_datetime','hotspot', 'id_hotspot','unfinished_speed'));
     }
-    public function training_pigeon_details($id_user,$id)
+    // basket detail
+
+    public function basket_pigeon_details($id_user,$hotspot)
     {
-        $data = Events::where('id_user',$id_user)
-        ->where('id',$id)->first();
-        return view('subscribed.pages.pigeon_training_details',compact('data'));
+        $event = Events::where('id_user',$id_user)->first();
+        $users = User::all();
+
+        $current_datetime = Carbon::now();
+
+        $id_hotspot = null;
+
+        foreach ($event->event_hotspot as $key => $event_hotspot) {
+            if ($key + 1 == $hotspot) {
+                $id_hotspot = $event_hotspot->id;
+                $event->release_time_event = $this->formatDateLocal($event_hotspot->release_time_hotspot);
+                if ($event_hotspot->expired_time_hotspot) {
+                    $event->expired_time_event = $this->formatDateLocal($event->expired_time_hotspot);
+                }
+            }
+        }
+
+        $event_participants = EventResults::whereHas('event_participant', function ($query) use($event) {
+                $query->where('active_at', '!=', null);
+                $query->where('id_event', '=', $event->id);
+            })
+            ->where('event_results.id_event_hotspot', '=', $id_hotspot)
+            ->orderBy('event_results.created_at', 'asc')
+            ->get();
+
+        $event->release_time_event = $this->formatDateLocal($event->release_time_event);
+        $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
+        foreach ($event_participants as $event_participant) {
+            $event_participant->created_at = $this->formatDateLocal($event_participant->created_at);
+        }
+
+        return view('subscribed.pages.pigeon_basket_details',
+            compact('users','current_datetime','event','event_participants','hotspot')
+        );
+    }
+    // live-result pigeon
+    public function live_result_pigeon_details($id_user,$hotspot)
+    {
+        $event = Events::where('id_user',$id_user)->first();
+        $users = User::all();
+        $auth_session = auth()->user()->id;
+        $pigeons = Pigeons::selectRaw('*, pigeons.id as pigeon_id')
+        ->join('club_members', 'club_members.id_pigeon', 'pigeons.id')
+        ->leftJoin('team_members', 'team_members.id_pigeon', 'pigeons.id')
+        ->leftJoin('teams', 'teams.id', 'team_members.id_team')
+        ->leftJoin('event_participants', 'event_participants.id_pigeon', 'pigeons.id')
+        ->where('pigeons.is_active', 1)
+        ->where('club_members.is_active', 1)
+        ->where('pigeons.id_user', $auth_session)
+        ->whereRaw("pigeons.id NOT IN (
+                SELECT id_pigeon FROM event_participants
+            )
+            OR
+            pigeons.id IN (
+                SELECT id_pigeon FROM event_participants
+                JOIN event_results
+                ON event_participants.id = event_results.id_event_participant
+                JOIN event_hotspots
+                ON event_hotspots.id = event_results.id_event_hotspot
+                WHERE event_participants.id_event = $id_user
+            )
+        ")
+        ->get();
+
+        $current_datetime = Carbon::now();
+
+        $id_hotspot = null;
+
+        foreach ($event->event_hotspot as $key => $event_hotspot) {
+            if ($key + 1 == $hotspot) {
+                $id_hotspot = $event_hotspot->id;
+                $event->release_time_event = $this->formatDateLocal($event_hotspot->release_time_hotspot);
+                if ($event_hotspot->expired_time_hotspot) {
+                    $event->expired_time_event = $this->formatDateLocal($event->expired_time_hotspot);
+                }
+            }
+        }
+        
+        $event->due_join_date_event = $this->formatDateLocal($event->due_join_date_event);
+
+        $event_results = EventResults::whereHas('event_participant', function ($query) use($event) {
+                $query->where('active_at', '!=', null);
+                $query->where('id_event', '=', $event->id);
+            })
+            ->where('event_results.id_event_hotspot', '=', $id_hotspot)
+            ->orderBy('event_results.speed_event_result', 'desc')
+            ->get();
+
+        $unfinished_speed = null;
+        if (count($event_results) > 0) {
+            $distance = $event_results[0]->speed_event_result ? ($event_results[0]->speed_event_result) * ((strtotime($event_results[0]->updated_at) - strtotime($event->release_time_event)) / 60) : null;
+
+            $duration = strtotime(date("Y-m-d h:i:sa")) - strtotime($event->release_time_event);
+
+            $unfinished_speed = $distance ? $distance / ($duration / 60) : null;
+        }
+
+        $arrived_pigeons = [];
+
+        foreach ($event_results as $key => $event_result) {
+            if ($event_result->speed_event_result) {
+                array_push($arrived_pigeons, $event_result->event_participant->pigeons);
+            }
+        }
+
+        return view('subscribed.pages.pigeon_live_result_basket_details',
+            compact('users','event','event_results','pigeons','current_datetime','hotspot', 'id_hotspot','unfinished_speed','arrived_pigeons')
+        );
     }
 }

@@ -181,8 +181,10 @@ Route::middleware('is_subscribed')->group(function () {
     Route::Post('/pigeons/update/name_loft/{id}','PigeonsController@update_name_loft');
     // Training Pigeon
     Route::get('/pigeon/training_pigeon/{id_user}','PigeonsController@training_pigeon');
-    Route::get('/pigeon/training/{id_user}/{id}/details','PigeonsController@training_pigeon_details');
-    Route::get('/pigeon/{id_user}/{id}/basket','PigeonsController@basket');
+    // Route::get('/pigeon/training/{id_user}/{id}/details','PigeonsController@training_pigeon_details');
+    Route::get('/pigeon/training/{id_user}/{hotspot}/details','PigeonsController@training_pigeon_details')->name('pigeon_event_detail');
+    Route::get('/pigeon/basket/{id_user}/{hotspot}/details','PigeonsController@basket_pigeon_details')->name('basket_event_detail');
+    Route::get('/pigeon/live-result/{id_user}/{hotspot}/details','PigeonsController@live_result_pigeon_details')->name('live_result_pigeon_details');
     Route::get('/pigeon/{id_user}/{id}/live-result','PigeonsController@live_result');
     Route::post('/pigeon/training_pigeon/create','PigeonsController@CreateTraining');
     // detail 
