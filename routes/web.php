@@ -203,8 +203,7 @@ Route::middleware('is_subscribed')->group(function () {
 
     Route::get('/loft/acc/{id}', 'LoftController@acc_join');
     Route::get('/loft/acc/{id}/delete', 'LoftController@delete_join');
-
-
+    Route::post('/loft/{id}/join_loft', 'LoftController@joinLoft')->name('join_loft_loft');
     });
 
 Auth::routes();

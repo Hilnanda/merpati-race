@@ -178,7 +178,7 @@
                     <div class="modal-header">
                         <h4 class="modal-title" id="exampleModalLabel">Join Loft</h4>
                     </div>
-                    <form action="" method="POST">
+                    <form action="/loft/{{$loft->id}}/join_loft" method="POST">
                         <div class="modal-body">
                             {{ csrf_field() }}
                             <div class="form-group">
@@ -186,7 +186,7 @@
                                 <select class="form-control" name="id_pigeon" required>
                                     <option value="" selected disabled>-- Pilih Pigeon --</option>
                                     @foreach($pigeons as $pigeon)
-                                    <option value="{{ $pigeon->pigeon_id }}">({{ $pigeon->uid_pigeon }}) {{ $pigeon->name_pigeon }}</option>
+                                    <option value="{{ $pigeon->id }}">({{ $pigeon->uid_pigeon }}) {{ $pigeon->name_pigeon }}</option>
                                     @endforeach
                                 </select>
                             </div>
