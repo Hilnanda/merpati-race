@@ -63,11 +63,10 @@ class PigeonsController extends Controller
         $data = Pigeons::where('id_user',$id_user)
         ->where('id',$id)->first();     
 
+        $chart = Pigeons::find($id);
 
-        // $events = Pigeons::find($id);
-        // $chart = EventResults::
-
-        // dd($events);
+        $events = EventParticipants::with('events:id,name_event')->where('id_pigeon',$data->id)->get();
+        //  dd($events);
         $statisticsChart = new StatisticsChart;
         $name_event = [];
         $speed = [];
@@ -75,6 +74,7 @@ class PigeonsController extends Controller
             array_push($name_event, $event->name_event);
             array_push($speed, $event->event_results->first()->speed_event_result);
         }
+
         $statisticsChart->labels($name_event);
         $statisticsChart->dataset('Rank events', 'line', $speed)
         ->color("rgb(255, 99, 132)")
