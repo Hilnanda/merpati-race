@@ -37,7 +37,7 @@ class Pigeons extends Model
     {
         return $this->hasMany('App\TeamMembers','id_pigeon');
     }
-    public function pigeons_participants()
+    public function Event_participants()
     {
         return $this->hasMany('App\EventParticipants', 'id_pigeon', 'id_pigeon');
     }

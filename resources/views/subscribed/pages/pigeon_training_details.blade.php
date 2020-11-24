@@ -20,7 +20,7 @@
             <div class="col d-flex justify-content-between">
                 <h4>Detail Lomba "{{ $event->name_event }}"</h4>
                 @if($event->due_join_date_event >= $current_datetime && $event->release_time_event > $current_datetime)
-                <a href="#" class="btn musica-btn" data-toggle="modal" data-target="#joinLomba">Join Lomba</a>
+                <a href="#" class="btn musica-btn" data-toggle="modal" data-target="#joinLomba">Join Training</a>
                 @elseif($event->due_join_date_event < $current_datetime && $event->release_time_event > $current_datetime)
                 <h5 style="color: #EB0000;">Pendaftaran ditutup</h5>
                 @endif

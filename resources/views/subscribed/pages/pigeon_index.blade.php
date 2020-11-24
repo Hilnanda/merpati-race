@@ -28,12 +28,12 @@
             <div class="row" style="margin-bottom: 20px">
                 <div class="col-12">
                     {{-- @if (Auth::user()->id==$clubs->manager_club||$exist == 1) --}}
-                    {{-- <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#tambah_burung">Daftarkan </button> --}}
+                    {{-- <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#tambah_burung">Daftarkan </button> --}} 
                     <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#edit_name_loft">Edit Info Loft</button>
                 <a href="/pigeon/training_pigeon/{{$id_user->id}}"><button class="btn musica-btn btn-primary mb-3">Training Loft</button></a>                
                     <div class="row">
                         <div class="col-3">
-                            <img src="{{asset('image/'.$id_user->image_loft.'') }}" style="width:220px;height:200px"
+                            <img src="{{asset('image/'.$id_user->image_loft.'') }}" style="display:block; max-height: 150px; height: auto; width: auto;"
                                 class="rounded float-left" alt="...">
                             {{-- bagian keterangan --}}
 

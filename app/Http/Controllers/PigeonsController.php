@@ -61,9 +61,7 @@ class PigeonsController extends Controller
     public function pigeon_detail($id_user,$id)
     {     
         $data = Pigeons::where('id_user',$id_user)
-        ->where('id',$id)->first();
-        $data_medsos = CMSMedsos::all();
-        $data_footer = CMSFooter::all();
+        ->where('id',$id)->first();     
 
         $events = EventParticipants::with('events:id,name_event')->where('id_pigeon',$data->id)->get();
         // dd($event);
@@ -74,7 +72,6 @@ class PigeonsController extends Controller
             array_push($name_event, $event->name_event);
             array_push($speed, $event->event_results->first()->speed_event_result);
         }
-
         $statisticsChart->labels($name_event);
         $statisticsChart->dataset('Rank events', 'line', $speed)
         ->color("rgb(255, 99, 132)")
@@ -83,7 +80,7 @@ class PigeonsController extends Controller
             ->linetension(0.1)
             ->dashed([5]);
         // dd($statisticsChart);
-        return view('subscribed.pages.pigeon_details',compact('data_medsos','data_footer','data','events','statisticsChart'));
+        return view('subscribed.pages.pigeon_details',compact('data','events','statisticsChart'));
     }
     // create training pigeon
     public function CreateTraining(Request $request)
