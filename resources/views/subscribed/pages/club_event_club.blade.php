@@ -23,9 +23,7 @@
                 <div class="row" style="margin-bottom: 20px">
                     <div class="col-3">
                         {{-- <a href="/club/list-participant/{{ $event_desc->id }}" style="width: 100%;" class="btn musica-btn">Tambah Partisipan</a> --}}
-                        <a href="#" class="btn musica-btn" data-toggle="modal"
-                                    data-target="#inkorf123"><span
-                                    class="font-weight-bold ml-1">Proses Inkorf </span></a></td>
+                        <!-- <a href="#" class="btn musica-btn" data-toggle="modal" data-target="#inkorf123"><span class="font-weight-bold ml-1">Proses Inkorf </span></a></td> -->
                     </div>
                     <!-- Delete Hotspot -->
                     <div class="modal fade" id="inkorf123" tabindex="-1" role="dialog"
