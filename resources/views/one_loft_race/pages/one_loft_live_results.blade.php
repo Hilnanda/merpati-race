@@ -1,12 +1,12 @@
 @extends('one_loft_race.layout.app_one')
 @section('title')
-Hasil Lomba
+Hasil {{$event->branch_event}}
 @endsection
 @section('content')
 <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ url('image/breadcumb-1.jpg') }});">
     <div class="bradcumbContent">
-        <h2>Hasil Lomba</h2>
+        <h2>Hasil {{$event->branch_event}}</h2>
     </div>
 </div>
 <!-- bg gradients -->
@@ -18,9 +18,10 @@ Hasil Lomba
         <!-- /.box-header -->
         <div class="row">
             <div class="col d-flex justify-content-between">
-                <h4>Hasil Lomba "{{ $event->name_event }}"</h4>
+                <h4>Hasil {{$event->branch_event}} "{{ $event->name_event }}"</h4>
             </div>
         </div>
+        <hr>
         <div class="row my-2">
             <div class="col-2">
                 <img style="width: 220px" src="{{ asset('image/'.$event->logo_event.'') }}">

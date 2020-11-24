@@ -67,6 +67,15 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="">Negara</label>
+                                    <select name="id_user" class="form-control" required>
+                                      <option value="">-- Pilih Negara --</option>
+                                      @foreach($negara as $value)
+                                        <option value="{{$value['nama'] }}">{{$value['nama']}} ({{ $value['code'] }}) </option>
+                                      @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <input type="submit" value="Simpan" class="btn btn-primary">
                                 </div>
                             </form>

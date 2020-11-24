@@ -22,8 +22,32 @@
             <div class="box-body">
                 <div class="row" style="margin-bottom: 20px">
                     <div class="col-3">
-                        <a href="/club/list-participant/{{ $event_desc->id }}" style="width: 100%;" class="btn musica-btn">Tambah Partisipan</a>
+                        {{-- <a href="/club/list-participant/{{ $event_desc->id }}" style="width: 100%;" class="btn musica-btn">Tambah Partisipan</a> --}}
+                        <a href="#" class="btn musica-btn" data-toggle="modal"
+                                    data-target="#inkorf123"><span
+                                    class="font-weight-bold ml-1">Proses Inkorf </span></a></td>
                     </div>
+                    <!-- Delete Hotspot -->
+                    <div class="modal fade" id="inkorf123" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="exampleModalLabel">Proses Inkorf (Basketing)</h4>
+                                </div>
+                                <div class="modal-body">
+                                    {{ csrf_field() }}
+                                    {{-- Apakah anda yakin ingin menghapus Hotspot {{ $loop->index+1 }}? --}}
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="form-group d-flex justify-content-end">
+                                        {{-- <a href="/club/event/delete-hotspot/{{$hotspot->id}}/{{$event->id}}" class="btn btn-primary">Hapus</a> --}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Delete Hotspot -->
                     <div class="col-9 d-flex justify-content-end">
                         <a href="/club/{{$event_desc->id_club}}/detail_saya" class="btn musica-btn btn-primary">Detail Club</a>
                     </div>

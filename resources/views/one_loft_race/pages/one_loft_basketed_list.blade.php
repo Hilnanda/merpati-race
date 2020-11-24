@@ -1,12 +1,12 @@
 @extends('one_loft_race.layout.app_one')
 @section('title')
-    Basket List
+    Proses Inkorf
 @endsection
 @section('content')
     <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ url('image/breadcumb-1.jpg') }});">
     <div class="bradcumbContent">
-        <h2>Basket List</h2>
+        <h2>Proses Inkorf</h2>
     </div>
 </div>
 <!-- bg gradients -->
@@ -16,14 +16,17 @@
 <div class="row mt-5 px-5 mb-5">
     <div class="col-lg-12">
         <!-- /.box-header -->
-        <h4>Basket List "{{ $event->name_event }}"</h4>
-        @if($event->hotspot_length_event > 1)
+        <h4>Proses Inkorf "{{ $event->name_event }}"</h4>
+        <hr>
         <div class="row mb-2">
-            <div class="col-12 d-flex justify-content-end">
-                
+            <div class="col-12">
+                @if($event->status != 'Terbang' && $event->loft->id_user == Auth::user()->id)
+                <h5>URL Tambah Partisipan {{$event->branch_event}}</h5>
+                <p class="text-info">http://pigeontime.live/event-inkorf/{{$event->id}}/&lt;UID Pigeon&gt;</p>
+                <p>contoh:<br>http://pigeontime.live/event-inkorf/{{$event->id}}/BR0001</p>
+                @endif
             </div>
         </div>
-        @endif
         <div class="box-body">
             <table id="table_one" class="table table-bordered table-striped">
                 <thead>
@@ -47,16 +50,16 @@
                         <td>{{ $rank++ }}</td>
                         <td>
                             <a href="" class="text-info">
-                                {{ $event_participant->event_participant->pigeons->users->name }}
+                                {{ $event_participant->pigeons->users->name }}
                             </a>
                         </td>
                         <td>
                             <a href="" class="text-info">
-                                {{ $event_participant->event_participant->pigeons->uid_pigeon }}
+                                {{ $event_participant->pigeons->uid_pigeon }}
                             </a>
                         </td>
-                        <td>{{ $event_participant->event_participant->pigeons->name_pigeon }}</td>
-                        <td>{{ $event_participant->created_at }}</td>
+                        <td>{{ $event_participant->pigeons->name_pigeon }}</td>
+                        <td>{{ $event_participant->active_at }}</td>
                     </tr>
                     @endforeach
                     @endif

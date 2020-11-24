@@ -28,6 +28,7 @@
                     @endif
                 </div>
             </div>
+            <hr>
             <div class="box-body">
                 <table id="table_one" class="table table-bordered table-striped">
                     <thead>
