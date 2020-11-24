@@ -63,8 +63,11 @@ class PigeonsController extends Controller
         $data = Pigeons::where('id_user',$id_user)
         ->where('id',$id)->first();     
 
-        $events = EventParticipants::with('events:id,name_event')->where('id_pigeon',$data->id)->get();
-        // dd($event);
+
+        // $events = Pigeons::find($id);
+        // $chart = EventResults::
+
+        // dd($events);
         $statisticsChart = new StatisticsChart;
         $name_event = [];
         $speed = [];
