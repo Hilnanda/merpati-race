@@ -4,6 +4,11 @@
 Detail {{$event->branch_event}}
 @endsection
 
+@push('top-style')
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1Vi4LTFNx_jZR7G3UQ7p-b7XDkaQ1lRQ&callback=initMap&libraries=&v=weekly" defer></script>
+@endpush
+
 @section('content')
 <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ url('image/breadcumb-1.jpg') }});">
@@ -33,7 +38,7 @@ Detail {{$event->branch_event}}
             <div class="col-2">
                 <img style="width: 100%;" title="Logo {{$event->branch_event}}" src="{{ asset('image/'.$event->logo_event.'') }}">
             </div>
-            <div class="col-7">
+            <div class="col-3">
                 <p>Nama lomba : <b style="color: red">{{ $event->name_event }}</b></p>
                 <p>Jenis lomba : <b style="color: red">{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</b></p>
                 <p>Kategori lomba : <b style="color: red">Lomba {{ $event->category_event }}</b></p>
@@ -42,20 +47,23 @@ Detail {{$event->branch_event}}
                 <p>Alamat lomba : <b style="color: red">{{ $event->address_event ? $event->address_event : '-' }}</b></p>
                 <p>Jadwal mulai : <b style="color: red">{{ \Carbon\Carbon::parse($event->release_time_event)->format('j F Y, H:i:s') }}</b></p>
             </div>
-            <div class="col-3">
+            <div class="col-5">
+                <div id="map" style="width: 100%; height: 100%;"></div>
+            </div>
+            <div class="col-2">
                 <a href="/loft/{{$event->loft->id}}/details">
                     <img style="width: 100%;" title="Logo Loft (Click to go to detail loft)" src="{{ asset('image/'.$event->loft->logo_loft.'') }}">
                 </a>
                 <div class="d-flex justify-content-between my-2" style="overflow-y: auto;">
                     @if($event->loft->id_user == Auth::user()->id)
-                    <a href="#" style="font-size: 20pt;" title="Set Titik Lokasi" class="text-danger mx-5" data-toggle="modal" data-target="#setPoint">
+                    <a href="#" style="font-size: 20pt;" title="Set Titik Lokasi" class="text-danger mx-2" data-toggle="modal" data-target="#setPoint">
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                     </a>
                     @endif
-                    <a href="/loft/events/{{$event->id}}/1/basket" style="font-size: 20pt;" title="Proses Inkorf" class="text-danger mx-5">
+                    <a href="/loft/events/{{$event->id}}/1/basket" style="font-size: 20pt;" title="Proses Inkorf" class="text-danger mx-2">
                         <i class="fa fa-twitter" aria-hidden="true"></i>
                     </a>
-                    <a href="/loft/events/{{$event->id}}/1/live-result" style="font-size: 20pt;" title="Hasil {{$event->branch_event}}" class="text-danger mx-5">
+                    <a href="/loft/events/{{$event->id}}/1/live-result" style="font-size: 20pt;" title="Hasil {{$event->branch_event}}" class="text-danger mx-2">
                         <i class="fa fa-list-ol" aria-hidden="true"></i>
                     </a>
                 </div>
@@ -157,33 +165,56 @@ Detail {{$event->branch_event}}
 
     <!-- Modal Set Point -->
     <div class="modal fade" id="setPoint" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="exampleModalLabel">Set Titik Lokasi {{$event->branch_event}}</h4>
-                </div>
-                <form action="">
-                    <div class="modal-body">
-                        <h5>URL Titik Lokasi Mulai</h5>
-                        <p class="text-info">http://pigeontime.live/event-start/{{$event->id}}/&lt;latitude&gt;/&lt;longitude&gt;</p>
-                        <p>contoh:<br>http://pigeontime.live/event-start/{{$event->id}}/-7.893274649955687/112.67354622885584</p>
-                        <h5>URL Titik Lokasi Selesai</h5>
-                        <p class="text-info">http://pigeontime.live/event-end/{{$event->id}}/&lt;latitude&gt;/&lt;longitude&gt;</p>
-                        <p>contoh:<br>http://pigeontime.live/event-end/{{$event->id}}/-7.893274649955687/112.67354622885584</p>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="form-group d-flex justify-content-end">
-                            <button class="btn musica-btn btn-2" type="button"
-                            data-dismiss="modal">Cancel</button>
-                            <input type="submit" value="Selesai" class="btn musica-btn">
-                        </div>
-                    </div>
-                </form>
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Set Titik Lokasi {{$event->branch_event}}</h4>
             </div>
+            <form action="">
+                <div class="modal-body">
+                    <h5>URL Titik Lokasi Mulai</h5>
+                    <p class="text-info">http://pigeontime.live/event-start/{{$event->id}}/&lt;latitude&gt;/&lt;longitude&gt;</p>
+                    <p>contoh:<br>http://pigeontime.live/event-start/{{$event->id}}/-7.893274649955687/112.67354622885584</p>
+                    <h5>URL Titik Lokasi Selesai</h5>
+                    <p class="text-info">http://pigeontime.live/event-end/{{$event->id}}/&lt;latitude&gt;/&lt;longitude&gt;</p>
+                    <p>contoh:<br>http://pigeontime.live/event-end/{{$event->id}}/-7.893274649955687/112.67354622885584</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group d-flex justify-content-end">
+                        <button class="btn musica-btn btn-2" type="button"
+                        data-dismiss="modal">Cancel</button>
+                        <input type="submit" value="Selesai" class="btn musica-btn">
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-    <!-- End Modal Set Point -->
+</div>
+<!-- End Modal Set Point -->
 </div>
 </div>
 @endsection
+@push('bottom-script')
+<script>
+function initMap() {
+    const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 3,
+        center: { lat: ((37.772 + 21.291) / 2), lng: ((-122.214 + -157.821) / 2) },
+        mapTypeId: "terrain",
+    });
+    const flightPlanCoordinates = [
+        { lat: 37.772, lng: -122.214 },
+        { lat: 21.291, lng: -157.821 }
+    ];
+    const flightPath = new google.maps.Polyline({
+        path: flightPlanCoordinates,
+        geodesic: false,
+        strokeColor: "#FF0000",
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+    });
+    flightPath.setMap(map);
+}
+</script>
+@endpush

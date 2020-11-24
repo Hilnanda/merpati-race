@@ -61,30 +61,58 @@ class PigeonsController extends Controller
     public function pigeon_detail($id_user,$id)
     {     
         $data = Pigeons::where('id_user',$id_user)
-        ->where('id',$id)->first();     
+            ->where('id',$id)->first();     
 
-        $chart = Pigeons::find($id);
+        // get current pigeon
+        $pigeon = Pigeons::find($id);
 
-        $events = EventParticipants::with('events:id,name_event')->where('id_pigeon',$data->id)->get();
-        //  dd($events);
-        $statisticsChart = new StatisticsChart;
-        $name_event = [];
-        $speed = [];
-        foreach ($events as $event) {
-            array_push($name_event, $event->name_event);
-            array_push($speed, $event->event_results->first()->speed_event_result);
+        // get event results of the pigeon
+        $event_results = EventResults::selectRaw('
+                *,
+                event_results.id as id,
+                event_results.created_at as created_at
+            ')
+            ->join('event_participants', 'event_results.id_event_participant', 'event_participants.id')
+            ->join('event_hotspots', 'event_results.id_event_hotspot', 'event_hotspots.id')
+            ->where('event_participants.id_pigeon', $id)
+            ->get();
+
+        // get pigeon rank
+        foreach ($event_results as $event_result) {
+            $event_result->rank = $this->getRanking($event_result);
         }
 
-        $statisticsChart->labels($name_event);
-        $statisticsChart->dataset('Rank events', 'line', $speed)
-        ->color("rgb(255, 99, 132)")
-            ->backgroundcolor("rgb(255, 99, 132)")
-            ->fill(false)
-            ->linetension(0.1)
-            ->dashed([5]);
+        // $events = EventParticipants::with('events:id,name_event')->where('id_pigeon',$data->id)->get();
+        // //  dd($events);
+        // $statisticsChart = new StatisticsChart;
+        // $name_event = [];
+        // $speed = [];
+        // foreach ($events as $event) {
+        //     array_push($name_event, $event->name_event);
+        //     array_push($speed, $event->event_results->first()->speed_event_result);
+        // }
+
+        // $statisticsChart->labels($name_event);
+        // $statisticsChart->dataset('Rank events', 'line', $speed)
+        //     ->color("rgb(255, 99, 132)")
+        //     ->backgroundcolor("rgb(255, 99, 132)")
+        //     ->fill(false)
+        //     ->linetension(0.1)
+        //     ->dashed([5]);
         // dd($statisticsChart);
-        return view('subscribed.pages.pigeon_details',compact('data','events','statisticsChart'));
+        return view('subscribed.pages.pigeon_details',compact('data','events','statisticsChart','pigeon','event_results'));
     }
+
+    public function getRanking($event_result)
+    {
+        $collection = collect(EventResults::where('id_event_hotspot', $event_result->id_event_hotspot)
+            ->orderBy('speed_event_result', 'DESC')
+            ->get());
+        $data = $collection->where('id_event_participant', $event_result->id_event_participant);
+        $rank = $data->keys()->first() + 1;
+        return $rank;
+    }
+
     // create training pigeon
     public function CreateTraining(Request $request)
     {
