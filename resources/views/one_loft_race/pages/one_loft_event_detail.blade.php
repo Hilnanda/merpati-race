@@ -47,9 +47,11 @@ Detail {{$event->branch_event}}
                     <img style="width: 100%;" title="Logo Loft (Click to go to detail loft)" src="{{ asset('image/'.$event->loft->logo_loft.'') }}">
                 </a>
                 <div class="d-flex justify-content-between my-2" style="overflow-y: auto;">
+                    @if($event->loft->id_user == Auth::user()->id)
                     <a href="#" style="font-size: 20pt;" title="Set Titik Lokasi" class="text-danger mx-5" data-toggle="modal" data-target="#setPoint">
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                     </a>
+                    @endif
                     <a href="/loft/events/{{$event->id}}/1/basket" style="font-size: 20pt;" title="Proses Inkorf" class="text-danger mx-5">
                         <i class="fa fa-twitter" aria-hidden="true"></i>
                     </a>

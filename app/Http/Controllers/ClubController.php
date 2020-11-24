@@ -9,6 +9,7 @@ use App\CMSNews;
 use App\CMSContact;
 use App\ClubMember;
 use App\Events;
+use App\EventResults;
 use App\Loft;
 use App\OperatorClubs;
 use DB;
@@ -127,9 +128,9 @@ class ClubController extends Controller
         // dd($id);
         // event
         $events = Events::with($this->relationships)
-        ->where('branch_event', 'Club')
-        ->where('id_club', $id)
-        ->orderBy('events.id', 'desc')->get();
+            ->where('branch_event', 'Club')
+            ->where('id_club', $id)
+            ->orderBy('events.id', 'desc')->get();
 
         $event_clubs = Events::find($id); 
         // dd($event_clubs);
@@ -157,7 +158,8 @@ class ClubController extends Controller
                 $minutes = floor($diff / 60) % 60;
                 $seconds = $diff % 60;
 
-                $event->status = 'Terbang (' . ($days * 24 + $hours) . 'j:' . $minutes . 'm:' . $seconds . 'd)';
+                // $event->status = 'Terbang (' . ($days * 24 + $hours) . 'j:' . $minutes . 'm:' . $seconds . 'd)';
+                $event->status = 'Terbang';
                 $event->color = '#32CD32';
             } else {
                 if ($event->due_join_date_event < $current_datetime) {
@@ -167,7 +169,8 @@ class ClubController extends Controller
                     $minutes = floor($diff / 60) % 60;
                     $seconds = $diff % 60;
 
-                    $event->status = 'Pendaftaran ditutup (-' . ($days * 24 + $hours) . 'j:' . $minutes . 'm:' . $seconds . 'd)';
+                    // $event->status = 'Pendaftaran ditutup (-' . ($days * 24 + $hours) . 'j:' . $minutes . 'm:' . $seconds . 'd)';
+                    $event->status = 'Pendaftaran ditutup';
                     $event->color = '#EB0000';
                 } else {
                     $diff = strtotime($event->due_join_date_event) - strtotime($current_datetime);
@@ -176,7 +179,8 @@ class ClubController extends Controller
                     $minutes = floor($diff / 60) % 60;
                     $seconds = $diff % 60;
 
-                    $event->status = 'Belum dimulai (-' . ($days * 24 + $hours) . 'j:' . $minutes . 'm:' . $seconds . 'd)';
+                    // $event->status = 'Belum dimulai (-' . ($days * 24 + $hours) . 'j:' . $minutes . 'm:' . $seconds . 'd)';
+                    $event->status = 'Belum dimulai';
                     $event->color = '#000000';
                     // $date = strtotime($event->release_time_event);
                     // $event->status = $date - time();
@@ -187,12 +191,11 @@ class ClubController extends Controller
             }
         }
 
-
         // club
         $club = Clubs::find($id);
         $users = User::all();
         
-// dd($clubs);
+        // dd($clubs);
         $list_pigeons = ClubMember::
         // ->join('clubs','club_members.id_club','=','clubs.id')
         // ->join('pigeons','club_members.id_pigeon','=','pigeons.id')
@@ -222,8 +225,8 @@ class ClubController extends Controller
         ->get();
 
         $operator_exist = OperatorClubs::where('id_user',auth()->user()->id)
-        ->where('id_club',$id)
-        ->first();
+            ->where('id_club',$id)
+            ->first();
         if (isset($operator_exist)) {
             $exist = 1;
         }else {
@@ -273,6 +276,149 @@ class ClubController extends Controller
 
         
         return view('subscribed.pages.club_saya_detail',compact('exist','operator_exist','pigeon','clubku','club','data_medsos','data_footer','users','clubs','data','operator','join_operator','list_pigeons','id','results','event_clubs','events','current_datetime','count_acc','count_pigeon'));
+    }
+
+    /**
+     * Show the basketed list of the registered pigeons.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showBasketedList($id, $hotspot)
+    {
+        $event = Events::find($id);
+        $users = User::all();
+
+        $current_datetime = Carbon::now();
+
+        $id_hotspot = null;
+
+        foreach ($event->event_hotspot as $key => $event_hotspot) {
+            if ($key + 1 == $hotspot) {
+                $id_hotspot = $event_hotspot->id;
+                $event->release_time_event = $this->formatDateLocal($event_hotspot->release_time_hotspot);
+                if ($event_hotspot->expired_time_hotspot) {
+                    $event->expired_time_event = $this->formatDateLocal($event->expired_time_hotspot);
+                }
+            }
+        }
+
+        $event_participants = EventParticipants::where('active_at', '!=', null)
+            ->where('id_event', '=', $event->id)
+            ->orderBy('event_participants.active_at', 'asc')
+            ->get();
+
+        $event->release_time_event = $this->formatDateLocal($event->release_time_event);
+        $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
+
+        // Get Status Event
+        $current_datetime = Carbon::now();
+
+        $event->distance = $this->distance($event->lat_event, $event->lng_event, $event->lat_event_end, $event->lng_event_end, "K");
+
+        if ($event->event_hotspot[0]->release_time_hotspot <= $current_datetime) {
+            $event->status = 'Terbang';
+            $event->color = '#32CD32';
+        } else {
+            if ($event->due_join_date_event < $current_datetime) {
+                $event->status = 'Pendaftaran ditutup';
+                $event->color = '#EB0000';
+            } else {
+                $event->status = 'Pendaftaran dibuka';
+                $event->color = '#000000';
+            }
+        }
+
+        $operator_exist = OperatorClubs::where('id_user',auth()->user()->id)
+            ->where('id_club',$event->id_club)
+            ->first();
+        if (isset($operator_exist)) {
+            $exist = 1;
+        }else {
+            $exist = 0;
+        }
+
+        return view('subscribed.pages.club_basketed_list',
+            compact('users','current_datetime','event','event_participants','hotspot')
+        );
+    }
+
+    /**
+     * Show the detail of the events.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLiveResults($id, $hotspot)
+    {
+        $event = Events::find($id);
+        $users = User::all();
+        $auth_session = auth()->user()->id;
+        $pigeons = Pigeons::selectRaw('*, pigeons.id as pigeon_id')
+            ->join('club_members', 'club_members.id_pigeon', 'pigeons.id')
+            ->leftJoin('team_members', 'team_members.id_pigeon', 'pigeons.id')
+            ->leftJoin('teams', 'teams.id', 'team_members.id_team')
+            ->leftJoin('event_participants', 'event_participants.id_pigeon', 'pigeons.id')
+            ->where('pigeons.is_active', 1)
+            ->where('club_members.is_active', 1)
+            ->where('pigeons.id_user', $auth_session)
+            ->whereRaw("pigeons.id NOT IN (
+                    SELECT id_pigeon FROM event_participants
+                )
+                OR
+                pigeons.id IN (
+                    SELECT id_pigeon FROM event_participants
+                    JOIN event_results
+                    ON event_participants.id = event_results.id_event_participant
+                    JOIN event_hotspots
+                    ON event_hotspots.id = event_results.id_event_hotspot
+                    WHERE event_participants.id_event = $id
+                )
+            ")
+            ->get();
+
+        $current_datetime = Carbon::now();
+
+        $id_hotspot = null;
+
+        foreach ($event->event_hotspot as $key => $event_hotspot) {
+            if ($key + 1 == $hotspot) {
+                $id_hotspot = $event_hotspot->id;
+                $event->release_time_event = $this->formatDateLocal($event_hotspot->release_time_hotspot);
+                if ($event_hotspot->expired_time_hotspot) {
+                    $event->expired_time_event = $this->formatDateLocal($event->expired_time_hotspot);
+                }
+            }
+        }
+        
+        $event->due_join_date_event = $this->formatDateLocal($event->due_join_date_event);
+
+        $event_results = EventResults::whereHas('event_participant', function ($query) use($event) {
+                $query->where('active_at', '!=', null);
+                $query->where('id_event', '=', $event->id);
+            })
+            ->where('event_results.id_event_hotspot', '=', $id_hotspot)
+            ->orderBy('event_results.speed_event_result', 'desc')
+            ->get();
+
+        $unfinished_speed = null;
+        if (count($event_results) > 0) {
+            $distance = $event_results[0]->speed_event_result ? ($event_results[0]->speed_event_result) * ((strtotime($event_results[0]->updated_at) - strtotime($event->release_time_event)) / 60) : null;
+
+            $duration = strtotime(date("Y-m-d h:i:sa")) - strtotime($event->release_time_event);
+
+            $unfinished_speed = $distance ? $distance / ($duration / 60) : null;
+        }
+
+        $arrived_pigeons = [];
+
+        foreach ($event_results as $key => $event_result) {
+            if ($event_result->speed_event_result) {
+                array_push($arrived_pigeons, $event_result->event_participant->pigeons);
+            }
+        }
+
+        return view('subscribed.pages.club_live_results',
+            compact('users','event','event_results','pigeons','current_datetime','hotspot', 'id_hotspot','unfinished_speed','arrived_pigeons')
+        );
     }
 
 
