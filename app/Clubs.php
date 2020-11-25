@@ -14,7 +14,8 @@ class Clubs extends Model
         'id_user',
         'name_club',
         'address_club',
-        'manager_club'
+        'manager_club',
+        'country_clubs'
     ];
     
     public function manager()

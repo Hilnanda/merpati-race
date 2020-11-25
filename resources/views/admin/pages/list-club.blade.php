@@ -45,14 +45,14 @@
                                     <label for="">Nama Club</label>
                                     <input type="text" name="name_club" class="form-control" placeholder="Isi nama club" required>
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="">Lat Club</label>
                                     <input type="number" name="lat_club" class="form-control" placeholder="Isi nama club" required step=0.01>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Long Club</label>
                                     <input type="number" name="lng_club" class="form-control" placeholder="Isi nama club" required step=0.01>
-                                </div>
+                                </div> --}}
                                 <div class="form-group">
                                     <label for="">Alamat Club</label>
                                     <textarea name="address_club" class="form-control" required="" placeholder="Isi nama alamat"></textarea>
@@ -68,10 +68,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="">Negara</label>
-                                    <select name="id_user" class="form-control" required>
+                                    <select name="country_clubs" class="form-control" required>
                                       <option value="">-- Pilih Negara --</option>
                                       @foreach($negara as $value)
-                                        <option value="{{$value['nama'] }}">{{$value['nama']}} ({{ $value['code'] }}) </option>
+                                        <option value="{{$value->name }}">{{$value->name}} ({{ $value->alpha2Code }}) </option>
                                       @endforeach
                                     </select>
                                 </div>
@@ -94,20 +94,23 @@
                 <thead>
                   <th>No.</th>
                   <th>Nama Club</th>
-                  <th>Lat Club</th>
-                  <th>Long Club</th>
+                  {{-- <th>Lat Club</th>
+                  <th>Long Club</th> --}}
                   <th>Alamat Club</th>
+                  <th>Negara Club</th>
                   <th>User</th>
                   <th>Aksi</th>
                 </thead>
                 <tbody>
                 @foreach($clubs as $club)
+                
                   <tr>
                     <td>{{$loop->index+1}}</td>
                     <td>{{$club->name_club}}</td>
-                    <td>{{$club->lat_club}}</td>
-                    <td>{{$club->lng_club}}</td>
+                    {{-- <td>{{$club->lat_club}}</td>
+                    <td>{{$club->lng_club}}</td> --}}
                     <td>{{$club->address_club}}</td>
+                    <td>{{$club->country_clubs}}</td>
                     <td>{{$club->user->username}}</td>
                     <td><a href="#editModal{{$club->id}}" class="btn btn-warning btn-sm" data-toggle="modal"
                             data-target="#editModal{{$club->id}}"><span class="font-weight-bold ml-1">Edit</span></a> 
@@ -132,27 +135,36 @@
                                                     <input type="hidden" name="id" value="{{$club->id}}">
                                                     <input type="text" name="name_club" class="form-control" placeholder="Isi Nama club" required value="{{$club->name_club}}">
                                                 </div>
-                                                <div class="form-group">
+                                                {{-- <div class="form-group">
                                                     <label for="">Lat Club</label>
-                                                    <input type="number" name="lat_club" class="form-control" placeholder="Isi Latitude club" required step=0.01 value="{{$club->lat_club}}">
+                                                    <input type="number" name="lat_club" class="form-control" placeholder="Isi Latitude club"  step=0.01 value="{{$club->lat_club}}">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="">Long Club</label>
-                                                    <input type="number" name="lng_club" class="form-control" placeholder="Isi Longtitude club" required step=0.01 value="{{$club->lng_club}}">
-                                                </div>
+                                                    <input type="number" name="lng_club" class="form-control" placeholder="Isi Longtitude club"  step=0.01 value="{{$club->lng_club}}">
+                                                </div> --}}
                                                 <div class="form-group">
                                                     <label for="">Alamat Club</label>
                                                     <textarea name="address_club" class="form-control" required="" placeholder="Isi Nama Alamat">{{$club->address_club}}</textarea>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="">User</label>
-                                                    <select name="id" class="form-control" required>
+                                                    <select name="id_user" class="form-control" required>
                                                       <option value="">-- Pilih User --</option>
                                                       @foreach($users as $user)
                                                         <option value="{{$user->id}}" @if($club->id_user==$user->id) selected @endif>{{$user->username}}</option>
                                                       @endforeach
                                                     </select>
                                                 </div>
+                                                <div class="form-group">
+                                                  <label for="">Negara</label>
+                                                  <select name="country_clubs" class="form-control" required>
+                                                    <option value="">-- Pilih Negara --</option>
+                                                    @foreach($negara as $value)
+                                                      <option value="{{$value->name }}" @if($club->country_clubs==$value->name) selected @endif>{{$value->name}} ({{ $value->alpha2Code }}) </option>
+                                                    @endforeach
+                                                  </select>
+                                              </div>
                                                 <div class="form-group">
                                                     <input type="submit" value="Simpan" class="btn btn-primary">
                                                 </div>
@@ -168,15 +180,7 @@
                   </tr>
                 @endforeach
                 </tbody>
-                <tfoot>
-                  <th>No.</th>
-                  <th>Nama Club</th>
-                  <th>Lat Club</th>
-                  <th>Long Club</th>
-                  <th>Alamat Club</th>
-                  <th>User</th>
-                  <th>Aksi</th>
-                </tfoot>
+                
               </table>
             </div>
             <!-- /.box-body -->

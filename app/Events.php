@@ -26,7 +26,8 @@ class Events extends Model
         'lng_event_end',
         'address_event',
         'due_join_date_event',
-        'price_event'
+        'price_event',
+        'country_event'
     ];
     
     public function event_participants()
