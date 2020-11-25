@@ -170,12 +170,24 @@
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+            labels: [
+                @foreach($event_results as $result)
+                    <?php echo "'$result->name_event'".','?>
+                    @endforeach
+            ],
+            // labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
             datasets: [
                 {
                 label: 'Speed',
                 fill: false,
-                data: [12, 19, 3, 23, 2, 3],
+                data: 
+                // [12, 19, 3, 23, 2, 3],                
+                [
+                    @foreach($event_results as $result)
+                   {{$result->speed_event_result}},
+                    @endforeach
+                    
+                ],
                 backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)'

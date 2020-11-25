@@ -74,6 +74,7 @@ class PigeonsController extends Controller
             ')
             ->join('event_participants', 'event_results.id_event_participant', 'event_participants.id')
             ->join('event_hotspots', 'event_results.id_event_hotspot', 'event_hotspots.id')
+            ->join('events','events.id','event_participants.id_event')
             ->where('event_participants.id_pigeon', $id)
             ->get();
 
@@ -81,9 +82,9 @@ class PigeonsController extends Controller
         foreach ($event_results as $event_result) {
             $event_result->rank = $this->getRanking($event_result);
         }
-
+        
         // $events = EventParticipants::with('events:id,name_event')->where('id_pigeon',$data->id)->get();
-        // //  dd($events);
+        // dd($event_results);
         // $statisticsChart = new StatisticsChart;
         // $name_event = [];
         // $speed = [];
@@ -100,7 +101,8 @@ class PigeonsController extends Controller
         //     ->linetension(0.1)
         //     ->dashed([5]);
         // dd($statisticsChart);
-        return view('subscribed.pages.pigeon_details',compact('data','events','statisticsChart','pigeon','event_results'));
+       
+        return view('subscribed.pages.pigeon_details',compact('data','pigeon','event_results'));
     }
 
     public function getRanking($event_result)
@@ -109,7 +111,7 @@ class PigeonsController extends Controller
             ->orderBy('speed_event_result', 'DESC')
             ->get());
         $data = $collection->where('id_event_participant', $event_result->id_event_participant);
-        $rank = $data->keys()->first() + 1;
+        $rank = $data->keys()->first() + 1;        
         return $rank;
     }
 
