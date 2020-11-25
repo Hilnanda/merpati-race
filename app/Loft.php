@@ -13,7 +13,8 @@ class Loft extends Model
     protected $fillable = [
         'id_user',
         'name_loft',
-        'logo_loft'
+        'logo_loft',
+        'country_loft'
     ];
     
     public function user()

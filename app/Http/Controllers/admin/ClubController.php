@@ -21,50 +21,50 @@ class ClubController extends Controller
         $club = Clubs::all();
         $user = User::all();
         
-        $url = "https://www.countryflags.io/";
+        // $url = "https://www.countryflags.io/";
   
-        $html = file_get_contents($url);
-        $xpath = new DOMDocument();
+        // $html = file_get_contents($url);
+        // $xpath = new DOMDocument();
   
-        libxml_use_internal_errors(true);
+        // libxml_use_internal_errors(true);
   
-        if (!empty($html)) {
-            $xpath -> loadHTML($html);
+        // if (!empty($html)) {
+        //     $xpath -> loadHTML($html);
   
-            libxml_clear_errors();
-            $xpath = new DOMXPath($xpath);
+        //     libxml_clear_errors();
+        //     $xpath = new DOMXPath($xpath);
   
-            $bendera = $xpath -> query('//*[@id="countries"]/div/div[1]/div/img/@src');
-            $nama = $xpath -> query('//*[@id="countries"]/div/div[1]/div/p[2]');
-            $code = $xpath -> query('//*[@id="countries"]/div/div[1]/div/p[1]');
+        //     $bendera = $xpath -> query('//*[@id="countries"]/div/div[1]/div/img/@src');
+        //     $nama = $xpath -> query('//*[@id="countries"]/div/div[1]/div/p[2]');
+        //     $code = $xpath -> query('//*[@id="countries"]/div/div[1]/div/p[1]');
             
-            }
-            $arraySubClass = array();
+        //     }
+        //     $arraySubClass = array();
             
-            foreach ($code as $value) {
-                  $code_negara[] = array('code'=>$value->nodeValue);
+        //     foreach ($code as $value) {
+        //           $code_negara[] = array('code'=>$value->nodeValue);
         
-            }
-            foreach ($bendera as $value) {
-                $bendera_negara[] = array('bendera'=>$value->nodeValue);
+        //     }
+        //     foreach ($bendera as $value) {
+        //         $bendera_negara[] = array('bendera'=>$value->nodeValue);
         
-            }
+        //     }
   
-            $i = 0;
-            foreach ($nama as $value) {
-                $nama_negara[] = array(
-                    'code'=> $code_negara[$i]['code'],
-                    'bendera'=> $bendera_negara[$i]['bendera'],
-                    'nama'=>$value->nodeValue
-                );
-                $i++;
-            }
-
+        //     $i = 0;
+        //     foreach ($nama as $value) {
+        //         $nama_negara[] = array(
+        //             'code'=> $code_negara[$i]['code'],
+        //             'bendera'=> $bendera_negara[$i]['bendera'],
+        //             'nama'=>$value->nodeValue
+        //         );
+        //         $i++;
+        //     }
+            $json = file_get_contents('https://restcountries.eu/rest/v2/all');
+            $obj = json_decode($json);
             
-            $negara = json_encode($nama_negara);
-            // dd($nama_negara);
+            // dd($obj);
         return view('admin.pages.list-club', ['clubs' => $club, 'users' => $user,
-        'negara'=>$nama_negara
+        'negara'=>$obj
         ]);
     }
 
@@ -75,17 +75,19 @@ class ClubController extends Controller
      */
     public function create(Request $request)
     {
-        // Clubs::create($request->all());
-        $Clubs = new Clubs;
+        // dd($request->all());
+        $data = $request->all();
+        $data['manager_club'] = $request->id_user;
+        Clubs::create($data);
+        // $Clubs = Clubs::create($data);
 
-        $Clubs->id_user = $request->id_user;
-        $Clubs->name_club = $request->name_club;
-        $Clubs->lat_club = $request->lat_club;
-        $Clubs->lng_club = $request->lng_club;
-        $Clubs->address_club = $request->address_club;
-        $Clubs->manager_club = $request->id_user;
+        // $Clubs->id_user = $request->id_user;
+        // $Clubs->name_club = $request->name_club;
+        // $Clubs->lat_club = $request->lat_club;
+        // $Clubs->lng_club = $request->lng_club;
+        // $Clubs->address_club = $request->address_club;
+        // $Clubs->manager_club = $request->id_user;
 
-        $Clubs->save();
 
         return back()->with('Sukses','Berhasil menambahkan data!');
     }
@@ -120,7 +122,9 @@ class ClubController extends Controller
      */
     public function edit(Request $request)
     {
+        // dd($request->all());
         $club = Clubs::find($request->id);
+        // dd($club);
         $club->update($request->all());
 
         return back()->with('Sukses','Berhasil mengubah data!');

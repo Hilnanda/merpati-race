@@ -26,6 +26,7 @@ class User extends Authenticatable
         'lng_loft',
         'lat_loft',
         'type_user',
+        'country_user',
         'is_active'
     ];
 
