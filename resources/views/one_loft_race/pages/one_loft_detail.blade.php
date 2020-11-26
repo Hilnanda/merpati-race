@@ -313,6 +313,15 @@
                                 <label for="">Informasi Tentang Lomba</label>
                                 <textarea name="info_event" class="form-control" required="" placeholder="Isi informasi lomba"></textarea>
                             </div>
+                            <div class="form-group">
+                                <label for="">Negara Lomba</label>
+                                <select name="country_event" class="form-control" required>
+                                    <option value="">-- Pilih Negara --</option>
+                                    @foreach($countries as $country)
+                                    <option value="{{$country->name }}">{{$country->name}} ({{ $country->alpha2Code }}) </option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <!-- <div class="form-group">
                                 <label for="">Jumlah Hotspot</label>
                                 <input type="number" name="hotspot_length_event" class="form-control" placeholder="Isi jumlah hotspot lomba (minimal 1)" required min="1">
@@ -372,6 +381,15 @@
                             <div class="form-group">
                                 <label for="">Informasi Tentang Training</label>
                                 <textarea name="info_event" class="form-control" required="" placeholder="Isi informasi training"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Negara Training</label>
+                                <select name="country_event" class="form-control" required>
+                                    <option value="">-- Pilih Negara --</option>
+                                    @foreach($countries as $country)
+                                    <option value="{{$country->name }}">{{$country->name}} ({{ $country->alpha2Code }}) </option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="">Waktu Mulai Training</label>

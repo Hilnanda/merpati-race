@@ -98,7 +98,7 @@ Dashboard Panitia - Loft
                                 <td>{{ $loop->index+1 }}</td>
                                 <td>{{ $loft->user->name }}</td>
                                 <td>{{ $loft->name_loft }}</td>
-                                <td><img style="height: 80px" src="{{ asset('image/'.$loft->logo_loft.'') }}"></td>
+                                <td><img style="max-height: 80px; height: auto; width: auto;" src="{{ asset('image/'.$loft->logo_loft.'') }}"></td>
                                 <td>{{ $loft->country_loft ? $loft->country_loft : '-' }}</td>
                                 <td>{{ $loft->created_at }}</td>
                                 <td><a href="#editModal{{$loft->id}}" class="btn btn-warning btn-sm" data-toggle="modal"
