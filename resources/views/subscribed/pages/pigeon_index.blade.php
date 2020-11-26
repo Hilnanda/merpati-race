@@ -29,11 +29,17 @@
                 <div class="col-12">
                     {{-- @if (Auth::user()->id==$clubs->manager_club||$exist == 1) --}}
                     {{-- <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#tambah_burung">Daftarkan </button> --}} 
-                    <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#edit_name_loft">Edit Info Loft</button>
-                <a href="/pigeon/training_pigeon/{{$id_user->id}}"><button class="btn musica-btn btn-primary mb-3">Training Loft</button></a>                
                     <div class="row">
                         <div class="col-3">
-                            <img src="{{asset('image/'.$id_user->image_loft.'') }}" style="display:block; max-height: 150px; height: auto; width: auto;"
+                            <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#edit_name_loft">Edit Info Loft</button>
+                            <a href="/pigeon/training_pigeon/{{$id_user->id}}"><button  class="btn musica-btn btn-primary mb-3">Training Loft</button></a>                
+                        </div>
+                    </div>
+
+                    
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="{{asset('image/'.$id_user->image_loft.'') }}" style="max-height: 100%; height: auto; width: auto;"
                                 class="rounded float-left" alt="...">
                             {{-- bagian keterangan --}}
 
@@ -77,7 +83,15 @@
                                         <label for="">Gambar Logo</label>
                                     <input type="file"  name="image_loft" class="form-control" >
                                     </div>
-                                   
+                                    <div class="form-group">
+                                        <label for="">Negara Loft</label>
+                                        <select name="country_user" class="form-control" required>
+                                            <option value="">-- Pilih Negara --</option>
+                                            @foreach($countries as $country)
+                                            <option value="{{$country->name }}" {{ $id_user->country_user == $country->name ? 'selected' : '' }}>{{$country->name}} ({{ $country->alpha2Code }}) </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                     <div class="form-group">
                                         <input type="submit" value="Simpan" class="btn btn-primary">
                                     </div>

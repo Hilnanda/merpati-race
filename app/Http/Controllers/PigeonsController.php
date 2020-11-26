@@ -29,11 +29,9 @@ class PigeonsController extends Controller
     {
         $id_user = User::where('id',auth()->user()->id)->first();
         $id_pigeon = Pigeons::where('id_user',auth()->user()->id)->get();
-        // dd($id_user);
-        $data_medsos = CMSMedsos::all();
-        $data_footer = CMSFooter::all();
-
-        return view('subscribed.pages.pigeon_index',compact('data_medsos','data_footer','id_user','id_pigeon'));
+        $json = file_get_contents('https://restcountries.eu/rest/v2/all');
+        $countries = json_decode($json);
+        return view('subscribed.pages.pigeon_index',compact('id_user','id_pigeon','countries'));
     }
     public function update_name_loft($id_user,Request $request)
     {
@@ -55,7 +53,7 @@ class PigeonsController extends Controller
 
     $gambar->update($data);
         // 
-        return back()->with('Sukses','Berhasil Update Nama Loft!');
+        return back()->with('Sukses','Berhasil Update Data Loft!');
     }
     //detail pigeon
     public function pigeon_detail($id_user,$id)
