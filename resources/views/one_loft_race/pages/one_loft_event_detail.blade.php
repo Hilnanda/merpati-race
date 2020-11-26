@@ -40,9 +40,10 @@ Detail {{$event->branch_event}}
             </div>
             <div class="col-3">
                 <p>Nama lomba : <b style="color: red">{{ $event->name_event }}</b></p>
-                <p>Jenis lomba : <b style="color: red">{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</b></p>
-                <p>Kategori lomba : <b style="color: red">Lomba {{ $event->category_event }}</b></p>
+                <!-- <p>Jenis lomba : <b style="color: red">{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</b></p> -->
+                <!-- <p>Kategori lomba : <b style="color: red">Lomba {{ $event->category_event }}</b></p> -->
                 <p>Info lomba : <b style="color: red">{{ $event->info_event }}</b></p>
+                <p>Negara lomba : <b style="color: red">{{ $event->country_event ? $event->country_event : '-' }}</b></p>
                 <p>Posisi lomba : <b style="color: red">{{ $event->lat_event ? $event->lat_event . ', ' . $event->lng_event : '-' }}</b></p>
                 <p>Alamat lomba : <b style="color: red">{{ $event->address_event ? $event->address_event : '-' }}</b></p>
                 <p>Jadwal mulai : <b style="color: red">{{ \Carbon\Carbon::parse($event->release_time_event)->format('j F Y, H:i:s') }}</b></p>

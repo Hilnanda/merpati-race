@@ -57,6 +57,7 @@
                 <p>Pemilik Pigeon Terdaftar : <b style="color: red">{{ $loft->fanciers ? count($loft->fanciers) : 0 }}</b></p>
                 <p>Pigeon Terdaftar : <b style="color: red">{{ $loft->loft_member ? count($loft->loft_member) : 0 }}</b></p>
                 <p>Pemilik Loft : <b style="color: red">{{ $loft->user->name }}</b></p>
+                <p>Negara Loft : <b style="color: red">{{ $loft->country_loft ? $loft->country_loft : '-' }}</b></p>
             </div>
         </div>
         <div class="row mb-2">
