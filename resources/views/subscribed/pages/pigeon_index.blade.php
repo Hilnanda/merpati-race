@@ -46,6 +46,7 @@
                             <p>Posisi Loft : <b style="color: red">{{ $id_user->lat_loft }} ,
                                     {{ $id_user->lng_loft }}</b></p>
                             <p>Email : <b style="color: red">{{ $id_user->email }}</b></p>
+                            <p>Negara : <b style="color: red">{{ $id_user->country_user }}</b></p>
                             {{-- <p>Nama Club : <b style="color: red">{{ $get_loft->club->name_club }}</b></p>
                             <p>Jumlah Pigeon : <b style="color: red">{{ $count_pigeon }}</b></p>                           --}}
 

@@ -1,14 +1,14 @@
 @extends('subscribed.layout.subscribed')
 
 @section('title')
-    Detail Club
+    Detail Training Pigeon
 @endsection
 
 @section('content')
  <!-- ##### Breadcumb Area Start ##### -->
  <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ url('image/breadcumb-1.jpg') }});">
     <div class="bradcumbContent">
-        <h2>Training Pigeon</h2>
+        <h2>Info Training Pigeon</h2>
     </div>
 </div>
 <!-- bg gradients -->
@@ -21,7 +21,14 @@
         <div class="box-body">
             <div class="row" style="margin-bottom: 20px">
                 <div class="col-12">
-                    <div id="accordion" class="mt-3">
+                    <h4>Info Pigeon</h4>
+                    <p>UID Burung : <b style="color: red">{{$data->uid_pigeon}}</b></p>
+                    <p>Ukuran Cincin : <b style="color: red">{{$data->ring_size_pigeon}}</b></p>
+                    <p>Nama Burung : <b style="color: red">{{$data->name_pigeon}}</b></p>
+                    <p>Jenis Kelamin : <b style="color: red">{{$data->sex_pigeon}}</b></p>
+                    <p>Warna : <b style="color: red">{{$data->color_pigeon}}</b></p>
+                    <p>Status : <b style="color: red">@if($data->is_active==0) Belum Aktif @else Aktif @endif</b></p>
+                    {{-- <div id="accordion" class="mt-3">
                         <div class="card">
                           <div class="card-header" id="headingOne">
                             <h5 class="mb-0">
@@ -33,7 +40,7 @@
               
                           <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                             <div class="card-body">
-                              <table id="" class="table table-bordered table-striped table-sm">
+                              <table id="example1" class="table table-bordered table-striped table-sm">
                                   <thead>
                                       <th>UID Burung</th>
                                       <th>Ukuran Cincin</th>
@@ -41,8 +48,8 @@
                                       <th>Jenis Kelamin</th>
                                       <th>Warna</th>
                                       <th>Status</th>
-                                      {{-- <th>Club</th>
-                                      <th>Team</th> --}}
+                                      <th>Club</th>
+                                      <th>Team</th>
                                   </thead>
                                   <tbody>
                                       <tr>
@@ -52,15 +59,15 @@
                                           <td>{{$data->sex_pigeon}}</td>
                                           <td>{{$data->color_pigeon}}</td>
                                           <td>@if($data->is_active==0) Belum Aktif @else Aktif @endif</td>
-                                          {{-- <td>{{!empty($bird->club_member->first()) ? $bird->club_member->first()->club->first()->name_club:"-"}}</td> --}}
-                                          {{-- <td>{{!empty($bird->team_member->first()) ? $bird->team_member->first()->team->first()->name_team:"-"}}</td> --}}
+                                          <td>{{!empty($bird->club_member->first()) ? $bird->club_member->first()->club->first()->name_club:"-"}}</td>
+                                          <td>{{!empty($bird->team_member->first()) ? $bird->team_member->first()->team->first()->name_team:"-"}}</td>
                                       </tr>
                                   </tbody>
                               </table>
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> --}}
                 </div>
             </div>
             <div class="row" style="margin-bottom: 20px">
@@ -93,31 +100,34 @@
             <div class="row mt-5">
                 <div class="col-md-12">
                     <h2>List Lomba</h2>
-                    <table id="table_one" class="table table-bordered table-striped table-sm">
-                        <thead>
-                            <tr>
+                    <div class="box-body">
+                        <table id="table_one" class="table table-bordered table-striped">
+                        <thead>                           
                                 <th>No.</th>
                                 <th>Nama Event</th>
                                 <th>Cabang Event</th>
                                 <th>Kategori</th>
-                                <th>Juara</th>
-                            </tr>
+                                <th>Rank</th>
+                                <th>Kedatangan</th>                           
                         </thead>
                         <tbody>
-                            {{-- @foreach($bird->pigeons_participants as $participants)
+                            @foreach($event_results as $data)
                                 <tr>
                                     <td>{{$loop->index+1}}</td>
-                                    <td>{{$participants->name_event}}</td>
-                                    <td>{{$participants->branch_event}}</td>
-                                    <td>{{$participants->category_event}}</td>
-                                    <td>{{$participants->event_results->orderBy('speed_event_result','desc')->first()->event_participants->pigeons->name_pigeon}}</td>
+                                    <td>{{$data->name_event}}</td>
+                                    <td>{{$data->branch_event}}</td>
+                                    <td>{{$data->category_event}}</td>
+                                    <td>{{$data->rank}}</td>
+                                    <td>{{$data->created_at}}</td>
+                                    {{-- <td>{{$data->event_results->orderBy('speed_event_result','desc')->first()->event_participants->pigeons->name_pigeon}}</td> --}}
                                 </tr>
-                            @endforeach --}}
+                            @endforeach
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
-
+            
         </div>
         <!-- /.box-body -->
     </div>
@@ -125,9 +135,9 @@
 @endsection
 
 @push('bottom-script')
-    <script src="{{ url('admin/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ url('admin/bower_components/datatables.net-bs/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script>
+    {{-- <script src="{{ url('admin/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url('admin/bower_components/datatables.net-bs/js/dataTables.bootstrap4.min.js') }}"></script> --}}
+    {{-- <script>
         $(function() {
             $('#example1').DataTable({
                 'scrollX': true,
@@ -143,7 +153,7 @@
             })
         })
 
-    </script>
+    </script> --}}
 
     <script>
         function setMaxDueDateAdd() {
