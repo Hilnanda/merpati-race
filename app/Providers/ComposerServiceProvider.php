@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\view;
+use Illuminate\Support\Facades\View;
 use App\CMSMedsos;
 use App\CMSFooter;
 use App\CMSHeader;
