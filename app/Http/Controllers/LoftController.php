@@ -201,11 +201,8 @@ class LoftController extends Controller
             ->where('is_active', 0)
             ->count();
 
-        $json = file_get_contents('https://restcountries.eu/rest/v2/all');
-        $countries = json_decode($json);
-
     	return view('one_loft_race.pages.one_loft_detail',
-    		compact('title','loft','current_user','pigeons','participants','count_acc','countries')
+    		compact('title','loft','current_user','pigeons','participants','count_acc')
     	);
     }
 

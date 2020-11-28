@@ -22,11 +22,8 @@ class LoftController extends Controller
 
         $users = User::all();
 
-        $json = file_get_contents('https://restcountries.eu/rest/v2/all');
-        $countries = json_decode($json);
-
         return view('admin.pages.list-loft', 
-            compact('lofts','users','countries')
+            compact('lofts','users')
         );
     }
 

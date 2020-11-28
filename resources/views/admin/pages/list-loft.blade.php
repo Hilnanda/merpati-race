@@ -62,8 +62,8 @@ Dashboard Panitia - Loft
                                             <label for="">Negara Loft</label>
                                             <select name="country_loft" class="form-control" required>
                                                 <option value="">-- Pilih Negara --</option>
-                                                @foreach($countries as $country)
-                                                <option value="{{$country->name }}">{{$country->name}} ({{ $country->alpha2Code }}) </option>
+                                                @foreach($negara as $country)
+                                                <option value="{{$country->nicename }}">{{$country->nicename}} ({{ $country->iso }}) </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -141,8 +141,8 @@ Dashboard Panitia - Loft
                                                         <label for="">Negara Loft</label>
                                                         <select name="country_loft" class="form-control" required>
                                                             <option value="">-- Pilih Negara --</option>
-                                                            @foreach($countries as $country)
-                                                            <option value="{{$country->name }}" {{ $loft->country_loft == $country->name ? 'selected' : '' }}>{{$country->name}} ({{ $country->alpha2Code }}) </option>
+                                                            @foreach($negara as $country)
+                                                            <option value="{{$country->nicename }}" {{ $loft->country_loft == $country->nicename ? 'selected' : '' }}>{{$country->nicename}} ({{ $country->iso }}) </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
