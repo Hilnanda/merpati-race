@@ -119,7 +119,7 @@
             <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
           </ul> -->
                     </li>
-                    <li class="header">APP</li>
+                    <li class="header">Public Race</li>
                     <li class="{{ (request()->is('admin/list-club*')) ? 'active' : '' }}">
                         <a href="{{ route('list-club') }}">
                             <i class="fa fa-star"></i> <span>Club Pigeon</span>
