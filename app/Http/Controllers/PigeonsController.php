@@ -354,6 +354,8 @@ class PigeonsController extends Controller
     public function training_pigeon($id_user)
     {
         $data = Events::where('id_user',auth()->user()->id)->get();
+        // $data = Events::where('id_user',$id_user)
+        // ->where('id',$id)->first();
         $current_datetime = Carbon::now();
 
         foreach ($data as $event) {
@@ -378,10 +380,10 @@ class PigeonsController extends Controller
         return view('subscribed.pages.pigeon_training',compact('data'));
     }
     // training detail
-    public function training_pigeon_details($id_user,$hotspot)
+    public function training_pigeon_details($id_user,$id,$hotspot)
     {
-        $event = Events::where('id_user',$id_user)->first();
-        // ->where('id',$hostpot)->first();
+        $event = Events::where('id_user',$id_user)
+        ->where('id',$id)->first();
         // $event = Events::with('loft')->find($id);
         $users = User::all();
         $auth_session = auth()->user()->id;
@@ -446,9 +448,10 @@ class PigeonsController extends Controller
     }
     // basket detail
 
-    public function basket_pigeon_details($id_user,$hotspot)
+    public function basket_pigeon_details($id_user,$id,$hotspot)
     {
-        $event = Events::where('id_user',$id_user)->first();
+        $event = Events::where('id_user',$id_user)
+        ->where('id',$id)->first();
         $users = User::all();
 
         $current_datetime = Carbon::now();
@@ -484,9 +487,10 @@ class PigeonsController extends Controller
         );
     }
     // live-result pigeon
-    public function live_result_pigeon_details($id_user,$hotspot)
+    public function live_result_pigeon_details($id_user,$id,$hotspot)
     {
-        $event = Events::where('id_user',$id_user)->first();
+        $event = Events::where('id_user',$id_user)
+        ->where('id',$id)->first();
         $users = User::all();
         $auth_session = auth()->user()->id;
         $pigeons = Pigeons::selectRaw('*, pigeons.id as pigeon_id')
