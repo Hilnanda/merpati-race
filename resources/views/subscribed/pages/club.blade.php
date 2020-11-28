@@ -25,7 +25,7 @@
                     <th>No.</th>
                     <th>Nama Club</th>
                     <th>Manajer Club</th>
-                    <th>Lokasi Mulai</th>
+                    {{-- <th>Lokasi Mulai</th> --}}
                     <th>Alamat</th>
                     <th>Aksi</th>
                 </thead>
@@ -40,7 +40,7 @@
                         <td>{{ $loop->index+1 }}</td>
                         <td>{{ $item->name_club }}</td>
                         <td>{{ $item->manager->name }}</td>
-                        <td>({{ $item->lat_club }}), ({{ $item->lng_club }})</td>
+                        {{-- <td>({{ $item->lat_club }}), ({{ $item->lng_club }})</td> --}}
                         <td>{{ $item->address_club }}</td>
                         <td class="action-link">
                             {{-- <a href="/club/lihat_data/{{$item->id}}" title="Event Club" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a> --}}
@@ -64,7 +64,7 @@
                     <th>No.</th>
                     <th>Nama Club</th>
                     <th>Pemilik Club</th>
-                    <th>Lokasi Mulai</th>
+                    {{-- <th>Lokasi Mulai</th> --}}
                     <th>Alamat</th>
                     <th>Loft Saya</th>
                     <th>Tgl Join</th>
@@ -81,7 +81,7 @@
                         <td>{{ $loop->index+1 }}</td>
                         <td>{{ $item->club->name_club }}</td>
                         <td>{{ $item->club->user->name }}</td>
-                        <td>({{ $item->club->lat_club }}), ({{ $item->club->lng_club }})</td>
+                        {{-- <td>({{ $item->club->lat_club }}), ({{ $item->club->lng_club }})</td> --}}
                         <td>{{ $item->club->address_club }}</td>
                         <td>{{ $item->user->name_loft }}</td>
                         <td>{{ date('d F Y  H:i:s', strtotime($item->created_at)) }}</td>                        @if ($item->is_active == 0)

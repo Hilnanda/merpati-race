@@ -237,6 +237,9 @@ Detail Club
                             </p> --}}
                             <p>Nama club : <b style="color: red">{{ $clubs->name_club }}</b></p>
                             <p>Alamat club : <b style="color: red">{{ $clubs->address_club }}</b></p>
+                            
+                            <p>Negara : <b style="color: red">{{ $clubs->country_clubs }}</b> </p>
+                            
                             <p>Jumlah Loft : <b style="color: red">{{ count($list_pigeons) }}</b></p>
                             <p>Jumlah Pigeon : <b style="color: red">{{ $count_pigeon }}</b></p>
                             <p>Jumlah Lomba : <b style="color: red">{{ count($events) }}</b></p>

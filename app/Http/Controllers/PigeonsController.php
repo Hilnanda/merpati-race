@@ -29,9 +29,8 @@ class PigeonsController extends Controller
     {
         $id_user = User::where('id',auth()->user()->id)->first();
         $id_pigeon = Pigeons::where('id_user',auth()->user()->id)->get();
-        $json = file_get_contents('https://restcountries.eu/rest/v2/all');
-        $countries = json_decode($json);
-        return view('subscribed.pages.pigeon_index',compact('id_user','id_pigeon','countries'));
+        
+        return view('subscribed.pages.pigeon_index',compact('id_user','id_pigeon'));
     }
     public function update_name_loft($id_user,Request $request)
     {

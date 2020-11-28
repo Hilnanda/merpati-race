@@ -29,7 +29,8 @@
         <p>Nama Club : <b style="color: red">{{ $item->name_club }}</b></p>
         <p>Alamat Club : <b style="color: red">{{ $item->address_club }}</b></p>
         <p>Pemilik Club : <b style="color: red">{{ $item->user->username }}</b></p>
-        
+        <p>Negara : <b style="color: red">{{ $item->country_clubs }}</b> </p>
+                            
         
         @endforeach
         <div class="row" style="margin-bottom: 20px;margin-top: 60px">

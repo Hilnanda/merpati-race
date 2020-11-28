@@ -64,7 +64,7 @@ class ClubController extends Controller
             
             // dd($obj);
         return view('admin.pages.list-club', ['clubs' => $club, 'users' => $user,
-        'negara'=>$obj
+        // 'negara'=>$obj
         ]);
     }
 

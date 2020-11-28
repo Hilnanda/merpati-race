@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
             EventsTableSeeder::class,
             EventHotspotsTableSeeder::class,
             EventParticipantsTableSeeder::class,
-            EventResultsTableSeeder::class
+            EventResultsTableSeeder::class,
+            CountryList::class
         ]);
         
     }

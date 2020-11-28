@@ -274,8 +274,16 @@ class ClubController extends Controller
         $count_pigeon = Pigeons::where('id_club', $id)
         ->count();
 
+        // negara
+        // dd($clubs->country_clubs);
         
-        return view('subscribed.pages.club_saya_detail',compact('exist','operator_exist','pigeon','clubku','club','data_medsos','data_footer','users','clubs','data','operator','join_operator','list_pigeons','id','results','event_clubs','events','current_datetime','count_acc','count_pigeon'));
+
+        
+        return view('subscribed.pages.club_saya_detail',compact('exist','operator_exist','pigeon','clubku','club',
+        'data_medsos','data_footer','users','clubs','data','operator',
+        'join_operator','list_pigeons','id','results','event_clubs','events',
+        'current_datetime','count_acc','count_pigeon'
+    ));
     }
 
     /**
@@ -549,6 +557,8 @@ class ClubController extends Controller
         ->where('pigeons.id_user', auth()->user()->id)
         ->whereRaw('pigeons.id NOT IN (SELECT id_pigeon FROM club_members)')
         ->get();
+        
+        
         return view('subscribed.pages.club_detail_belum_ikut',compact('club','data_medsos','data_footer','users','club_ikut','list_pigeons','results','event_clubs','events','current_datetime'));
     }
 

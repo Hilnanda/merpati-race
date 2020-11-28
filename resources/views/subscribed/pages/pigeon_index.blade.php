@@ -87,8 +87,8 @@
                                         <label for="">Negara Loft</label>
                                         <select name="country_user" class="form-control" required>
                                             <option value="">-- Pilih Negara --</option>
-                                            @foreach($countries as $country)
-                                            <option value="{{$country->name }}" {{ $id_user->country_user == $country->name ? 'selected' : '' }}>{{$country->name}} ({{ $country->alpha2Code }}) </option>
+                                            @foreach($negara as $country)
+                                            <option value="{{$country->nicename }}" {{ $id_user->country_user == $country->nicename ? 'selected' : '' }}>{{$country->nicename}} ({{ $country->iso }}) </option>
                                             @endforeach
                                         </select>
                                     </div>

@@ -71,7 +71,7 @@
                                     <select name="country_clubs" class="form-control" required>
                                       <option value="">-- Pilih Negara --</option>
                                       @foreach($negara as $value)
-                                        <option value="{{$value->name }}">{{$value->name}} ({{ $value->alpha2Code }}) </option>
+                                        <option value="{{$value->nicename }}">{{$value->nicename}} ({{ $value->iso }}) </option>
                                       @endforeach
                                     </select>
                                 </div>
@@ -161,7 +161,7 @@
                                                   <select name="country_clubs" class="form-control" required>
                                                     <option value="">-- Pilih Negara --</option>
                                                     @foreach($negara as $value)
-                                                      <option value="{{$value->name }}" @if($club->country_clubs==$value->name) selected @endif>{{$value->name}} ({{ $value->alpha2Code }}) </option>
+                                                      <option value="{{$value->nicename }}" @if($club->country_clubs==$value->nicename) selected @endif>{{$value->nicename}} ({{ $value->iso }}) </option>
                                                     @endforeach
                                                   </select>
                                               </div>

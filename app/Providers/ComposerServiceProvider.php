@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\view;
 use App\CMSMedsos;
 use App\CMSFooter;
 use App\CMSHeader;
+use App\Country;
 
 class ComposerServiceProvider extends ServiceProvider
 {
@@ -37,6 +38,7 @@ class ComposerServiceProvider extends ServiceProvider
                 $view->with('auth', auth()->user()->id);
             }
             $view->with('nama_website', CMSHeader::select('name_website')->distinct()->get());
+            $view->with('negara', Country::all());
         });
     }
 }
