@@ -35,12 +35,11 @@ class LoftController extends Controller
             ->orderBy('lofts.id', 'desc')
             ->get();
 
-        $event_follows = Events::selectRaw('events.*, lofts.*, events.id as id, lofts.id as loft_id')
+        $event_follows = Events::selectRaw('distinct events.*, lofts.*, events.id as id, lofts.id as loft_id')
             ->join('lofts', 'events.id_loft', 'lofts.id')
             ->join('event_participants', 'events.id', 'event_participants.id_event')
             ->join('pigeons', 'pigeons.id', 'event_participants.id_pigeon')
             ->where('pigeons.id_user', $current_user->id)
-            ->groupBy('events.id')
             ->orderBy('lofts.id', 'desc')
             ->get();
         $loft_follows = Loft::selectRaw('*, lofts.id as id')

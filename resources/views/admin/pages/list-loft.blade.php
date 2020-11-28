@@ -106,7 +106,7 @@ Dashboard Panitia - Loft
                                     <a href="#" class="btn btn-danger btn-sm delete-loft" data-toggle="modal" data-target="#deleteModal{{$loft->id}}"><span class="font-weight-bold ml-1">Hapus</span></a>
                                 </td>
 
-                                <!-- Create Modal -->
+                                <!-- Edit Modal -->
                                 <div class="modal fade" id="editModal{{$loft->id}}" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -158,7 +158,7 @@ Dashboard Panitia - Loft
                                         </div>
                                     </div>
                                 </div>
-                                <!-- End Create Modal -->
+                                <!-- End Edit Modal -->
 
                                 <!-- Delete Modal -->
                                 <div class="modal fade" id="deleteModal{{$loft->id}}" tabindex="-1" role="dialog"

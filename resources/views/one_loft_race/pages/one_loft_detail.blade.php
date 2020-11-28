@@ -123,9 +123,11 @@
                         <td class="action-link">
                             <a href="/loft/events/{{$event->id}}/1/basket" title="Proses Inkorf" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                             <a href="/loft/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
-                            <a href="#" title="Set Titik Lokasi" class="text-danger mx-1" data-toggle="modal" data-target="#setPoint{{$event->id}}">
+                            @if($event->status != 'Terbang')
+                            <a href="#" title="Set Titik Lokasi ({{ $event->api_status_event == 'location' ? 'Aktif' : 'Non Aktif' }})" class="{{ $event->api_status_event == 'location' ? 'text-danger' : 'text-secondary' }} mx-1" data-toggle="modal" data-target="#setPoint{{$event->id}}">
                                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                             </a>
+                            @endif
                             <!-- <a href="/events/{{$event->id}}/1/details" title="Detail Lomba" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a> -->
                         </td>
                     </tr>
@@ -138,20 +140,17 @@
                                 <div class="modal-header">
                                     <h4 class="modal-title" id="exampleModalLabel">Set Titik Lokasi {{$event->branch_event}}</h4>
                                 </div>
-                                <form action="">
+                                <form action="/events/{{$event->id}}/api-status" method="POST">
                                     <div class="modal-body">
-                                        <h5>URL Titik Lokasi Mulai</h5>
-                                        <p class="text-info">http://pigeontime.live/event-start/{{$event->id}}/&lt;latitude&gt;/&lt;longitude&gt;</p>
-                                        <p>contoh:<br>http://pigeontime.live/event-start/{{$event->id}}/-7.893274649955687/112.67354622885584</p>
-                                        <h5>URL Titik Lokasi Selesai</h5>
-                                        <p class="text-info">http://pigeontime.live/event-end/{{$event->id}}/&lt;latitude&gt;/&lt;longitude&gt;</p>
-                                        <p>contoh:<br>http://pigeontime.live/event-end/{{$event->id}}/-7.893274649955687/112.67354622885584</p>
+                                        {{ csrf_field() }}
+                                        <input type="text" name="api_status_event" value="{{$event->api_status_event == 'location' ? '' : 'location'}}" style="display: none;">
+                                        <h5>Apakah anda ingin {{ $event->api_status_event == 'location' ? 'menonaktifkan' : 'mengaktifkan' }} set titik lokasi?</h5>
                                     </div>
                                     <div class="modal-footer">
                                         <div class="form-group d-flex justify-content-end">
                                             <button class="btn musica-btn btn-2" type="button"
                                             data-dismiss="modal">Cancel</button>
-                                            <input type="submit" value="Selesai" class="btn musica-btn">
+                                            <input type="submit" value="{{$event->api_status_event == 'location' ? 'Nonaktifkan' : 'Aktifkan'}}" class="btn musica-btn">
                                         </div>
                                     </div>
                                 </form>
