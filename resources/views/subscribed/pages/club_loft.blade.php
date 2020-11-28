@@ -1,7 +1,7 @@
 @extends('subscribed.layout.subscribed')
 
 @section('title')
-    Detail Club
+    Detail Loft
 @endsection
 
 @section('content')
@@ -127,6 +127,8 @@
                                 <p>Nama Club : <b style="color: red">{{ $get_loft->club->name_club }}</b></p>
                                 <p>Nama Pemilik : <b style="color: red">{{ $get_loft->user->name }}
                                         ({{ $get_loft->user->username }})</b></p>
+                                <p>Negara : <b style="color: red">{{ $get_loft->user->country_user }}</b></p>
+
                                 <p>Posisi Loft : <b style="color: red">{{ $get_loft->user->lat_loft }} ,
                                         {{ $get_loft->user->lng_loft }}</b></p>
                                 <p>Jumlah Pigeon : <b style="color: red">{{ $count_pigeon }}</b></p>
