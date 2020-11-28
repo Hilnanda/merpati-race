@@ -59,8 +59,7 @@ class ClubController extends Controller
         //         );
         //         $i++;
         //     }
-            $json = file_get_contents('https://restcountries.eu/rest/v2/all');
-            $obj = json_decode($json);
+            
             
             // dd($obj);
         return view('admin.pages.list-club', ['clubs' => $club, 'users' => $user,
