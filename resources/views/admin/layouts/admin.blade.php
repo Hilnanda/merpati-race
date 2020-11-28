@@ -134,21 +134,21 @@
                             <i class="fa fa-superpowers"></i> <span>Lomba Umum</span>
                         </a>
                     </li>
-                    <li class="{{ (request()->is('admin/list-event*')) ? 'active' : '' }}">
+                    {{-- <li class="{{ (request()->is('admin/list-event*')) ? 'active' : '' }}">
                         <a href="{{ route('list-event') }}">
                             <i class="fa fa-twitter"></i> <span>Pigeon</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="{{ (request()->is('admin/user*')) ? 'active' : '' }}">
                         <a href="{{ route('list-user') }}">
                             <i class="fa fa-user"></i> <span>User</span>
                         </a>
                     </li>
-                    <li class="{{ (request()->is('admin/list-team*')) ? 'active' : '' }}">
+                    {{-- <li class="{{ (request()->is('admin/list-team*')) ? 'active' : '' }}">
                         <a href="{{ route('list-team') }}">
                             <i class="fa fa-users"></i> <span>Team</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="header">One Loft Race</li>
                     <li class="{{ (request()->is('admin/list-loft*')) ? 'active' : '' }}">
                         <a href="{{ route('list-loft') }}">
@@ -170,13 +170,13 @@
                             <li class="{{ (request()->is('admin/cms/cms-footer*')) ? 'active' : '' }}"><a href="{{ route('cms-footer-dashboard') }}"><i class="fa fa-circle-o"></i> Module Footer</a></li>
                         </ul>
                     </li>
-                    <li class="">
+                    {{-- <li class="">
                         <a href="{{ route('list-ps') }}">
                             <i class="fa fa-product-hunt"></i> <span>CMS Product & Service</span>
                            
                         </a>
                         
-                    </li>
+                    </li> --}}
                     <li class="{{ (request()->is('admin/list-contact*')) ? 'active' : '' }}">
                         <a href="{{ route('list-contact') }}">
                             <i class="fa fa-address-card-o"></i> <span>CMS Contact</span>

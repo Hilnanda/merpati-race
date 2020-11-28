@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\CMSFooter;
 use App\CMSMedsos;
 use App\Clubs;
+use App\CMSAbout;
 use App\User;
 use App\CMSNews;
 use App\CMSContact;
@@ -62,12 +63,14 @@ class HomeController extends Controller
         $club = Clubs::all();
         $user = User::all();
         $contact = CMSContact::limit(1)->get();
+        $about = CMSAbout::limit(1)->first();
         return view('pages.about-us',[
             'data_medsos'=>$data_medsos,
             'data_footer'=>$data_footer,
             'clubs' => $club, 
             'users' => $user,
-            'contact' => $contact
+            'contact' => $contact,
+            'about' => $about
             ]);
 
     }

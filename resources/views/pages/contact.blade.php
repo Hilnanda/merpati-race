@@ -13,7 +13,14 @@
 
                 <div class="col-12 col-lg-6">
                     <div class="contact-content mb-100">
-                        <a href="/"><h3 >Lomba</h3></a>
+                        @if (count($nama_website)!=0)
+                        @foreach ($nama_website as $item)
+                        <a href="/" class="nav-brand"><h3 >{{ $item->name_website }}</h3></a>
+
+                        @endforeach
+                        @else
+                        <a href="/" class="nav-brand"><h3 >Nama Website</h3></a>
+                        @endif
                         <p class="copywrite-text">
                             @foreach ($data_footer as $item)
                             {{ $item->name_copyright  }}
