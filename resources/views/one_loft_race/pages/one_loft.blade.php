@@ -33,7 +33,6 @@
                     <th>Batas Pendaftaran</th>
                     <th>Status</th>
                     <th>Sudah Sampai</th>
-                    <th></th>
                 </thead>
                 <tbody>
                     @php
