@@ -92,7 +92,7 @@
             <div class="user_card">
                 <div class="d-flex justify-content-center">
                     <div class="brand_logo_container">
-                        <img src="{{ asset('image/favicon.ico') }}" class="brand_logo" alt="Logo">
+                        <a href="/"><img src="{{ asset('image/favicon.ico') }}" class="brand_logo" alt="Logo"></a>
                     </div>
                 </div>
                 
