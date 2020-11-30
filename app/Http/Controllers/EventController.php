@@ -451,25 +451,6 @@ class EventController extends Controller
     }
 
     /**
-     * Update api status on events.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function setStatus(Request $request, $id)
-    {
-        $event = Events::find($id);
-        $data = $request->all();
-
-        $event->update($data);
-
-        $status = $data['api_status_event'] == '' ? 'menutup' : 'membuka';
-
-        return back()->with('Sukses',"Berhasil $status akses hardware!");
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

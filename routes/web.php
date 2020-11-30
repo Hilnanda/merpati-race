@@ -161,7 +161,6 @@ Route::middleware('is_subscribed')->group(function () {
     Route::get('/events/{id}/{hotspot}/basket', 'EventController@showBasketedList')->name('events_basketed');
     Route::get('/events/{id}/{hotspot}/live-result', 'EventController@showLiveResults')->name('events_live_result');
     Route::post('/events/{id}/join_event', 'EventController@joinEvent')->name('join_event');
-    Route::post('/events/{id}/api-status', 'EventController@setStatus')->name('set_api_status');
 
     // Result
     Route::get('/results', 'EventResultController@index')->name('results_menu');
@@ -212,6 +211,9 @@ Route::middleware('is_subscribed')->group(function () {
     Route::get('/loft/acc/{id}/delete', 'LoftController@delete_join');
     Route::post('/loft/{id}/join_loft', 'LoftController@joinLoft')->name('join_loft_loft');
     });
+
+    // Hardware
+    Route::post('/hardware/set-status', 'HardwareController@setStatus')->name('hardware_api_status');
 
 Auth::routes();
 

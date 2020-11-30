@@ -140,17 +140,35 @@
                                 <div class="modal-header">
                                     <h4 class="modal-title" id="exampleModalLabel">Set Titik Lokasi {{$event->branch_event}}</h4>
                                 </div>
-                                <form action="/events/{{$event->id}}/api-status" method="POST">
+                                <form action="/hardware/set-status" method="POST">
                                     <div class="modal-body">
                                         {{ csrf_field() }}
-                                        <input type="text" name="api_status_event" value="{{$event->api_status_event == 'location' ? '' : 'location'}}" style="display: none;">
-                                        <h5>Apakah anda ingin {{ $event->api_status_event == 'location' ? 'menonaktifkan' : 'mengaktifkan' }} set titik lokasi?</h5>
+                                        <div class="form-group">
+                                            <label for="id_event">ID Event</label>
+                                            <input type="text" name="id_event" class="form-control" value="{{$event->id}}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="mulai"><h5>Lokasi Mulai</h5></label>
+                                            <input type="text" name="uid_hardware[]" class="form-control mb-1" placeholder="UID Hardware" value="{{$event}}" required>
+                                            <select class="form-control" name="is_active[]" required>
+                                                <option value="0">Tidak Aktif</option>
+                                                <option value="1">Aktif</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="selesai"><h5>Lokasi Selesai</h5></label>
+                                            <input type="text" name="uid_hardware[]" class="form-control mb-1" placeholder="UID Hardware" required>
+                                            <select class="form-control" name="is_active[]" required>
+                                                <option value="0">Tidak Aktif</option>
+                                                <option value="1">Aktif</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <div class="form-group d-flex justify-content-end">
                                             <button class="btn musica-btn btn-2" type="button"
                                             data-dismiss="modal">Cancel</button>
-                                            <input type="submit" value="{{$event->api_status_event == 'location' ? 'Nonaktifkan' : 'Aktifkan'}}" class="btn musica-btn">
+                                            <input type="submit" value="Simpan" class="btn musica-btn">
                                         </div>
                                     </div>
                                 </form>
