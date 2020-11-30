@@ -66,7 +66,7 @@
                                 <p>Negara : <b style="color: red">{{ $event_desc->country_event }}</b></p>
                                 {{-- <p>Nama Pemilik : <b style="color: red">{{ $event_desc->user->name }}
                                         ({{ $get_loft->user->username }})</b></p> --}}
-                                <p>Posisi Loft : <b style="color: red">{{ $event_desc->lat_event }} ,
+                                <p>Posisi Event : <b style="color: red">{{ $event_desc->lat_event }} ,
                                         {{ $event_desc->lng_event }}</b></p>
                                 <p>Alamat Event : <b style="color: red">{{ $event_desc->address_event }}</b></p>
                                 <p>Harga Event : <b style="color: red">Rp {{ number_format($event_desc->price_event, 2) }}</b></p>
