@@ -27,8 +27,7 @@ class Events extends Model
         'address_event',
         'due_join_date_event',
         'price_event',
-        'country_event',
-        'api_status_event'
+        'country_event'
     ];
     
     public function event_participants()
@@ -39,6 +38,11 @@ class Events extends Model
     public function event_hotspot()
     {
         return $this->hasMany('App\EventHotspot','id_event')->orderBy('release_time_hotspot', 'asc');
+    }
+
+    public function hardware()
+    {
+        return $this->hasMany('App\Hardware','id_event');
     }
 
     public function club()

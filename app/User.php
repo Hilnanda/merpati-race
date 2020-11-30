@@ -52,38 +52,42 @@ class User extends Authenticatable
 
     public function clubs()
     {
-        return $this->hasMany('App\Clubs','id');
+        return $this->hasMany('App\Clubs','id_user');
     }
 
     public function club_members()
     {
-        return $this->hasMany('App\ClubMember','id');
+        return $this->hasMany('App\ClubMember','id_user');
     }
 
     public function manager_club()
     {
-        return $this->hasMany('App\Clubs','id');
+        return $this->hasMany('App\Clubs','id_user');
     }
 
     public function team()
     {
-        return $this->hasMany('App\Team','id');
+        return $this->hasMany('App\Team','id_user');
     }
 
     public function pigeons()
     {
-        return $this->hasMany('App\Pigeons','id');
+        return $this->hasMany('App\Pigeons','id_user');
     }
 
     public function operator_clubs()
     {
-        return $this->hasMany('App\OperatorClubs','id');
+        return $this->hasMany('App\OperatorClubs','id_user');
     }
 
     public function event()
     {
-        return $this->hasMany('App\Events','id');
+        return $this->hasMany('App\Events','id_user');
     }
     
+    public function hardware()
+    {
+        return $this->hasMany('App\Hardware','id_user');
+    }
     
 }
