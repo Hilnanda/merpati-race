@@ -112,6 +112,21 @@
                     @endphp
                     @foreach($loft->event as $event)
                     @if($event->branch_event == 'One Loft Race')
+                    @php
+                    $uid_hardware_location = null;
+                    $is_active_hardware_location = null;
+                    $uid_hardware_location_end = null;
+                    $is_active_hardware_location_end = null;
+                    foreach ($event->hardware as $value) {
+                        if($value->label_hardware == 'location'){
+                            $uid_hardware_location = $value->uid_hardware;
+                            $is_active_hardware_location = $value->is_active;
+                        } else {
+                            $uid_hardware_location_end = $value->uid_hardware;
+                            $is_active_hardware_location_end = $value->is_active;
+                        }
+                    }
+                    @endphp
                     <tr>
                         <td>{{ $row++ }}</td>
                         <td><a href="/loft/events/{{$event->id}}/1/details" class="text-info">{{ $event->name_event }}</a></td>
@@ -124,7 +139,7 @@
                             <a href="/loft/events/{{$event->id}}/1/basket" title="Proses Inkorf" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                             <a href="/loft/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
                             @if($event->status != 'Terbang')
-                            <a href="#" title="Set Titik Lokasi ({{ $event->api_status_event == 'location' ? 'Aktif' : 'Non Aktif' }})" class="{{ $event->api_status_event == 'location' ? 'text-danger' : 'text-secondary' }} mx-1" data-toggle="modal" data-target="#setPoint{{$event->id}}">
+                            <a href="#" title="Set Titik Lokasi" class="{{ $is_active_hardware_location == '1' || $is_active_hardware_location_end == '1' ? 'text-danger' : 'text-secondary' }} mx-1" data-toggle="modal" data-target="#setPoint{{$event->id}}">
                                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                             </a>
                             @endif
@@ -143,24 +158,26 @@
                                 <form action="/hardware/set-status" method="POST">
                                     <div class="modal-body">
                                         {{ csrf_field() }}
-                                        <div class="form-group">
+                                        <div class="form-group" hidden>
                                             <label for="id_event">ID Event</label>
                                             <input type="text" name="id_event" class="form-control" value="{{$event->id}}" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="mulai"><h5>Lokasi Mulai</h5></label>
-                                            <input type="text" name="uid_hardware[]" class="form-control mb-1" placeholder="UID Hardware" value="{{$event}}" required>
+                                            <input type="text" name="uid_hardware[]" class="form-control mb-1" placeholder="UID Hardware" value="{{$uid_hardware_location ? $uid_hardware_location : ''}}" required>
+                                            <input hidden type="text" name="label_hardware[]" class="form-control mb-1" value="location" required>
                                             <select class="form-control" name="is_active[]" required>
-                                                <option value="0">Tidak Aktif</option>
-                                                <option value="1">Aktif</option>
+                                                <option value="0" {{$is_active_hardware_location == '0' ? 'selected' : ''}}>Tidak Aktif</option>
+                                                <option value="1" {{$is_active_hardware_location == '1' ? 'selected' : ''}}>Aktif</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="selesai"><h5>Lokasi Selesai</h5></label>
-                                            <input type="text" name="uid_hardware[]" class="form-control mb-1" placeholder="UID Hardware" required>
+                                            <input type="text" name="uid_hardware[]" class="form-control mb-1" placeholder="UID Hardware" value="{{$uid_hardware_location_end ? $uid_hardware_location_end : ''}}" required>
+                                            <input hidden type="text" name="label_hardware[]" class="form-control mb-1" value="location_end" required>
                                             <select class="form-control" name="is_active[]" required>
-                                                <option value="0">Tidak Aktif</option>
-                                                <option value="1">Aktif</option>
+                                                <option value="0" {{$is_active_hardware_location_end == '0' ? 'selected' : ''}}>Tidak Aktif</option>
+                                                <option value="1" {{$is_active_hardware_location_end == '1' ? 'selected' : ''}}>Aktif</option>
                                             </select>
                                         </div>
                                     </div>
@@ -203,6 +220,21 @@
                     @endphp
                     @foreach($loft->event as $event)
                     @if($event->branch_event == 'Training')
+                    @php
+                    $uid_hardware_location = null;
+                    $is_active_hardware_location = null;
+                    $uid_hardware_location_end = null;
+                    $is_active_hardware_location_end = null;
+                    foreach ($event->hardware as $value) {
+                        if($value->label_hardware == 'location'){
+                            $uid_hardware_location = $value->uid_hardware;
+                            $is_active_hardware_location = $value->is_active;
+                        } else {
+                            $uid_hardware_location_end = $value->uid_hardware;
+                            $is_active_hardware_location_end = $value->is_active;
+                        }
+                    }
+                    @endphp
                     <tr>
                         <td>{{ $row++ }}</td>
                         <td><a href="/loft/events/{{$event->id}}/1/details" class="text-info">{{ $event->name_event }}</a></td>
@@ -215,7 +247,7 @@
                             <a href="/loft/events/{{$event->id}}/1/basket" title="Proses Inkorf" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                             <a href="/loft/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
                             @if($event->status != 'Terbang')
-                            <a href="#" title="Set Titik Lokasi ({{ $event->api_status_event == 'location' ? 'Aktif' : 'Non Aktif' }})" class="{{ $event->api_status_event == 'location' ? 'text-danger' : 'text-secondary' }} mx-1" data-toggle="modal" data-target="#setPoint{{$event->id}}">
+                            <a href="#" title="Set Titik Lokasi" class="{{ $is_active_hardware_location == '1' || $is_active_hardware_location_end == '1' ? 'text-danger' : 'text-secondary' }} mx-1" data-toggle="modal" data-target="#setPoint{{$event->id}}">
                                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                             </a>
                             @endif
@@ -231,17 +263,37 @@
                                 <div class="modal-header">
                                     <h4 class="modal-title" id="exampleModalLabel">Set Titik Lokasi {{$event->branch_event}}</h4>
                                 </div>
-                                <form action="/events/{{$event->id}}/api-status" method="POST">
+                                <form action="/hardware/set-status" method="POST">
                                     <div class="modal-body">
                                         {{ csrf_field() }}
-                                        <input type="text" name="api_status_event" value="{{$event->api_status_event == 'location' ? '' : 'location'}}" style="display: none;">
-                                        <h5>Apakah anda ingin {{ $event->api_status_event == 'location' ? 'menonaktifkan' : 'mengaktifkan' }} set titik lokasi?</h5>
+                                        <div class="form-group" hidden>
+                                            <label for="id_event">ID Event</label>
+                                            <input type="text" name="id_event" class="form-control" value="{{$event->id}}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="mulai"><h5>Lokasi Mulai</h5></label>
+                                            <input type="text" name="uid_hardware[]" class="form-control mb-1" placeholder="UID Hardware" value="{{$uid_hardware_location ? $uid_hardware_location : ''}}" required>
+                                            <input hidden type="text" name="label_hardware[]" class="form-control mb-1" value="location" required>
+                                            <select class="form-control" name="is_active[]" required>
+                                                <option value="0" {{$is_active_hardware_location == '0' ? 'selected' : ''}}>Tidak Aktif</option>
+                                                <option value="1" {{$is_active_hardware_location == '1' ? 'selected' : ''}}>Aktif</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="selesai"><h5>Lokasi Selesai</h5></label>
+                                            <input type="text" name="uid_hardware[]" class="form-control mb-1" placeholder="UID Hardware" value="{{$uid_hardware_location_end ? $uid_hardware_location_end : ''}}" required>
+                                            <input hidden type="text" name="label_hardware[]" class="form-control mb-1" value="location_end" required>
+                                            <select class="form-control" name="is_active[]" required>
+                                                <option value="0" {{$is_active_hardware_location_end == '0' ? 'selected' : ''}}>Tidak Aktif</option>
+                                                <option value="1" {{$is_active_hardware_location_end == '1' ? 'selected' : ''}}>Aktif</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <div class="form-group d-flex justify-content-end">
                                             <button class="btn musica-btn btn-2" type="button"
                                             data-dismiss="modal">Cancel</button>
-                                            <input type="submit" value="{{$event->api_status_event == 'location' ? 'Nonaktifkan' : 'Aktifkan'}}" class="btn musica-btn">
+                                            <input type="submit" value="Simpan" class="btn musica-btn">
                                         </div>
                                     </div>
                                 </form>

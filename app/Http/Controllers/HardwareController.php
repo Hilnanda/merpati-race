@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Hardware;
 
 class HardwareController extends Controller
 {
@@ -46,11 +47,33 @@ class HardwareController extends Controller
      */
     public function setStatus(Request $request)
     {
-        $data = $request->all();
+        $input = $request->all();
 
-        $event->update($data);
-
-        $status = $data['api_status_event'] == '' ? 'menutup' : 'membuka';
+        for ($i=0; $i < count($input['uid_hardware']); $i++) { 
+            if (isset($input['id_event'])) {
+                Hardware::updateOrCreate(
+                    [
+                        'id_event' => $input['id_event'],
+                        'label_hardware' => $input['label_hardware'][$i]
+                    ],
+                    [
+                        'uid_hardware' => $input['uid_hardware'][$i],
+                        'is_active' => $input['is_active'][$i]
+                    ]
+                );
+            } else {
+                Hardware::updateOrCreate(
+                    [
+                        'id_user' => $input['id_user'],
+                        'label_hardware' => $input['label_hardware'][$i]
+                    ],
+                    [
+                        'uid_hardware' => $input['uid_hardware'][$i],
+                        'is_active' => $input['is_active'][$i]
+                    ]
+                );
+            }
+        }
 
         return back()->with('Sukses',"Berhasil set status api hardware!");
     }
