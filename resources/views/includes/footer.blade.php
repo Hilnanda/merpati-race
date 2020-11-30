@@ -14,7 +14,7 @@
                     <nav>
                         <ul class="footer-nav">
                             <li><a href="/">Home</a></li>
-                                <li><a href="">Product & Service</a></li>
+                                {{-- <li><a href="">Product & Service</a></li> --}}
                                 <li><a href="{{ route('home-news') }}">News</a></li>
                                 <li><a href="{{ route('about-us') }}">About Us</a></li>
                                 <li><a href="{{ route('contact') }}">Contact</a></li>
@@ -50,7 +50,15 @@
             <!-- Footer Widget Area -->
             <div class="col-12 col-md-12 col-xl-3">
                 <div class="footer-widget-area mb-100">
-                    <a href="/"><h3 >Lomba</h3></a>
+                    @if (count($nama_website)!=0)
+                    @foreach ($nama_website as $item)
+                    <a href="/" class="nav-brand"><h3 >{{ $item->name_website }}</h3></a>
+
+                    @endforeach
+                    @else
+                    <a href="/" class="nav-brand"><h3 >Nama Website</h3></a>
+                    @endif
+                    {{-- <a href="/"><h3 >Lomba</h3></a> --}}
                     <p class="copywrite-text"><a href="#">
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->

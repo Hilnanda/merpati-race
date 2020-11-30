@@ -63,6 +63,7 @@
                                 <h4>Detail Lomba</h4>
                                 <p>Nama Event : <b style="color: red">{{ $event_desc->name_event }}</b></p>
                                 <p>Info Event : <b style="color: red">{{ $event_desc->info_event }}</b></p>
+                                <p>Negara : <b style="color: red">{{ $event_desc->country_event }}</b></p>
                                 {{-- <p>Nama Pemilik : <b style="color: red">{{ $event_desc->user->name }}
                                         ({{ $get_loft->user->username }})</b></p> --}}
                                 <p>Posisi Loft : <b style="color: red">{{ $event_desc->lat_event }} ,

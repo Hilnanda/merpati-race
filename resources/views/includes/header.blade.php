@@ -39,7 +39,7 @@
                         <div class="classynav">
                             <ul>
                                 <li><a href="/">Home</a></li>
-                                <li><a href="">Product & Service</a></li>
+                                {{-- <li><a href="">Product & Service</a></li> --}}
                                 
                                 <li><a href="{{ route('home-news') }}">News</a></li>
                                 <li><a href="{{ route('about-us') }}">About Us</a></li>

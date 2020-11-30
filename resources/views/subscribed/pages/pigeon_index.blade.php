@@ -39,8 +39,14 @@
                     
                     <div class="row">
                         <div class="col-3">
+                            @if ($id_user->image_loft==null)
+                            <img src="{{asset('image/no-image.png') }}" style="max-height: 100%; height: auto; width: auto;"
+                            class="rounded float-left" alt="...">
+                            @else
                             <img src="{{asset('image/'.$id_user->image_loft.'') }}" style="max-height: 100%; height: auto; width: auto;"
-                                class="rounded float-left" alt="...">
+                                class="rounded float-left" >
+                            @endif
+                            
                             {{-- bagian keterangan --}}
 
                         </div>

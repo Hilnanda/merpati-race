@@ -32,14 +32,14 @@
                                 <li><a href="/">Home</a></li>
                                 <li><a href="#">Pages</a>
                                     <ul class="dropdown">
-                                        <li><a href="">Product & Service</a></li>
+                                        {{-- <li><a href="">Product & Service</a></li> --}}
                                         <li><a href="{{ route('home-news') }}">News</a></li>
                                         <li><a href="{{ route('about-us') }}">About Us</a></li>
                                         <li><a href="{{ route('contact') }}">Contact</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="/pigeons">My Loft</a></li>
-                                <li><a href="/events/index">Lomba</a></li>
+                                {{-- <li><a href="/events/index">Lomba</a></li> --}}
                                 {{-- <li><a href="">Hasil</a></li> --}}
                                 <li><a href="/club">Club</a></li>
                                 {{-- <li><a href="/team">Team</a></li> --}}
