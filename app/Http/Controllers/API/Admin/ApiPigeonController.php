@@ -8,7 +8,7 @@ use App\Pigeons;
 
 class ApiPigeonController extends Controller
 {
-    public $relation_pigeon = ['users','club_member','team_member','pigeons_participants'];
+    public $relation_pigeon = ['users','club','Event_participants','loft_member'];
 
     /**
      * Display a listing of the resource.
