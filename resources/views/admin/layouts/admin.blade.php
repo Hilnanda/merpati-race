@@ -21,7 +21,7 @@
 
         <header class="main-header">
             <!-- Logo -->
-            <a href="index2.html" class="logo">
+            <a href="/admin/index" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>P</b>T</span>
                 <!-- logo for regular state and mobile devices -->
@@ -129,11 +129,11 @@
             <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
           </ul> -->
                     </li>
-                    <li class="{{ (request()->is('admin/list-event*')) ? 'active' : '' }}">
+                    {{-- <li class="{{ (request()->is('admin/list-event*')) ? 'active' : '' }}">
                         <a href="{{ route('list-event') }}">
                             <i class="fa fa-superpowers"></i> <span>Lomba Umum</span>
                         </a>
-                    </li>
+                    </li> --}}
                     {{-- <li class="{{ (request()->is('admin/list-event*')) ? 'active' : '' }}">
                         <a href="{{ route('list-event') }}">
                             <i class="fa fa-twitter"></i> <span>Pigeon</span>

@@ -31,7 +31,36 @@ Dashboard Panitia
                 <div class="modal-header">
                   <h4 class="modal-title" id="exampleModalLabel">Tambah Data Lomba</h4>
                 </div>
-               
+                <div class="modal-body">
+                  <form action="/admin/user/create" method="POST">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <label for="">Nama </label>
+                        <input type="text" name="name" class="form-control" placeholder="Isi Nama" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="">Username</label>
+                        <input type="text" name="username" class="form-control" placeholder="Isi Username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Email</label>
+                        <input type="email" name="email" class="form-control" placeholder="Isi Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="Isi Password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="submit" value="Simpan" class="btn btn-primary">
+                    </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" type="button"
+                    data-dismiss="modal">Cancel</button>
+            </div>
               </div>
             </div>
           </div>
@@ -60,61 +89,39 @@ Dashboard Panitia
                 
                 <td><a href="#" class="btn btn-warning btn-sm" data-toggle="modal"
                   data-target="#editModal{{$value->id}}"><span class="font-weight-bold ml-1">Edit</span></a> 
-                  <a href="#" class="btn btn-danger btn-sm delete-event" data-toggle="modal"
-                  data-target="#deleteModal{{$value->id}}"><span
-                  class="font-weight-bold ml-1">Hapus</span></a></td>
+                  <a href="user/delete/{{ $value->id }}" class="btn btn-danger btn-sm delete-club" 
+                  >Hapus</a></td>
 
                   <!-- Edit Modal -->
-                  {{-- <div class="modal fade" id="editModal{{$value->id}}" tabindex="-1" role="dialog"
+                  <div class="modal fade" id="editModal{{$value->id}}" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h4 class="modal-title" id="exampleModalLabel">Edit Data Lomba</h4>
+                          <h4 class="modal-title" id="exampleModalLabel">Edit Data User</h4>
                         </div>
-                        <form action="/admin/event/update/{{$value->id}}" method="POST">
+                        <form action="/admin/user/edit" method="POST">
                           <div class="modal-body">
                             {{ csrf_field() }}
                             <div class="form-group">
-                              <label for="">Nama Lomba</label>
-                              <input type="text" name="name_event" class="form-control" placeholder="Isi nama event" required value="{{ $value->name_event }}">
-                            </div>
-                            <div class="form-group">
-                              <label for="">Informasi Tentang Lomba</label>
-                              <textarea name="info_event" class="form-control" required="" placeholder="Isi informasi lomba">{{ $value->info_event }}</textarea>
-                            </div>
-                            <div class="form-group">
-                              <label for="">Lat Lomba</label>
-                              <input type="number" name="lat_event" class="form-control" placeholder="Isi nama event" required step="any" value="{{ $event->lat_event }}">
-                            </div>
-                            <div class="form-group">
-                              <label for="">Long Lomba</label>
-                              <input type="number" name="lng_event" class="form-control" placeholder="Isi nama event" required step="any" value="{{ $event->lng_event }}">
-                            </div>
-                            <div class="form-group">
-                              <label for="">Lat Lomba End</label>
-                              <input type="number" name="lat_event_end" class="form-control" placeholder="Isi nama event end" step="any" value="{{ $event->lat_event_end }}">
-                            </div>
-                            <div class="form-group">
-                              <label for="">Long Lomba End</label>
-                              <input type="number" name="lng_event_end" class="form-control" placeholder="Isi nama event end" step="any" value="{{ $event->lng_event_end }}">
-                            </div>
-                            <div class="form-group">
-                              <label for="">Alamat Lomba</label>
-                              <textarea name="address_event" class="form-control" required="" placeholder="Isi nama alamat">{{ $event->address_event }}</textarea>
-                            </div>
-                            <div class="form-group">
-                              <label for="">Waktu Mulai Lomba</label>
-                              <input type="datetime-local" name="release_time_event" class="form-control" placeholder="Isi waktu mulai lomba" required value="{{ $event->release_time_event }}">
-                            </div>
-                            <div class="form-group">
-                              <label for="">Waktu Selesai Lomba</label>
-                              <input type="datetime-local" name="expired_time_event" class="form-control" placeholder="Isi waktu selesai lomba" value="{{ $event->expired_time_event }}">
-                            </div>
-                            <div class="form-group">
-                              <label for="">Harga Pendaftaran Lomba</label>
-                              <input type="number" name="price_event" class="form-control" placeholder="Isi harga pendaftaran lomba" required step=100 value="{{ $event->price_event }}">
-                            </div>
+                              
+                              <label for="">Nama </label>
+                              <input type="hidden" name="id" value="{{ $value->id }}">
+                              <input type="text" name="name" class="form-control" placeholder="Isi Nama" value="{{ $value->name }}" >
+                          </div>
+                          
+                          <div class="form-group">
+                              <label for="">Username</label>
+                              <input type="text" name="username" class="form-control" value="{{ $value->username }}" placeholder="Isi Username" >
+                          </div>
+                          <div class="form-group">
+                              <label for="">Email</label>
+                              <input type="email" name="email" class="form-control" value="{{ $value->email }}" placeholder="Isi Email" >
+                          </div>
+                          <div class="form-group">
+                              <label for="">Password</label>
+                              <input type="password" name="password" class="form-control" value="{{ $value->password }}" placeholder="Isi Password" >
+                          </div>
                           </div>
                           <div class="modal-footer">
                             <div class="form-group d-flex justify-content-end">
@@ -126,7 +133,7 @@ Dashboard Panitia
                         </form>
                       </div>
                     </div>
-                  </div> --}}
+                  </div>
                   <!-- End Edit Modal -->
 
                   <!-- Delete Modal -->

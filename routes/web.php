@@ -79,6 +79,9 @@ Route::prefix('admin')
 
         //user 
         Route::get('/user', 'ListUserController@index')->name('list-user');
+        Route::post('/user/create', 'ListUserController@create');
+        Route::post('/user/edit', 'ListUserController@edit');
+        Route::get('/user/delete/{id}', 'ListUserController@destroy');
 
         // about us
         Route::get('/cms-about-us', 'CmsHomeController@about_us')->name('cms-about-us');
