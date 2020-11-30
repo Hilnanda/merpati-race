@@ -129,6 +129,15 @@ Detail Club
                                             <textarea name="info_event" class="form-control" required=""
                                             placeholder="Isi informasi lomba"></textarea>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="">Negara</label>
+                                            <select name="country_event" class="form-control" required>
+                                              <option value="">-- Pilih Negara --</option>
+                                              @foreach($negara as $value)
+                                                <option value="{{$value->nicename }}">{{$value->nicename}} ({{ $value->iso }}) </option>
+                                              @endforeach
+                                            </select>
+                                        </div>
                                         {{-- <div class="form-group"> --}}
                                             {{-- <label for="">Jumlah Hotspot</label> --}}
                                             <input type="hidden" name="hotspot_length_event" value="1"
@@ -326,6 +335,7 @@ Detail Club
                                                             <!-- <th>Jenis Lomba</th> -->
                                                             <!-- <th>Kategori</th> -->
                                                             <th>Info</th>
+                                                            <th>Negara</th>
                                                             <th>Lokasi Mulai</th>
                                                             <!-- <th>Lokasi Selesai</th> -->
                                                             <th>Alamat</th>
@@ -348,6 +358,7 @@ Detail Club
                                                                 <!-- <td>{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</td> -->
                                                                 <!-- <td>{{ $event->category_event }}</td> -->
                                                                 <td>{{ $event->info_event }}</td>
+                                                                <td>{{ $event->country_event }}</td>
                                                                 <td>{{ $event->lat_event ? '(' . $event->lat_event . '), (' . $event->lng_event . ')' : '-' }}
                                                                 </td>
                                                                 <!-- <td>{{ $event->lat_event_end ? '(' . $event->lat_event_end . '), (' . $event->lng_event_end . ')' : '-' }} -->
@@ -601,6 +612,15 @@ Detail Club
                                                                 <textarea name="info_event" class="form-control"
                                                                 required=""
                                                                 placeholder="Isi informasi lomba">{{ $event->info_event }}</textarea>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="">Negara</label>
+                                                                <select name="country_event" class="form-control" required>
+                                                                  <option value="">-- Pilih Negara --</option>
+                                                                  @foreach($negara as $value)
+                                                                    <option value="{{$value->nicename }}" @if($event->country_event==$value->nicename) selected @endif>{{$value->nicename}} ({{ $value->iso }}) </option>
+                                                                  @endforeach
+                                                                </select>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="">Harga Pendaftaran Lomba</label>
