@@ -1,14 +1,14 @@
 @extends('subscribed.layout.subscribed')
 
 @section('title')
-    Detail Training Pigeon
+    Detail Pigeon
 @endsection
 
 @section('content')
  <!-- ##### Breadcumb Area Start ##### -->
  <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ url('image/breadcumb-1.jpg') }});">
     <div class="bradcumbContent">
-        <h2>Info Training Pigeon</h2>
+        <h2>Detail Pigeon</h2>
     </div>
 </div>
 <!-- bg gradients -->
@@ -21,7 +21,7 @@
         <div class="box-body">
             <div class="row" style="margin-bottom: 20px">
                 <div class="col-12">
-                    <h4>Info Pigeon</h4>
+                    <h4>Detail Pigeon</h4>
                     <p>UID Burung : <b style="color: red">{{$data->uid_pigeon}}</b></p>
                     <p>Ukuran Cincin : <b style="color: red">{{$data->ring_size_pigeon}}</b></p>
                     <p>Nama Burung : <b style="color: red">{{$data->name_pigeon}}</b></p>
