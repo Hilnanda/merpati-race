@@ -121,7 +121,7 @@
                         if($value->label_hardware == 'location'){
                             $uid_hardware_location = $value->uid_hardware;
                             $is_active_hardware_location = $value->is_active;
-                        } else {
+                        } else if ($value->label_hardware == 'location_end') {
                             $uid_hardware_location_end = $value->uid_hardware;
                             $is_active_hardware_location_end = $value->is_active;
                         }
@@ -229,7 +229,7 @@
                         if($value->label_hardware == 'location'){
                             $uid_hardware_location = $value->uid_hardware;
                             $is_active_hardware_location = $value->is_active;
-                        } else {
+                        } else if ($value->label_hardware == 'location_end') {
                             $uid_hardware_location_end = $value->uid_hardware;
                             $is_active_hardware_location_end = $value->is_active;
                         }

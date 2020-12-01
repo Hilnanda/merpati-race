@@ -8,7 +8,7 @@
     <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ url('image/breadcumb-1.jpg') }});">
     <div class="bradcumbContent">
-        <h2>One Loft Race</h2>
+        <h2>List Loft</h2>
     </div>
 </div>
 <!-- bg gradients -->
