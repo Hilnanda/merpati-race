@@ -148,6 +148,34 @@ class LoftController extends Controller
     }
 
     /**
+     * Display a listing of the lofts.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function listLofts()
+    {
+        $title = 'List Lofts';
+        $current_user = auth()->user();
+        $loft_owns = Loft::where('lofts.id_user', $current_user->id)
+            ->orderBy('lofts.id', 'desc')
+            ->get();
+
+        $loft_follows = Loft::selectRaw('*, lofts.id as id')
+            ->where('lofts.id_user', '!=', $current_user->id)
+            ->join('loft_members', 'lofts.id', 'loft_members.id_loft')
+            ->join('pigeons', 'pigeons.id', 'loft_members.id_pigeon')
+            ->where('pigeons.id_user', $current_user->id)
+            ->orderBy('lofts.id', 'desc')
+            ->get();
+
+        $loft_all = Loft::all();
+
+        return view('one_loft_race.pages.lofts',
+            compact('title','current_user','loft_owns','loft_follows','loft_all')
+        );
+    }
+
+    /**
      * Show the detail of the loft.
      *
      * @return \Illuminate\Http\Response
