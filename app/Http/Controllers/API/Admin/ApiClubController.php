@@ -37,9 +37,13 @@ class ApiClubController extends Controller
      */
     public function store(Request $request)
     {
-        $club = Clubs::create($request->all())->id;
+        $data['id_user'] = $request->get('id_user');
+        $data['name_club'] = $request->get('name_club');
+        $data['address_club'] = $request->get('address_club');
+        $data['manager_club'] = $request->get('manager_club');
+        Clubs::create($data);
 
-        return response()->json(Clubs::find($club));
+        return response()->json($data);
     }
 
     /**
