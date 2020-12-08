@@ -69,6 +69,8 @@ Route::group(['namespace' => 'API\\Subscribed', 'prefix' => 'subscribed/v1'], fu
 	Route::get('event-inkorf/{id}', 'LoftController@index');
 	Route::post('event-inkorf/{id}/{uid}', 'LoftController@inkorfAdd');
 
+	// Hardware
+	Route::get('hardware/{message}', 'HardwareController@sendMessage');
 });
 
 Route::fallback(function(){
