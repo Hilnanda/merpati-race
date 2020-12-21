@@ -30,7 +30,9 @@ Route::group(['namespace' => 'API\\Admin', 'prefix' => 'admin/v1'], function () 
 	Route::delete('team/{id}', 'ApiTeamController@destroy');
 
 	//club
-	Route::get('club/insert', 'ApiClubController@store');
+	Route::get('club/add_data.php', 'ApiClubController@store');
+	Route::get('club/insert/add_data.php', 'ApiClubController@insert_statis');
+	Route::post('club/insert.php', 'ApiClubController@insert');
 	Route::get('club', 'ApiClubController@index');
 	Route::get('club/{id}', 'ApiClubController@show');
 	Route::put('club/{id}', 'ApiClubController@update');

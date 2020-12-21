@@ -46,6 +46,24 @@ class ApiClubController extends Controller
         return response()->json($data);
     }
 
+    public function insert_statis(Request $request)
+    {
+        $data['id_user'] = 2;
+        $data['name_club'] = $request->get('name_club');
+        $data['address_club'] = $request->get('address_club');
+        $data['manager_club'] = 2;
+        Clubs::create($data);
+
+        return response()->json($data);
+    }
+
+    public function insert(Request $request)
+    {
+        $club = Clubs::create($request->all())->id;
+
+        return response()->json(Clubs::find($club));
+    }
+
     /**
      * Display the specified resource.
      *
