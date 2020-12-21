@@ -30,13 +30,13 @@ class HardwareController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function sendMessage(Request $request)
+    public function sendMessage($message)
     {
         $event = Events::first();
 
-        // $input['address_event'] = $message;
+        $input['address_event'] = $message;
 
-        $event->update($request->all());
+        $event->update($input);
 
         return response()->json(Events::find($event->id));
     }
