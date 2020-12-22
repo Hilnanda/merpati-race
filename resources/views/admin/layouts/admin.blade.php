@@ -134,11 +134,11 @@
                             <i class="fa fa-superpowers"></i> <span>Lomba Umum</span>
                         </a>
                     </li> --}}
-                    {{-- <li class="{{ (request()->is('admin/list-event*')) ? 'active' : '' }}">
-                        <a href="{{ route('list-event') }}">
+                    <li class="{{ (request()->is('admin/list-pigeon*')) ? 'active' : '' }}">
+                        <a href="{{ route('list-pigeon') }}">
                             <i class="fa fa-twitter"></i> <span>Pigeon</span>
                         </a>
-                    </li> --}}
+                    </li>
                     <li class="{{ (request()->is('admin/user*')) ? 'active' : '' }}">
                         <a href="{{ route('list-user') }}">
                             <i class="fa fa-user"></i> <span>User</span>

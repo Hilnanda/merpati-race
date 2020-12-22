@@ -51,6 +51,7 @@ Route::group(['namespace' => 'API\\Admin', 'prefix' => 'admin/v1'], function () 
 	Route::get('pigeon/{id}', 'ApiPigeonController@show');
 	Route::put('pigeon/{id}', 'ApiPigeonController@update');
 	Route::delete('pigeon/{id}', 'ApiPigeonController@destroy');
+	Route::get('pigeons/insert', 'ApiPigeonController@pigeon_add_data');
 
 	//user
 	Route::post('user', 'ApiUsersController@store');

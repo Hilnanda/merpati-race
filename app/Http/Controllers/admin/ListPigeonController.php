@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\API\Admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\User;
 use App\Pigeons;
 
-class ApiPigeonController extends Controller
+class ListPigeonController extends Controller
 {
-    public $relation_pigeon = ['users','club','Event_participants','loft_member'];
-
     /**
      * Display a listing of the resource.
      *
@@ -17,25 +16,24 @@ class ApiPigeonController extends Controller
      */
     public function index()
     {
-        return response()->json(Pigeons::with($this->relation_pigeon)->get());
+        $pigeon = Pigeons::orderByRaw('id DESC')->get();
+        $user = User::all();
+        return view('admin.pages.list-pigeon', [
+        'users' => $user, 
+        'pigeons' => $pigeon, 
+        ]);
     }
 
-    public function pigeon_add_data(Request $request)
-    {
-        $data['uid_pigeon'] = $request->get('uid_pigeon');
-     
-        Pigeons::create($data);
-
-        return response()->json($data);
-    }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        Pigeons::create($request->all());
+
+        return back()->with('Sukses','Berhasil menambahkan data!');
     }
 
     /**
@@ -46,9 +44,7 @@ class ApiPigeonController extends Controller
      */
     public function store(Request $request)
     {
-        $clubMember = Pigeons::create($request->all())->id;
-
-        return response()->json(Pigeons::find($clubMember));
+        //
     }
 
     /**
@@ -59,7 +55,7 @@ class ApiPigeonController extends Controller
      */
     public function show($id)
     {
-        return response()->json(Pigeons::with($this->relation_pigeon)->findOrFail($id));
+        //
     }
 
     /**
@@ -68,9 +64,12 @@ class ApiPigeonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $pigeon = Pigeons::find($request->id);
+        $pigeon->update($request->all());
+
+        return back()->with('Sukses','Berhasil mengubah data!');
     }
 
     /**
@@ -82,10 +81,7 @@ class ApiPigeonController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $clubMember = Pigeons::find($id);
-        $clubMember->update($request->all());
-
-        return response()->json(Pigeons::find($id));
+        //
     }
 
     /**
@@ -97,6 +93,7 @@ class ApiPigeonController extends Controller
     public function destroy($id)
     {
         Pigeons::find($id)->delete();
-        return response()->json('Delete Success');
+
+        return back()->with('Sukses','Berhasil menghapus data!');
     }
 }

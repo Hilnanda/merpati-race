@@ -28,6 +28,13 @@ Route::prefix('admin')
     ->middleware('is_admin')->group(function () {
         Route::get('/index', 'DashboardController@index')->name('admin-dashboard');
         // Route::get('/index', 'DashboardController@index')->name('admin-dashboard');
+
+        //pigeon
+        Route::get('/list-pigeon', 'ListPigeonController@index')->name('list-pigeon');
+        Route::post('/pigeon/create', 'ListPigeonController@create');
+        Route::post('/pigeon/edit', 'ListPigeonController@edit');
+        Route::get('/pigeon/delete/{id}', 'ListPigeonController@destroy');
+
         //club
         Route::get('/list-club', 'ClubController@index')->name('list-club');
         Route::post('/club/create', 'ClubController@create');
