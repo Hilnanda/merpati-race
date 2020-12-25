@@ -20,8 +20,8 @@
             <h4>Users Details</h4>           
                 <p>Nama Pemilik : <b style="color: red">{{ $id_user->name }}
                         ({{ $id_user->username }})</b></p>
-                <p>Nama Loft : <b style="color: red">{{ $id_user->name_loft }}</b></p>
-                <p>Posisi Loft : <b style="color: red">{{ $id_user->lat_loft }} ,
+                <p>Nama : <b style="color: red">{{ $id_user->name_loft }}</b></p>
+                <p>Posisi : <b style="color: red">{{ $id_user->lat_loft }} ,
                         {{ $id_user->lng_loft }}</b></p>
                 <p>Email : <b style="color: red">{{ $id_user->email }}</b></p>
                 <p>Negara : <b style="color: red">{{ $id_user->country_user }}</b></p>                
@@ -74,7 +74,7 @@
 <div class="row mt-5 px-5">
     <div class="col-lg-12">
         <!-- /.box-header -->
-        <h4>List Club Saya</h4>
+        <h4>List Club</h4>
         <div class="box-body">
             <table id="table_one" class="table table-bordered table-striped">
                 <thead>

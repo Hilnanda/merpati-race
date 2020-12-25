@@ -27,7 +27,7 @@
                     <p>Nama Burung : <b style="color: red">{{$data->name_pigeon}}</b></p>
                     <p>Jenis Kelamin : <b style="color: red">{{$data->sex_pigeon}}</b></p>
                     <p>Warna : <b style="color: red">{{$data->color_pigeon}}</b></p>
-                    <p>Status : <b style="color: red">@if($data->is_active==0) Belum Aktif @else Aktif @endif</b></p>
+                    {{-- <p>Status : <b style="color: red">@if($data->is_active==0) Belum Aktif @else Aktif @endif</b></p> --}}
                     {{-- <div id="accordion" class="mt-3">
                         <div class="card">
                           <div class="card-header" id="headingOne">
