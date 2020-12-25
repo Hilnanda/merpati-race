@@ -30,6 +30,73 @@ class ClubController extends Controller
     public function index()
     {
         //
+        // dd($id);
+        // event
+        $events = Events::with($this->relationships)
+            ->where('branch_event', 'Club')
+            // ->where('id_club', $id)
+            ->orderBy('events.id', 'desc')->get();
+
+        // $event_clubs = Events::find($id); 
+        // dd($event_clubs);
+        // $clubs= Clubs::where('id',$id)
+        // ->first();
+        $current_datetime = Carbon::now();
+
+        foreach ($events as $event) {
+            $event->release_time_event = null;
+            $event->expired_time_event = null;
+            foreach ($event->event_hotspot as $hotspot) {
+                if ($hotspot->release_time_hotspot) {
+                    $event->release_time_event = $this->formatDateLocal($hotspot->release_time_hotspot);
+                    if ($hotspot->expired_time_hotspot) {
+                        $event->expired_time_event = $this->formatDateLocal($event->expired_time_event);
+                    }
+                    if ($event->release_time_event <= $current_datetime) {
+                        break;
+                    }
+                }
+            }
+            $event->due_join_date_event = $this->formatDateLocal($event->due_join_date_event);
+            if ($event->release_time_event <= $current_datetime) {
+                $diff = strtotime($current_datetime) - strtotime($event->release_time_event);
+                $days = floor($diff / 86400);
+                $hours = floor($diff / 3600) % 24;
+                $minutes = floor($diff / 60) % 60;
+                $seconds = $diff % 60;
+
+                // $event->status = 'Terbang (' . ($days * 24 + $hours) . 'j:' . $minutes . 'm:' . $seconds . 'd)';
+                $event->status = 'Terbang';
+                $event->color = '#32CD32';
+            } else {
+                if ($event->due_join_date_event < $current_datetime) {
+                    $diff = strtotime($event->release_time_event) - strtotime($current_datetime);
+                    $days = floor($diff / 86400);
+                    $hours = floor($diff / 3600) % 24;
+                    $minutes = floor($diff / 60) % 60;
+                    $seconds = $diff % 60;
+
+                    // $event->status = 'Pendaftaran ditutup (-' . ($days * 24 + $hours) . 'j:' . $minutes . 'm:' . $seconds . 'd)';
+                    $event->status = 'Pendaftaran ditutup';
+                    $event->color = '#EB0000';
+                } else {
+                    $diff = strtotime($event->due_join_date_event) - strtotime($current_datetime);
+                    $days = floor($diff / 86400);
+                    $hours = floor($diff / 3600) % 24;
+                    $minutes = floor($diff / 60) % 60;
+                    $seconds = $diff % 60;
+
+                    // $event->status = 'Belum dimulai (-' . ($days * 24 + $hours) . 'j:' . $minutes . 'm:' . $seconds . 'd)';
+                    $event->status = 'Belum dimulai';
+                    $event->color = '#000000';
+                    // $date = strtotime($event->release_time_event);
+                    // $event->status = $date - time();
+                }
+            }
+            if ($event->lat_event_end != null) {
+                $event->distance = $this->distance($event->lat_event, $event->lng_event, $event->lat_event_end, $event->lng_event_end, "K");
+            }
+        }
         $users = User::all();
         $id_user = User::where('id',auth()->user()->id)->first();
         $id_pigeon = Pigeons::where('id_user',auth()->user()->id)->get();
@@ -72,7 +139,7 @@ class ClubController extends Controller
        $list_event = Events::all();
 
         return view('subscribed.pages.club',
-        compact('list_event','id_pigeon','id_user','users','club','data_medsos','data_footer','club_id','club_ikut','club_belum_ikut','clubku')
+        compact('events','list_event','id_pigeon','id_user','users','club','data_medsos','data_footer','club_id','club_ikut','club_belum_ikut','clubku')
         );
     }
 
