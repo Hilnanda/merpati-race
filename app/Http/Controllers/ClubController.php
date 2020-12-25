@@ -31,6 +31,8 @@ class ClubController extends Controller
     {
         //
         $users = User::all();
+        $id_user = User::where('id',auth()->user()->id)->first();
+        $id_pigeon = Pigeons::where('id_user',auth()->user()->id)->get();
         $club = DB::table('club_members')
         ->rightjoin('clubs','club_members.id_club','=','clubs.id')
         ->where('clubs.id_user','=',auth()->user()->id)
@@ -66,7 +68,7 @@ class ClubController extends Controller
     //    dd($club_ikut);
        $club_belum_ikut = Clubs::select('clubs.*');
         return view('subscribed.pages.club',
-        compact('users','club','data_medsos','data_footer','club_id','club_ikut','club_belum_ikut','clubku')
+        compact('id_pigeon','id_user','users','club','data_medsos','data_footer','club_id','club_ikut','club_belum_ikut','clubku')
         );
     }
 
