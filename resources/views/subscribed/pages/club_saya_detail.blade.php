@@ -249,12 +249,10 @@ Detail Club
                             
                             <p>Negara : <b style="color: red">{{ $clubs->country_clubs }}</b> </p>
                             
-                            <p>Jumlah Loft : <b style="color: red">{{ count($list_pigeons) }}</b></p>
-                            <p>Jumlah Pigeon : <b style="color: red">{{ $count_pigeon }}</b></p>
+                            {{-- <p>Jumlah Loft : <b style="color: red">{{ count($list_pigeons) }}</b></p> --}}
+                            {{-- <p>Jumlah Pigeon : <b style="color: red">{{ $count_pigeon }}</b></p> --}}
                             <p>Jumlah Lomba : <b style="color: red">{{ count($events) }}</b></p>
-                            {{-- <p>Posisi club : <b
-                                style="color: red">{{ $clubs->lat_club }} , {{ $clubs->lng_club }}</b></p>
-                                --}}
+                            
                                 <p>Manager club : <b style="color: red">{{ $clubs->manager->name }}
                                     ({{ $clubs->manager->username }})</b></p>
                                     @if (count($join_operator) != 0)
@@ -280,9 +278,9 @@ Detail Club
                                 {{-- bagian statistik --}}
                             </div>
                         </div>
-                        <div class="row" style="margin-bottom: 20px">
+                        {{-- <div class="row" style="margin-bottom: 20px">
                             <div class="col-12">
-                                {{-- bagian list burung --}}
+                                
                                 <h4>List Loft</h4>
                                 <div class="box-body">
                                     <table id="table_two" class="table table-bordered table-striped">
@@ -294,11 +292,7 @@ Detail Club
                                             <th>Aksi</th>
                                         </thead>
                                         <tbody>
-                                            {{-- @if (count($list_pigeons) == 0)
-                                                <tr class="text-center">
-                                                    <td colspan="8">-- Tidak ada Club yang belum Diikuti --</td>
-                                                </tr>
-                                                @endif --}}
+                                            
                                                 @foreach ($list_pigeons as $item)
                                                 <tr>
                                                     <td>{{ $loop->index + 1 }}</td>
@@ -306,9 +300,7 @@ Detail Club
                                                     <td>{{ $item->user->name_loft }}</td>
                                                     <td>{{ date('d F Y  H:i:s', strtotime($item->updated_at)) }}</td>
                                                     <td class="action-link">
-                                                        {{-- <a href="#" title="Live Results"
-                                                        class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
-                                                        --}}
+                                                       
                                                         <a href="/club/desc_loft/{{ $item->id_user }}/{{ $clubs->id }}"
                                                             title="Details" class="mx-1"><i class="fa fa-list-alt"
                                                             aria-hidden="true"></i></a>
@@ -319,7 +311,7 @@ Detail Club
                                             </table>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="row" style="margin-bottom: 20px">
                                     <div class="col-12">
                                         <h4>List Event Club </h4>
