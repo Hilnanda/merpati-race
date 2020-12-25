@@ -40,7 +40,7 @@ class ClubsTableSeeder extends Seeder
         'id_user'  => 6,
         'name_club'  => 'Yos Loft',
         'address_club' => "Malang",
-        'manager_club' => 3
+        'manager_club' => 6
 		]);
 		\App\Clubs::create([
         'id_user'  => 5,
@@ -58,7 +58,7 @@ class ClubsTableSeeder extends Seeder
         'id_user'  => 3,
         'name_club'  => 'Manager Owi',
         'address_club' => "Malang, Arjosari",
-        'manager_club' => 4
+        'manager_club' => 3
 		]);
     }
 }

@@ -50,6 +50,7 @@ class ClubController extends Controller
         ->get();
 
         $club_id = Clubs::whereRaw("id NOT IN (SELECT id_club FROM club_members where id_user = $auth_session)")
+        ->where('id_user', '!=' ,auth()->user()->id)
         ->orderBy('name_club','asc')
         ->get();
         // dd($club_id);
@@ -67,8 +68,11 @@ class ClubController extends Controller
         ->get();
     //    dd($club_ikut);
        $club_belum_ikut = Clubs::select('clubs.*');
+
+       $list_event = Events::all();
+
         return view('subscribed.pages.club',
-        compact('id_pigeon','id_user','users','club','data_medsos','data_footer','club_id','club_ikut','club_belum_ikut','clubku')
+        compact('list_event','id_pigeon','id_user','users','club','data_medsos','data_footer','club_id','club_ikut','club_belum_ikut','clubku')
         );
     }
 

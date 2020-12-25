@@ -20,6 +20,8 @@
     $('#table_three').DataTable()
     $('#table_four').DataTable()
 })
+
+
 </script>
 
 <script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js') }}"></script>
