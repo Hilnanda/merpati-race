@@ -29,10 +29,10 @@ class Pigeons extends Model
     {
         return $this->belongsTo('App\Clubs', 'id_club','id');
     }
-    // public function club_member()
-    // {
-    //     return $this->hasMany('App\ClubMember','id_pigeon');
-    // }
+    public function club_member()
+    {
+        return $this->hasMany('App\ClubMember','id_pigeon');
+    }
     public function team_member()
     {
         return $this->hasMany('App\TeamMembers','id_pigeon');

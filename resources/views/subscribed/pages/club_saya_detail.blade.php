@@ -230,6 +230,7 @@ Detail Club
                         </div>
                     </div>
                 </div>
+                
             </div>
             <div class="row" style="margin-bottom: 20px">
                 <div class="col-12">
@@ -715,5 +716,16 @@ Detail Club
         document.getElementById("due_join_date_event_add").max = release_time;
     }
 
+</script>
+<script>
+	window.setTimeout("waktu()", 1000);
+ 
+	function waktu() {
+		var waktu = new Date();
+		setTimeout("waktu()", 1000);
+		document.getElementById("jam").innerHTML = waktu.getHours();
+		document.getElementById("menit").innerHTML = waktu.getMinutes();
+		document.getElementById("detik").innerHTML = waktu.getSeconds();
+	}
 </script>
 @endpush

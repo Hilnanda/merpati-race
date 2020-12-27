@@ -24,7 +24,8 @@
                 <thead>
                     <th>No.</th>
                     <th>Nama User</th>
-                    <th>Nama Loft</th>
+                    <th>UID Pigeon</th>
+                    <th>Nama Pigeon</th>
                     <th>Tgl Join</th>
                     <th>Aksi</th>
                 </thead>
@@ -37,13 +38,14 @@
                     @foreach($acc as $item) 
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
-                        <td>{{ $item->user->name }}</td>
-                        <td>{{ $item->user->name_loft }}</td>
+                        <td>{{ $item->pigeon->users->name }}</td>
+                        <td>{{ $item->pigeon->uid_pigeon }}</td>
+                        <td>{{ $item->pigeon->name_pigeon }}</td>
                         
                         <td>{{ date('d F Y  H:i:s', strtotime($item->created_at)) }}</td>
                         <td class="action-link">                        
-                            <a href="/club/acc/{{$item->id}}" title="Centang" class="mx-1"><i class="fa fa-check fa-2" aria-hidden="true"></i></a>
-                            <a href="/club/acc/{{$item->id}}/delete" title="Silang" class="mx-1 delete"><i class="fa fa-times fa-2" aria-hidden="true"></i></a>
+                            <a href="/club/acc/{{$item->id}}" title="Setujui" class="mx-1"><i class="fa fa-check fa-2" aria-hidden="true"></i></a>
+                            <a href="/club/acc/{{$item->id}}/delete" title="Tolak" class="mx-1 delete"><i class="fa fa-times fa-2" aria-hidden="true"></i></a>
                             {{-- <a href="#" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a> --}}
                         </td>
                     </tr>
