@@ -21,9 +21,11 @@
         <div class="row mb-2">
             <div class="col-12">
                 @if (Auth::user()->id == $event->club->manager_club || $exist == 1)
-                <h5>URL Tambah Partisipan {{$event->branch_event == 'Club' ? 'Public Race' : $event->branch_event}}</h5>
-                <p class="text-info">http://pigeontime.live/event-inkorf/{{$event->id}}/&lt;UID Pigeon&gt;</p>
-                <p>contoh:<br>http://pigeontime.live/event-inkorf/{{$event->id}}/BR0001</p>
+                <h5>URL Inkorf {{$event->branch_event == 'Club' ? 'Public Race' : $event->branch_event}}</h5>
+                <p class="text-info">http://pigeontime.live/hardware/set-inkorf?&lt;Parameter&gt;</p>
+                <p>contoh:<br>http://pigeontime.live/hardware/proses-inkorf?uid_hardware={{$hardware_inkorf->uid_hardware}}&id_event={{$event->id}}&uid_pigeon=BR0002</p>
+
+                <a href="#" title="Set UID Hardware" class="btn musica-btn btn-primary" data-toggle="modal" data-target="#setInkorf">Set UID Hardware</a>
                 @endif
             </div>
         </div>
@@ -66,6 +68,40 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Modal Set Point -->
+        <div class="modal fade" id="setInkorf" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel">Set UID Hardware Inkorf</h4>
+                    </div>
+                    <form action="/hardware/set-inkorf" method="GET">
+                        <div class="modal-body">
+                            {{ csrf_field() }}
+                            <div class="form-group" hidden>
+                                <label for="id_event">ID Event</label>
+                                <input type="text" name="id_event" class="form-control" value="{{$event->id}}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="uid"><h5>UID Hardware</h5></label>
+                                <input type="text" name="uid_hardware" class="form-control mb-1" placeholder="UID Hardware" value="{{ $hardware_inkorf ? $hardware_inkorf->uid_hardware : ''}}" required>
+                                <input hidden type="text" name="label_hardware" class="form-control mb-1" value="inkorf" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="form-group d-flex justify-content-end">
+                                <button class="btn musica-btn btn-2" type="button"
+                                data-dismiss="modal">Cancel</button>
+                                <input type="submit" value="Simpan" class="btn musica-btn btn-primary">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal Set Point -->
     </div>
 </div>
 @endsection

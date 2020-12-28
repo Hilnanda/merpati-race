@@ -79,6 +79,28 @@ class HardwareController extends Controller
     }
 
     /**
+     * Set hardware for Inkorf.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function setInkorf(Request $request)
+    {
+        $input = $request->all();
+
+        Hardware::updateOrCreate(
+            [
+                'id_event' => $input['id_event'],
+                'label_hardware' => $input['label_hardware']
+            ],
+            [
+                'uid_hardware' => $input['uid_hardware'],
+            ]
+        );
+
+        return back()->with('Sukses',"Berhasil set status api hardware inkorf!");
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id

@@ -300,12 +300,12 @@
                         <td style="color: {{ $event->color ? $event->color : '' }};">{{ $event ? $event->status : '-' }}</td>
                         {{-- <td>{{ $event->hotspot_length_event }}</td> --}}
                         <td class="action-link">
-                            {{-- @if (Auth::user()->id == $clubs->manager_club || $exist == 1) --}}
+                            @if (Auth::user()->id == $event->club->manager_club)
                             <div style="display: inline-flex;">
                                 <a href="#" title="Edit" data-toggle="modal" class="text-danger mx-1" data-target="#editModal{{ $event->id }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                 <a href="#" title="Hapus" data-toggle="modal" class="text-danger mx-1" data-target="#deleteModal{{ $event->id }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             </div>
-                            {{-- @endif --}}
+                            @endif
                             <div style="display: inline-flex;">
                                 <a href="/club/events/{{$event->id}}/1/basket" title="Proses Inkorf" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                                 <a href="/club/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>

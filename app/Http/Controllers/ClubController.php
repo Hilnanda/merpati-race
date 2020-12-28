@@ -12,6 +12,7 @@ use App\Events;
 use App\EventResults;
 use App\Loft;
 use App\OperatorClubs;
+use App\Hardware;
 use DB;
 use App\Pigeons;
 use Carbon\Carbon;
@@ -412,14 +413,15 @@ class ClubController extends Controller
         $operator_exist = OperatorClubs::where('id_user',auth()->user()->id)
             ->where('id_club',$event->id_club)
             ->first();
+        $exist = 0;
         if (isset($operator_exist)) {
             $exist = 1;
-        }else {
-            $exist = 0;
         }
 
+        $hardware_inkorf = Hardware::where('id_event', $id)->where('label_hardware', 'inkorf')->first();
+
         return view('subscribed.pages.club_basketed_list',
-            compact('users','current_datetime','event','event_participants','hotspot')
+            compact('users','current_datetime','event','event_participants','hotspot','exist','hardware_inkorf')
         );
     }
 

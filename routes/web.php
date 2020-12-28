@@ -222,6 +222,7 @@ Route::middleware('is_subscribed')->group(function () {
 
     // Hardware
     Route::post('/hardware/set-status', 'HardwareController@setStatus')->name('hardware_api_status');
+    Route::get('/hardware/set-inkorf', 'HardwareController@setInkorf')->name('hardware_set_inkorf');
 
 Auth::routes();
 
