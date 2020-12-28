@@ -105,25 +105,23 @@ class HardwareController extends Controller
             );
         }
 
-        // if (!$loft_member = LoftMember::where('id_loft', $event->id_loft)->where('id_pigeon', $pigeon->id)->first()) {
-        //     return response()->json(
-        //         array(
-        //             'code' => 404,
-        //             'message' => 'Pigeon bukan anggota loft pemilik lomba'
-        //         )
-        //     );
-        // }
-
-        $data = [
+        $data_event = [
             'id_pigeon' => $pigeon->id,
             'id_event' => $event->id,
             'is_core' => 1,
-            'active_at' => now()
+            'active_at' => now(),
         ];
 
-        $id_participant = EventParticipants::create($data)->id;
+        $event_participant = EventParticipants::create($data_event);
 
-        return response()->json(EventParticipants::find($id_participant));
+        $data_result = [
+            'id_event_participant' => $event_participant->id,
+            'id_event_hotspot' => $event->event_hotspot[0]->id,
+        ];
+
+        EventResults::create($data_result);
+
+        return response()->json(EventParticipants::find($event_participant->id));
     }
 
     /**

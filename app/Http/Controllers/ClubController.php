@@ -500,6 +500,10 @@ class ClubController extends Controller
             }
         }
 
+        if (!$arrived_pigeons) {
+            $event_results = [];
+        }
+
         return view('subscribed.pages.club_live_results',
             compact('users','event','event_results','pigeons','current_datetime','hotspot', 'id_hotspot','unfinished_speed','arrived_pigeons')
         );
