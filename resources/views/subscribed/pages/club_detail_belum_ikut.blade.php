@@ -23,7 +23,50 @@
                     <a href="#tambah_jenisstandar{{ $item->id }}" class="btn btn-primary" data-toggle="modal"
                         data-target="#tambah_jenisstandar{{ $item->id }}">Join Club</a>
                         @endif      --}}
-                        <a href="/club/join_loft_club/{{$item->id}}/{{ $auth }}" style="text-align: center" class="mx-1 musica-btn join">Join</a>
+                        {{-- <a href="/club/join_loft_club/{{$item->id}}/{{ $auth }}" style="text-align: center" class="mx-1 musica-btn join">Join</a> --}}
+                        <a href="#join_pigeon" data-toggle="modal" data-target="#join_pigeon"><button type="button"
+                            class="btn btn-danger"><i class="fa fa-twitter"></i> Join Pigeon</button></a>
+                            <div class="modal fade" id="join_pigeon" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Join Pigeon</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/club/join" method="POST">
+                                            {{ csrf_field() }}
+                                            <div class="form-group">
+                                                <label for="">List Pigeon</label>
+                                                <input type="hidden" name="id_club" value="{{ $item->id }}">
+                                                <input type="hidden" name="id_user" value="{{ $auth }}">
+                                                <select name="id_pigeon" class="form-control" required>
+                                                    <option value="">-- Pilih Pigeon --</option>
+                                                    @foreach ($pigeon as $pigeons)
+                                                    @if ($item->id != $pigeons->id_club)
+                                                    <option value="{{ $pigeons->id }}">
+                                                        {{ $pigeons->uid_pigeon }} - {{ $pigeons->name_pigeon }}
+                                                    </option>
+                                                    @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+    
+                                            <div class="form-group">
+                                                <input type="submit" value="Join" class="btn btn-primary">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" type="button"
+                                        data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
             </div>
         </div>
         <p>Nama Club : <b style="color: red">{{ $item->name_club }}</b></p>
@@ -33,9 +76,8 @@
                             
         
         @endforeach
-        <div class="row" style="margin-bottom: 20px;margin-top: 60px">
+        {{-- <div class="row" style="margin-bottom: 20px;margin-top: 60px">
             <div class="col-12">
-                {{-- bagian list burung --}}
                 <h4>List Loft</h4>
                 <div class="box-body">
                     <table id="table_two" class="table table-bordered table-striped">
@@ -47,11 +89,7 @@
                             <th>Aksi</th>
                         </thead>
                         <tbody>
-                            {{-- @if (count($list_pigeons) == 0)
-                                <tr class="text-center">
-                                    <td colspan="8">-- Tidak ada Club yang belum Diikuti --</td>
-                                </tr>
-                            @endif --}}
+                            
                             @foreach ($list_pigeons as $item)
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>                                                                                   
@@ -69,7 +107,7 @@
                     </table>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="row" style="margin-bottom: 20px">
             <div class="col-12">
                 <!-- /.box-header -->

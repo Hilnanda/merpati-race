@@ -100,7 +100,8 @@ class ClubController extends Controller
         }
         $users = User::all();
         $id_user = User::where('id',auth()->user()->id)->first();
-        $id_pigeon = Pigeons::where('id_user',auth()->user()->id)->get();
+        $id_pigeon = Pigeons::where('id_user',auth()->user()->id)
+        ->where('is_active',1)->get();
         $club = DB::table('club_members')
         ->rightjoin('clubs','club_members.id_club','=','clubs.id')
         ->where('clubs.id_user','=',auth()->user()->id)
@@ -628,13 +629,12 @@ class ClubController extends Controller
         ->where('event_participants.current_id_club', '=', $id)
         ->get();
         // dd($club_ikut);
-        $pigeon = Pigeons::where('pigeons.is_active', 1)
-        ->where('pigeons.id_user', auth()->user()->id)
-        ->whereRaw('pigeons.id NOT IN (SELECT id_pigeon FROM club_members)')
+        $pigeon = Pigeons::where('pigeons.id_user', auth()->user()->id)
+        // ->whereRaw('pigeons.id NOT IN (SELECT id_pigeon FROM club_members)')
         ->get();
         
         
-        return view('subscribed.pages.club_detail_belum_ikut',compact('club','data_medsos','data_footer','users','club_ikut','list_pigeons','results','event_clubs','events','current_datetime'));
+        return view('subscribed.pages.club_detail_belum_ikut',compact('pigeon','club','data_medsos','data_footer','users','club_ikut','list_pigeons','results','event_clubs','events','current_datetime'));
     }
 
 
@@ -648,7 +648,7 @@ class ClubController extends Controller
     public function join_club(Request $request)
     {
          $data = $request->all();
-
+        // dd($data);
         $data['is_active'] = 0;
         
         ClubMember::create($data);

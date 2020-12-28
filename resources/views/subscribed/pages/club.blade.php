@@ -18,11 +18,11 @@
     <div class="col-lg-12">        <!-- /.box-header -->       
         <div class="box-body">
             <h4>Users Details</h4>           
-                <p>Nama Pemilik : <b style="color: red">{{ $id_user->name }}
-                        ({{ $id_user->username }})</b></p>
-                <p>Nama : <b style="color: red">{{ $id_user->name_loft }}</b></p>
-                <p>Posisi : <b style="color: red">{{ $id_user->lat_loft }} ,
-                        {{ $id_user->lng_loft }}</b></p>
+                <p>Nama : <b style="color: red">{{ $id_user->name }}
+                        </b></p>
+                <p>Username : <b style="color: red">{{ $id_user->username }}</b></p>
+                {{-- <p>Posisi : <b style="color: red">{{ $id_user->lat_loft }} ,
+                        {{ $id_user->lng_loft }}</b></p> --}}
                 <p>Email : <b style="color: red">{{ $id_user->email }}</b></p>
                 <p>Negara : <b style="color: red">{{ $id_user->country_user }}</b></p>                
         </div>
