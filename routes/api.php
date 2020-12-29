@@ -74,6 +74,7 @@ Route::group(['namespace' => 'API\\Subscribed', 'prefix' => 'subscribed/v1'], fu
 
 	// Hardware
 	Route::get('hardware/proses-inkorf', 'HardwareController@prosesInkorf');
+	Route::get('hardware/public-race-finish', 'HardwareController@publicRaceFinish');
 });
 
 Route::fallback(function(){

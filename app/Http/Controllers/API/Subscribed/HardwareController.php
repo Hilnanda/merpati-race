@@ -125,6 +125,19 @@ class HardwareController extends Controller
     }
 
     /**
+     * Update event speed result.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function publicRaceFinish(Request $request)
+    {
+        $input = $request->all();
+
+        
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
