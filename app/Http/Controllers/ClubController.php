@@ -100,8 +100,14 @@ class ClubController extends Controller
         }
         $users = User::all();
         $id_user = User::where('id',auth()->user()->id)->first();
-        $id_pigeon = Pigeons::where('id_user',auth()->user()->id)
-        ->where('is_active',1)->get();
+        // $id_pigeon = Pigeons::where('id_user',auth()->user()->id)
+        // ->where('is_active',1)->get();
+        $id_pigeon = DB::table('event_participants')
+        ->join('pigeons','pigeons.id','=','event_participants.id_pigeon')
+        ->where('pigeons.id_user','=',auth()->user()->id)
+        ->get();
+        
+        
         $club = DB::table('club_members')
         ->rightjoin('clubs','club_members.id_club','=','clubs.id')
         ->where('clubs.id_user','=',auth()->user()->id)
