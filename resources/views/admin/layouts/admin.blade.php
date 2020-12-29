@@ -144,6 +144,11 @@
                             <i class="fa fa-user"></i> <span>User</span>
                         </a>
                     </li>
+                    <li class="{{ (request()->is('admin/list-hardware*')) ? 'active' : '' }}">
+                        <a href="{{ route('list-hardware') }}">
+                            <i class="fa fa-hdd-o"></i> <span>Hardware</span>
+                        </a>
+                    </li>
                     {{-- <li class="{{ (request()->is('admin/list-team*')) ? 'active' : '' }}">
                         <a href="{{ route('list-team') }}">
                             <i class="fa fa-users"></i> <span>Team</span>

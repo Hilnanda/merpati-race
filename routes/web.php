@@ -35,6 +35,12 @@ Route::prefix('admin')
         Route::post('/pigeon/edit', 'ListPigeonController@edit');
         Route::get('/pigeon/delete/{id}', 'ListPigeonController@destroy');
 
+        //hardware
+        Route::get('/list-hardware', 'ListHardwareController@index')->name('list-hardware');
+        Route::post('/hardware/create', 'ListHardwareController@create');
+        Route::post('/hardware/edit', 'ListHardwareController@edit');
+        Route::get('/hardware/delete/{id}', 'ListHardwareController@destroy');
+
         //club
         Route::get('/list-club', 'ClubController@index')->name('list-club');
         Route::post('/club/create', 'ClubController@create');
