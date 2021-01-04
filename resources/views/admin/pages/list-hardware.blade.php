@@ -72,9 +72,12 @@
                                 <thead>
                                     <th>No.</th>
                                     <th>UID Hardware</th>
-                                    <th>Pemilik Hardware</th>
-                                    <th>Label Hardware</th>
-                                    <th>Tanggal Kepemilikan</th>
+                                    <th>UID Pigeon</th>
+                                    <th>Long Lat</th>
+                                    <th>Tanggal</th>
+                                    {{-- <th>Pemilik Hardware</th> --}}
+                                    {{-- <th>Label Hardware</th> --}}
+                                    {{-- <th>Tanggal Kepemilikan</th> --}}
                                     <th>Aksi</th>
                                 </thead>
                                 <tbody>
@@ -82,9 +85,12 @@
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
                                             <td>{{ $value->uid_hardware }}</td>
-                                            <td>{{ $value->user->name }} ({{ $value->user->username }})</td>
-                                            <td>{{ $value->label_hardware }}</td>
-                                            <td>{{ $value->created_at }}</td>
+                                            <td>{{ $value->uid_pigeon }}</td>
+                                            <td>{{ $value->longlat_hardware }}</td>
+                                            <td>{{ $value->tanggal_hardware }}</td>
+                                            {{-- <td>{{ $value->user->name }} ({{ $value->user->username }})</td> --}}
+                                            {{-- <td>{{ $value->label_hardware }}</td> --}}
+                                            {{-- <td>{{ $value->created_at }}</td> --}}
                                             <td>
                                                     <a href="#editModal{{ $value->id }}" class="btn btn-warning btn-sm"
                                                         data-toggle="modal" data-target="#editModal{{ $value->id }}"><span

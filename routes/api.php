@@ -53,6 +53,9 @@ Route::group(['namespace' => 'API\\Admin', 'prefix' => 'admin/v1'], function () 
 	Route::delete('pigeon/{id}', 'ApiPigeonController@destroy');
 	Route::get('pigeons/insert', 'ApiPigeonController@pigeon_add_data');
 
+	//hardware
+	Route::get('hardware/insert', 'ApiPigeonController@add_hardware');
+
 	//user
 	Route::post('user', 'ApiUsersController@store');
 	Route::get('user', 'ApiUsersController@index');
@@ -62,6 +65,9 @@ Route::group(['namespace' => 'API\\Admin', 'prefix' => 'admin/v1'], function () 
 
 	// Event
 	Route::put('event/{id}', 'EventController@updateEventLocation');
+
+
+	
 
 });
 

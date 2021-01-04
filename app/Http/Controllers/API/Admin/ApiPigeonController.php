@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Pigeons;
+use App\Hardware;
 
 class ApiPigeonController extends Controller
 {
@@ -25,6 +26,18 @@ class ApiPigeonController extends Controller
         $data['uid_pigeon'] = $request->get('uid_pigeon');
      
         Pigeons::create($data);
+
+        return response()->json($data);
+    }
+
+    public function add_hardware(Request $request)
+    {
+        $data['uid_hardware'] = $request->get('uid_hardware');
+        $data['uid_pigeon'] = $request->get('uid_pigeon');
+        $data['tanggal_hardware'] = $request->get('tgl'). ' : '.$request->get('bulan'). ' : '.$request->get('tahun'). ' '.$request->get('jam'). ' : '.$request->get('menit'). ' : '.$request->get('detik');
+        $data['longlat_hardware'] = $request->get('long').' , '.$request->get('lat');
+
+        Hardware::create($data);
 
         return response()->json($data);
     }
