@@ -34,7 +34,7 @@ class ApiPigeonController extends Controller
     {
         $data['uid_hardware'] = $request->get('uid_hardware');
         $data['uid_pigeon'] = $request->get('uid_pigeon');
-        $data['tanggal_hardware'] = $request->get('tgl'). ':'.$request->get('bulan'). ':'.$request->get('tahun'). ' '.$request->get('jam'). ':'.$request->get('menit'). ':'.$request->get('detik');
+        $data['tanggal_hardware'] = $request->get('tgl'). '/'.$request->get('bulan'). '/'.$request->get('tahun'). ' '.$request->get('jam'). ':'.$request->get('menit'). ':'.$request->get('detik');
         $data['longlat_hardware'] = $request->get('long').','.$request->get('lat');
 
         Hardware::create($data);
