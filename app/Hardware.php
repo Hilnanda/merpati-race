@@ -15,7 +15,10 @@ class Hardware extends Model
         'id_user',
         'id_event',
         'label_hardware',
-        'is_active'
+        'is_active',
+        'uid_pigeon',
+        'tanggal_hardware',
+        'longlat_hardware'
     ];
 
     public function user()
