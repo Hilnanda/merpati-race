@@ -307,7 +307,9 @@
                             </div>
                             @endif
                             <div style="display: inline-flex;">
+                                @if($event->status != 'Terbang')
                                 <a href="/club/events/{{$event->id}}/1/basket" title="Proses Inkorf" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                @endif
                                 <a href="/club/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
                                 <a href="#" title="Set Titik Lokasi" class="mx-1" data-toggle="modal" data-target="#setPoint{{$event->id}}">
                                     <i class="fa fa-map-marker" aria-hidden="true"></i>

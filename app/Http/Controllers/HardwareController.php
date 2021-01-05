@@ -14,7 +14,7 @@ class HardwareController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -87,15 +87,7 @@ class HardwareController extends Controller
     {
         $input = $request->all();
 
-        Hardware::updateOrCreate(
-            [
-                'id_event' => $input['id_event'],
-                'label_hardware' => $input['label_hardware']
-            ],
-            [
-                'uid_hardware' => $input['uid_hardware'],
-            ]
-        );
+        Hardware::update($input);
 
         return back()->with('Sukses',"Berhasil set status api hardware inkorf!");
     }
