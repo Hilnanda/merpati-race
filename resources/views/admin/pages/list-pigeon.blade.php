@@ -27,7 +27,9 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Data Pigeon</h3><br>
-              
+              <h5>URL </h5>
+                <p class="text-info">http://pigeontime.live/hardware/set-inkorf?&lt;Parameter&gt;</p>
+                <p>contoh:<br>http://pigeontime.live/hardware?uid_hardware=991&uid_pigeon=B123&long=878&lat=456456&tgl=12&bulan=4&tahun=2020&jam=4&menit=53&detik=21</p>
             </div>
             <!-- /.box-header -->
             <div class="box-body">

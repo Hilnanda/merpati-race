@@ -67,6 +67,9 @@ class ListHardwareController extends Controller
     public function edit(Request $request)
     {
         $hardware = Hardware::find($request->id);
+        if($request->id_user == 1){
+            $hardware['label_hardware'] = 'admin';
+        }
         $hardware->update($request->all());
 
         return back()->with('Sukses','Berhasil mengubah data!');
