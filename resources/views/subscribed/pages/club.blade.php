@@ -15,14 +15,67 @@
 <div class="bg-gradients"></div>
 <!-- ##### Breadcumb Area End ##### -->
 <div class="row mt-5 px-5">
+    <div class="col-12">
+        @if ($id_user->lat_loft == '' && $id_user->lng_loft == '')
+        <a href="#edit_user" data-toggle="modal" data-target="#edit_user"><button type="button"
+            class="btn musica-btn btn-primary mb-2"> Input Lokasi</button></a>
+        @endif
+        
+            <div class="modal fade" id="edit_user" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Input Lokasi</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/club/latlong" method="GET">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                <b>Set Link Api</b><p>http://pigeontime.live/hardware?-parameter-</p> 
+                                    <b>contoh:</b>
+                                    http://pigeontime.live/api/admin/v1/hardware?uid_hardware=991&uid_pigeon=B123&long=878&lat=456456&tgl=12&bulan=4&tahun=2020&jam=4&menit=53&detik=21
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" name="id" value="{{ $auth }}">
+                                <label for="">Lattitude</label>
+                                <input type="text" name="lat_loft" class="form-control">
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="">Longtitude</label>
+                                <input type="text" name="lng_loft" class="form-control">
+                                
+                            </div>
+
+                            <div class="form-group">
+                                <input type="submit" value="Simpan" class="btn btn-primary">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button"
+                        data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
     <div class="col-lg-12">        <!-- /.box-header -->       
         <div class="box-body">
             <h4>Users Details</h4>           
                 <p>Nama : <b style="color: red">{{ $id_user->name }}
                         </b></p>
                 <p>Username : <b style="color: red">{{ $id_user->username }}</b></p>
-                {{-- <p>Posisi : <b style="color: red">{{ $id_user->lat_loft }} ,
-                        {{ $id_user->lng_loft }}</b></p> --}}
+                @if ($id_user->lat_loft != '' && $id_user->lng_loft != '')
+                <p>Posisi : <b style="color: red">{{ $id_user->lat_loft }} ,
+                    {{ $id_user->lng_loft }}</b></p>
+                @endif
+                
                 <p>Email : <b style="color: red">{{ $id_user->email }}</b></p>
                 <p>Negara : <b style="color: red">{{ $id_user->country_user }}</b></p>                
         </div>
@@ -249,8 +302,8 @@
     <div class="col-lg-12">
         <!-- /.box-header -->
         <h4>List Event</h4>
-        <div class="box-body">
-            <table id="table_two" class="table table-bordered table-striped">
+        <div class="box-body" style="overflow-x:auto;">
+            <table id="table_two" class="table table-bordered table-striped" >
                 <thead>
                     <th>No.</th>
                     <!-- <th>ID</th> -->

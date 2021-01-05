@@ -151,6 +151,13 @@ class ClubController extends Controller
         );
     }
 
+    public function set_lokasi(Request $request){
+        $users = User::find($request->id);
+        $users->update($request->all());
+
+        return back()->with('Sukses','Berhasil mengubah data!');
+    }
+
     public function join_loft_club($id_club,$id_user)
     {
         $Clubs = new ClubMember();
