@@ -146,6 +146,8 @@ Route::middleware('is_subscribed')->group(function () {
     Route::get('/club/join_loft_club/{id}/{id_club}', 'ClubController@join_loft_club');
     Route::post('/club/add_lomba/{id}','EventClubController@store');
     Route::get('/club/desc_loft/{id_loft}/{id_club}', 'ClubController@desc_loft');
+    Route::get('/club/latlong', 'ClubController@set_lokasi');    
+
 
     
     // Event Hotspot club   
