@@ -34,10 +34,10 @@ class HardwareController extends Controller
         }
 
         if ($hardware->label_hardware == 'admin') {
-            $this->pigeon_add_data($request);
+            return $this->pigeon_add_data($request);
 
         } else if ($hardware->label_hardware && $hardware->label_hardware == 'inkorf') {
-            $this->prosesInkorf($request);
+            return $this->prosesInkorf($request);
 
         } else {
             if ($request->input('uid_pigeon') != '' && doubleval($request->input('lat')) != 0) {
@@ -110,17 +110,16 @@ class HardwareController extends Controller
     {
         $input = $request->all();
 
-        // if (!$hardware = Hardware::where('uid_hardware', $input['uid_hardware'])
-        //     ->where('id_event', $input['id_event'])
-        //     ->where('label_hardware', 'inkorf')
-        //     ->first()) {
-        //     return response()->json(
-        //         array(
-        //             'code' => 404,
-        //             'message' => 'Hardware tidak terdaftar pada Lomba Inkorf'
-        //         )
-        //     );
-        // }
+        if (!$hardware = Hardware::where('uid_hardware', $input['uid_hardware'])
+            ->where('label_hardware', 'inkorf')
+            ->first()) {
+            return response()->json(
+                array(
+                    'code' => 404,
+                    'message' => 'Hardware tidak terdaftar pada Lomba Inkorf'
+                )
+            );
+        }
 
         if (!$event = Events::where('id', $hardware->id_event)
             ->whereDate('due_join_date_event', '>=', Carbon::now())
