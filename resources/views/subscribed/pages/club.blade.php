@@ -360,13 +360,15 @@
                             </div>
                             @endif
                             <div style="display: inline-flex;">
-                                @if($event->status != 'Terbang')
+                                @if($event->status != 'Terbang' && $event->lng_event && $event->lat_event)
                                 <a href="/club/events/{{$event->id}}/1/basket" title="Proses Inkorf" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                                 @endif
+                                @if($event->status == 'Terbang')
                                 <a href="/club/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
-                                <a href="#" title="Set Titik Lokasi" class="mx-1" data-toggle="modal" data-target="#setPoint{{$event->id}}">
+                                @endif
+                                <!-- <a href="#" title="Set Titik Lokasi" class="mx-1" data-toggle="modal" data-target="#setPoint{{$event->id}}">
                                     <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                </a>
+                                </a> -->
                             </div>
                         </td>
                         <!-- Modal Set Point -->
@@ -600,6 +602,27 @@
                             <option value="{{$value->nicename }}" @if($event->country_event==$value->nicename) selected @endif>{{$value->nicename}} ({{ $value->iso }}) </option>
                           @endforeach
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="lng_event">Longitude Lomba</label>
+                        <input type="text" name="lng_event"
+                        class="form-control"
+                        placeholder="Isi lokasi longitude lomba"
+                        value="{{ $event->lng_event }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="lat_event">Latitude Lomba</label>
+                        <input type="text" name="lat_event"
+                        class="form-control"
+                        placeholder="Isi lokasi latitude lomba"
+                        value="{{ $event->lat_event }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="address_event">Latitude Lomba</label>
+                        <input type="text" name="address_event"
+                        class="form-control"
+                        placeholder="Isi alamat lomba"
+                        value="{{ $event->address_event }}">
                     </div>
                     <div class="form-group">
                         <label for="">Harga Pendaftaran Lomba</label>

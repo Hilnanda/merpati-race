@@ -487,9 +487,13 @@ class EventController extends Controller
                 return ($miles * 1.609344);
             } else if ($unit == "N") {
                 return ($miles * 0.8684);
-            } else {
+            } else { // $unit == "M"
                 return $miles;
             }
         }
+
+        // echo distance(32.9697, -96.80322, 29.46786, -98.53506, "M") . " Miles<br>";
+        // echo distance(32.9697, -96.80322, 29.46786, -98.53506, "K") . " Kilometers<br>";
+        // echo distance(32.9697, -96.80322, 29.46786, -98.53506, "N") . " Nautical Miles<br>";
     }
 }

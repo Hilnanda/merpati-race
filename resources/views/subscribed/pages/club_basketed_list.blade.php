@@ -85,6 +85,10 @@
                                 <label for="id_event">ID Event</label>
                                 <input type="text" name="id_event" class="form-control" value="{{$event->id}}" required>
                             </div>
+                            <div class="form-group" hidden>
+                                <label for="tanggal_hardware">Tanggal Hardware</label>
+                                <input type="text" name="tanggal_hardware" class="form-control" value="{{$event->due_join_date_event}}" required>
+                            </div>
                             <div class="form-group">
                                 <label for="uid"><h5>UID Hardware</h5></label>
                                 <input type="text" name="uid_hardware" class="form-control mb-1" placeholder="UID Hardware" value="{{ $hardware_inkorf ? $hardware_inkorf->uid_hardware : ''}}" required>

@@ -12,8 +12,10 @@ use App\Events;
 use App\EventParticipants;
 use App\EventResults;
 use App\EventHotspot;
+use App\ClubMember;
 use App\Hardware;
 use Carbon\Carbon;
+use DateTime;
 
 class HardwareController extends Controller
 {
@@ -36,15 +38,11 @@ class HardwareController extends Controller
         if ($hardware->label_hardware == 'admin') {
             return $this->pigeon_add_data($request);
 
-        } else if ($hardware->label_hardware && $hardware->label_hardware == 'inkorf') {
+        } else if ($hardware->label_hardware && $hardware->label_hardware == 'inkorf' && (strtotime(date("Y-m-d h:i:sa")) > strtotime($hardware->tanggal_hardware))) {
             return $this->prosesInkorf($request);
 
         } else {
-            if ($request->input('uid_pigeon') != '' && doubleval($request->input('lat')) != 0) {
-                return 'store pigeon to results';
-            } else if ($request->input('uid_pigeon') == '' && doubleval($request->input('lat')) != 0) {
-                return 'update user location';
-            }
+            return $this->publicRaceFinish($request);
         }
     }
 
@@ -110,6 +108,7 @@ class HardwareController extends Controller
     {
         $input = $request->all();
 
+        // is hardware exist?
         if (!$hardware = Hardware::where('uid_hardware', $input['uid_hardware'])
             ->where('label_hardware', 'inkorf')
             ->first()) {
@@ -121,6 +120,7 @@ class HardwareController extends Controller
             );
         }
 
+        // is event exist?
         if (!$event = Events::where('id', $hardware->id_event)
             ->whereDate('due_join_date_event', '>=', Carbon::now())
             ->first()) {
@@ -132,11 +132,22 @@ class HardwareController extends Controller
             );
         }
 
+        // is pigeon exist?
         if (!$pigeon = Pigeons::where('uid_pigeon', $input['uid_pigeon'])->first()) {
             return response()->json(
                 array(
                     'code' => 404,
                     'message' => 'Pigeon tidak ditemukan'
+                )
+            );
+        }
+
+        // is pigeon club member?
+        if (!$pigeon_member = ClubMember::where('id_club', $event->id_club)->where('id_pigeon', $pigeon->id)->first()) {
+            return response()->json(
+                array(
+                    'code' => 404,
+                    'message' => 'Pigeon selain anggota club tidak bisa join lomba'
                 )
             );
         }
@@ -170,7 +181,85 @@ class HardwareController extends Controller
     {
         $input = $request->all();
 
-        
+        // is hardware exist?
+        if (!$hardware = Hardware::where('uid_hardware', $input['uid_hardware'])
+            ->where('label_hardware', 'inkorf')
+            ->first()) {
+            return response()->json(
+                array(
+                    'code' => 404,
+                    'message' => 'Hardware tidak terdaftar pada Lomba Inkorf'
+                )
+            );
+        }
+
+        // is event exist?
+        if (!$event = Events::where('id', $hardware->id_event)
+            ->whereDate('due_join_date_event', '<', Carbon::now())
+            ->with('event_hotspot')
+            ->first()) {
+            return response()->json(
+                array(
+                    'code' => 404,
+                    'message' => 'Lomba dengan status terbang tidak ditemukan'
+                )
+            );
+        }
+
+        // is pigeon exist?
+        if (!$pigeon = Pigeons::where('uid_pigeon', $input['uid_pigeon'])->first()) {
+            return response()->json(
+                array(
+                    'code' => 404,
+                    'message' => 'Pigeon tidak ditemukan'
+                )
+            );
+        }
+
+        // is pigeon participant?
+        if (!$participant = EventParticipants::where('id_club', $event->id_club)->where('id_pigeon', $pigeon->id)->orderBy('id', 'desc')->first()) {
+            return response()->json(
+                array(
+                    'code' => 404,
+                    'message' => 'Pigeon tidak terdaftar sebagai peserta lomba'
+                )
+            );
+        }
+
+        // FINISH PROCESS
+
+        // get result
+        $result = EventResults::where('id_event_participant', $participant->id)->first();
+
+        // location validation
+        $distance = $this->distance($event->lat_event, $event->lng_event, $input['lat'], $input['long'], 'K') * 1000;
+        if ($distance > 100) {
+            return response()->json(
+                array(
+                    'code' => 404,
+                    'message' => 'Pigeon tidak berada dalam lokasi finish yang tepat'
+                )
+            );
+        }
+
+        // get time arrived
+        $merged_time = $input['tahun'] . '/' . $input['bulan'] . '/' . $input['tgl'] . ' ' . $input['jam'] . ':' . $input['menit'] . ':' . $input['detik'];
+        $arrived_at_datetime = DateTime::createFromFormat("Y/m/d H:i:s", $merged_time);
+        $arrived_at = $arrived_at_datetime->getTimestamp();
+
+        // get duration of flight
+        $duration = strtotime(date($arrived_at)) - strtotime($event->event_hotspot[0]->release_time_event);
+
+        // count speed of finished pigeon
+        $speed_event_result = $distance / ($duration / 60);
+
+        $data_result = [
+            'speed_event_result' => $speed_event_result
+        ];
+
+        $result->update($data_result);
+
+        return response()->json(EventResults::find($result->id));
     }
 
     /**
@@ -217,4 +306,42 @@ class HardwareController extends Controller
     {
         //
     }
+
+    /**
+     * Count the distance from long lat.
+     *
+     * @param  double  $lat1
+     * @param  double  $lon1
+     * @param  double  $lat2
+     * @param  double  $lon2
+     * @param  string  $unit
+     * @return \Illuminate\Http\Response
+     */
+    public function distance($lat1, $lon1, $lat2, $lon2, $unit) {
+        if (($lat1 == $lat2) && ($lon1 == $lon2)) {
+            return 0;
+        }
+        else {
+            $theta = $lon1 - $lon2;
+            $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+            $dist = acos($dist);
+            $dist = rad2deg($dist);
+            $miles = $dist * 60 * 1.1515;
+            $unit = strtoupper($unit);
+
+            if ($unit == "K") {
+                return ($miles * 1.609344);
+            } else if ($unit == "N") {
+                return ($miles * 0.8684);
+            } else { // $unit == "M"
+                return $miles;
+            }
+        }
+
+        // echo distance(32.9697, -96.80322, 29.46786, -98.53506, "M") . " Miles<br>";
+        // echo distance(32.9697, -96.80322, 29.46786, -98.53506, "K") . " Kilometers<br>";
+        // echo distance(32.9697, -96.80322, 29.46786, -98.53506, "N") . " Nautical Miles<br>";
+    }
+
+
 }

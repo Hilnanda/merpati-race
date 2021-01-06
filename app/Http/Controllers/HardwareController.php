@@ -92,7 +92,8 @@ class HardwareController extends Controller
         $hardware->update([
                 // 'uid_hardware' => $input['uid_hardware'],
                 'id_event' => $input['id_event'],
-                'label_hardware' => $input['label_hardware']
+                'label_hardware' => $input['label_hardware'],
+                'tanggal_hardware' => $input['tanggal_hardware']
             ]);
 
         return back()->with('Sukses',"Berhasil set status api hardware inkorf!");
