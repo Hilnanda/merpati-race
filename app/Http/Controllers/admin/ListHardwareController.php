@@ -31,6 +31,10 @@ class ListHardwareController extends Controller
      */
     public function create(Request $request)
     {
+        if($request->id_user == 1){
+            $request['label_hardware'] = 'admin';
+        }
+        // dd($request->all());
         Hardware::create($request->all());
 
         return back()->with('Sukses','Berhasil menambahkan data!');
