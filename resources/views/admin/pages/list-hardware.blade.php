@@ -88,7 +88,7 @@
                                             {{-- <td>{{ $value->uid_pigeon }}</td>
                                             <td>{{ $value->longlat_hardware }}</td>
                                             <td>{{ $value->tanggal_hardware }}</td> --}}
-                                            <td>{{ $value->user->name ? $value->user->name : '-' }} ({{ $value->user->username ? $value->user->username : '-' }})</td>
+                                            <td>{{ $value->user ? ($value->user->name . '(' . $value->user->username . ')') : '-' }}</td>
                                             <td>{{ $value->label_hardware }}</td>
                                             <td>{{ $value->created_at }}</td>
                                             <td>

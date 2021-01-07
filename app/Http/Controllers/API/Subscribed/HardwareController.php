@@ -155,6 +155,7 @@ class HardwareController extends Controller
         $data_event = [
             'id_pigeon' => $pigeon->id,
             'id_event' => $event->id,
+            'current_id_club' => $pigeon_member->id_club,
             'is_core' => 1,
             'active_at' => now(),
         ];
@@ -183,18 +184,37 @@ class HardwareController extends Controller
 
         // is hardware exist?
         if (!$hardware = Hardware::where('uid_hardware', $input['uid_hardware'])
-            ->where('label_hardware', 'inkorf')
             ->first()) {
             return response()->json(
                 array(
                     'code' => 404,
-                    'message' => 'Hardware tidak terdaftar pada Lomba Inkorf'
+                    'message' => 'Hardware tidak terdaftar pada Lomba'
+                )
+            );
+        }
+
+        // is pigeon exist?
+        if (!$pigeon = Pigeons::where('uid_pigeon', $input['uid_pigeon'])->with('club_member')->first()) {
+            return response()->json(
+                array(
+                    'code' => 404,
+                    'message' => 'Pigeon tidak ditemukan'
+                )
+            );
+        }
+
+        // is pigeon participant?
+        if (!$participant = EventParticipants::where('current_id_club', $pigeon->club_member[0]->id_club)->where('id_pigeon', $pigeon->id)->orderBy('id', 'desc')->first()) {
+            return response()->json(
+                array(
+                    'code' => 404,
+                    'message' => 'Pigeon tidak terdaftar sebagai peserta lomba'
                 )
             );
         }
 
         // is event exist?
-        if (!$event = Events::where('id', $hardware->id_event)
+        if (!$event = Events::where('id', $participant->id_event)
             ->whereDate('due_join_date_event', '<', Carbon::now())
             ->with('event_hotspot')
             ->first()) {
@@ -206,22 +226,12 @@ class HardwareController extends Controller
             );
         }
 
-        // is pigeon exist?
-        if (!$pigeon = Pigeons::where('uid_pigeon', $input['uid_pigeon'])->first()) {
+        // get pigeon's fancier
+        if (!$user = User::find($pigeon->id_user)) {
             return response()->json(
                 array(
                     'code' => 404,
-                    'message' => 'Pigeon tidak ditemukan'
-                )
-            );
-        }
-
-        // is pigeon participant?
-        if (!$participant = EventParticipants::where('id_club', $event->id_club)->where('id_pigeon', $pigeon->id)->orderBy('id', 'desc')->first()) {
-            return response()->json(
-                array(
-                    'code' => 404,
-                    'message' => 'Pigeon tidak terdaftar sebagai peserta lomba'
+                    'message' => 'Pemilik pigeon tidak ditemukan'
                 )
             );
         }
@@ -232,8 +242,9 @@ class HardwareController extends Controller
         $result = EventResults::where('id_event_participant', $participant->id)->first();
 
         // location validation
-        $distance = $this->distance($event->lat_event, $event->lng_event, $input['lat'], $input['long'], 'K') * 1000;
-        if ($distance > 100) {
+        $current_loc_from_home = $this->distance($user->lat_loft, $user->lng_loft, $input['lat'], $input['long'], 'K') * 1000;
+
+        if ($current_loc_from_home > 100) { // tolerance = 100 meters
             return response()->json(
                 array(
                     'code' => 404,
@@ -242,13 +253,16 @@ class HardwareController extends Controller
             );
         }
 
+        // get distance
+        $distance = $this->distance($event->lat_event, $event->lng_event, $input['lat'], $input['long'], 'K') * 1000;
+
         // get time arrived
-        $merged_time = $input['tahun'] . '/' . $input['bulan'] . '/' . $input['tgl'] . ' ' . $input['jam'] . ':' . $input['menit'] . ':' . $input['detik'];
-        $arrived_at_datetime = DateTime::createFromFormat("Y/m/d H:i:s", $merged_time);
-        $arrived_at = $arrived_at_datetime->getTimestamp();
+        $merged_time = $input['tahun'] . '-' . $input['bulan'] . '-' . $input['tgl'] . ' ' . $input['jam'] . ':' . $input['menit'] . ':' . $input['detik'];
+        // $arrived_at_datetime = DateTime::createFromFormat("Y/m/d H:i:s", $merged_time);
+        // $arrived_at = $arrived_at_datetime->getTimestamp();
 
         // get duration of flight
-        $duration = strtotime(date($arrived_at)) - strtotime($event->event_hotspot[0]->release_time_event);
+        $duration = strtotime($merged_time) - strtotime($event->event_hotspot[0]->release_time_hotspot);
 
         // count speed of finished pigeon
         $speed_event_result = $distance / ($duration / 60);
