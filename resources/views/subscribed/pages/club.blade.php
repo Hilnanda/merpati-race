@@ -350,7 +350,7 @@
                         @endforeach 
                         <td>Rp {{ number_format($event->price_event, 2) }}</td>
                         <td>{{ $event ? str_replace('T', ' ', date('d F Y  H:i:s', strtotime($event->due_join_date_event))) : '-' }}</td>
-                        <td style="color: {{ $event->color ? $event->color : '' }};">{{ $event ? $event->status : '-' }}</td>
+                        <td style="color: {{ $event->color ? $event->color : '' }};"><strong>{{ $event ? $event->status : '-' }}</strong></td>
                         {{-- <td>{{ $event->hotspot_length_event }}</td> --}}
                         <td class="action-link">
                             @if (Auth::user()->id == $event->club->manager_club)
@@ -360,7 +360,7 @@
                             </div>
                             @endif
                             <div style="display: inline-flex;">
-                                @if($event->status != 'Terbang' && $event->lng_event && $event->lat_event)
+                                @if($event->lng_event && $event->lat_event)
                                 <a href="/club/events/{{$event->id}}/1/basket" title="Proses Inkorf" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                                 @endif
                                 @if($event->status == 'Terbang')

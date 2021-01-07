@@ -20,7 +20,7 @@
         <hr>
         <div class="row mb-2">
             <div class="col-12">
-                @if (Auth::user()->id == $event->club->manager_club || $exist == 1 )
+                @if ((Auth::user()->id == $event->club->manager_club || $exist == 1) && $event->status != 'Terbang')
                 @if ($hardware_inkorf)
                 <h5>URL Inkorf {{$event->branch_event == 'Club' ? 'Public Race' : $event->branch_event}}</h5>
                 <p class="text-info">http://pigeontime.live/hardware?&lt;Parameter&gt;</p>
@@ -52,12 +52,13 @@
                     <tr>
                         <td>{{ $rank++ }}</td>
                         <td>
-                            <a href="" class="text-info">
+                            {{ $event_participant->pigeons->users->name }}
+                            <!-- <a href="" class="text-info">
                                 {{ $event_participant->pigeons->users->name }}
-                            </a>
+                            </a> -->
                         </td>
                         <td>
-                            <a href="" class="text-info">
+                            <a href="/pigeon/detail/{{$event_participant->pigeons->id_user}}/{{$event_participant->pigeons->id}}" class="text-info">
                                 {{ $event_participant->pigeons->uid_pigeon }}
                             </a>
                         </td>

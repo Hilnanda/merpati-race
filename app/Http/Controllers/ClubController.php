@@ -497,13 +497,24 @@ class ClubController extends Controller
             ->get();
 
         $unfinished_speed = null;
-        if (count($event_results) > 0) {
-            $distance = $event_results[0]->speed_event_result ? ($event_results[0]->speed_event_result) * ((strtotime($event_results[0]->updated_at) - strtotime($event->release_time_event)) / 60) : null;
 
-            $duration = strtotime(date("Y-m-d h:i:sa")) - strtotime($event->release_time_event);
+        foreach ($event_results as $event_result) {
+            if ($event_results[0] && $event_results[0]->speed_event_result) {
+                $event_result->distance = $event_results[0]->speed_event_result * ((strtotime($event_results[0]->updated_at) - strtotime($event->release_time_event)) / 60);
 
-            $unfinished_speed = $distance ? $distance / ($duration / 60) : null;
+                $event_result->duration = strtotime(date("Y-m-d h:i:sa")) - strtotime($event->release_time_event);
+
+                $event_result->unfinished_speed = $event_result->distance ? $event_result->distance / ($event_result->duration / 60) : null;
+            }
         }
+
+        // if (count($event_results) > 0) {
+        //     $distance = $event_results[0]->speed_event_result ? ($event_results[0]->speed_event_result) * ((strtotime($event_results[0]->updated_at) - strtotime($event->release_time_event)) / 60) : null;
+
+        //     $duration = strtotime(date("Y-m-d h:i:sa")) - strtotime($event->release_time_event);
+
+        //     $unfinished_speed = $distance ? $distance / ($duration / 60) : null;
+        // }
 
         $arrived_pigeons = [];
 
@@ -518,7 +529,7 @@ class ClubController extends Controller
         }
 
         return view('subscribed.pages.club_live_results',
-            compact('users','event','event_results','pigeons','current_datetime','hotspot', 'id_hotspot','unfinished_speed','arrived_pigeons')
+            compact('users','event','event_results','pigeons','current_datetime','hotspot', 'id_hotspot','arrived_pigeons')
         );
     }
 
