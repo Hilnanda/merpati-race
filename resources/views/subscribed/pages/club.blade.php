@@ -618,7 +618,7 @@
                         value="{{ $event->lat_event }}">
                     </div>
                     <div class="form-group">
-                        <label for="address_event">Latitude Lomba</label>
+                        <label for="address_event">Alamat Lomba</label>
                         <input type="text" name="address_event"
                         class="form-control"
                         placeholder="Isi alamat lomba"

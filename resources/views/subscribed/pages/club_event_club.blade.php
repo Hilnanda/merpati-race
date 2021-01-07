@@ -117,7 +117,7 @@
                                             <td>{{ $item->pigeons->color_pigeon }}</td>
                                             <td>{{ date('d F Y  H:i:s', strtotime($item->created_at)) }}</td>
                                             <td class="action-link">
-                                            <a href="/pigeons/detail/{{$item->id_pigeon}}" title="Details" class="mx-1"><i class="fa fa-list-alt"
+                                            <a href="/pigeon/detail/{{$item->pigeons->id_user}}/{{$item->id_pigeon}}" title="Details" class="mx-1"><i class="fa fa-list-alt"
                                                         aria-hidden="true"></i></a>
                                             </td>
                                         </tr>

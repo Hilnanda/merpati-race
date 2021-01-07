@@ -38,7 +38,7 @@ class HardwareController extends Controller
         if ($hardware->label_hardware == 'admin') {
             return $this->pigeon_add_data($request);
 
-        } else if ($hardware->label_hardware && $hardware->label_hardware == 'inkorf' && (strtotime(date("Y-m-d h:i:sa")) > strtotime($hardware->tanggal_hardware))) {
+        } else if ($hardware->label_hardware && $hardware->label_hardware == 'inkorf' && (strtotime(date("Y-m-d h:i:sa")) <= strtotime($hardware->tanggal_hardware))) {
             return $this->prosesInkorf($request);
 
         } else {
