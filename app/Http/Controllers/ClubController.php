@@ -434,8 +434,10 @@ class ClubController extends Controller
 
         $hardware_inkorf = Hardware::where('id_event', $id)->where('label_hardware', 'inkorf')->first();
 
+        $hardwares = Hardware::where('id_user', auth()->user()->id)->get();
+
         return view('subscribed.pages.club_basketed_list',
-            compact('users','current_datetime','event','event_participants','hotspot','exist','hardware_inkorf')
+            compact('users','current_datetime','event','event_participants','hotspot','exist','hardware_inkorf', 'hardwares')
         );
     }
 

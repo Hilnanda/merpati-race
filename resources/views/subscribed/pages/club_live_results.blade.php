@@ -33,15 +33,23 @@ Hasil {{$event->branch_event == 'Club' ? 'Public Race' : $event->branch_event}}
                 <img style="width: 220px" src="{{ asset('image/'.$event->logo_event.'') }}">
             </div>
             <div class="col-10">
-                <p>Jenis lomba : <b style="color: red">{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</b></p>
-                <p>Kategori lomba : <b style="color: red">Lomba {{ $event->category_event }}</b></p>
+                <p>Jenis lomba : <b style="color: red">{{ $event->lat_event_end ? 'One Loft Race' : 'Public Race' }}</b></p>
+                <!-- <p>Kategori lomba : <b style="color: red">Lomba {{ $event->category_event }}</b></p> -->
                 <p>Info lomba : <b style="color: red">{{ $event->info_event }}</b></p>
                 <p>Posisi mulai lomba : <b style="color: red">{{ $event->lat_event ? $event->lat_event . ', ' . $event->lng_event : '-' }}</b></p>
-                <p>Posisi selesai lomba : <b style="color: red">{{ $event->lat_event ? $event->lat_event_end . ', ' . $event->lng_event_end : '-' }}</b></p>
+                <!-- <p>Posisi selesai lomba : <b style="color: red">{{ $event->lat_event ? $event->lat_event_end . ', ' . $event->lng_event_end : '-' }}</b></p> -->
                 <p>Jadwal mulai : <b style="color: red">{{ \Carbon\Carbon::parse($event->release_time_event)->format('j F Y') }}</b></p>
                 <p>Pigeon di basket : <b style="color: red">{{ count($event_results) }}</b></p>
                 <p>Pigeon sudah datang : <b style="color: red">{{ count($arrived_pigeons) }}</b></p>
                 <p>Pigeon belum datang : <b style="color: red">{{ count($event_results) - count($arrived_pigeons) }}</b></p>
+            </div>
+            
+        </div>
+        <div class="row my-2">
+            <div class="col-12">
+                <h5>URL Finish {{$event->branch_event == 'Club' ? 'Public Race' : $event->branch_event}}</h5>
+                <p class="text-info">http://pigeontime.live/api/subscribed/v1/hardware?&lt;Parameter&gt;</p>
+                <p>contoh:<br>http://pigeontime.live/api/subscribed/v1/hardware?uid_hardware=ard123&uid_pigeon=BR0003&long=112.7109348&lat=-7.9375901&tgl=7&bulan=1&tahun=2021&jam=21&menit=25&detik=21</p>
             </div>
         </div>
         @if($event->hotspot_length_event > 1)

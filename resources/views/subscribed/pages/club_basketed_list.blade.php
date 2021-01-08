@@ -23,8 +23,8 @@
                 @if ((Auth::user()->id == $event->club->manager_club || $exist == 1) && $event->status != 'Terbang')
                 @if ($hardware_inkorf)
                 <h5>URL Inkorf {{$event->branch_event == 'Club' ? 'Public Race' : $event->branch_event}}</h5>
-                <p class="text-info">http://pigeontime.live/hardware?&lt;Parameter&gt;</p>
-                <p>contoh:<br>http://pigeontime.live/hardware?uid_hardware={{$hardware_inkorf->uid_hardware}}&uid_pigeon=BR0002</p>
+                <p class="text-info">http://pigeontime.live/api/subscribed/v1/hardware?&lt;Parameter&gt;</p>
+                <p>contoh:<br>http://pigeontime.live/api/subscribed/v1/hardware?uid_hardware={{$hardware_inkorf->uid_hardware}}&uid_pigeon=BR0002</p>
                 @endif
                 <a href="#" title="Set UID Hardware" class="btn musica-btn btn-primary" data-toggle="modal" data-target="#setInkorf">Set UID Hardware</a>
                 @endif
@@ -91,9 +91,18 @@
                                 <input type="text" name="tanggal_hardware" class="form-control" value="{{$event->due_join_date_event}}" required>
                             </div>
                             <div class="form-group">
-                                <label for="uid"><h5>UID Hardware</h5></label>
-                                <input type="text" name="uid_hardware" class="form-control mb-1" placeholder="UID Hardware" value="{{ $hardware_inkorf ? $hardware_inkorf->uid_hardware : ''}}" required>
-                                <input hidden type="text" name="label_hardware" class="form-control mb-1" value="inkorf" required>
+                                <label for="uid_hardware">UID Hardware</label>
+                                <select name="uid_hardware" class="form-control" required>
+                                    <option value="" selected disabled>-- Pilih UID Hardware --</option>
+                                    @foreach ($hardwares as $hardware)
+                                    <option value="{{ $hardware->uid_hardware }}" {{ $hardware_inkorf && $hardware_inkorf->uid_hardware == $hardware->uid_hardware ? 'selected' : ''}}>
+                                        {{ $hardware->uid_hardware }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group" hidden>
+                                <input type="text" name="label_hardware" class="form-control mb-1" value="inkorf" required>
                             </div>
                         </div>
                         <div class="modal-footer">

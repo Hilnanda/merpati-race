@@ -87,14 +87,22 @@ class HardwareController extends Controller
     {
         $input = $request->all();
 
+        $hardware_before = Hardware::where('id_event', $input['id_event']);
+
+        $hardware_before->update([
+            'id_event' => null,
+            'label_hardware' => null,
+            'tanggal_hardware' => null
+        ]);
+
         $hardware = Hardware::where('uid_hardware', $input['uid_hardware']);
 
         $hardware->update([
-                // 'uid_hardware' => $input['uid_hardware'],
-                'id_event' => $input['id_event'],
-                'label_hardware' => $input['label_hardware'],
-                'tanggal_hardware' => $input['tanggal_hardware']
-            ]);
+            // 'uid_hardware' => $input['uid_hardware'],
+            'id_event' => $input['id_event'],
+            'label_hardware' => $input['label_hardware'],
+            'tanggal_hardware' => $input['tanggal_hardware']
+        ]);
 
         return back()->with('Sukses',"Berhasil set status api hardware inkorf!");
     }
