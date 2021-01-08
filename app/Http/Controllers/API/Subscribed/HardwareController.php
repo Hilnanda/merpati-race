@@ -14,6 +14,7 @@ use App\EventResults;
 use App\EventHotspot;
 use App\ClubMember;
 use App\Hardware;
+use App\Staging;
 use Carbon\Carbon;
 use DateTime;
 
@@ -26,6 +27,7 @@ class HardwareController extends Controller
      */
     public function index(Request $request)
     {
+        $this->add_staging($request);
         if (!$hardware = Hardware::where('uid_hardware', $request->input('uid_hardware'))->first()) {
             return response()->json(
                 array(
@@ -46,6 +48,17 @@ class HardwareController extends Controller
         }
     }
 
+    public function add_staging(Request $request)
+    {
+        $data['uid_hardware'] = $request->get('uid_hardware');
+        $data['uid_pigeon'] = $request->get('uid_pigeon');
+        $data['tanggal_hardware'] = $request->get('tahun'). '-'.$request->get('bulan'). '-'.$request->get('tgl'). ' '.$request->get('jam'). ':'.$request->get('menit'). ':'.$request->get('detik');
+        $data['latlong_hardware'] = $request->get('lat').' , '.$request->get('long');
+
+        Staging::create($data);
+
+        // return response()->json($data);
+    }
     /**
      * Store pigeon to database.
      *

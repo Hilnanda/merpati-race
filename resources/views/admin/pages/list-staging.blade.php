@@ -7,7 +7,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Data Hardware
+                Data Staging
                 {{-- <small>advanced tables</small> --}}
             </h1>
 
@@ -24,7 +24,7 @@
                         <div class="box-header">
                             {{-- <h3 class="box-title">Data Table With Full Features</h3><br>
                             --}}
-                            <a href="#tambah_jenisstandar" class="btn btn-info" data-toggle="modal"
+                            {{-- <a href="#tambah_jenisstandar" class="btn btn-info" data-toggle="modal"
                                 data-target="#tambah_jenisstandar">Tambah Data</a>
                             <div class="modal fade" id="tambah_jenisstandar" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -64,7 +64,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -72,36 +72,36 @@
                                 <thead>
                                     <th>No.</th>
                                     <th>UID Hardware</th>
-                                    {{-- <th>UID Pigeon</th>
-                                    <th>Long Lat</th>
-                                    <th>Tanggal</th> --}}
-                                    <th>Pemilik Hardware</th>
+                                    <th>UID Pigeon</th>
+                                    <th>Lat Long </th>
+                                    <th>Tanggal</th>
+                                    {{-- <th>Pemilik Hardware</th>
                                     <th>Label Hardware</th>
-                                    <th>Tanggal Kepemilikan</th>
+                                    <th>Tanggal Kepemilikan</th> --}}
                                     <th>Aksi</th>
                                 </thead>
                                 <tbody>
-                                    @foreach ($hardware as $value)
+                                    @foreach ($staging as $value)
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
                                             <td>{{ $value->uid_hardware }}</td>
-                                            {{-- <td>{{ $value->uid_pigeon }}</td>
-                                            <td>{{ $value->longlat_hardware }}</td>
-                                            <td>{{ $value->tanggal_hardware }}</td> --}}
-                                            <td>{{ $value->user ? ($value->user->name . '(' . $value->user->username . ')') : '-' }}</td>
+                                            <td>{{ $value->uid_pigeon }}</td>
+                                            <td>{{ $value->latlong_hardware }}</td>
+                                            <td>{{ date('d F Y  H:i:s', strtotime($value->tanggal_hardware)) }}</td>
+                                            {{-- <td>{{ $value->user ? ($value->user->name . '(' . $value->user->username . ')') : '-' }}</td>
                                             <td>{{ $value->label_hardware }}</td>
-                                            <td>{{ date('d F Y  H:i:s', strtotime($value->created_at))  }}</td>
+                                            <td>{{ $value->created_at }}</td> --}}
                                             <td>
-                                                    <a href="#editModal{{ $value->id }}" class="btn btn-warning btn-sm"
+                                                    {{-- <a href="#editModal{{ $value->id }}" class="btn btn-warning btn-sm"
                                                         data-toggle="modal" data-target="#editModal{{ $value->id }}"><span
-                                                            class="font-weight-bold ml-1">Edit</span></a>
-                                                    <a href="/admin/hardware/delete/{{ $value->id }}"
+                                                            class="font-weight-bold ml-1">Edit</span></a> --}}
+                                                    <a href="/admin/staging/delete/{{ $value->id }}"
                                                         class="btn btn-danger btn-sm delete-club"><span
                                                             class="font-weight-bold ml-1">Hapus</span></a>
                                                 
                                             </td>
 
-                                            <div class="modal fade" id="editModal{{ $value->id }}" tabindex="-1"
+                                            {{-- <div class="modal fade" id="editModal{{ $value->id }}" tabindex="-1"
                                                 role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
@@ -144,7 +144,7 @@
                     </div>
                 </div>
             </div>
-    </div>
+    </div> --}}
     </tr>
     @endforeach
     </tbody>

@@ -41,6 +41,12 @@ Route::prefix('admin')
         Route::post('/hardware/edit', 'ListHardwareController@edit');
         Route::get('/hardware/delete/{id}', 'ListHardwareController@destroy');
 
+        //staging
+        Route::get('/list-staging', 'ListStagingController@index')->name('list-staging');
+        Route::post('/staging/create', 'ListStagingController@create');
+        Route::post('/staging/edit', 'ListStagingController@edit');
+        Route::get('/staging/delete/{id}', 'ListStagingController@destroy');
+
         //club
         Route::get('/list-club', 'ClubController@index')->name('list-club');
         Route::post('/club/create', 'ClubController@create');

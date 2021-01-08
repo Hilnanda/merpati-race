@@ -149,6 +149,11 @@
                             <i class="fa fa-hdd-o"></i> <span>Hardware</span>
                         </a>
                     </li>
+                    <li class="{{ (request()->is('admin/list-staging*')) ? 'active' : '' }}">
+                        <a href="{{ route('list-staging') }}">
+                            <i class="fa fa-list" aria-hidden="true"></i> <span>Staging</span>
+                        </a>
+                    </li>
                     {{-- <li class="{{ (request()->is('admin/list-team*')) ? 'active' : '' }}">
                         <a href="{{ route('list-team') }}">
                             <i class="fa fa-users"></i> <span>Team</span>
