@@ -419,7 +419,7 @@ class ClubController extends Controller
                 $event->status = 'Pendaftaran ditutup';
                 $event->color = '#EB0000';
             } else {
-                $event->status = 'Pendaftaran dibuka';
+                $event->status = 'Belum dimulai';
                 $event->color = '#000000';
             }
         }
@@ -502,7 +502,7 @@ class ClubController extends Controller
 
         foreach ($event_results as $event_result) {
             if ($event_result->speed_event_result) {
-                $event_result->duration = strtotime($event_result->updated_at) - strtotime($event->release_time_event);
+                $event_result->duration = strtotime($event_result->arrived_at) - strtotime($event->release_time_event);
 
                 $event_result->distance = $event_result->speed_event_result * $event_result->duration;
             } else {
