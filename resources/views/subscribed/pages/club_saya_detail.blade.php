@@ -148,6 +148,24 @@ Detail Club
                                             >
                                         {{-- </div> --}}
                                         <div class="form-group">
+                                            <label for="lng_event">Longitude Lomba</label>
+                                            <input type="text" name="lng_event"
+                                            class="form-control"
+                                            placeholder="Isi lokasi longitude lomba">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lat_event">Latitude Lomba</label>
+                                            <input type="text" name="lat_event"
+                                            class="form-control"
+                                            placeholder="Isi lokasi latitude lomba">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="address_event">Alamat Lomba</label>
+                                            <input type="text" name="address_event"
+                                            class="form-control"
+                                            placeholder="Isi alamat lomba">
+                                        </div>
+                                        <div class="form-group">
                                             <label for="">Waktu Mulai Lomba</label>
                                             <input type="datetime-local" step="1" id="release_time_event_add"
                                             name="release_time_event" class="form-control"
@@ -317,99 +335,170 @@ Detail Club
                                 <div class="row" style="margin-bottom: 20px">
                                     <div class="col-12">
                                         <h4>List Event Club </h4>
-                                        <div class="box-body">
-                                            <div class="row" style="margin-bottom: 20px">
-                                                <div class="col-12">
-                                                    <table id="example1" class="table table-bordered table-striped">
-                                                        <thead>
-                                                            <th>No.</th>
-                                                            <!-- <th>ID</th> -->
-                                                            <th>Nama</th>
-                                                            <th>Logo</th>
-                                                            <!-- <th>Jenis Lomba</th> -->
-                                                            <!-- <th>Kategori</th> -->
-                                                            <th>Info</th>
-                                                            <th>Negara</th>
-                                                            <th>Lokasi Mulai</th>
-                                                            <!-- <th>Lokasi Selesai</th> -->
-                                                            <th>Alamat</th>
-                                                            <th>Mulai</th>
-                                                            <!-- <th>Selesai</th> -->
-                                                            <th>Harga Pendaftaran</th>
-                                                            <th>Batas Pendaftaran</th>
-                                                            <th>Status</th>
-                                                            {{-- <th>Hotspot</th> --}}
-                                                            <th>Aksi</th>
-                                                        </thead>
-                                                        <tbody>
-                                                            @foreach ($events as $event)
-                                                            <tr>
-                                                                <td>{{ $loop->index + 1 }}</td>
-                                                                <!-- <td>{{ $event->id }}</td> -->
-                                                                <td><a href="/club/event-club/{{ $event->id }}" class="text-info">{{ $event->name_event }}</a></td>
-                                                                @php $path = Storage::url('image-logo/'.$event->logo_event); @endphp
-                                                                <td><a href="/club/event-club/{{ $event->id }}"><img src="{{ asset('image/'.$event->logo_event.'') }}" style="max-height: 80px; height: auto; width: auto;"></a></td>
-                                                                <!-- <td>{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</td> -->
-                                                                <!-- <td>{{ $event->category_event }}</td> -->
-                                                                <td>{{ $event->info_event }}</td>
-                                                                <td>{{ $event->country_event }}</td>
-                                                                <td>{{ $event->lat_event ? '(' . $event->lat_event . '), (' . $event->lng_event . ')' : '-' }}
-                                                                </td>
-                                                                <!-- <td>{{ $event->lat_event_end ? '(' . $event->lat_event_end . '), (' . $event->lng_event_end . ')' : '-' }} -->
-                                                                </td>
-                                                                <td>{{ $event->address_event ? $event->address_event : '-' }}</td>
-                                                                @foreach($event->event_hotspot as $hotspot)
-                                                                @if($hotspot->release_time_hotspot)
-                                                                <td>{{ $hotspot ? str_replace('T', ' ', date('d F Y  H:i:s', strtotime($hotspot->release_time_hotspot))) : '-' }}</td>
-                                                                <!-- <td>{{ $hotspot->expired_time_hotspot ? str_replace('T', ' ', date('d F Y  H:i:s', strtotime($hotspot->expired_time_hotspot))) : '-' }}</td> -->
-                                                                @break
+                                        <div class="box-body" style="overflow-x:auto;">
+                                            <table id="table_two" class="table table-bordered table-striped" >
+                                                <thead>
+                                                    <th>No.</th>
+                                                    <!-- <th>ID</th> -->
+                                                    <th>Nama</th>
+                                                    <th>Logo</th>
+                                                    <!-- <th>Jenis Lomba</th> -->
+                                                    <!-- <th>Kategori</th> -->
+                                                    <th>Info</th>
+                                                    <th>Negara</th>
+                                                    <th>Lokasi Mulai</th>
+                                                    <!-- <th>Lokasi Selesai</th> -->
+                                                    <th>Alamat</th>
+                                                    <th>Mulai</th>
+                                                    <!-- <th>Selesai</th> -->
+                                                    <th>Harga Pendaftaran</th>
+                                                    <th>Batas Pendaftaran</th>
+                                                    <th>Status</th>
+                                                    {{-- <th>Hotspot</th> --}}
+                                                    <th>Aksi</th>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($events as $event)
+                                                    <tr>
+                                                        <td>{{ $loop->index + 1 }}</td>
+                                                        <!-- <td>{{ $event->id }}</td> -->
+                                                        <td><a href="/club/event-club/{{ $event->id }}" class="text-info">{{ $event->name_event }}</a></td>
+                                                        @php $path = Storage::url('image-logo/'.$event->logo_event); @endphp
+                                                        <td><a href="/club/event-club/{{ $event->id }}"><img src="{{ asset('image/'.$event->logo_event.'') }}" style="max-height: 80px; height: auto; width: auto;"></a></td>
+                                                        <!-- <td>{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</td> -->
+                                                        <!-- <td>{{ $event->category_event }}</td> -->
+                                                        <td>{{ $event->info_event }}</td>
+                                                        <td>{{ $event->country_event }}</td>
+                                                        <td>{{ $event->lat_event ? '(' . $event->lat_event . '), (' . $event->lng_event . ')' : '-' }}
+                                                        </td>
+                                                        <!-- <td>{{ $event->lat_event_end ? '(' . $event->lat_event_end . '), (' . $event->lng_event_end . ')' : '-' }} -->
+                                                        </td>
+                                                        <td>{{ $event->address_event ? $event->address_event : '-' }}</td>
+                                                        @foreach($event->event_hotspot as $hotspot)
+                                                        @if($hotspot->release_time_hotspot)
+                                                        <td>{{ $hotspot ? str_replace('T', ' ', date('d F Y  H:i:s', strtotime($hotspot->release_time_hotspot))) : '-' }}</td>
+                                                        <!-- <td>{{ $hotspot->expired_time_hotspot ? str_replace('T', ' ', date('d F Y  H:i:s', strtotime($hotspot->expired_time_hotspot))) : '-' }}</td> -->
+                                                        @break
+                                                        @endif
+                                                        @endforeach 
+                                                        <td>Rp {{ number_format($event->price_event, 2) }}</td>
+                                                        <td>{{ $event ? str_replace('T', ' ', date('d F Y  H:i:s', strtotime($event->due_join_date_event))) : '-' }}</td>
+                                                        <td style="color: {{ $event->color ? $event->color : '' }};">
+                                                            <strong>{{ $event ? $event->status : '-' }}</strong>
+                                                            @if($event->status != 'Terbang')
+                                                            <br>
+                                                            <br>
+                                                            <a href="#" title="Mulai Lomba" data-toggle="modal" class="btn-sm btn-warning" data-target="#startRace{{ $event->id }}">Mulai</a>
+                                                            @endif
+                                                        </td>
+                                                        {{-- <td>{{ $event->hotspot_length_event }}</td> --}}
+                                                        <td class="action-link">
+                                                            @if (Auth::user()->id == $event->club->manager_club)
+                                                            <div style="display: inline-flex;">
+                                                                <a href="#" title="Edit" data-toggle="modal" class="text-danger mx-1" data-target="#editModal{{ $event->id }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                                <a href="#" title="Hapus" data-toggle="modal" class="text-danger mx-1" data-target="#deleteModal{{ $event->id }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                            </div>
+                                                            @endif
+                                                            <div style="display: inline-flex;">
+                                                                @if($event->lng_event && $event->lat_event)
+                                                                <a href="/club/events/{{$event->id}}/1/basket" title="Proses Inkorf" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                                                                 @endif
-                                                                @endforeach 
-                                                                <td>Rp {{ number_format($event->price_event, 2) }}</td>
-                                                                <td>{{ $event ? str_replace('T', ' ', date('d F Y  H:i:s', strtotime($event->due_join_date_event))) : '-' }}</td>
-                                                                <td style="color: {{ $event->color ? $event->color : '' }};">{{ $event ? $event->status : '-' }}</td>
-                                                                {{-- <td>{{ $event->hotspot_length_event }}</td> --}}
-                                                                <td class="action-link">
-                                                                    @if (Auth::user()->id == $clubs->manager_club || $exist == 1)
-                                                                    <div style="display: inline-flex;">
-                                                                        <a href="#" title="Edit" data-toggle="modal" class="text-danger mx-1" data-target="#editModal{{ $event->id }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                                                        <a href="#" title="Hapus" data-toggle="modal" class="text-danger mx-1" data-target="#deleteModal{{ $event->id }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                                @if($event->status == 'Terbang')
+                                                                <a href="/club/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+                                                                @endif
+                                                                <!-- <a href="#" title="Set Titik Lokasi" class="mx-1" data-toggle="modal" data-target="#setPoint{{$event->id}}">
+                                                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                                                </a> -->
+                                                            </div>
+                                                        </td>
+                                                        <!-- Modal Set Point -->
+                                                        <div class="modal fade" id="setPoint{{$event->id}}" tabindex="-1" role="dialog"
+                                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title" id="exampleModalLabel">Set Titik Lokasi Lomba</h4>
                                                                     </div>
-                                                                    @endif
-                                                                    <div style="display: inline-flex;">
-                                                                        <a href="/club/events/{{$event->id}}/1/basket" title="Proses Inkorf" class="mx-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                                                        <a href="/club/events/{{$event->id}}/1/live-result" title="Hasil Lomba" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
-                                                                        <a href="#" title="Set Titik Lokasi" class="mx-1" data-toggle="modal" data-target="#setPoint{{$event->id}}">
-                                                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                                                        </a>
-                                                                    </div>
-                                                                </td>
-                                                                <!-- Modal Set Point -->
-                                                                <div class="modal fade" id="setPoint{{$event->id}}" tabindex="-1" role="dialog"
-                                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                    <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h4 class="modal-title" id="exampleModalLabel">Set Titik Lokasi Lomba</h4>
-                                                                            </div>
-                                                                            <form action="">
-                                                                                <div class="modal-body">
-                                                                                    <h5>URL Titik Lokasi Mulai</h5>
-                                                                                    <p class="text-info">http://pigeontime.live/event-start/{{$event->id}}/&lt;latitude&gt;/&lt;longitude&gt;</p>
-                                                                                    <p>contoh:<br>http://pigeontime.live/event-start/{{$event->id}}/-7.893274649955687/112.67354622885584</p>
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <div class="form-group d-flex justify-content-end">
-                                                                                        <button class="btn musica-btn btn-2" type="button"
-                                                                                        data-dismiss="modal">Cancel</button>
-                                                                                        <input type="submit" value="Selesai" class="btn musica-btn">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </form>
+                                                                    <form action="">
+                                                                        <div class="modal-body">
+                                                                            <h5>URL Titik Lokasi Mulai</h5>
+                                                                            <p class="text-info">http://pigeontime.live/event-start/{{$event->id}}/&lt;latitude&gt;/&lt;longitude&gt;</p>
+                                                                            <p>contoh:<br>http://pigeontime.live/event-start/{{$event->id}}/-7.893274649955687/112.67354622885584</p>
                                                                         </div>
-                                                                    </div>
+                                                                        <div class="modal-footer">
+                                                                            <div class="form-group d-flex justify-content-end">
+                                                                                <button class="btn musica-btn btn-2" type="button"
+                                                                                data-dismiss="modal">Cancel</button>
+                                                                                <input type="submit" value="Selesai" class="btn musica-btn">
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
                                                                 </div>
-                                                                <!-- End Modal Set Point -->
+                                                            </div>
+                                                        </div>
+                                                        <!-- End Modal Set Point -->
+
+                                                        <!-- Modal Start Race -->
+                                                        <div class="modal fade" id="startRace{{$event->id}}" tabindex="-1" role="dialog"
+                                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title" id="exampleModalLabel">Set Mulai Lomba</h4>
+                                                                    </div>
+                                                                    <form action="">
+                                                                        <div class="modal-body">
+                                                                            <div class="form-group d-flex justify-content-between">
+                                                                                <a href="/club/event/close-join/{{$event->id}}" title="Tutup pendaftaran sekarang" class="btn musica-btn">Tutup Pendaftaran</a>
+                                                                                <a href="/club/event/start-now/{{$event->id}}/{{$event->event_hotspot[0]->id}}" title="Mulai lomba sekarang" class="btn musica-btn btn-primary">Mulai Sekarang</a>
+                                                                                <a href="#" title="Atur kembali jadwal mulai" data-toggle="modal" class="btn musica-btn btn-2" data-dismiss="modal" data-target="#startLater{{ $event->id }}">Atur Jadwal</a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <div class="form-group d-flex justify-content-end">
+                                                                                <button class="btn musica-btn btn-2" type="button"
+                                                                                data-dismiss="modal">Cancel</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End Modal Start Race -->
+
+                                                        <!-- Modal Start Later -->
+                                                        <div class="modal fade" id="startLater{{$event->id}}" tabindex="-1" role="dialog"
+                                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title" id="exampleModalLabel">Set Mulai Lomba</h4>
+                                                                    </div>
+                                                                    <form action="/club/event/set-release/{{$event->event_hotspot[0]->id}}" method="POST">
+                                                                        <div class="modal-body">
+                                                                            {{ csrf_field() }}
+                                                                            <div class="form-group">
+                                                                                <label for="">Waktu Mulai Lomba</label>
+                                                                                <input type="datetime-local" step="1"
+                                                                                id="release_time_hotspot_update"
+                                                                                name="release_time_hotspot"
+                                                                                class="form-control"
+                                                                                placeholder="Isi waktu mulai lomba"
+                                                                                value="{{ $event->release_time_event }}">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <div class="form-group d-flex justify-content-end">
+                                                                                <button class="btn musica-btn btn-2" type="button"
+                                                                                data-dismiss="modal">Cancel</button>
+                                                                                <input type="submit" value="Simpan" class="btn musica-btn btn-primary">
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End Modal Start Later -->
 
                                                                 <!-- Hotspot Modal -->
                                                                 <div class="modal fade" id="hotspotModal{{ $event->id }}" tabindex="-1"
