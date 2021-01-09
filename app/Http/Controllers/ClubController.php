@@ -130,7 +130,7 @@ class ClubController extends Controller
         ->get();
         // dd($club_id);
         
-        $club_ikut = ClubMember::
+        $club_ikut = ClubMember::selectRaw('club_members.id_club, club_members.id_user, club_members.is_active')
         // ->select('clubs.*','users.*','pigeons.*','clubs.id_user as operator_id')
         // ->join('club_members','club_members.id_club','=','clubs.id')
         // ->join('pigeons','club_members.id_pigeon','=','pigeons.id')
@@ -138,7 +138,8 @@ class ClubController extends Controller
         // whereHas('pigeon', function($q){
         //     $q->where('id_user', auth()->user()->id);
         //  })
-        where('id_user', auth()->user()->id)
+        ->where('id_user', auth()->user()->id)
+        ->groupBy('id_club','id_user','is_active')
         // ->where('is_active', 1)
         ->get();
     //    dd($club_ikut);

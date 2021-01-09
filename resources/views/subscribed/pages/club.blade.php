@@ -80,12 +80,12 @@
                             <div class="form-group">
                                 <input type="hidden" name="id" value="{{ $auth }}">
                                 <label for="">Lattitude</label>
-                                <input type="text" name="lat_loft" class="form-control">
+                                <input type="text" name="lat_loft" class="form-control" value="{{ $id_user->lat_loft }}">
                                 
                             </div>
                             <div class="form-group">
                                 <label for="">Longtitude</label>
-                                <input type="text" name="lng_loft" class="form-control">
+                                <input type="text" name="lng_loft" class="form-control" value="{{ $id_user->lng_loft }}">
                                 
                             </div>
 

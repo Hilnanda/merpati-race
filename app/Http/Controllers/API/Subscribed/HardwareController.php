@@ -67,6 +67,7 @@ class HardwareController extends Controller
     public function pigeon_add_data(Request $request)
     {
         $data['uid_pigeon'] = $request->get('uid_pigeon');
+        $data['is_active'] = 1;
         try {
             Pigeons::create($data);
         } catch(\Illuminate\Database\QueryException $e){
