@@ -502,7 +502,7 @@ class ClubController extends Controller
 
         foreach ($event_results as $event_result) {
             if ($event_result->speed_event_result) {
-                $event_result->duration = strtotime($event_result->updated_at) - strtotime($event->release_time_event);
+                $event_result->duration = strtotime($event_result->arrived_at) - strtotime($event->release_time_event);
 
                 $event_result->distance = $event_result->speed_event_result * $event_result->duration;
             } else {

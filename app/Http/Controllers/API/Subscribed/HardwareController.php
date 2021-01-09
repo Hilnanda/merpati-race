@@ -245,7 +245,7 @@ class HardwareController extends Controller
 
         // is event exist?
         if (!$event = Events::where('id', $participant->id_event)
-            ->whereDate('due_join_date_event', '<', Carbon::now())
+            ->whereDate('due_join_date_event', '<', Carbon::now()->format('Y-m-d H:i:s'))
             ->with('event_hotspot')
             ->first()) {
             return response()->json(
@@ -298,7 +298,8 @@ class HardwareController extends Controller
         $speed_event_result = $distance / ($duration / 60);
 
         $data_result = [
-            'speed_event_result' => $speed_event_result
+            'speed_event_result' => $speed_event_result,
+            'arrived_at' => $merged_time
         ];
 
         $result->update($data_result);

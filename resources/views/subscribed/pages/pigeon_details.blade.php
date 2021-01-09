@@ -118,7 +118,7 @@
                                     <td>{{$data->branch_event}}</td>
                                     <td>{{$data->category_event}}</td>
                                     <td>{{$data->rank}}</td>
-                                    <td>{{$data->created_at}}</td>
+                                    <td>{{$data->arrived_at}}</td>
                                     {{-- <td>{{$data->event_results->orderBy('speed_event_result','desc')->first()->event_participants->pigeons->name_pigeon}}</td> --}}
                                 </tr>
                             @endforeach

@@ -93,7 +93,7 @@ Hasil {{$event->branch_event == 'Club' ? 'Public Race' : $event->branch_event}}
                             </a>
                         </td>
                         <td>{{ $event_result->event_participant->pigeons->name_pigeon }}</td>
-                        <td>{{ $event_result->speed_event_result ? $event_result->updated_at : '-' }}</td>
+                        <td>{{ $event_result->speed_event_result ? $event_result->arrived_at : '-' }}</td>
                         @if($event_results[0]->speed_event_result)
                         <td>
                             <a href="#" title="Detail" class="text-info" data-toggle="modal" data-target="#showDistance{{$rank-1}}" onclick="showMap(<?php echo $rank-1; ?>)">
