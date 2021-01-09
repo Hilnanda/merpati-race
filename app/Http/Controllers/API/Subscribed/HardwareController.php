@@ -67,8 +67,15 @@ class HardwareController extends Controller
     public function pigeon_add_data(Request $request)
     {
         $data['uid_pigeon'] = $request->get('uid_pigeon');
-     
-        Pigeons::create($data);
+        try {
+            Pigeons::create($data);
+        } catch(\Illuminate\Database\QueryException $e){
+            $errorCode = $e->errorInfo[1];
+            if($errorCode == '1062'){
+                return response()->json('Terdapat Data Ganda UID Pigeon');
+            }
+        }
+        
 
         return response()->json($data);
     }
