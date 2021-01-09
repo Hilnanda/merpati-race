@@ -111,13 +111,16 @@ Hasil {{$event->branch_event == 'Club' ? 'Public Race' : $event->branch_event}}
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title" id="exampleModalLabel">Jarak Perlombaan {{$rank-1}}</h4>
+                                    <h4 class="modal-title" id="exampleModalLabel">Map Pigeon {{$event_result->event_participant->pigeons->uid_pigeon}}</h4>
                                 </div>
                                 <div class="modal-body" style="height: 400px;">
                                     <div id="map{{$rank-1}}" style="width: 100%; height: 100%;"></div>
                                 </div>
-                                <div class="modal-footer text-left">
+                                <div class="modal-footer py-0">
                                     <h5>Jarak : {{ round($event_result->distance, 2) }} meter</h5>
+                                </div>
+                                <div class="modal-footer pt-0">
+                                    <h5>Waktu : {{ round($event_result->duration, 2) }} menit</h5>
                                 </div>
                             </div>
                         </div>

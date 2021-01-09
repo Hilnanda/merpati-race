@@ -285,6 +285,65 @@ class EventClubController extends Controller
         return back()->with('Sukses','Berhasil mengubah data!');
     }
 
+    /**
+     * Close join event date now.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function closeJoin($id) 
+    {
+        $event = Events::find($id);
+        $data['due_join_date_event'] = Carbon::now()->subSeconds(1);
+
+        $event->update($data);
+        
+        return back()->with('Sukses','Berhasil menutup pendaftaran!');
+    }
+
+    /**
+     * Start event now.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function startNow($id, $idHotspot) 
+    {
+        $event = Events::find($id);
+        $dataEvent['due_join_date_event'] = Carbon::now()->subSeconds(2);
+
+        $event->update($dataEvent);
+
+        $hotspot = EventHotspot::find($idHotspot);
+
+        $dataHostpot['release_time_hotspot'] = Carbon::now()->subSeconds(1);
+
+        $hotspot->update($dataHostpot);
+
+        return back()->with('Sukses','Berhasil memulai lomba!');
+    }
+
+    /**
+     * Update the release time hotspot.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function setReleaseTime(Request $request, $idHotspot) 
+    {
+        $hotspot = EventHotspot::find($idHotspot);
+        $data = $request->all();
+
+        $data['release_time_hotspot'] = str_replace("T", " ", $data['release_time_hotspot']);
+
+        $hotspot->update($data);
+
+        return back()->with('Sukses','Berhasil mengatur jadwal!');
+    }
+
     public function addHotspot(Request $request)
     {
         $data = $request->all();

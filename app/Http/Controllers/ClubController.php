@@ -59,7 +59,7 @@ class ClubController extends Controller
                 }
             }
             $event->due_join_date_event = $this->formatDateLocal($event->due_join_date_event);
-            if ($event->release_time_event <= $current_datetime) {
+            if (strtotime($event->release_time_event) <= strtotime($current_datetime)) {
                 $diff = strtotime($current_datetime) - strtotime($event->release_time_event);
                 $days = floor($diff / 86400);
                 $hours = floor($diff / 3600) % 24;
@@ -70,7 +70,7 @@ class ClubController extends Controller
                 $event->status = 'Terbang';
                 $event->color = '#32CD32';
             } else {
-                if ($event->due_join_date_event < $current_datetime) {
+                if (strtotime($event->due_join_date_event) < strtotime($current_datetime)) {
                     $diff = strtotime($event->release_time_event) - strtotime($current_datetime);
                     $days = floor($diff / 86400);
                     $hours = floor($diff / 3600) % 24;
@@ -147,7 +147,7 @@ class ClubController extends Controller
        $list_event = Events::all();
 
         return view('subscribed.pages.club',
-        compact('events','list_event','id_pigeon','id_user','users','club','data_medsos','data_footer','club_id','club_ikut','club_belum_ikut','clubku')
+        compact('events','list_event','id_pigeon','id_user','users','club','data_medsos','data_footer','club_id','club_ikut','club_belum_ikut','clubku','current_datetime')
         );
     }
 
@@ -498,11 +498,15 @@ class ClubController extends Controller
             ->orderBy('event_results.speed_event_result', 'desc')
             ->get();
 
-        $unfinished_speed = null;
+        // $unfinished_speed = null;
 
         foreach ($event_results as $event_result) {
-            if ($event_results[0] && $event_results[0]->speed_event_result) {
-                $event_result->distance = $event_results[0]->speed_event_result * ((strtotime($event_results[0]->updated_at) - strtotime($event->release_time_event)) / 60);
+            if ($event_result->speed_event_result) {
+                $event_result->duration = strtotime($event_result->updated_at) - strtotime($event->release_time_event);
+
+                $event_result->distance = $event_result->speed_event_result * $event_result->duration;
+            } else {
+                $event_result->distance = $this->distance($event->lat_event, $event->lng_event, $event_result->event_participant->pigeons->users->lat_loft, $event_result->event_participant->pigeons->users->lng_loft, 'K') * 1000;
 
                 $event_result->duration = strtotime(date("Y-m-d h:i:sa")) - strtotime($event->release_time_event);
 
@@ -526,9 +530,9 @@ class ClubController extends Controller
             }
         }
 
-        if (!$arrived_pigeons) {
-            $event_results = [];
-        }
+        // if (!$arrived_pigeons) {
+        //     $event_results = [];
+        // }
 
         return view('subscribed.pages.club_live_results',
             compact('users','event','event_results','pigeons','current_datetime','hotspot', 'id_hotspot','arrived_pigeons')

@@ -350,7 +350,14 @@
                         @endforeach 
                         <td>Rp {{ number_format($event->price_event, 2) }}</td>
                         <td>{{ $event ? str_replace('T', ' ', date('d F Y  H:i:s', strtotime($event->due_join_date_event))) : '-' }}</td>
-                        <td style="color: {{ $event->color ? $event->color : '' }};"><strong>{{ $event ? $event->status : '-' }}</strong></td>
+                        <td style="color: {{ $event->color ? $event->color : '' }};">
+                            <strong>{{ $event ? $event->status : '-' }}</strong>
+                            @if($event->status != 'Terbang')
+                            <br>
+                            <br>
+                            <a href="#" title="Mulai Lomba" data-toggle="modal" class="btn-sm btn-warning" data-target="#startRace{{ $event->id }}">Mulai</a>
+                            @endif
+                        </td>
                         {{-- <td>{{ $event->hotspot_length_event }}</td> --}}
                         <td class="action-link">
                             @if (Auth::user()->id == $event->club->manager_club)
@@ -397,6 +404,68 @@
                             </div>
                         </div>
                         <!-- End Modal Set Point -->
+
+                        <!-- Modal Start Race -->
+                        <div class="modal fade" id="startRace{{$event->id}}" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="exampleModalLabel">Set Mulai Lomba</h4>
+                                    </div>
+                                    <form action="">
+                                        <div class="modal-body">
+                                            <div class="form-group d-flex justify-content-between">
+                                                <a href="/club/event/close-join/{{$event->id}}" title="Tutup pendaftaran sekarang" class="btn musica-btn">Tutup Pendaftaran</a>
+                                                <a href="/club/event/start-now/{{$event->id}}/{{$event->event_hotspot[0]->id}}" title="Mulai lomba sekarang" class="btn musica-btn btn-primary">Mulai Sekarang</a>
+                                                <a href="#" title="Atur kembali jadwal mulai" data-toggle="modal" class="btn musica-btn btn-2" data-dismiss="modal" data-target="#startLater{{ $event->id }}">Atur Jadwal</a>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div class="form-group d-flex justify-content-end">
+                                                <button class="btn musica-btn btn-2" type="button"
+                                                data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Modal Start Race -->
+
+                        <!-- Modal Start Later -->
+                        <div class="modal fade" id="startLater{{$event->id}}" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="exampleModalLabel">Set Mulai Lomba</h4>
+                                    </div>
+                                    <form action="/club/event/set-release/{{$event->event_hotspot[0]->id}}" method="POST">
+                                        <div class="modal-body">
+                                            {{ csrf_field() }}
+                                            <div class="form-group">
+                                                <label for="">Waktu Mulai Lomba</label>
+                                                <input type="datetime-local" step="1"
+                                                id="release_time_hotspot_update"
+                                                name="release_time_hotspot"
+                                                class="form-control"
+                                                placeholder="Isi waktu mulai lomba"
+                                                value="{{ $event->release_time_event }}">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div class="form-group d-flex justify-content-end">
+                                                <button class="btn musica-btn btn-2" type="button"
+                                                data-dismiss="modal">Cancel</button>
+                                                <input type="submit" value="Simpan" class="btn musica-btn btn-primary">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Modal Start Later -->
 
                         <!-- Hotspot Modal -->
                         <div class="modal fade" id="hotspotModal{{ $event->id }}" tabindex="-1"

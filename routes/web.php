@@ -159,6 +159,9 @@ Route::middleware('is_subscribed')->group(function () {
     // Event Hotspot club   
     Route::post('/club/event/add-hotspot', 'EventClubController@addHotspot');
     Route::post('/club/event/update-hotspot', 'EventClubController@updateHotspot');
+    Route::post('/club/event/set-release/{idHotspot}', 'EventClubController@setReleaseTime');
+    Route::get('/club/event/close-join/{id}', 'EventClubController@closeJoin');
+    Route::get('/club/event/start-now/{id}/{idHotspot}', 'EventClubController@startNow');
     Route::get('/club/event/delete-hotspot/{id}/{id_event}', 'EventClubController@destroyHotspot');
 
     // Event list club
