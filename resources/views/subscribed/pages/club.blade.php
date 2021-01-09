@@ -19,6 +19,9 @@
         @if ($id_user->lat_loft == '' && $id_user->lng_loft == '')
         <a href="#edit_user" data-toggle="modal" data-target="#edit_user"><button type="button"
             class="btn musica-btn btn-primary mb-2"> Input Lokasi</button></a>
+        @else
+        <a href="#edit_user_lokasi" data-toggle="modal" data-target="#edit_user_lokasi"><button type="button"
+            class="btn musica-btn btn-success mb-2"> Edit Lokasi</button></a>
         @endif
         
             <div class="modal fade" id="edit_user" tabindex="-1" role="dialog"
@@ -34,11 +37,46 @@
                     <div class="modal-body">
                         <form action="/club/latlong" method="GET">
                             {{ csrf_field() }}
+                            
                             <div class="form-group">
-                                <b>Set Link Api</b><p>http://pigeontime.live/hardware?-parameter-</p> 
-                                    <b>contoh:</b>
-                                    http://pigeontime.live/api/admin/v1/hardware?uid_hardware=991&uid_pigeon=B123&long=878&lat=456456&tgl=12&bulan=4&tahun=2020&jam=4&menit=53&detik=21
+                                <input type="hidden" name="id" value="{{ $auth }}">
+                                <label for="">Lattitude</label>
+                                <input type="text" name="lat_loft" class="form-control">
+                                
                             </div>
+                            <div class="form-group">
+                                <label for="">Longtitude</label>
+                                <input type="text" name="lng_loft" class="form-control">
+                                
+                            </div>
+
+                            <div class="form-group">
+                                <input type="submit" value="Simpan" class="btn btn-primary">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button"
+                        data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="edit_user_lokasi" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Lokasi</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/club/latlong" method="GET">
+                            {{ csrf_field() }}
+                            
                             <div class="form-group">
                                 <input type="hidden" name="id" value="{{ $auth }}">
                                 <label for="">Lattitude</label>

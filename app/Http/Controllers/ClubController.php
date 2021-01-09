@@ -419,7 +419,7 @@ class ClubController extends Controller
                 $event->status = 'Pendaftaran ditutup';
                 $event->color = '#EB0000';
             } else {
-                $event->status = 'Pendaftaran dibuka';
+                $event->status = 'Belum dimulai';
                 $event->color = '#000000';
             }
         }

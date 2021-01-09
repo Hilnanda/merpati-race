@@ -73,6 +73,8 @@ class ListHardwareController extends Controller
         $hardware = Hardware::find($request->id);
         if($request->id_user == 1){
             $hardware['label_hardware'] = 'admin';
+        } else {
+            $hardware['label_hardware'] = NULL;
         }
         $hardware->update($request->all());
 
