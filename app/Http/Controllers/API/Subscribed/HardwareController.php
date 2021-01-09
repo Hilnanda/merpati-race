@@ -142,7 +142,7 @@ class HardwareController extends Controller
 
         // is event exist?
         if (!$event = Events::where('id', $hardware->id_event)
-            ->whereDate('due_join_date_event', '>=', Carbon::now())
+            ->whereDate('due_join_date_event', '>=', Carbon::now()->format('Y-m-d H:i:s'))
             ->first()) {
             return response()->json(
                 array(
