@@ -223,6 +223,16 @@ class HardwareController extends Controller
             );
         }
 
+        // is pigeon already a member of club?
+        if (!$pigeon->club_member) {
+            return response()->json(
+                array(
+                    'code' => 404,
+                    'message' => 'Pigeon bukan anggota dari sebuah club'
+                )
+            );
+        }
+
         // is pigeon participant?
         if (!$participant = EventParticipants::where('current_id_club', $pigeon->club_member[0]->id_club)->where('id_pigeon', $pigeon->id)->orderBy('id', 'desc')->first()) {
             return response()->json(
