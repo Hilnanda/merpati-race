@@ -55,6 +55,7 @@ Detail Club
                                         <div class="form-group">
                                             <label for="">List Pigeon</label>
                                             <input type="hidden" name="id_club" value="{{ $ite->id }}">
+                                            <input type="hidden" name="id_user" value="{{ $auth }}">
                                             <select name="id_pigeon" class="form-control" required>
                                                 <option value="">-- Pilih Pigeon --</option>
                                                 @foreach ($pigeon as $pigeons)
