@@ -224,7 +224,7 @@ class HardwareController extends Controller
         }
 
         // is pigeon already a member of club?
-        if (!$pigeon->club_member) {
+        if (count($pigeon->club_member) <= 0) {
             return response()->json(
                 array(
                     'code' => 404,
