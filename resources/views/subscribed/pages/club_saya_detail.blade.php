@@ -421,9 +421,9 @@ Detail Club
                                                                     </div>
                                                                     <form action="">
                                                                         <div class="modal-body">
-                                                                            <h5>URL Titik Lokasi Mulai</h5>
+                                                                            {{-- <h5>URL Titik Lokasi Mulai</h5>
                                                                             <p class="text-info">http://pigeontime.live/event-start/{{$event->id}}/&lt;latitude&gt;/&lt;longitude&gt;</p>
-                                                                            <p>contoh:<br>http://pigeontime.live/event-start/{{$event->id}}/-7.893274649955687/112.67354622885584</p>
+                                                                            <p>contoh:<br>http://pigeontime.live/event-start/{{$event->id}}/-7.893274649955687/112.67354622885584</p> --}}
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <div class="form-group d-flex justify-content-end">

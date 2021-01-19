@@ -21,9 +21,9 @@
         <div class="row mb-2">
             <div class="col-12">
                 @if($event->status != 'Terbang' && $event->loft->id_user == Auth::user()->id)
-                <h5>URL Tambah Partisipan {{$event->branch_event}}</h5>
+                {{-- <h5>URL Tambah Partisipan {{$event->branch_event}}</h5>
                 <p class="text-info">http://pigeontime.live/event-inkorf/{{$event->id}}/&lt;UID Pigeon&gt;</p>
-                <p>contoh:<br>http://pigeontime.live/event-inkorf/{{$event->id}}/BR0001</p>
+                <p>contoh:<br>http://pigeontime.live/event-inkorf/{{$event->id}}/BR0001</p> --}}
                 @endif
             </div>
         </div>

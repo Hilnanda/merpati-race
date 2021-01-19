@@ -44,7 +44,7 @@
                            
                                 <div class="form-group">
                                     <label for="">Judul Berita</label>
-                                    <input type="text" name="title_news" class="form-control" placeholder="Isi nama club" required>
+                                    <input type="text" name="title_news" class="form-control" placeholder="Isi judul berita" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Gambar Berita</label>

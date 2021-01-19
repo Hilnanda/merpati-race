@@ -176,7 +176,7 @@
                         </a>
                         <ul class="treeview-menu">
                             <li class="{{ (request()->is('admin/cms/cms-header*')) ? 'active' : '' }}"><a href="{{ route('cms-header-dashboard') }}"><i class="fa fa-circle-o"></i> Module Header</a></li>
-                            {{-- <li class="{{ (request()->is('admin/cms/cms-content*')) ? 'active' : '' }}"><a href="{{ route('cms-content-dashboard') }}"><i class="fa fa-circle-o"></i> Module Content</a></li> --}}
+                            <li class="{{ (request()->is('admin/cms/cms-content*')) ? 'active' : '' }}"><a href="{{ route('cms-content-dashboard') }}"><i class="fa fa-circle-o"></i> Module Content</a></li>
                             <li class="{{ (request()->is('admin/cms/cms-footer*')) ? 'active' : '' }}"><a href="{{ route('cms-footer-dashboard') }}"><i class="fa fa-circle-o"></i> Module Footer</a></li>
                         </ul>
                     </li>

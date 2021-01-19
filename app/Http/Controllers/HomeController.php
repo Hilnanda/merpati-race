@@ -10,6 +10,7 @@ use App\CMSAbout;
 use App\User;
 use App\CMSNews;
 use App\CMSContact;
+use App\Content;
 
 
 class HomeController extends Controller
@@ -24,6 +25,7 @@ class HomeController extends Controller
     {
         $data_medsos = CMSMedsos::all();
         $data_footer = CMSFooter::all();
+        $content = Content::all();
         $club = Clubs::all();
         $user = User::all();
         $news = CMSNews::limit(3)
@@ -35,6 +37,7 @@ class HomeController extends Controller
             'clubs' => $club, 
             'users' => $user,
             'news' => $news,
+            'content' => $content,
             ]);
 
     }

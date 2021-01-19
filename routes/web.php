@@ -112,9 +112,15 @@ Route::prefix('admin')
         // http admin/cms/...
         Route::prefix('cms')
             ->group(function () {
+                //content page
+                Route::get('/cms-content', 'ContentController@index')->name('cms-content-dashboard');
+                Route::get('/content/{id}', 'ContentController@content_edit');
+                Route::post('/content/create', 'ContentController@create');
+                Route::post('/content/edit', 'ContentController@edit');
+                Route::get('/content/delete/{id}', 'ContentController@destroy');
+
                 // show page
                 Route::get('/cms-header', 'CmsHomeController@header')->name('cms-header-dashboard');
-                Route::get('/cms-content', 'CmsHomeController@content')->name('cms-content-dashboard');
                 Route::get('/cms-footer', 'CmsHomeController@footer')->name('cms-footer-dashboard');
 
                 // create data

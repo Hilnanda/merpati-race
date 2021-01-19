@@ -22,9 +22,9 @@
             <div class="col-12">
                 @if ((Auth::user()->id == $event->club->manager_club || $exist == 1) && $event->status == 'Belum dimulai')
                 @if ($hardware_inkorf)
-                <h5>URL Inkorf {{$event->branch_event == 'Club' ? 'Public Race' : $event->branch_event}}</h5>
+                {{-- <h5>URL Inkorf {{$event->branch_event == 'Club' ? 'Public Race' : $event->branch_event}}</h5>
                 <p class="text-info">http://pigeontime.live/api/subscribed/v1/hardware?&lt;Parameter&gt;</p>
-                <p>contoh:<br>http://pigeontime.live/api/subscribed/v1/hardware?uid_hardware={{$hardware_inkorf->uid_hardware}}&uid_pigeon=BR0002</p>
+                <p>contoh:<br>http://pigeontime.live/api/subscribed/v1/hardware?uid_hardware={{$hardware_inkorf->uid_hardware}}&uid_pigeon=BR0002</p> --}}
                 @endif
                 <a href="#" title="Set UID Hardware" class="btn musica-btn btn-primary" data-toggle="modal" data-target="#setInkorf">Set UID Hardware</a>
                 @endif
