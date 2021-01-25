@@ -22,7 +22,7 @@
             <div class="box-body">
                 <div class="row" style="margin-bottom: 20px">
                     <div class="col-3">
-                        {{-- <a href="/club/list-participant/{{ $event_desc->id }}" style="width: 100%;" class="btn musica-btn">Tambah Partisipan</a> --}}
+                        {{-- <a href="/club/list-participant/{{ $event_desc->id }}" style="width: 100%;" class="btn elementor-button-blue elementor-size-md elementor-animation-grow">Tambah Partisipan</a> --}}
                         <!-- <a href="#" class="btn musica-btn" data-toggle="modal" data-target="#inkorf123"><span class="font-weight-bold ml-1">Proses Inkorf </span></a></td> -->
                     </div>
                     <!-- Delete Hotspot -->
@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <div class="form-group d-flex justify-content-end">
-                                        {{-- <a href="/club/event/delete-hotspot/{{$hotspot->id}}/{{$event->id}}" class="btn btn-primary">Hapus</a> --}}
+                                        {{-- <a href="/club/event/delete-hotspot/{{$hotspot->id}}/{{$event->id}}" class="btn elementor-button-blue elementor-size-md elementor-animation-grow">Hapus</a> --}}
                                     </div>
                                 </div>
                             </div>
@@ -47,7 +47,7 @@
                     </div>
                     <!-- End Delete Hotspot -->
                     <div class="col-9 d-flex justify-content-end">
-                        <a href="/club/{{$event_desc->id_club}}/detail_saya" class="btn musica-btn btn-primary">Detail Club</a>
+                        <a href="/club/{{$event_desc->id_club}}/detail_saya" class="btn elementor-button-blue elementor-size-md elementor-animation-grow">Detail Club</a>
                     </div>
                 </div>
                 <div class="row" style="margin-bottom: 20px">

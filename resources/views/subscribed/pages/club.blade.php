@@ -573,7 +573,7 @@
                                                     <div
                                                     class="form-group d-flex justify-content-end">
                                                     <a href="/club/event/delete-hotspot/{{ $hotspot->id }}/{{ $event->id }}"
-                                                        class="btn btn-primary">Hapus</a>
+                                                        class="btn elementor-button-red elementor-size-md elementor-animation-grow">Hapus</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -590,8 +590,8 @@
                                 class="font-weight-bold ml-1">Tambah
                             Hotspot</span></a>
                             <input type="submit" value="Simpan"
-                            class="btn btn-primary">
-                            <button class="btn btn-secondary" type="button"
+                            class="btn elementor-button-blue elementor-size-md elementor-animation-grow">
+                            <button class="btn elementor-button-black elementor-size-md elementor-animation-grow" type="button"
                             data-dismiss="modal">Cancel</button>
                         </div>
                     </form>
@@ -634,9 +634,8 @@
                         <div class="modal-footer">
                             <div class="form-group d-flex justify-content-end">
                                 <input type="submit" value="Simpan"
-                                class="btn btn-primary">
-                                <button class="btn btn-secondary" type="button"
-                                data-dismiss="modal">Cancel</button>
+                                class="btn elementor-button-blue elementor-size-md elementor-animation-grow">
+                                <button class="btn elementor-button-black elementor-size-md elementor-animation-grow" type="button" data-dismiss="modal">Cancel</button>
                             </div>
                         </div>
                     </form>
@@ -752,8 +751,8 @@
                 <div class="modal-footer">
                     <div class="form-group d-flex justify-content-end">
                         <input type="submit" value="Simpan"
-                        class="btn btn-primary">
-                        <button class="btn btn-secondary" type="button"
+                        class="btn elementor-button-blue elementor-size-md elementor-animation-grow">
+                        <button class="btn elementor-button-black elementor-size-md elementor-animation-grow" type="button"
                         data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
@@ -781,8 +780,8 @@
             <div class="modal-footer">
                 <div class="form-group d-flex justify-content-end">
                     <a href="/club/event/delete/{{ $event->id }}"
-                        class="btn btn-primary">Hapus</a>
-                        <button class="btn btn-secondary" type="button"
+                        class="btn elementor-button-red elementor-size-md elementor-animation-grow">Hapus</a>
+                        <button class="btn elementor-button-black elementor-size-md elementor-animation-grow" type="button"
                         data-dismiss="modal">Batal</button>
                     </div>
                 </div>
