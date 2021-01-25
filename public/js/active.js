@@ -202,6 +202,11 @@
     }
 
     // :: 11.0 ScrollDown Active Code
+    $("#scrollDown1").on('click', function () {
+        $('html, body').animate({
+            scrollTop: $("#about").offset().top - 85
+        }, 1500);
+    });
     $("#scrollDown").on('click', function () {
         $('html, body').animate({
             scrollTop: $("#about").offset().top - 85

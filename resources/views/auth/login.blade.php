@@ -92,7 +92,7 @@
             <div class="user_card">
                 <div class="d-flex justify-content-center">
                     <div class="brand_logo_container">
-                        <a href="/"><img src="{{ asset('image/favicon.ico') }}" class="brand_logo" alt="Logo"></a>
+                        <a href="/"><img src="{{ asset('image/logo-point.png') }}" class="brand_logo" alt="Logo"></a>
                     </div>
                 </div>
                 
@@ -101,7 +101,7 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="form-group row justify-content-center">
-                            <h5>Login Pigeon Time</h5>
+                            <h5>Login Point Clock</h5>
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-append">
