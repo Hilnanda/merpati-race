@@ -4,28 +4,58 @@
     Home
 @endsection
 @push('top-style')
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
     <style>
-        .fitur{
+        /* .fitur{
             padding: 10px;
             height: 600px;
-        }
+        } */
         .gambar {
-            height: 500px;
-            margin-bottom: 20px;
+            width: 500px;
+            border-radius: 3px
+            /* margin-bottom: 20px; */
         }
+       
+        
+        
+        
+        .video {
+            object-fit: initial;
+  width: 100%;
+  height: 650px;
+    
+}
+@media only screen and (max-width: 767px) {
+    .video {
+  /* object-fit: cover; */
+  /* position: absolute; */
+  object-fit: initial;
+  width: 100%;
+  height: 500px;
+    
+    
+    }
+    .center {
+        text-align: center;
+    }
+    .fitur{
+        margin-bottom: 20px;
+    }
+}
     </style>
 @endpush
 @section('content')
+
     @if(!Auth::user())
     <section class="hero-area">
-        <div class="hero-slides owl-carousel">
+        
             <!-- Single Hero Slide -->
             @if (count($data_header)!=0)
                 
             
             @foreach ($data_header as $item)
-
+            <div class="hero-slides owl-carousel" >
             <div class="single-hero-slide d-flex align-items-center justify-content-center">
                 <!-- Slide Img -->
                 <div class="slide-img bg-img" style="background-image: url('image/burung{{$loop->index+1}}.jpg');"></div>
@@ -37,14 +67,15 @@
                 <!-- Big Text -->
                 <h2 class="big-text">{{ $item->name_corousel }}</h2>
             </div>
+        </div>
             @endforeach
             @else
-            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            {{-- <div class="single-hero-slide d-flex align-items-center justify-content-center" style="border-right: ">
                 <!-- Slide Img -->
                 <div class="slide-img bg-img" style="background-image: url({{ url('image/burung2.jpg') }});"></div>
                 <!-- Slide Content -->
                 <div class="hero-slides-content text-center">
-                    <h2 data-animation="fadeInUp" data-delay="100ms">Pigeon Time <span>Pigeon Time</span></h2>
+                    <h2 data-animation="fadeInUp" data-delay="100ms"><img src="{{ asset('image/point.png') }}" alt=""> <span>Pigeon Time</span></h2>
                     <p data-animation="fadeInUp" data-delay="300ms">Pigeon Time</p>
                 </div>
                 <!-- Big Text -->
@@ -62,8 +93,19 @@
                 </div>
                 <!-- Big Text -->
                 <h2 class="big-text">Pigeon Time</h2>
+            </div> --}}
+            <div class="front-video">
+                <video class="video" src="{{ asset('image/pigeon.mp4') }}"  autoplay loop playsinline muted></video>
+
             </div>
+            <div class="slide-down" id="scrollDown" style="bottom: 40%">
+                <img src="{{ asset('image/point.png') }}" alt="">
+                <h3 class="center" style="color: white"><b>Made With Passion For Technology</b></h3>
+            </div>
+            
             @endif
+            
+              
             <!-- Single Hero Slide -->
             {{-- <div class="single-hero-slide d-flex align-items-center justify-content-center">
                 <!-- Slide Img -->
@@ -90,12 +132,14 @@
                 <h2 class="big-text">Festival</h2>
             </div> --}}
 
-        </div>
+        
+        
+      
         <!-- bg gradients -->
-        <div class="bg-gradients"></div>
+        {{-- <div class="bg-gradients"></div> --}}
 
         <!-- Slide Down -->
-        <div class="slide-down" id="scrollDown">
+        <div class="slide-down" id="scrollDown1">
             <h6>Slide Down</h6>
             <div class="line"></div>
         </div>
@@ -115,49 +159,55 @@
         </div> --}}
     </div>
     @endif
+    
+
+      
+        
     <!-- bg gradients -->
-    <div class="upcoming-shows-area section-padding-100" style="margin-top: -50px" id="about">
+    <div class="" style="" id="about">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="section-heading dark">
-                        <h2 style="color: white">Perlombaan merpati</h2>
-                        <h5 style="color: white">Website Untuk Perlombaan Burung Merpati.</h5>
+                        {{-- <h2 >Perlombaan merpati</h2> --}}
+                        {{-- <h5 >Website Untuk Perlombaan Burung Merpati.</h5> --}}
                     </div>
                 </div>
             </div>
 
             <div class="row justify-content-center">
-				<div class="col-md-4">
-					<div class="card fitur">
-						<img class="card-img-top gambar" alt="Bootstrap Thumbnail First" src="{{ url('image-logo/burung.jpg') }}" />
-						<div class="card-block">
+				<div class="col-md-6">
+					<div class="card fitur" data-aos="fade-right">
+                        <a href="/club">						
+                            <img class="card-img-top gambar"  alt="Bootstrap Thumbnail First" src="{{ url('image-logo/PR.png') }}" />
+                        </a>
+						{{-- <div class="card-block">
 							
 							<div class="featured-shows-content">
                                 <div class="shows-text">
                                     <a href="/one_loft_race" class="buy-tickets-btn"><h4>One Loft Race</h4>
-                                        {{-- <p>January 23</p> --}}
                                         </a>
                                 </div>
                                 <div class="bg-gradients"></div>
                             </div>
-						</div>
+						</div> --}}
 					</div>
 				</div>
-				<div class="col-md-4">
-					<div class="card fitur">
-						<img class="card-img-top gambar" alt="Bootstrap Thumbnail Second" src="{{ url('image-logo/pigeon-racing.jpg') }}" />
-						<div class="card-block">
+				<div class="col-md-6">
+					<div class="card fitur" data-aos="fade-left">
+                        <a href="/one_loft_race">						
+                            <img class="card-img-top gambar" alt="Bootstrap Thumbnail Second" src="{{ url('image-logo/OLR.png') }}" />
+                        </a>
+						{{-- <div class="card-block">
 							
 							<div class="featured-shows-content">
                                 <div class="shows-text">
                                     <a href="/club" class="buy-tickets-btn"><h4>Public Race</h4>
-                                        {{-- <p>January 23</p> --}}
                                         </a>
                                 </div>
                                 <div class="bg-gradients"></div>
                             </div>
-						</div>
+						</div> --}}
 					</div>
 				</div>
 				
@@ -256,6 +306,14 @@
     </div> --}}
     <!-- ##### Upcoming Shows Area End ##### -->
 
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                
+            </div>
+        </div>
+    </div>
+
     <!-- ##### Music Player Area Start ##### -->
     <div class="music-player-area section-padding-100">
         <div class="container-fluid">
@@ -347,5 +405,10 @@
             $('#example').DataTable();
         });
 
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+      AOS.init();
     </script>
 @endpush
