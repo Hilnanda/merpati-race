@@ -12,7 +12,7 @@
     <title>@yield('title')</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('image/favicon.ico') }}">
+    <link rel="icon" href="{{ asset('image/favicon.png') }}">
 
 
     @stack('top-style')
