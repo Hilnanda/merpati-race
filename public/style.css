@@ -284,9 +284,9 @@ img {
   z-index: 1;
   width: 100%;
   height: 5px;
-  background: #2d9ceb;
-  background: -webkit-linear-gradient(to right, #2d9ceb, #2d9ceb);
-  background: linear-gradient(to right, #2d9ceb, #2d9ceb); }
+  background: #0A50AF;
+  background: -webkit-linear-gradient(to right, #0A50AF, #0A50AF);
+  background: linear-gradient(to right, #0A50AF, #0A50AF); }
 
 /* :: 3.7.0 ScrollUp */
 #scrollUp {
@@ -462,7 +462,7 @@ img {
     top: 0;
     left: 0;
     z-index: 9999;
-    background-color: #2d9ceb;
+    background-color: #0A50AF;
     box-shadow: 0 5px 50px 15px rgba(0, 0, 0, 0.2); }
     @media only screen and (max-width: 767px) {
       .header-area .is-sticky .musica-main-menu {
@@ -1570,9 +1570,9 @@ img {
     left: 50%;
     margin-left: -196px;
     z-index: 100;
-    background: #2d9ceb;
-    background: -webkit-linear-gradient(to right, #2d9ceb, #2d9ceb);
-    background: linear-gradient(to right, #2d9ceb, #2d9ceb);
+    background: #0A50AF;
+    background: -webkit-linear-gradient(to right, #0A50AF, #0A50AF);
+    background: linear-gradient(to right, #0A50AF, #0A50AF);
     text-align: center; }
     @media only screen and (max-width: 767px) {
       .breadcumb-area .bradcumbContent {
@@ -1924,11 +1924,56 @@ img {
     font-size: 18px; }
 
 .action-link a {
-  color: #2d9ceb;
+  color: #0A50AF;
   font-size: 22px;
 }
 .action-link a:hover, .action-link a:focus {
   color: #1873B4; }
+
+/* ====== Style POINT ====== */
+
+.elementor-button-blue {
+  background-color:#0A50AF;
+  border-color:#003A88;
+}
+
+.elementor-button-red {
+  background-color:#FE1818;
+  border-color:#C30000;
+}
+
+.elementor-button-black {
+  background-color:#1B1B1B;
+  border-color:#000000;
+}
+
+.elementor-button-blue.elementor-size-md, .elementor-button-red.elementor-size-md, .elementor-button-black.elementor-size-md {
+  display: inline-block;
+  min-width: 133px;
+  height: 42px;
+  color: #ffffff;
+  padding: 0 20px;
+  font-size: 12px;
+  line-height: 42px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-style:solid;
+  border-width:1px 1px 1px 1px;
+  border-radius:50px;
+  margin-right: 10px;
+}
+
+.elementor-animation-grow{
+  transition-duration:.3s;
+  transition-property:transform;
+}
+
+.elementor-animation-grow:hover {
+  transform:scale(1.1);
+}
+
+/* ====== End Style POINT ====== */
+
 /* ====== The End ====== */
 
 /*# sourceMappingURL=style.css.map */

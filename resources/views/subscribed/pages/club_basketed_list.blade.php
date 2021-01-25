@@ -26,7 +26,7 @@
                 <p class="text-info">http://pigeontime.live/api/subscribed/v1/hardware?&lt;Parameter&gt;</p>
                 <p>contoh:<br>http://pigeontime.live/api/subscribed/v1/hardware?uid_hardware={{$hardware_inkorf->uid_hardware}}&uid_pigeon=BR0002</p> --}}
                 @endif
-                <a href="#" title="Set UID Hardware" class="btn musica-btn btn-primary" data-toggle="modal" data-target="#setInkorf">Set UID Hardware</a>
+                <a href="#" title="Set UID Hardware" class="btn elementor-button-blue elementor-size-md elementor-animation-grow" data-toggle="modal" data-target="#setInkorf">Set UID Hardware</a>
                 @endif
             </div>
         </div>
@@ -107,9 +107,9 @@
                         </div>
                         <div class="modal-footer">
                             <div class="form-group d-flex justify-content-end">
-                                <button class="btn musica-btn btn-2" type="button"
+                                <button class="btn elementor-button-black elementor-size-md elementor-animation-grow" type="button"
                                 data-dismiss="modal">Cancel</button>
-                                <input type="submit" value="Simpan" class="btn musica-btn btn-primary">
+                                <input type="submit" value="Simpan" class="btn elementor-button-blue elementor-size-md elementor-animation-grow">
                             </div>
                         </div>
                     </form>

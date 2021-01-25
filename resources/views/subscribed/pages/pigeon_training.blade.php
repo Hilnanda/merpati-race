@@ -55,9 +55,9 @@
                                 </div>
                                 <div class="modal-footer">
                                     <div class="form-group d-flex justify-content-end">
-                                        <button class="btn musica-btn btn-2" type="button"
+                                        <button class="btn elementor-button-black elementor-size-md elementor-animation-grow" type="button"
                                         data-dismiss="modal">Cancel</button>
-                                        <input type="submit" value="Simpan" class="btn musica-btn">
+                                        <input type="submit" value="Simpan" class="btn elementor-button-red elementor-size-md elementor-animation-grow">
                                     </div>
                                 </div>
                             </form>
@@ -68,8 +68,8 @@
             <div class="row" style="margin-bottom: 20px">
                 <div class="col-12">
                     {{-- @if (Auth::user()->id==$clubs->manager_club||$exist == 1) --}}
-                    {{-- <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#tambah_burung">Daftarkan </button>
-                    <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#edit_name_loft">Edit Nama Loft</button> --}}
+                    {{-- <button class="btn elementor-button-red elementor-size-md elementor-animation-grow mb-3" data-toggle="modal" data-target="#tambah_burung">Daftarkan </button>
+                    <button class="btn elementor-button-red elementor-size-md elementor-animation-grow mb-3" data-toggle="modal" data-target="#edit_name_loft">Edit Nama Loft</button> --}}
                         {{-- @endif --}}
                                      
                     <div class="row">
@@ -82,7 +82,7 @@
                 <div class="col-12">
                     {{-- bagian statistik --}}
                     <!-- Training Table -->
-                    <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#createTraining">Add Training </button>
+                    <button class="btn elementor-button-red elementor-size-md elementor-animation-grow mb-3" data-toggle="modal" data-target="#createTraining">Add Training </button>
         <h4 class="mt-3">Training</h4>
         <div class="box-body">
             <table id="table_one" class="table table-bordered table-striped">

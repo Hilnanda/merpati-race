@@ -37,7 +37,7 @@ Detail Club
                     @foreach ($clubku as $ite)
                     @if (count($pigeon) != 0)
                     <a href="#join_pigeon" data-toggle="modal" data-target="#join_pigeon"><button type="button"
-                        class="btn btn-danger"><i class="fa fa-twitter"></i> Join Pigeon</button></a>
+                        class="btn elementor-button-red elementor-size-md elementor-animation-grow"><i class="fa fa-twitter"></i> Join Pigeon</button></a>
                         @endif
                         <div class="modal fade" id="join_pigeon" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -69,12 +69,12 @@ Detail Club
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="submit" value="Simpan" class="btn btn-primary">
+                                            <input type="submit" value="Simpan" class="btn elementor-button-blue elementor-size-md elementor-animation-grow">
                                         </div>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-secondary" type="button"
+                                    <button class="btn elementor-button-black elementor-size-md elementor-animation-grow" type="button"
                                     data-dismiss="modal">Cancel</button>
                                 </div>
                             </div>
@@ -87,7 +87,7 @@ Detail Club
 
 
                     <a href="#tambah_lomba_club" data-toggle="modal" data-target="#tambah_lomba_club"><button
-                        type="button" class="btn btn-success">Buat Lomba Club</button></a>
+                        type="button" class="btn elementor-button-blue elementor-size-md elementor-animation-grow">Buat Lomba Club</button></a>
                         {{-- <a href="/club/lihat_data/{{ $id }}"><button
                             type="button" class="btn btn-info">List Event Club</button></a>
                             --}}
@@ -186,8 +186,8 @@ Detail Club
                                     </div>
                                     <div class="modal-footer">
                                         <div class="form-group d-flex justify-content-end">
-                                            <input type="submit" value="Simpan" class="btn btn-primary">
-                                            <button class="btn btn-secondary" type="button"
+                                            <input type="submit" value="Simpan" class="btn elementor-button-blue elementor-size-md elementor-animation-grow">
+                                            <button class="btn elementor-button-black elementor-size-md elementor-animation-grow" type="button"
                                             data-dismiss="modal">Cancel</button>
                                         </div>
                                     </div>
@@ -196,7 +196,7 @@ Detail Club
                         </div>
                     </div>
                     <a href="/club/{{ $id }}/permintaan_gabung"><button type="button"
-                        class="btn btn-primary">Permintaan Gabung
+                        class="btn elementor-button-blue elementor-size-md elementor-animation-grow">Permintaan Gabung
                         @if ($count_acc != 0)
                         <span class="badge">{{ $count_acc }}</span>
                         @endif
@@ -238,12 +238,12 @@ Detail Club
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="submit" value="Simpan" class="btn btn-primary">
+                                            <input type="submit" value="Simpan" class="btn elementor-button-blue elementor-size-md elementor-animation-grow">
                                         </div>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                    <button class="btn elementor-button-black elementor-size-md elementor-animation-grow" type="button" data-dismiss="modal">Cancel</button>
                                 </div>
                             </div>
                         </div>
@@ -362,7 +362,7 @@ Detail Club
                                                     <tr>
                                                         <td>{{ $loop->index + 1 }}</td>
                                                         <!-- <td>{{ $event->id }}</td> -->
-                                                        <td><a href="/club/event-club/{{ $event->id }}" class="text-info">{{ $event->name_event }}</a></td>
+                                                        <td class="action-link"><a href="/club/event-club/{{ $event->id }}" style="font-size: 14px;">{{ $event->name_event }}</a></td>
                                                         @php $path = Storage::url('image-logo/'.$event->logo_event); @endphp
                                                         <td><a href="/club/event-club/{{ $event->id }}"><img src="{{ asset('image/'.$event->logo_event.'') }}" style="max-height: 80px; height: auto; width: auto;"></a></td>
                                                         <!-- <td>{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</td> -->
@@ -422,7 +422,7 @@ Detail Club
                                                                     <form action="">
                                                                         <div class="modal-body">
                                                                             {{-- <h5>URL Titik Lokasi Mulai</h5>
-                                                                            <p class="text-info">http://pigeontime.live/event-start/{{$event->id}}/&lt;latitude&gt;/&lt;longitude&gt;</p>
+                                                                            <p class="action-link text-primary">http://pigeontime.live/event-start/{{$event->id}}/&lt;latitude&gt;/&lt;longitude&gt;</p>
                                                                             <p>contoh:<br>http://pigeontime.live/event-start/{{$event->id}}/-7.893274649955687/112.67354622885584</p> --}}
                                                                         </div>
                                                                         <div class="modal-footer">
@@ -450,7 +450,7 @@ Detail Club
                                                                         <div class="modal-body">
                                                                             <div class="form-group d-flex justify-content-between">
                                                                                 <a href="/club/event/close-join/{{$event->id}}" title="Tutup pendaftaran sekarang" class="btn musica-btn">Tutup Pendaftaran</a>
-                                                                                <a href="/club/event/start-now/{{$event->id}}/{{$event->event_hotspot[0]->id}}" title="Mulai lomba sekarang" class="btn musica-btn btn-primary">Mulai Sekarang</a>
+                                                                                <a href="/club/event/start-now/{{$event->id}}/{{$event->event_hotspot[0]->id}}" title="Mulai lomba sekarang" class="btn musica-btn elementor-button-blue elementor-size-md elementor-animation-grow">Mulai Sekarang</a>
                                                                                 <a href="#" title="Atur kembali jadwal mulai" data-toggle="modal" class="btn musica-btn btn-2" data-dismiss="modal" data-target="#startLater{{ $event->id }}">Atur Jadwal</a>
                                                                             </div>
                                                                         </div>
@@ -491,7 +491,7 @@ Detail Club
                                                                             <div class="form-group d-flex justify-content-end">
                                                                                 <button class="btn musica-btn btn-2" type="button"
                                                                                 data-dismiss="modal">Cancel</button>
-                                                                                <input type="submit" value="Simpan" class="btn musica-btn btn-primary">
+                                                                                <input type="submit" value="Simpan" class="btn musica-btn elementor-button-blue elementor-size-md elementor-animation-grow">
                                                                             </div>
                                                                         </div>
                                                                     </form>
@@ -568,7 +568,7 @@ Detail Club
                                                                                             <div
                                                                                             class="form-group d-flex justify-content-end">
                                                                                             <a href="/club/event/delete-hotspot/{{ $hotspot->id }}/{{ $event->id }}"
-                                                                                                class="btn btn-primary">Hapus</a>
+                                                                                                class="btn elementor-button-blue elementor-size-md elementor-animation-grow">Hapus</a>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -585,8 +585,8 @@ Detail Club
                                                                         class="font-weight-bold ml-1">Tambah
                                                                     Hotspot</span></a>
                                                                     <input type="submit" value="Simpan"
-                                                                    class="btn btn-primary">
-                                                                    <button class="btn btn-secondary" type="button"
+                                                                    class="btn elementor-button-blue elementor-size-md elementor-animation-grow">
+                                                                    <button class="btn elementor-button-black elementor-size-md elementor-animation-grow" type="button"
                                                                     data-dismiss="modal">Cancel</button>
                                                                 </div>
                                                             </form>
@@ -629,8 +629,8 @@ Detail Club
                                                                 <div class="modal-footer">
                                                                     <div class="form-group d-flex justify-content-end">
                                                                         <input type="submit" value="Simpan"
-                                                                        class="btn btn-primary">
-                                                                        <button class="btn btn-secondary" type="button"
+                                                                        class="btn elementor-button-blue elementor-size-md elementor-animation-grow">
+                                                                        <button class="btn elementor-button-black elementor-size-md elementor-animation-grow" type="button"
                                                                         data-dismiss="modal">Cancel</button>
                                                                     </div>
                                                                 </div>
@@ -726,8 +726,8 @@ Detail Club
                                                         <div class="modal-footer">
                                                             <div class="form-group d-flex justify-content-end">
                                                                 <input type="submit" value="Simpan"
-                                                                class="btn btn-primary">
-                                                                <button class="btn btn-secondary" type="button"
+                                                                class="btn elementor-button-blue elementor-size-md elementor-animation-grow">
+                                                                <button class="btn elementor-button-black elementor-size-md elementor-animation-grow" type="button"
                                                                 data-dismiss="modal">Cancel</button>
                                                             </div>
                                                         </div>
@@ -755,8 +755,8 @@ Detail Club
                                                     <div class="modal-footer">
                                                         <div class="form-group d-flex justify-content-end">
                                                             <a href="/club/event/delete/{{ $event->id }}"
-                                                                class="btn btn-primary">Hapus</a>
-                                                                <button class="btn btn-secondary" type="button"
+                                                                class="btn elementor-button-red elementor-size-md elementor-animation-grow">Hapus</a>
+                                                                <button class="btn elementor-button-black elementor-size-md elementor-animation-grow" type="button"
                                                                 data-dismiss="modal">Batal</button>
                                                             </div>
                                                         </div>

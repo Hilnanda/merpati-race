@@ -87,16 +87,16 @@ Hasil {{$event->branch_event == 'Club' ? 'Public Race' : $event->branch_event}}
                                 {{ $event_result->event_participant->pigeons->users->name }}
                             </a> -->
                         </td>
-                        <td>
-                            <a href="/pigeon/detail/{{$event_result->event_participant->pigeons->id_user}}/{{$event_result->event_participant->pigeons->id}}" class="text-info">
+                        <td class="action-link">
+                            <a href="/pigeon/detail/{{$event_result->event_participant->pigeons->id_user}}/{{$event_result->event_participant->pigeons->id}}" style="font-size: 14px;">
                                 {{ $event_result->event_participant->pigeons->uid_pigeon }}
                             </a>
                         </td>
                         <td>{{ $event_result->event_participant->pigeons->name_pigeon }}</td>
                         <td>{{ $event_result->speed_event_result ? $event_result->arrived_at : '-' }}</td>
                         @if($event_results[0]->speed_event_result)
-                        <td>
-                            <a href="#" title="Detail" class="text-info" data-toggle="modal" data-target="#showDistance{{$rank-1}}" onclick="showMap(<?php echo $rank-1; ?>)">
+                        <td class="action-link">
+                            <a href="#" title="Detail" style="font-size: 14px;" data-toggle="modal" data-target="#showDistance{{$rank-1}}" onclick="showMap(<?php echo $rank-1; ?>)">
                                 {{ $event_result->speed_event_result ? round($event_result->speed_event_result, 2) : round($event_result->unfinished_speed, 2) }}
                             </a>
                         </td>

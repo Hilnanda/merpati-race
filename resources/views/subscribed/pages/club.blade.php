@@ -18,10 +18,10 @@
     <div class="col-12">
         @if ($id_user->lat_loft == '' && $id_user->lng_loft == '')
         <a href="#edit_user" data-toggle="modal" data-target="#edit_user"><button type="button"
-            class="btn musica-btn btn-primary mb-2"> Input Lokasi</button></a>
+            class="btn elementor-button-red elementor-size-md elementor-animation-grow mb-2"> Input Lokasi</button></a>
         @else
         <a href="#edit_user_lokasi" data-toggle="modal" data-target="#edit_user_lokasi"><button type="button"
-            class="btn musica-btn btn-success mb-2"> Edit Lokasi</button></a>
+            class="btn elementor-button-red elementor-size-md elementor-animation-grow mb-2"> Edit Lokasi</button></a>
         @endif
         
             <div class="modal fade" id="edit_user" tabindex="-1" role="dialog"
@@ -51,12 +51,12 @@
                             </div>
 
                             <div class="form-group">
-                                <input type="submit" value="Simpan" class="btn btn-primary">
+                                <input type="submit" value="Simpan" class="btn elementor-button-blue elementor-size-md elementor-animation-grow">
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button"
+                        <button class="btn elementor-button-black elementor-size-md elementor-animation-grow" type="button"
                         data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
@@ -90,12 +90,12 @@
                             </div>
 
                             <div class="form-group">
-                                <input type="submit" value="Simpan" class="btn btn-primary">
+                                <input type="submit" value="Simpan" class="btn elementor-button-blue elementor-size-md elementor-animation-grow">
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button"
+                        <button class="btn elementor-button-black elementor-size-md elementor-animation-grow" type="button"
                         data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
@@ -367,7 +367,7 @@
                     <tr>
                         <td>{{ $loop->index + 1 }}</td>
                         <!-- <td>{{ $event->id }}</td> -->
-                        <td><a href="/club/event-club/{{ $event->id }}" class="text-info">{{ $event->name_event }}</a></td>
+                        <td class="action-link"><a href="/club/event-club/{{ $event->id }}" style="font-size: 14px;">{{ $event->name_event }}</a></td>
                         @php $path = Storage::url('image-logo/'.$event->logo_event); @endphp
                         <td><a href="/club/event-club/{{ $event->id }}"><img src="{{ asset('image/'.$event->logo_event.'') }}" style="max-height: 80px; height: auto; width: auto;"></a></td>
                         <!-- <td>{{ $event->lat_event_end ? 'One Loft Race' : 'Pigeon Race' }}</td> -->
@@ -432,9 +432,9 @@
                                         </div>
                                         <div class="modal-footer">
                                             <div class="form-group d-flex justify-content-end">
-                                                <button class="btn musica-btn btn-2" type="button"
+                                                <button class="btn elementor-button-black elementor-size-md elementor-animation-grow" type="button"
                                                 data-dismiss="modal">Cancel</button>
-                                                <input type="submit" value="Selesai" class="btn musica-btn">
+                                                <input type="submit" value="Selesai" class="btn elementor-button-red elementor-size-md elementor-animation-grow">
                                             </div>
                                         </div>
                                     </form>
@@ -454,14 +454,14 @@
                                     <form action="">
                                         <div class="modal-body">
                                             <div class="form-group d-flex justify-content-between">
-                                                <a href="/club/event/close-join/{{$event->id}}" title="Tutup pendaftaran sekarang" class="btn musica-btn">Tutup Pendaftaran</a>
-                                                <a href="/club/event/start-now/{{$event->id}}/{{$event->event_hotspot[0]->id}}" title="Mulai lomba sekarang" class="btn musica-btn btn-primary">Mulai Sekarang</a>
-                                                <a href="#" title="Atur kembali jadwal mulai" data-toggle="modal" class="btn musica-btn btn-2" data-dismiss="modal" data-target="#startLater{{ $event->id }}">Atur Jadwal</a>
+                                                <a href="/club/event/close-join/{{$event->id}}" title="Tutup pendaftaran sekarang" class="btn elementor-button-red elementor-size-md elementor-animation-grow">Tutup Pendaftaran</a>
+                                                <a href="/club/event/start-now/{{$event->id}}/{{$event->event_hotspot[0]->id}}" title="Mulai lomba sekarang" class="btn elementor-button-blue elementor-size-md elementor-animation-grow">Mulai Sekarang</a>
+                                                <a href="#" title="Atur kembali jadwal mulai" data-toggle="modal" class="btn elementor-button-black elementor-size-md elementor-animation-grow" data-dismiss="modal" data-target="#startLater{{ $event->id }}">Atur Jadwal</a>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
                                             <div class="form-group d-flex justify-content-end">
-                                                <button class="btn musica-btn btn-2" type="button"
+                                                <button class="btn elementor-button-black elementor-size-md elementor-animation-grow" type="button"
                                                 data-dismiss="modal">Cancel</button>
                                             </div>
                                         </div>
@@ -494,9 +494,9 @@
                                         </div>
                                         <div class="modal-footer">
                                             <div class="form-group d-flex justify-content-end">
-                                                <button class="btn musica-btn btn-2" type="button"
+                                                <button class="btn elementor-button-black elementor-size-md elementor-animation-grow" type="button"
                                                 data-dismiss="modal">Cancel</button>
-                                                <input type="submit" value="Simpan" class="btn musica-btn btn-primary">
+                                                <input type="submit" value="Simpan" class="btn elementor-button-blue elementor-size-md elementor-animation-grow">
                                             </div>
                                         </div>
                                     </form>

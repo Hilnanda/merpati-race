@@ -73,8 +73,8 @@
             <div class="row" style="margin-bottom: 20px">
                 <div class="col-12">
                     {{-- @if (Auth::user()->id==$clubs->manager_club||$exist == 1) --}}
-                    {{-- <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#tambah_burung">Daftarkan </button>
-                    <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#edit_name_loft">Edit Nama Loft</button> --}}
+                    {{-- <button class="btn elementor-button-red elementor-size-md elementor-animation-grow mb-3" data-toggle="modal" data-target="#tambah_burung">Daftarkan </button>
+                    <button class="btn elementor-button-red elementor-size-md elementor-animation-grow mb-3" data-toggle="modal" data-target="#edit_name_loft">Edit Nama Loft</button> --}}
                         {{-- @endif --}}
                                      
                     <div class="row">

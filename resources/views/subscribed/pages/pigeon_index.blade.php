@@ -28,11 +28,11 @@
             <div class="row" style="margin-bottom: 20px">
                 <div class="col-12">
                     {{-- @if (Auth::user()->id==$clubs->manager_club||$exist == 1) --}}
-                    {{-- <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#tambah_burung">Daftarkan </button> --}} 
+                    {{-- <button class="btn elementor-button-blue elementor-size-md elementor-animation-grow mb-3" data-toggle="modal" data-target="#tambah_burung">Daftarkan </button> --}} 
                     <div class="row">
                         <div class="col-3">
-                            <button class="btn musica-btn mb-3" data-toggle="modal" data-target="#edit_name_loft">Edit Info Loft</button>
-                            <a href="/pigeon/training_pigeon/{{$id_user->id}}"><button  class="btn musica-btn btn-primary mb-3">Training Loft</button></a>                
+                            <button class="btn elementor-button-red elementor-size-md elementor-animation-grow mb-3" data-toggle="modal" data-target="#edit_name_loft">Edit Info Loft</button>
+                            <a href="/pigeon/training_pigeon/{{$id_user->id}}"><button  class="btn elementor-button-blue elementor-size-md elementor-animation-grow mb-3">Training Loft</button></a>                
                         </div>
                     </div>
 
@@ -99,12 +99,12 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <input type="submit" value="Simpan" class="btn btn-primary">
+                                        <input type="submit" value="Simpan" class="btn elementor-button-blue elementor-size-md elementor-animation-grow">
                                     </div>
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                <button class="btn elementor-button-black elementor-size-md elementor-animation-grow" type="button" data-dismiss="modal">Cancel</button>
                             </div>
                         </div>
                     </div>
