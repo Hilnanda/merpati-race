@@ -229,7 +229,7 @@ Route::middleware('is_subscribed')->group(function () {
 
     // One Loft Race
     Route::get('/lofts','LoftController@listLofts');
-    Route::get('/one_loft_race','LoftController@index');
+    Route::get('/one_loft_race','LoftController@index')->name('one_loft_race');
     Route::get('/loft/{id}/details', 'LoftController@showLoftDetails')->name('loft_loft_details');
     Route::get('/loft/{id}/details/join-list', 'LoftController@showJoinList')->name('loft_loft_details_join_list');
     Route::get('/loft/events/{id}/{hotspot}/details', 'LoftController@showEventDetails')->name('loft_events_details');

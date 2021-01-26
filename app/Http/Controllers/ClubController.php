@@ -30,6 +30,7 @@ class ClubController extends Controller
      */
     public function index()
     {
+        session(['pageName' => 'club']);
         //
         // dd($id);
         // event
