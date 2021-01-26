@@ -368,9 +368,11 @@
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Module Website Name & Carousel</h3><br><br>
-              @if (count($data_header)!=3)
-              <a id="modal-090" href="#modal-container-090" role="button" class="btn btn-success" data-toggle="modal">+ Content Home</a>
+              <h3 class="box-title">Module Website Name </h3><br><br>
+              {{-- @if (count($data_header)!=3) --}}
+              @if (count($data_header)==0)
+              
+              <a id="modal-090" href="#modal-container-090" role="button" class="btn btn-success" data-toggle="modal">+ Nama Website</a>
               @endif
               <div class="modal fade" id="modal-container-090" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -392,6 +394,8 @@
                             @if (count($data_header)==0)
                             <div class="col-xs-12 col-sm-12 col-md-12">
                               <label for="name" class="control-label">Nama Website</label>
+                              <input type="hidden" name="name_corousel" value="1">
+                              <input type="hidden" name="desc_title" value="1">
                               <input type="text" name="name_website" class="form-control"  placeholder="Nama Website"><br>
                             </div>
                             @else
@@ -400,14 +404,14 @@
                             @endforeach
                             @endif
                             
-                            <div class="col-xs-12 col-sm-12 col-md-12">
+                            {{-- <div class="col-xs-12 col-sm-12 col-md-12">
                               <label for="name" class="control-label">Nama Carousel</label>
                               <input type="text" name="name_corousel" class="form-control"  placeholder="Nama Carousel"><br>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                               <label for="name" class="control-label">Deskripsi Carousel</label>
                               <input type="text" name="desc_title" class="form-control" placeholder="Deskripsi Carousel"><br>
-                            </div>
+                            </div> --}}
                             
                           </div>
                         </div>
@@ -432,9 +436,11 @@
               <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                   <div class="form-group">
-                    @foreach ($nama_website as $item)
-                    <label for="name" class="control-label"><h3>Nama Website : <b>{{$item->name_website}}</b></h3></label>
+                    @foreach ($data_header as $item)
+                    <label for="name" class="control-label"><h3>Nama Website : <b>{{$item->name_website}} </b></h3></label>
                     <a style="margin-left: 5px;color: blue" id="name_website{{$item->id}}" href="#name_website-container{{$item->id}}" role="button" data-toggle="modal"><i class="fa fa-pencil"></i> Edit</a> 
+                    <a style="margin-left: 5px;color: red" class="delete-club" href="header-delete/{{ $item->id }}"><i class="fa fa-trash"></i>  Delete</a>
+
                     <div class="modal fade" id="name_website-container{{$item->id}}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -477,7 +483,7 @@
                     </div>
                   
                 </div>
-                @foreach ($data_header as $item)
+                {{-- @foreach ($data_header as $item)
                     
                 
                 
@@ -562,7 +568,7 @@
 
                 </div>
                 </div>
-                @endforeach
+                @endforeach --}}
               </div>
               
             </div>

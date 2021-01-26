@@ -26,7 +26,8 @@ class CmsHomeController extends Controller
     {
         $data_medsos = CMSMedsos::all();
         $data_header = CMSHeader::all();
-        $nama_website = CMSHeader::select('name_website')->distinct()->get();
+        $nama_website = CMSHeader::all();
+        // dd($nama_website);
         return view('admin.pages.cms.cms-header',[
             'data_medsos'=>$data_medsos,
             'data_header'=>$data_header,

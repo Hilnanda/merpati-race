@@ -143,8 +143,8 @@
 @endpush
 @section('content')
 
-    @if(!Auth::user())
-    <section class="hero-area">
+    {{-- @if(!Auth::user()) --}}
+    {{-- <section class="hero-area">
         
             <!-- Single Hero Slide -->
             @if (count($data_header)!=0)
@@ -165,7 +165,7 @@
             </div>
         </div>
             @endforeach
-            @else
+            @else --}}
             {{-- <div class="single-hero-slide d-flex align-items-center justify-content-center" style="border-right: ">
                 <!-- Slide Img -->
                 <div class="slide-img bg-img" style="background-image: url({{ url('image/burung2.jpg') }});"></div>
@@ -199,7 +199,7 @@
                 <h3 class="center" style="color: white"><b>Made With Passion For Technology</b></h3>
             </div>
             
-            @endif
+            {{-- @endif --}}
             
               
             <!-- Single Hero Slide -->
@@ -248,13 +248,13 @@
     <!-- ##### About Us Area End ##### -->
 
     <!-- ##### Upcoming Shows Area Start ##### -->
-    @else
-    <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ url('image/breadcumb-1.jpg') }});">
+    {{-- @else --}}
+    {{-- <div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({{ url('image/breadcumb-1.jpg') }});"> --}}
         {{-- <div class="bradcumbContent">
             <h2>List Club</h2>
         </div> --}}
-    </div>
-    @endif
+    {{-- </div> --}}
+    {{-- @endif --}}
     
 
       
