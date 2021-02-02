@@ -176,9 +176,10 @@ Route::middleware('is_subscribed')->group(function () {
     Route::get('/club/lihat_data/{id}','EventClubController@index');
     Route::post('/club/event/update/{id}', 'EventClubController@update');
     Route::get('/club/event/delete/{id}', 'EventClubController@destroy');
-    Route::get('/club/event-club/{id_event}', 'EventClubController@desc_event');
     Route::get('/club/list-participant/{id_club}', 'EventClubController@list_participant');
     Route::post('/club/list-participant/{id_club}/add', 'EventClubController@addEventParticipants');
+    Route::get('/club/event-club/{id_event}', 'EventClubController@desc_event')->name('event_desc');
+    
 
     Route::get('/club/events/{id}/{hotspot}/basket', 'ClubController@showBasketedList')->name('club_events_basketed');
     Route::get('/club/events/{id}/{hotspot}/live-result', 'ClubController@showLiveResults')->name('club_events_live_result');
