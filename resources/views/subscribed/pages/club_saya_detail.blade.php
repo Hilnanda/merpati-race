@@ -334,7 +334,7 @@ Detail Club
                                 </div> --}}
                                 <div class="row" style="margin-bottom: 20px">
                                     <div class="col-12">
-                                        <h4>List Event Club </h4>
+                                        <h4>List Event Club</h4>
                                         <div class="box-body" style="overflow-x:auto;">
                                             <table id="table_two" class="table table-bordered table-striped" >
                                                 <thead>
@@ -385,7 +385,7 @@ Detail Club
                                                         <td>{{ $event ? str_replace('T', ' ', date('d F Y  H:i:s', strtotime($event->due_join_date_event))) : '-' }}</td>
                                                         <td style="color: {{ $event->color ? $event->color : '' }};">
                                                             <strong>{{ $event ? $event->status : '-' }}</strong>
-                                                            @if($event->status != 'Terbang')
+                                                            @if($event->status != 'Terbang' && Auth::user()->id == $event->club->manager_club)
                                                             <br>
                                                             <br>
                                                             <a href="#" title="Mulai Lomba" data-toggle="modal" class="btn-sm btn-warning" data-target="#startRace{{ $event->id }}">Mulai</a>
@@ -449,14 +449,14 @@ Detail Club
                                                                     <form action="">
                                                                         <div class="modal-body">
                                                                             <div class="form-group d-flex justify-content-between">
-                                                                                <a href="/club/event/close-join/{{$event->id}}" title="Tutup pendaftaran sekarang" class="btn musica-btn">Tutup Pendaftaran</a>
+                                                                                <a href="/club/event/close-join/{{$event->id}}" title="Tutup pendaftaran sekarang" class="btn musica-btn elementor-button-red elementor-size-md elementor-animation-grow">Tutup Pendaftaran</a>
                                                                                 <a href="/club/event/start-now/{{$event->id}}/{{$event->event_hotspot[0]->id}}" title="Mulai lomba sekarang" class="btn musica-btn elementor-button-blue elementor-size-md elementor-animation-grow">Mulai Sekarang</a>
-                                                                                <a href="#" title="Atur kembali jadwal mulai" data-toggle="modal" class="btn musica-btn btn-2" data-dismiss="modal" data-target="#startLater{{ $event->id }}">Atur Jadwal</a>
+                                                                                <a href="#" title="Atur kembali jadwal mulai" data-toggle="modal" class="btn musica-btn elementor-button-black elementor-size-md elementor-animation-grow" data-dismiss="modal" data-target="#startLater{{ $event->id }}">Atur Jadwal</a>
                                                                             </div>
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <div class="form-group d-flex justify-content-end">
-                                                                                <button class="btn musica-btn btn-2" type="button"
+                                                                                <button class="btn musica-btn elementor-button-black elementor-size-md elementor-animation-grow" type="button"
                                                                                 data-dismiss="modal">Cancel</button>
                                                                             </div>
                                                                         </div>

@@ -390,7 +390,7 @@
                         <td>{{ $event ? str_replace('T', ' ', date('d F Y  H:i:s', strtotime($event->due_join_date_event))) : '-' }}</td>
                         <td style="color: {{ $event->color ? $event->color : '' }};">
                             <strong>{{ $event ? $event->status : '-' }}</strong>
-                            @if($event->status != 'Terbang')
+                            @if($event->status != 'Terbang' && Auth::user()->id == $event->club->manager_club)
                             <br>
                             <br>
                             <a href="#" title="Mulai Lomba" data-toggle="modal" class="btn-sm btn-warning" data-target="#startRace{{ $event->id }}">Mulai</a>
