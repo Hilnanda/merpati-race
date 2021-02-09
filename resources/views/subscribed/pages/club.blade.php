@@ -206,16 +206,16 @@
                         {{-- <td>({{ $item->club->lat_club }}), ({{ $item->club->lng_club }})</td> --}}
                         <td>{{ $item->club->address_club }}</td>
                         <td><b style="color: #0105e2">Anggota</b></td>
-                        @if ($item->is_active == 0)
+                        {{-- @if ($item->is_active == 0)
                         <td>Pending</td>
-                        @else
+                        @else --}}
                         <td class="action-link">
                             {{-- <a href="#" title="Live Results" class="mx-1"><i class="fa fa-list-ol" aria-hidden="true"></i></a> --}}
                             <a href="club/{{$item->id_club}}/detail_saya" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
 
                             {{-- <a href="club/{{$item->id_club}}/detail_ikut" title="Details" class="mx-1"><i class="fa fa-list-alt" aria-hidden="true"></i></a> --}}
                         </td>
-                        @endif
+                        {{-- @endif --}}
                         
                     </tr>
                     @endforeach
