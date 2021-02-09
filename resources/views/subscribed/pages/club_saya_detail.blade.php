@@ -205,7 +205,7 @@ Detail Club
                     @if ($clubs->manager_club==$auth)
                     @if (count($operator) != 0 )
                     <a href="#tambah_jenisstandar" data-toggle="modal"
-                    data-target="#tambah_jenisstandar"><button type="button" class="btn btn-warning">Tambah
+                    data-target="#tambah_jenisstandar"><button type="button" style="background-color: orange;border-color: orange" class="btn elementor-button-red elementor-size-md elementor-animation-grow">Tambah
                     Operator Club</button></a>
                     @endif
                     @endif
