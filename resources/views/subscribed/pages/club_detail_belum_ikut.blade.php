@@ -25,7 +25,7 @@
                         @endif      --}}
                         {{-- <a href="/club/join_loft_club/{{$item->id}}/{{ $auth }}" style="text-align: center" class="mx-1 musica-btn join">Join</a> --}}
                         <a href="#join_pigeon" data-toggle="modal" data-target="#join_pigeon"><button type="button"
-                            class="btn btn-danger"><i class="fa fa-twitter"></i> Join Pigeon</button></a>
+                            class="btn elementor-button-red elementor-size-md elementor-animation-grow"><i class="fa fa-twitter"></i> Join Pigeon</button></a>
                             <div class="modal fade" id="join_pigeon" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -56,12 +56,12 @@
                                             </div>
     
                                             <div class="form-group">
-                                                <input type="submit" value="Join" class="btn btn-primary">
+                                                <input type="submit" value="Simpan" class="btn elementor-button-blue elementor-size-md elementor-animation-grow">
                                             </div>
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-secondary" type="button"
+                                        <button class="btn elementor-button-black elementor-size-md elementor-animation-grow" type="button"
                                         data-dismiss="modal">Cancel</button>
                                     </div>
                                 </div>
